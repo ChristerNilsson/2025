@@ -1,16 +1,12 @@
 Ger en enkel överblick över hur ett parti utvecklas
 
-Hämta PGN från Lichess, med %eval
-
-Byter 
+Kopiera PGN från Lichess. Klistra in.
 
 * • = Inaccuracy
 * •• = Mistake
 * ••• = Blunder
 
-Visar dessutom bästa draget vid dessa sämre drag
+Visar bästa draget vid dessa sämre drag.  
+Visar inte bästa draget om det bara är något bättre.  
 
 ## Todo
-
-* Dela tabellen i 30+30 drag
-* Gör textarea och knappen osynliga

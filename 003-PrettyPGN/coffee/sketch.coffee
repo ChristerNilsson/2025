@@ -1,5 +1,13 @@
 echo = console.log
 
+span  = (s,attrs="") -> "<span #{attrs}>#{s}</span>"
+table = (s,attrs="") -> "<table #{attrs}>\n#{s}</table>"
+tr    = (s,attrs="") -> "<tr #{attrs}>#{s}</tr>\n"
+td    = (s,attrs="") -> "<td #{attrs}>#{s}</td>"
+th    = (s,attrs="") -> "<th #{attrs}>#{s}</th>"
+a     = (s,attrs="") -> "<a #{attrs}>#{s}</a>"
+strong= (s) -> "<strong>#{s}</strong>"
+
 formatPGN = ->
 	ctrlA = document.getElementById "pgn-input"
 	ctrlB = document.getElementById "knapp"
@@ -37,10 +45,13 @@ splitMoves = (pgn) ->
 	move = 1 
 	while true
 		w = fetch pgn, move, 2, move + '.', move + '...'
-		b = fetch pgn, move, 4, move + '...', (move+1) + '.'
+		if w.join('').length == 0 then break
 		arr.push w
+
+		b = fetch pgn, move, 4, move + '...', (move+1) + '.'
 		if b.join('').length == 0 then break
 		arr.push b
+
 		move++
 	arr
 
@@ -67,16 +78,14 @@ tabell = (arr,start,stopp) ->
 	n = arr.length # antal ply
 	echo n,start,stopp
 	if start >= n then return ''
-	#arr = arr.slice start,stopp
-	i = start/2
-	while i < stopp/2 # moves
-		[a,b,c] = ['','','']
-		[d,e,f] = ['','','']
-		if 2*i < n then [c,b,a] = arr[2*i]
-		if 2*i+1 < n then [d,e,f] = arr[2*i+1]
-		s += "<tr><td>#{a}</td><td>#{b}</td><td>#{c}</td><td><strong>#{1+i}</strong></td><td>#{d}</td><td>#{e}</td><td>#{f}</td></tr>"
-		i++ 
-	'<table class="inner-table">' + s + '</table>'
+	for i in [start/2...stopp/2]
+		index = 2*i
+		[c,b,a] = if index   < n then arr[index]   else ['','','']
+		[d,e,f] = if index+1 < n then arr[index+1] else ['','','']
+		t = tr td(a) + td(b) + td(c) + td(strong(1+i)) + td(d) + td(e) + td(f)
+		echo i,t
+		s += t
+	table s, 'class="inner-table"'
 
 getHeader = (pgn) ->
 	arr = pgn.split '\n'
@@ -99,7 +108,9 @@ getHeader = (pgn) ->
 		name = line.substring 1,p
 		value = line.substring p+2,line.length-2
 		attrs[name] = value
-	"#{attrs.Event} #{attrs.Date}<br>Site: #{attrs.Site}<br> FEN: #{attrs.FEN}<br> White: #{attrs.WhiteElo} #{attrs.White}<br>Black: #{attrs.BlackElo} #{attrs.Black}<br>#{attrs.Result}"
+
+	site = a "Lichess","href=#{attrs.Site}"
+	"#{attrs.Event} #{attrs.Date}<br>#{site}<br> FEN: #{attrs.FEN}<br> White: #{attrs.WhiteElo} #{attrs.White}<br>Black: #{attrs.BlackElo} #{attrs.Black}<br>#{attrs.Result}"
 
 parsePGN = (pgn) -> 
 	header = getHeader pgn
@@ -117,7 +128,14 @@ parsePGN = (pgn) ->
 	arr = splitMoves pgn
 	echo 'arr',arr
 
-	a = tabell arr, 0,80
-	b = tabell arr, 80,160
-	
-	"<table class=\"outer-table\"><tr><td style=\"text-align:left\">#{header}</td></tr><tr><td>#{a}</td><td style=\"width:20px\"></td><td>#{b}</td></tr></table>"
+	a0 = tabell arr, 0,80  # klarar 40 drag
+	if arr.length > 80 then a1 = tabell arr, 80,160 else a1 = ""
+	a2 = tabell arr, 160,240 # klarar 40 till
+
+	echo 'a0',a0
+	echo 'a1',a1
+	echo 'a2',a2
+
+	gap = td "", 'style="width:10px"'
+
+	table(tr(td(header, 'colspan="5" style="text-align:left"')) + tr(td(a0) + gap + td(a1) + gap + td(a2)), 'class="outer-table"')
