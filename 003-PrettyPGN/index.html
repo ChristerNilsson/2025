@@ -8,27 +8,36 @@
         body { font-family: Arial, sans-serif; padding: 20px; }
         textarea { width: 100%; height: 150px; }
         pre { background: #f4f4f4; padding: 10px; }
-        table, tr { 
-            border: 1px solid black; 
-            border-collapse:collapse;
-        }
-        td {
-            border: 1px solid black; 
-            text-align: center;
-            border-collapse:collapse;
-        }
+        td {text-align: center;}
+        .outer-table {border: none;}
+        .outer-table td {border: none;}
+        .inner-table {border-collapse: collapse;}
+        .inner-table td {border: 1px solid black;}
     </style>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/coffeescript/2.5.1/coffeescript.min.js"></script>
 </head>
 <body>
-    <h2>PGN Formatter</h2>
     <textarea id="pgn-input" placeholder="Klistra in PGN här...">
-1. d4 { [%eval 0.17] } 1... d5 { [%eval 0.24] } 2. Nf3 { [%eval 0.08] } 2... Nf6 { [%eval 0.11] } 3. Bf4 { [%eval 0.04] } 3... Nc6 { [%eval 0.39] } 4. c3 { [%eval 0.18] } 4... h6 { [%eval 0.45] } 5. e3 { [%eval 0.44] } 5... a6 { [%eval 0.56] } 6. Bd3 { [%eval 0.48] } 6... Bg4 { [%eval 0.56] } 7. h3 { [%eval 0.39] } 7... Bh5?! { [%eval 1.11] } { Inaccuracy. Bxf3 was best. } (7... Bxf3 8. Qxf3 e6 9. Nd2 Bd6 10. O-O-O Bxf4 11. exf4 Qd6 12. Qe3) 8. Nbd2 { [%eval 1.35] } 8... e6 { [%eval 1.32] } 9. Nf1? { [%eval 0.18] } { Mistake. g4 was best. } (9. g4 Bg6) 9... Bd6 { [%eval 0.17] } 10. Bg3 { [%eval -0.14] } 10... Ne4 { [%eval -0.09] } 11. Bxd6 { [%eval 0.01] } 11... Qxd6 { [%eval -0.02] } 12. Be2 { [%eval -0.22] } 12... O-O { [%eval -0.04] } 13. N1d2 { [%eval -0.07] } 13... Bxf3 { [%eval 0.08] } 14. Bxf3 { [%eval 0.07] } 14... Nxd2 { [%eval 0.08] } 15. Qxd2 { [%eval 0.06] } 15... Ne7 { [%eval 0.09] } 16. O-O { [%eval 0.08] } 16... c5 { [%eval 0.12] } 17. Qd3 { [%eval -0.03] } 17... c4 { [%eval 0.1] } 18. Qc2 { [%eval 0.11] } 18... b5 { [%eval 0.07] } 19. a3 { [%eval 0.02] } (19. b3) 19... Nc8 { [%eval 0.19] } 20. e4 { [%eval 0.12] } 20... Nb6?! { [%eval 0.73] } { Inaccuracy. dxe4 was best. } (20... dxe4) 21. Rfe1 { [%eval 0.21] } 21... Rfe8 { [%eval 0.73] } 22. Re2 { [%eval 0.25] } 22... Ra7 { [%eval 0.61] } 23. Rae1 { [%eval 0.2] } 23... Rae7?! { [%eval 1.24] } { Inaccuracy. dxe4 was best. } (23... dxe4 24. Qxe4 Rb8 25. Qe3 a5 26. h4 Ra6 27. Ra1 Rd8 28. g3 Nd5 29. Qc1) 24. e5 { [%eval 1.23] } 24... Qd8 { [%eval 1.18] } 25. Bg4 { [%eval 1.03] } 25... g6 { [%eval 1.04] } 26. Re3 { [%eval 0.92] } 26... Nd7 { [%eval 1.4] } 27. Rg3 { [%eval 1.33] } 27... Kh8 { [%eval 1.34] } 28. h4 { [%eval 0.96] } 28... Rg8 { [%eval 1.41] } 29. Ree3?! { [%eval 0.45] } { Inaccuracy. Qd2 was best. } (29. Qd2 Qf8) 29... Qf8?! { [%eval 1.14] } { Inaccuracy. h5 was best. } (29... h5 30. Bd1 Nf8 31. Rgf3 Rb7 32. Rf4 Rg7 33. Ref3 Kg8 34. g3 a5 35. Qc1) 30. Ref3?! { [%eval 0.1] } { Inaccuracy. Bd1 was best. } (30. Bd1 Rg7 31. Qd2 Re8 32. Bc2 Qe7 33. Ref3 h5 34. Rg5 Rh7 35. Qf4 Rg8) 30... Rg7?! { [%eval 0.75] } { Inaccuracy. h5 was best. } (30... h5 31. Bh3) 31. Rf4 { [%eval 0.6] } 31... Qg8?! { [%eval 1.4] } { Inaccuracy. Re8 was best. } (31... Re8) 32. Qd1?! { [%eval 0.79] } { Inaccuracy. Bd1 was best. } (32. Bd1 h5 33. Qd2 Re8 34. Bc2 a5 35. Rgf3 Rh7 36. Kf1 Rf8 37. Rg3 Rb8) 32... Qh7 { [%eval 0.93] } 33. Qc2?! { [%eval 0.0] } { Inaccuracy. Be2 was best. } (33. Be2 Nf8) 33... g5 { [%eval 0.0] } 34. Qxh7+ { [%eval 0.0] } 34... Kxh7 { [%eval 0.0] } 35. hxg5 { [%eval 0.05] } 35... Rxg5?! { [%eval 0.65] } { Inaccuracy. hxg5 was best. } (35... hxg5) 36. Rgf3?! { [%eval -0.01] } { Inaccuracy. Re3 was best. } (36. Re3) 36... Rg7? { [%eval 1.56] } { Mistake. Kg7 was best. } (36... Kg7) 37. Bh5?! { [%eval 0.89] } { Inaccuracy. Rh3 was best. } (37. Rh3 Rg8 38. Bd1 Kg7 39. Rfh4 Nb6 40. Rxh6 Na4 41. Rh7+ Kf8 42. Bxa4 bxa4) 37... Kg8 { [%eval 0.86] } 38. Rg4?! { [%eval 0.0] } { Inaccuracy. Rh3 was best. } (38. Rh3 a5) 38... Rxg4 { [%eval -0.01] } 39. Bxg4 { [%eval -0.03] } 39... Kg7?! { [%eval 0.64] } { Inaccuracy. Nb6 was best. } (39... Nb6) 40. Rg3 { [%eval 0.66] } 40... Kf8 { [%eval 0.86] } 41. Rh3?! { [%eval 0.24] } { Inaccuracy. f4 was best. } (41. f4 a5 42. f5 exf5 43. Bxf5 b4 44. Rf3 bxc3 45. bxc3 Nb6 46. Kf1 Rb7) 41... Kg7 { [%eval 0.68] } 42. Bd1 { [%eval 0.37] } 42... f6?! { [%eval 0.98] } { Inaccuracy. Nb6 was best. } (42... Nb6) 43. Rg3+ { [%eval 0.8] } 43... Kf8 { [%eval 1.36] } 44. f4 { [%eval 1.43] } 44... Rg7 { [%eval 1.33] } 45. Rxg7?! { [%eval 0.48] } { Inaccuracy. Rh3 was best. } (45. Rh3 Rh7 46. Kf2 Nb6 47. g4 Kf7 48. Rh5 Nd7 49. Ke3 Rh8 50. Bf3 Kf8) 45... Kxg7 { [%eval 0.62] } 46. Bg4?! { [%eval 0.0] } { Inaccuracy. Kf2 was best. } (46. Kf2 Nb6) 46... Nf8?! { [%eval 0.8] } { Inaccuracy. f5 was best. } (46... f5 47. Bd1 Nb6 48. g4 fxg4 49. Bxg4 Kf7 50. Bh5+ Ke7 51. Bd1 Na4 52. Bxa4) 47. Bh5 { [%eval 0.44] } 47... Ng6 { [%eval 0.56] } 48. Bxg6?! { [%eval 0.0] } { Inaccuracy. g3 was best. } (48. g3 Ne7) 48... Kxg6 { [%eval 0.0] } 49. exf6 { [%eval 0.0] } 49... Kxf6 { [%eval 0.0] } 50. g4 { [%eval 0.0] } 50... Kg6 { [%eval 0.0] } 51. Kf2 { [%eval 0.0] } 51... h5 { [%eval 0.0] } 52. Kg3?? { [%eval -2.67] } { Blunder. g5 was best. } (52. g5 Kg7 (52... Kf5 53. Kg3) 53. Kf3 Kg6) 52... hxg4 { [%eval -2.64] } 53. Kxg4 { [%eval -2.63] } 53... Kf6 { [%eval -2.6] } 54. Kf3 { [%eval -2.43] } 54... Kf5 { [%eval -2.49] } 55. Ke3?? { [%eval -6.13] } { Blunder. Kg3 was best. } (55. Kg3 Ke4 56. Kg4 Kd3 57. Kg5 Kc2 58. Kf6 Kxb2 59. Kxe6 Kxc3 60. f5 Kxd4 61. f6 c3 62. f7 c2 63. f8=Q c1=Q) 55... Kg4 { [%eval -5.78] } 56. Kd2 { [%eval -5.74] } 56... Kxf4 { [%eval -5.79] } 57. Kc2 { [%eval -7.03] } 57... e5 { [%eval -6.51] } 58. dxe5 { [%eval -6.33] } 58... Kxe5 { [%eval -6.1] } 59. Kd2 { [%eval -5.48] } 59... d4 { [%eval -7.45] } 60. cxd4+ { [%eval -7.48] } 60... Kxd4 { [%eval -6.67] } 61. Kc2 { [%eval -5.62] } 61... a5 { [%eval -5.62] } 62. Kd2 { [%eval -11.59] } 62... b4 { [%eval -7.6] } 63. axb4? { [%eval #-23] } { Checkmate is now unavoidable. a4 was best. } (63. a4) 63... axb4 { [%eval -22.32] } 64. Kc2 { [%eval -6.4] } 64... Ke3 { [%eval -5.74] } 65. Kc1?? { [%eval #-13] } { Checkmate is now unavoidable. b3 was best. } (65. b3 c3 66. Kc1 Ke4 (66... Kd3 67. Kd1 c2+ 68. Kc1 Ke4 69. Kxc2 Ke3 70. Kb1 Kd2 71. Kb2 Kd3 72. Kb1 Kc3 73. Ka2 Kc2 74. Ka1 Kxb3 75. Kb1 Ka3 76. Ka1 b3 77. Kb1 b2 78. Kc2 Ka2) 67. Kc2 Kd4 68. Kc1 Ke3 69. Kc2 Ke4 70. Kc1 Kd3) 65... Kd3?? { [%eval -5.45] } { Lost forced checkmate sequence. b3 was best. } (65... b3 66. Kd1 Kd3 67. Ke1 Kc2 68. Ke2 Kxb2 69. Kd2 c3+ 70. Kd3 c2 71. Ke2) 66. Kd1?? { [%eval #-12] } { Checkmate is now unavoidable. b3 was best. } (66. b3 c3 67. Kd1 Kd4 68. Kc2 Ke4 69. Kc1 Ke3 70. Kc2 Ke2 71. Kc1 c2) 66... b3 { [%eval #-11] } 67. Kc1 { [%eval #-7] } 67... Ke2 { [%eval #-6] } 68. Kb1 { [%eval #-6] } 68... Kd2 { [%eval #-5] } 69. Ka1 { [%eval #-5] } 69... c3 { [%eval #-4] } 70. bxc3 { [%eval #-4] } 70... Kc2 { [%eval #-3] } 71. c4 { [%eval #-3] } 71... b2+ { [%eval #-2] } *
-    </textarea>
-    <div id="xoutput"></div>
-
-    <button onclick="formatPGN()">Format</button>
-	<script src="coffee/sketch.js"></script>
-
+        [Event "SrS KM"]
+        [Site "https://lichess.org/study/w7W4RA4b/R9oe6utd"]
+        [Date "2024-02-01"]
+        [White "Christer Nilsson"]
+        [Black "Markus Mäkelä"]
+        [Result "1-0"]
+        [WhiteElo "1631"]
+        [BlackElo "1902"]
+        [Variant "Standard"]
+        [ECO "B50"]
+        [Opening "Sicilian Defense: Modern Variations"]
+        [Annotator "https://lichess.org/@/ChristerNilsson"]
+        [StudyName "2025"]
+        [ChapterName "CN 1631 vs Markus Mäkelä 1902 (1-0)"]
+        
+        1. e4 { [%eval 0.18] } 1... c5 { [%eval 0.25] } 2. Nf3 { [%eval 0.2] } 2... d6 { [%eval 0.22] } 3. h3 { [%eval 0.05] } 3... Nf6 { [%eval 0.16] } 4. Nc3 { [%eval 0.04] } 4... a6 { [%eval 0.25] } 5. a4 { [%eval 0.1] } 5... Nc6 { [%eval 0.21] } 6. Bc4 { [%eval -0.07] } 6... e6 { [%eval 0.0] } 7. Ba2 { [%eval -0.27] } 7... Be7 { [%eval -0.16] } 8. d3 { [%eval -0.16] } 8... O-O { [%eval -0.17] } 9. O-O { [%eval -0.14] } 9... b6 { [%eval -0.07] } 10. Bd2 { [%eval -0.21] } 10... Bb7 { [%eval -0.22] } 11. Re1 { [%eval -0.15] } 11... Ne8 { [%eval 0.04] } 12. Ne2 { [%eval -0.06] } 12... Nc7 { [%eval 0.43] } 13. c4? { [%eval -1.16] } { Mistake. c3 was best. } (13. c3 Ne5 14. Nf4 Nxf3+ 15. Qxf3 g6 16. d4 b5 17. Qg4 c4 18. b3 e5) 13... Bf6 { [%eval -0.98] } 14. Bc3 { [%eval -1.07] } 14... Nb4? { [%eval 0.32] } { Mistake. e5 was best. } (14... e5 15. a5 bxa5 16. Bb1 Ne6 17. Nc1 Be7 18. Bc2 Nb4 19. Nb3 a4 20. Rxa4) 15. Bb1 { [%eval 0.34] } 15... b5 { [%eval 0.27] } 16. Qb3?! { [%eval -0.39] } { Inaccuracy. cxb5 was best. } (16. cxb5) 16... bxa4?! { [%eval 0.66] } { Inaccuracy. bxc4 was best. } (16... bxc4 17. Qxc4 a5 18. Bxf6 Qxf6 19. d4 Rfc8 20. e5 Qd8 21. exd6 Nca6 22. Ra3) 17. Rxa4 { [%eval 0.38] } 17... a5 { [%eval 0.75] } 18. d4 { [%eval 0.37] } 18... Ra6? { [%eval 1.67] } { Mistake. cxd4 was best. } (18... cxd4 19. Nexd4 Nca6 20. Ra3 Nc5 21. Qd1 g6 22. Nh2 h5 23. Nb5 Bxc3 24. bxc3) 19. Bd2? { [%eval 0.34] } { Mistake. dxc5 was best. } (19. dxc5 dxc5 20. Rd1 Qe7 21. Bxf6 gxf6 22. Qe3 Rd8 23. Rxd8+ Qxd8 24. Nc3 Ne8) 19... Bc6 { [%eval 0.66] } 20. Ra1 { [%eval 0.67] } 20... Qa8?! { [%eval 1.35] } { Inaccuracy. g6 was best. } (20... g6 21. Bc3 cxd4 22. Nexd4 e5 23. Bxb4 axb4 24. Rxa6 Nxa6 25. Nxc6 Qb6 26. Qa4) 21. dxc5 { [%eval 1.04] } 21... dxc5 { [%eval 1.32] } 22. Bf4? { [%eval 0.0] } { Mistake. e5 was best. } (22. e5 Be7 23. Ng5 Rd8 24. Qe3 Bxg5 25. Qxg5 h6 26. Qe3 Bxg2 27. Nf4 Bb7) 22... a4 { [%eval 0.0] } 23. Qa3 { [%eval 0.0] } 23... Ra7?? { [%eval 2.08] } { Blunder. Bxe4 was best. } (23... Bxe4 24. Bxc7 Bxb1 25. Raxb1 Nc2 26. Qa2 Nb4 27. Qa3 Nc2) 24. Bd6 { [%eval 2.06] } 24... Rd8 { [%eval 2.05] } 25. Bxc5 { [%eval 1.87] } 25... Nba6? { [%eval 3.97] } { Mistake. Nca6 was best. } (25... Nca6) 26. Bxa7 { [%eval 4.04] } 26... Qxa7 { [%eval 3.43] } 27. Nc3 { [%eval 3.07] } 27... Nc5 { [%eval 3.36] } 28. b4 { [%eval 3.27] } 28... Nb3 { [%eval 3.54] } (28... Nd3 29. Bxd3 Rxd3 30. b5 (30. Rac1 Rxf3 31. gxf3 Bd4 32. Rc2 Ne8 33. b5 Bd7 34. e5)) 29. e5?! { [%eval 2.55] } { Inaccuracy. Qxb3 was best. } (29. Qxb3 axb3 30. Rxa7 Bxc3 31. Rf1 Nb5 32. cxb5 Bxb5 33. Rc7 Bb2 34. Re1 h6) 29... Be7? { [%eval 4.1] } { Mistake. Nxa1 was best. } (29... Nxa1 30. exf6 Bxf3 31. Qxa1 Rd2 32. c5 Bc6 33. Be4 Bxe4 34. Nxe4 Rd3 35. fxg7) 30. Qxb3 { [%eval 3.85] } 1-0
+        
+            </textarea>
+    <button id="knapp" onclick="formatPGN()">Format</button>
+    <div id="output"></div>
+    <script src="coffee/sketch.js"></script>
 </body>
 </html>
