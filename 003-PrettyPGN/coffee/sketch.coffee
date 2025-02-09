@@ -1,12 +1,25 @@
 echo = console.log
 
-span  = (s,attrs="") -> "<span #{attrs}>#{s}</span>"
-table = (s,attrs="") -> "<table #{attrs}>\n#{s}</table>"
-tr    = (s,attrs="") -> "<tr #{attrs}>#{s}</tr>\n"
-td    = (s,attrs="") -> "<td #{attrs}>#{s}</td>"
-th    = (s,attrs="") -> "<th #{attrs}>#{s}</th>"
-a     = (s,attrs="") -> "<a #{attrs}>#{s}</a>"
-strong= (s) -> "<strong>#{s}</strong>"
+html = (tag, first, args...) ->
+	if typeof first is 'object' and not Array.isArray first
+		attrs = Object.entries(first).map(([k, v]) -> "#{k}='#{v}'").join ' '
+		content = args.join ''
+	else
+		attrs = ''
+		content = [first, args...].join ''
+
+	openTag = if attrs then "<#{tag} #{attrs}>" else "<#{tag}>"
+	"#{openTag}#{content}</#{tag}>"
+
+table = (args...) -> html 'table', args...
+tr    = (args...) -> html 'tr',    args...
+td    = (args...) -> html 'td',    args...
+span  = (args...) -> html "span",  args...
+table = (args...) -> html "table", args...
+th    = (args...) -> html "th",    args...
+a     = (args...) -> html "a",     args...
+strong= (args...) -> html "strong",args...
+div   = (args...) -> html "div",   args...
 
 formatPGN = ->
 	ctrlA = document.getElementById "pgn-input"
@@ -55,37 +68,24 @@ splitMoves = (pgn) ->
 		move++
 	arr
 
-removeParenthesis = (pgn) ->
+removeParenthesis = (pgn, left,right) ->
 	result = ""
 	level = 0
 	for ch in pgn
-		if ch == '(' then level++
-		else if ch == ')' then level--
+		if ch == left then level++
+		else if ch == right then level--
 		else if level == 0 then result += ch
 	result
 
-removeEval = (pgn) ->
-	result = ""
-	level = 0
-	for ch in pgn
-		if ch=='[' then level = level + 1
-		else if ch==']' then level = level - 1
-		else if level == 0 then result += ch
-	result
-
-tabell = (arr,start,stopp) ->
+tabell = (arr) ->
 	s = ""
 	n = arr.length # antal ply
-	echo n,start,stopp
-	if start >= n then return ''
-	for i in [start/2...stopp/2]
+	for i in [0...n/2]
 		index = 2*i
 		[c,b,a] = if index   < n then arr[index]   else ['','','']
 		[d,e,f] = if index+1 < n then arr[index+1] else ['','','']
-		t = tr td(a) + td(b) + td(c) + td(strong(1+i)) + td(d) + td(e) + td(f)
-		echo i,t
-		s += t
-	table s, 'class="inner-table"'
+		s += tr {}, td a, td b, td c, td strong 1+i, td d, td e, td f
+	table {class:"inner-table"}, s
 
 getHeader = (pgn) ->
 	arr = pgn.split '\n'
@@ -109,14 +109,13 @@ getHeader = (pgn) ->
 		value = line.substring p+2,line.length-2
 		attrs[name] = value
 
-	site = a "Lichess","href=#{attrs.Site}"
-	"#{attrs.Event} #{attrs.Date}<br>#{site}<br> FEN: #{attrs.FEN}<br> White: #{attrs.WhiteElo} #{attrs.White}<br>Black: #{attrs.BlackElo} #{attrs.Black}<br>#{attrs.Result}"
+	site = a {href:attrs.Site}, "Lichess"
+	"#{attrs.Event} #{attrs.Date}<br>#{site}<br> FEN: #{attrs.FEN}<br> White: #{attrs.WhiteElo} #{attrs.White}<br>Black: #{attrs.BlackElo} #{attrs.Black}<br>#{attrs.Result}<br><br>"
 
 parsePGN = (pgn) -> 
 	header = getHeader pgn
-	echo header
-	pgn = removeParenthesis(pgn)
-	pgn = removeEval pgn
+	pgn = removeParenthesis pgn,'(',')'
+	pgn = removeParenthesis pgn,'[',']'
 	pgn = pgn.replaceAll '{  }',''
 	pgn = pgn.replaceAll '??',''
 	pgn = pgn.replaceAll '?!',''
@@ -125,17 +124,4 @@ parsePGN = (pgn) ->
 	pgn = pgn.replaceAll '1/2-1/2',''
 	pgn = pgn.replaceAll '1-0',''
 	pgn = pgn.replaceAll '*',''
-	arr = splitMoves pgn
-	echo 'arr',arr
-
-	a0 = tabell arr, 0,80  # klarar 40 drag
-	if arr.length > 80 then a1 = tabell arr, 80,160 else a1 = ""
-	a2 = tabell arr, 160,240 # klarar 40 till
-
-	echo 'a0',a0
-	echo 'a1',a1
-	echo 'a2',a2
-
-	gap = td "", 'style="width:10px"'
-
-	table(tr(td(header, 'colspan="5" style="text-align:left"')) + tr(td(a0) + gap + td(a1) + gap + td(a2)), 'class="outer-table"')
+	div {}, header, tabell splitMoves pgn
