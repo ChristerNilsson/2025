@@ -6,15 +6,8 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js" ></script>
 
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.12.0/chess.min.js"></script>
-		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chessground@9.1.1/assets/chessground.base.min.css">		
 
 		<script type="module" src="coffee/sketch.js"></script>
-
-		<!-- <script src="https://unpkg.com/@lichess-org/chessground@8.0.0/chessground.min.js"></script>		   -->
-		<!-- <link rel="stylesheet" href="https://unpkg.com/@lichess-org/chessground@8.0.0/assets/chessground.base.css"> -->
-
-		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.min.css"></script> -->
-		<!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chessboard-js/1.0.0/chessboard-1.0.0.css"> -->
 	</head>
 	
 	<style>
@@ -31,30 +24,38 @@
 	  </style>
 	  
 	<body style ="padding:0px; margin:0px">
-		<canvas id="canvas"></canvas>
-				  
 		<table>
 			<tr>
-				<td><button id="A">A</button></td>
-				<td><button id="B">B</button></td>
-				<td><button id="C">C</button></td>
-				<td><button id="D">D</button></td>
+				<td>
+					<canvas id="canvas"></canvas>
+				</td>
+				<td>
+					<table>
+						<tr>
+							<td><button id="A">A</button></td>
+							<td><button id="B">B</button></td>
+							<td><button id="C">C</button></td>
+							<td><button id="D">D</button></td>
+						</tr>
+						<tr>
+							<td id="boardA" style="font-family: 'Courier New', Courier, monospace;"></td>
+							<td id="boardB" style="font-family: 'Courier New', Courier, monospace;"></td>
+							<td id="boardC" style="font-family: 'Courier New', Courier, monospace;"></td>
+							<td id="boardD" style="font-family: 'Courier New', Courier, monospace;"></td>
+						</tr>
+						<tr>
+							<td id="SELA" style="text-align:center; vertical-align: top;"></td>
+							<td id="SELB" style="text-align:center; vertical-align: top;"></td>
+							<td id="SELC" style="text-align:center; vertical-align: top;"></td>
+							<td id="SELD" style="text-align:center; vertical-align: top;"></td>
+						</tr>
+					</table>
+			
+				</td>
 			</tr>
-			<tr>
-				<td id="boardA" style="font-family: 'Courier New', Courier, monospace;"></td>
-				<td id="boardB" style="font-family: 'Courier New', Courier, monospace;"></td>
-				<td id="boardC" style="font-family: 'Courier New', Courier, monospace;"></td>
-				<td id="boardD" style="font-family: 'Courier New', Courier, monospace;"></td>
-			</tr>
-			<tr>
-				<td id="SELA" style="text-align:center; vertical-align: top;"></td>
-				<td id="SELB" style="text-align:center; vertical-align: top;"></td>
-				<td id="SELC" style="text-align:center; vertical-align: top;"></td>
-				<td id="SELD" style="text-align:center; vertical-align: top;"></td>
-			</tr>
+
 		</table>
 		
 	</body>
-
 
 </html>
