@@ -105,15 +105,14 @@ fetch = (pgn, move, offset, start, stopp) ->
 splitMoves = (pgn) ->
 	arr = []
 	move = 1
-	while move < 40
+	while move < 20
 		w = fetch pgn, move, 2, move + '.', move + '...'
-		echo 'w',w
 		if w.length == 0 then break else arr.push w
 
 		b = fetch pgn, move, 4, move + '...', (move+1) + '.'
 		if b.length == 0 then break else arr.push b
 
-		# echo 'splitMoves',w
+		echo 'splitMoves',w
 
 		move++
 	echo arr
@@ -140,9 +139,9 @@ tabell = (arr) ->
 	echo n
 	for i in [0...n/2]
 		index = 2*i
-		w = if index   < n then arr[index]   else {eval:'',drag:'',betyg:'',best:''}
-		b = if index+1 < n then arr[index+1] else {eval:'',drag:'',betyg:'',best:''}
-		result.push [w.eval,w.drag,w.best,1+i,b.best,b.drag,b.eval]
+		[c,b,a] = if index   < n then arr[index]   else ['','','']
+		[d,e,f] = if index+1 < n then arr[index+1] else ['','','']
+		result.push [a,b,c,1+i,d,e,f]
 	result
 
 getHeader = (pgn) ->
@@ -221,7 +220,7 @@ parsePGN = (pgn) ->
 	document.body.appendChild div
 
 	pgn = removeParenthesis pgn,'(',')'
-	pgn = removeParenthesis pgn,'[',']' # 
+	# pgn = removeParenthesis pgn,'[',']'
 	pgn = pgn.replaceAll '{  }',''
 	pgn = pgn.replaceAll '??',''
 	pgn = pgn.replaceAll '?!',''

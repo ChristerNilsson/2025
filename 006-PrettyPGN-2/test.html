@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SVG Linje i Cell</title>
+    <style>
+        table {
+            border-collapse: collapse;
+        }
+        td {
+            height: 10px;
+            border: 1px solid black;
+            position: relative;
+			align-items: center;
+			text-align: center;
+        }
+        svg {
+            position: absolute;
+			width: 100%;
+			height: 100%;
+			transform: translate(-50%, -50%);
+        }
+		line {stroke:black; }
+		.xxx {
+			width: 50px;
+		}
+    </style>
+</head>
+<body>
+
+<table>
+	<th>Nr</th>
+	<th>Eval</th>
+	<th>Vit</th>
+	<th>W</th>
+	<th>B</th>
+	<th>Svart</th>
+	<th>Eval</th>
+	<tr>
+		<td>1</td>
+		<td></td>
+		<td>e4</td>
+		<td></td>
+		<td class="xxx"><svg><line x1="0%" y1="50%" x2="80%" y2="50%" /></svg></td>
+		<td>e5</td>
+		<td></td>
+	</tr>
+	<tr>
+		<td>2</td>
+		<td></td>
+		<td>Nf3</td>
+		<td class="xxx"><svg><line x1="25%" y1="50%" x2="100%" y2="50%" /></svg></td>
+		<td></td>
+		<td>Nc6</td>
+		<td></td>
+	</tr>
+</table>
+
+</body>
+</html>
