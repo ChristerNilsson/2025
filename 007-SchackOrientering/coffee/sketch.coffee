@@ -164,7 +164,7 @@ class Player
 						g.move = null
 						g.initMove()
 
-			@squares = _.filter @squares, (sq) -> sq.done == false 
+			@squares = _.filter @squares, (sq) -> sq.done == false
 
 			# hämta närmaste uppdrag om sådant finns
 			if @squares.length > 0
@@ -173,6 +173,11 @@ class Player
 				@distance += d
 
 		@pos.add step
+
+		if @name in 'ABCD'
+			for square in @squares
+				fill 'red'
+				circle square.pos.x, square.pos.y, 10
 
 		if @name in 'ABCD'
 			@drawTail()
