@@ -1,16 +1,22 @@
 SIZE = 60
 MAXTRAIL = 5
 SPEED = 1
+FILES = 'abcdefgh'
 
 echo = console.log
 
 games = {}
 players = {}
 
-pgnA = """1. d4 { [%clk 0:15:00] } 1... d5 { [%clk 0:15:00] } { D00 Queen's Pawn Game } 2. c3 { [%clk 0:15:06] } 2... Nc6 { [%clk 0:15:13] } 3. b4 { [%clk 0:15:15] } 3... a5 { [%clk 0:15:23] } 4. b5 { [%clk 0:15:20] } 4... Na7 { [%clk 0:15:28] } 5. a4 { [%clk 0:15:31] } 5... c6 { [%clk 0:15:40] } 6. c4 { [%clk 0:15:21] } 6... cxb5 { [%clk 0:15:52] } 7. cxb5 { [%clk 0:15:30] } 7... b6 { [%clk 0:16:05] } 8. f3 { [%clk 0:15:30] } 8... Nf6 { [%clk 0:16:17] } 9. g4 { [%clk 0:15:26] } 9... g5 { [%clk 0:16:28] } 10. Bg2 { [%clk 0:15:33] } 10... e6 { [%clk 0:16:40] } 11. Bxg5 { [%clk 0:15:36] } 11... Bb4+ { [%clk 0:16:34] } 12. Nd2 { [%clk 0:15:37] } 12... Bxd2+ { [%clk 0:16:47] } 13. Qxd2 { [%clk 0:15:49] } 13... O-O { [%clk 0:16:56] } 14. Qf4 { [%clk 0:15:37] } 14... Qc7 { [%clk 0:16:44] } 15. Qxc7 { [%clk 0:15:43] } { Black resigns. } 1-0"""
+pgnA = """1. d4 d5 2. c3 Nc6 3. b4 a5 4. b5 Na7 5. a4 c6 6. c4 cxb5 7. cxb5 b6 8. f3 Nf6 9. g4 g5 10. Bg2 e6 11. Bxg5 Bb4+ 12. Nd2 Bxd2+ 13. Qxd2 O-O 14. Qf4 Qc7 15. Qxc7 1-0"""
 pgnB = """1. b4 e5 2. Bb2 d6 3. d4 exd4 4. Qxd4 Nc6 5. Qe4+ Nge7 6. a3 a6 7. Nc3 Bf5 8. Qh4 Bxc2 9. Nd5 Nxd5 10. Qc4 Ndxb4 11. axb4 Bg6 12. e4 Qe7 13. Bd3 Ne5 14. Bxe5 Qxe5 15. Rc1 O-O-O 1-0"""
 pgnC = """1. e4 e5 2. Nf3 d6 3. Bc4 c6 4. Ng5 Nh6 5. Qh5 g6 6. Bxf7+ Kd7 7. Be6+ Ke7 8. Qh4 Na6 9. Nf7+ Ke8 10. Qxd8# 1-0"""
 pgnD = """1. Nf3 d5 2. d4 e6 3. e3 Bb4+ 4. c3 Bd6 5. Ne5 Qf6 6. f4 Qh4+ 7. g3 Qf6 8. h4 Bxe5 9. dxe5 Qg6 10. Bd3 Qxg3+ 11. Kf1 Nh6 12. Qa4+ c6 13. Nd2 Ng4 14. Ke2 Qf2+ 15. Kd1 Nxe3# 0-1"""
+
+# pgnA = """1. a3 e6 2. a4 e5 3. a5 e4 4. a6 e3"""
+# pgnB = """1. b3 f6 2. b4 f5 3. b5 f4 4. b6 f3"""
+# pgnC = """1. c3 g6 2. c4 g5 3. c5 g4 4. c6 g3"""
+# pgnD = """1. d3 h6 2. d4 h5 3. d5 h4 4. d6 h3"""
 
 shrink = (a) -> # tar bort indexes från chess.ascii()
 	a = a.replaceAll '.','•'
@@ -125,8 +131,8 @@ class Player
 
 		stroke 'black'
 
-		if @name in 'ABCD'
-			line target.x, target.y, @pos.x, @pos.y
+		# if @name in 'ABCD'
+		line target.x, target.y, @pos.x, @pos.y
 
 		step = p5.Vector.sub(target, @pos).setMag min @speed, d
 		if d < @speed # target nådd
@@ -174,20 +180,29 @@ class Player
 
 		@pos.add step
 
-		if @name in 'ABCD'
-			for square in @squares
+		for square in @squares
+			if @name in 'ABCD'
 				fill 'red'
-				circle square.pos.x, square.pos.y, 10
+			else
+				fill 'black'
+			circle square.pos.x, square.pos.y, 10
 
-		if @name in 'ABCD'
-			@drawTail()
-			if @name in 'ABCD' then fill 'yellow' else fill 'black'
-			strokeWeight 1
-			circle @pos.x,@pos.y,0.4*SIZE
-			if @name in 'ABCD' then fill 'black' else fill 'yellow'
-			noStroke()
-			# fill 'black'
-			text @name, @pos.x, @pos.y
+		# if @name in 'ABCD'
+		@drawTail()
+		if @name in 'ABCD' then fill 'yellow' else fill 'black'
+		strokeWeight 1
+		circle @pos.x,@pos.y,0.4*SIZE
+		if @name in 'ABCD' then fill 'black' else fill 'yellow'
+		noStroke()
+		# fill 'black'
+		text @name, @pos.x, @pos.y
+
+# rot = ([x,y]) -> [y,7-x]
+# echo _.isEqual [1,5], rot [2,1]
+# echo _.isEqual [5,6], rot rot [2,1]
+# echo _.isEqual [6,2], rot rot rot [2,1]
+# echo _.isEqual [2,1], rot rot rot rot [2,1]
+
 
 uci2pos = (uci) -> # t ex e2e4 => [[225,75],[225,175]]
 	startx = uci[0]
@@ -222,37 +237,45 @@ class Game
 		if @move != null 
 			echo 'too quick!'
 			return
-		@move = new Move @uci_moves[@index]
+		@move = new Move @uci_moves[@index], @name
 		# echo 'A', @move
+
+		start = @move.uci.slice 0,2
+		stopp = @move.uci.slice 2,4
+
+		antal = 'ABCD'.indexOf @name
+		for i in [0...antal] 
+			start = rotate start
+			stopp = rotate stopp
 
 		if @index % 2 == 0
 			a = "1234"
 			b = "5678"
 			# Dela ut start och stopp till rätt spelare beroende på kvadrant
-			if @move.uci[0] in "abcd" and @move.uci[1] in a then players.A.add @move.start
-			if @move.uci[0] in "efgh" and @move.uci[1] in a then players.B.add @move.start
-			if @move.uci[0] in "abcd" and @move.uci[1] in b then players.C.add @move.start
-			if @move.uci[0] in "efgh" and @move.uci[1] in b then players.D.add @move.start
+			if start[0] in "abcd" and start[1] in a then players.A.add @move.start
+			if start[0] in "efgh" and start[1] in a then players.B.add @move.start
+			if start[0] in "abcd" and start[1] in b then players.C.add @move.start
+			if start[0] in "efgh" and start[1] in b then players.D.add @move.start
 
-			if @move.uci[2] in "abcd" and @move.uci[3] in a then players.A.add @move.stopp
-			if @move.uci[2] in "efgh" and @move.uci[3] in a then players.B.add @move.stopp
-			if @move.uci[2] in "abcd" and @move.uci[3] in b then players.C.add @move.stopp
-			if @move.uci[2] in "efgh" and @move.uci[3] in b then players.D.add @move.stopp
+			if stopp[0] in "abcd" and stopp[1] in a then players.A.add @move.stopp
+			if stopp[0] in "efgh" and stopp[1] in a then players.B.add @move.stopp
+			if stopp[0] in "abcd" and stopp[1] in b then players.C.add @move.stopp
+			if stopp[0] in "efgh" and stopp[1] in b then players.D.add @move.stopp
 
 		else
 			a = "1234"
 			b = "5678"
 			# Hantera motståndaren
 			# Dela ut start och stopp till rätt spelare beroende på kvadrant
-			if @move.uci[0] in "abcd" and @move.uci[1] in a then players.G.add @move.start
-			if @move.uci[0] in "abcd" and @move.uci[1] in b then players.E.add @move.start
-			if @move.uci[0] in "efgh" and @move.uci[1] in a then players.H.add @move.start
-			if @move.uci[0] in "efgh" and @move.uci[1] in b then players.F.add @move.start
+			if start[0] in "abcd" and start[1] in a then players.G.add @move.start
+			if start[0] in "abcd" and start[1] in b then players.E.add @move.start
+			if start[0] in "efgh" and start[1] in a then players.H.add @move.start
+			if start[0] in "efgh" and start[1] in b then players.F.add @move.start
 
-			if @move.uci[2] in "abcd" and @move.uci[3] in a then players.G.add @move.stopp
-			if @move.uci[2] in "abcd" and @move.uci[3] in b then players.E.add @move.stopp
-			if @move.uci[2] in "efgh" and @move.uci[3] in a then players.H.add @move.stopp
-			if @move.uci[2] in "efgh" and @move.uci[3] in b then players.F.add @move.stopp
+			if stopp[0] in "abcd" and stopp[1] in a then players.G.add @move.stopp
+			if stopp[0] in "abcd" and stopp[1] in b then players.E.add @move.stopp
+			if stopp[0] in "efgh" and stopp[1] in a then players.H.add @move.stopp
+			if stopp[0] in "efgh" and stopp[1] in b then players.F.add @move.stopp
 
 		# echo 'B', @move
 
@@ -261,9 +284,35 @@ class Square
 		@done = false
 		@time = performance.now()
 	
+rotate = (sq) -> FILES[8-sq[1]] + String 1 + FILES.indexOf sq[0]
+echo "g3" == rotate "c2"
+echo "h1" == rotate "a1"
+echo "h8" == rotate rotate "a1"
+echo "a8" == rotate rotate rotate "a1"
+echo "a1" == rotate rotate rotate rotate "a1"
+
+coordinates = (sq) ->
+	x = "abcdefgh".indexOf sq[0]
+	y = "12345678".indexOf sq[1]
+	[x, 7-y]
+echo _.isEqual [4,4], coordinates "e4"
+echo _.isEqual [0,7], coordinates "a1"
+
+toVector = ([x,y]) ->
+	createVector SIZE/2 + SIZE*x, SIZE/2 + SIZE*y
+# echo toVector [3,4]
+
 class Move
-	constructor : (@uci) -> # e2e4
-		@pos = uci2pos @uci
+	constructor : (@uci, @name) -> # e2e4, B
+		antal = "ABCD".indexOf @name
+		start = @uci.slice 0,2
+		stopp = @uci.slice 2,4
+		for i in [0...antal]
+			start = rotate start
+			stopp = rotate stopp
+		start = toVector coordinates start
+		stopp = toVector coordinates stopp
+		@pos = [start, stopp]
 		@start = new Square @pos[0], @uci
 		@stopp = new Square @pos[1], @uci
 
