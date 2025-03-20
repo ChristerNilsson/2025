@@ -1,12 +1,17 @@
 SIZE = 60
 MAXTRAIL = 5
-SPEED = 1
+SPEED = 0.5 # 1
+
 FILES = 'abcdefgh'
+RANKS = '12345678'
 
 echo = console.log
 
 games = {}
 players = {}
+
+startTime = Date.now()
+stoppTime = null
 
 pgnA = """1. d4 d5 2. c3 Nc6 3. b4 a5 4. b5 Na7 5. a4 c6 6. c4 cxb5 7. cxb5 b6 8. f3 Nf6 9. g4 g5 10. Bg2 e6 11. Bxg5 Bb4+ 12. Nd2 Bxd2+ 13. Qxd2 O-O 14. Qf4 Qc7 15. Qxc7 1-0"""
 pgnB = """1. b4 e5 2. Bb2 d6 3. d4 exd4 4. Qxd4 Nc6 5. Qe4+ Nge7 6. a3 a6 7. Nc3 Bf5 8. Qh4 Bxc2 9. Nd5 Nxd5 10. Qc4 Ndxb4 11. axb4 Bg6 12. e4 Qe7 13. Bd3 Ne5 14. Bxe5 Qxe5 15. Rc1 O-O-O 1-0"""
@@ -81,14 +86,14 @@ window.draw = ->
 			x = i * SIZE
 			y = j * SIZE
 			rect x, y, SIZE - 1, SIZE - 1
-	for key of players
+	for key in 'EFGHABCD'
 		player = players[key]
 		player.draw()
 		updateInfo key,player
 
 class Player
 	constructor : (@name, @tx=4*SIZE, @ty=4*SIZE) ->
-		@speed = 1/SPEED
+		@speed = SPEED
 		@pos = createVector 4*SIZE,4*SIZE
 		@target = new Square createVector @tx, @ty
 		@home = @target
@@ -114,7 +119,7 @@ class Player
 		@target = @closest()
 
 	drawTail : ->
-		if @n % (SPEED*10) == 0 then @trail.push createVector @pos.x, @pos.y
+		if @n % (10/SPEED) == 0 then @trail.push createVector @pos.x, @pos.y
 		@n += 1
 		if @trail.length > MAXTRAIL then @trail.shift()
 		stroke 'black'
@@ -144,7 +149,7 @@ class Player
 				for key of games
 					g = games[key]
 					if g.move and g.move.start.done and g.move.stopp.done						
-						duration = (30 * (performance.now() - g.move.start.time)/1000)
+						duration = (15/SPEED * (performance.now() - g.move.start.time)/1000)
 
 						if g.index % 2 == 0 then g.duration += duration
 						if g.move.start.carrier == g.move.stopp.carrier
@@ -168,7 +173,9 @@ class Player
 
 						g.queue.push g.move
 						g.move = null
-						g.initMove()
+						if g.initMove() == false
+							stoppTime = Date.now()
+							echo 'done', (stoppTime-startTime)/1000
 
 			@squares = _.filter @squares, (sq) -> sq.done == false
 
@@ -197,24 +204,17 @@ class Player
 		# fill 'black'
 		text @name, @pos.x, @pos.y
 
-# rot = ([x,y]) -> [y,7-x]
-# echo _.isEqual [1,5], rot [2,1]
-# echo _.isEqual [5,6], rot rot [2,1]
-# echo _.isEqual [6,2], rot rot rot [2,1]
-# echo _.isEqual [2,1], rot rot rot rot [2,1]
-
-
 uci2pos = (uci) -> # t ex e2e4 => [[225,75],[225,175]]
 	startx = uci[0]
 	starty = uci[1]
 	stoppx = uci[2]
 	stoppy = uci[3]
 	result = []
-	x = "abcdefgh".indexOf startx
-	y = 7 - "12345678".indexOf starty
+	x = FILES.indexOf startx
+	y = 7 - RANKS.indexOf starty
 	result.push createVector SIZE/2 + SIZE*x, SIZE/2 + SIZE*y
-	x = "abcdefgh".indexOf stoppx
-	y = 7 - "12345678".indexOf stoppy
+	x = FILES.indexOf stoppx
+	y = 7 - RANKS.indexOf stoppy
 	result.push createVector SIZE/2 + SIZE*x, SIZE/2 + SIZE*y
 	result
 
@@ -232,13 +232,12 @@ class Game
 		document.getElementById("link#{@name}").innerHTML = "<a href=\"#{@link}\" target=\"_blank\">Link</a>"
 
 	initMove : ->
-		if @index >= @uci_moves.length - 1 then return
+		if @index >= @uci_moves.length - 1 then return false
 		@index += 1
 		if @move != null 
 			echo 'too quick!'
-			return
+			return false
 		@move = new Move @uci_moves[@index], @name
-		# echo 'A', @move
 
 		start = @move.uci.slice 0,2
 		stopp = @move.uci.slice 2,4
@@ -276,8 +275,7 @@ class Game
 			if stopp[0] in "abcd" and stopp[1] in b then players.E.add @move.stopp
 			if stopp[0] in "efgh" and stopp[1] in a then players.H.add @move.stopp
 			if stopp[0] in "efgh" and stopp[1] in b then players.F.add @move.stopp
-
-		# echo 'B', @move
+		true
 
 class Square 
 	constructor : (@pos, @uci="", @carrier="") -> # Vector
@@ -292,8 +290,8 @@ echo "a8" == rotate rotate rotate "a1"
 echo "a1" == rotate rotate rotate rotate "a1"
 
 coordinates = (sq) ->
-	x = "abcdefgh".indexOf sq[0]
-	y = "12345678".indexOf sq[1]
+	x = FILES.indexOf sq[0]
+	y = RANKS.indexOf sq[1]
 	[x, 7-y]
 echo _.isEqual [4,4], coordinates "e4"
 echo _.isEqual [0,7], coordinates "a1"
@@ -313,6 +311,5 @@ class Move
 		start = toVector coordinates start
 		stopp = toVector coordinates stopp
 		@pos = [start, stopp]
-		@start = new Square @pos[0], @uci
-		@stopp = new Square @pos[1], @uci
-
+		@start = new Square start, @uci
+		@stopp = new Square stopp, @uci

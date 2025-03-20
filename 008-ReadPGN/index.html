@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Läs PGN med chess.js</title>
+</head>
+<body>
+    <input type="file" id="pgnFile" accept=".pgn">
+    <pre id="output"></pre>
+    
+    <script type="module" src="./coffee/sketch.js">
+        import { readPgn } from './coffee/sketch.js'
+        readPgn()
+        
+
+        // document.getElementById('pgnFile').addEventListener('change', (event) ->
+        // )
+    </script>
+</body>
+</html>
