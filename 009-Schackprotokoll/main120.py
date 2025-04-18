@@ -21,11 +21,12 @@ def page(offset,tables,topTexts,bottomTexts):
         for j in range(10):
             cy = offset + table['y'] + j * DY
             cx = table['x']
-            elements.append(Use(href="#r", x=cx+A,   y=cy+1*DY))
-            elements.append(Use(href="#r", x=cx+A+B, y=cy+1*DY))
-            number = table['nr']+j
-            if number == 13: number = "·"
-            elements.append(Text(number, x=cx+A/2, y=cy + 1.7*DY, text_anchor="middle", font_size="16"))
+
+            elements.append(Rect(id="r", x=cx+A,   y=cy+DY, width=B, height=DY, fill='white', stroke='black', stroke_width=1))
+            elements.append(Rect(id="r", x=cx+A+B, y=cy+DY, width=B, height=DY, fill='white', stroke='black', stroke_width=1))
+
+            number = (table['nr']+j) % 10
+            elements.append(Text(f" {number}", x=cx+A/2, y=cy + 1.7*DY, text_anchor="left", font_size="16"))
     return elements
 
 @rt("/")
@@ -47,16 +48,14 @@ def get():
 
     bottomTexts = []
     bottomTexts.append({'x':10, 'text':'Christer Nilsson'})
-    bottomTexts.append({'x':550, 'text':'Chess Landscape 1.0'})
+    bottomTexts.append({'x':550, 'text':'Panorama Protocol 1.1'})
     bottomTexts.append({'x':1095, 'text':'070 · 749 6800'})
 
     elements = []
 
-    elements.append(Defs(Rect(id="r", width=B, height=DY, fill='white', stroke='black', stroke_width=1)))
-
     elements += page(0,tables,topTexts,bottomTexts)
     elements += page(HEIGHT,tables,topTexts,bottomTexts)
 
-    return [Title("Chess Landscape"),Svg(*elements,width=WIDTH+2,height=2*HEIGHT)]
+    return [Title("Panorama"),Svg(*elements,width=WIDTH+2,height=2*HEIGHT)]
 
 serve()

@@ -21,7 +21,7 @@ console.log "Slutposition (FEN):", chess.fen()
 
 echo = console.log
 
-# import {parse} from "https://cdn.jsdelivr.net/npm/@mliebelt/pgn-parser/+esm";
+import {parse} from "https://cdn.jsdelivr.net/npm/@mliebelt/pgn-parser/+esm";
 
 html = (tag, first, args...) ->
 	if typeof first is 'object' and not Array.isArray first
