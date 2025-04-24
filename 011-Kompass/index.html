@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>Kompass</title>
+</head>
+
+<script type="text/javascript">
+	const requestPermission = function() {
+		console.log("requestPermission")
+	if (typeof (typeof DeviceOrientationEvent !== "undefined" && DeviceOrientationEvent !== null ? DeviceOrientationEvent.requestPermission : void 0) === 'function') {
+		return DeviceOrientationEvent.requestPermission().then(function(response) {
+		if (response === 'granted') {
+			console.log("requestPermission ok")
+			return startCompass();
+		} else {
+			console.log("requestPermission nix")
+			return document.getElementById('output').innerText = "Tillgång nekades.";
+		}
+		});
+	} else {
+		return startCompass();
+	}
+	};
+
+	const startCompass = function() {
+		console.log("startCompass")
+		return window.addEventListener('deviceorientation', function(event) {
+		var alpha;
+		alpha = event.alpha;
+		if (alpha != null) {
+		return document.getElementById('output').innerText = `Kompassriktning: ${Math.round(alpha)}°`;
+		}
+	});
+	};
+
+	// document.getElementById('startBtn').addEventListener('click', function() {
+	// return requestPermission();
+	// });
+
+
+  </script>
+
+<body>
+  <h1>Kompassriktning (alpha)</h1>
+  <button onclick="requestPermission()">Starta</button>
+  <p id="output">Tryck på knappen för att starta.</p>
+</body>
+</html>
