@@ -1,3 +1,6 @@
+python main120.py && python -m http.server 8000
+localhost:5001
+
 # Brother
 * Layout: Liggande
 * Marginaler: Standard
