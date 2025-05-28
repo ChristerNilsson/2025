@@ -3,15 +3,18 @@ import chess.engine
 
 TIME = 0.1
 MPV = 3
+DEBUG = False
+
 #FILENAME = "lichess_study_hhh_per-hamnstrom-vs-cn_by_ChristerNilsson_2025.05.26.pgn"
 #FILENAME = "lichess_study_rrr_vida-radon_by_ChristerNilsson_2025.04.03.pgn"
-FILENAME = "lichess_study_rrr_vida-radon-vs-cn_by_ChristerNilsson_2025.05.13.pgn"
+#FILENAME = "lichess_study_rrr_vida-radon-vs-cn_by_ChristerNilsson_2025.05.10.pgn"
+FILENAME = "lichess_study_lll_jouko-liistamo-vs-cn_by_ChristerNilsson_2025.05.19.pgn"
 
 HEADERS = "Date White WhiteElo Black BlackElo Result TimeControl ChapterURL".split(" ")
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
 
-whiteStats = [0,0,0,0]
-blackStats = [0,0,0,0]
+whiteStats = [0,0,0,0,0]
+blackStats = [0,0,0,0,0]
 
 def centipawn(score):
     if score.is_mate():
@@ -19,17 +22,15 @@ def centipawn(score):
     return score.score()
 
 def klassificera(cp_diff):
-    if cp_diff < 20: return -1  # utmärkt
-    elif cp_diff < 50: return 0   # bättre drag fanns
-    elif cp_diff < 100: return 1   # inaccuracy
-    elif cp_diff < 300: return 2   # mistake
-    else: return 3   # blunder
+    if cp_diff < 20: return 0  # utmärkt
+    elif cp_diff < 50: return 1   # bättre drag fanns
+    elif cp_diff < 100: return 2   # inaccuracy
+    elif cp_diff < 300: return 3   # mistake
+    else: return 4   # blunder
 
 def header(i):
-    if i==9:  return "White columns: 0:Best   1:Damage 2:Actual"
-    if i==10: return "Black columns: 4:Actual 5:Damage 6:Best"
-    if i==11: return f"Seek time: {TIME} seconds MPV: {MPV}"
-    if i==12: return f"Limits: ••• 300 •• 100 • 50 ~ 20 Ok (centipawns)"
+    if i==9: return f"Seek time: {TIME} seconds MPV: {MPV}"
+    if i==10: return f"Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)"
     if i >= len(HEADERS): return ""
     term = HEADERS[i]
     if term in game.headers:
@@ -38,10 +39,7 @@ def header(i):
         return ""
 
 def dots(n):
-    if n==0:
-        return "~"
-    else:
-        return "•" * n
+    return "•" * n
 
 def dump(b,d): return f"{b} {d} {abs(b-d)} {klassificera(b-d)}"
 
@@ -49,18 +47,31 @@ def pretty(lst, remainder):
     [a,b,c,d] = lst
     filler = " " * 12
 
+    klass = klassificera(b - d)
     if remainder == 0: # White
-        if a==c: return filler + a.rjust(7)
-        klass = klassificera(b-d)
-        if klass == -1 : return filler + a.rjust(7)
+        if a==c or klass == 0:
+            if DEBUG:
+                return str(b).rjust(12) + a.rjust(7)
+            else:
+                return filler + a.rjust(7)
+        # if klass == 0 : return filler + a.rjust(7)
         whiteStats[klass] += 1
-        return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
+        if DEBUG:
+            return c.rjust(7) + str(b).rjust(5) + a.rjust(7)
+        else:
+            return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
+
     else:
-        if a==c: return a.ljust(7) + filler
-        klass = klassificera(b-d)
-        if klass == -1 : return a.ljust(7) + filler
+        if a==c or klass==0:
+            if DEBUG:
+                return a.ljust(7) + str(b).ljust(12)
+            else:
+                return a.ljust(7) + filler
         blackStats[klass] += 1
-        return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
+        if DEBUG:
+            return a.ljust(7) + str(b).ljust(5) + c.ljust(7)
+        else:
+            return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
 
 with open(FILENAME, encoding='utf8') as pgn:
     game = chess.pgn.read_game(pgn)
@@ -70,11 +81,15 @@ board = game.board()
 
 analys = []
 evalueringar = []
-
-for move in game.mainline_moves():
+moves = list(game.mainline_moves())
+print(len(moves),'', end='')
+for i in range(len(moves)):
+    move = moves[i]
+    print(i % 10, end='')
     info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
     evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
     board.push(move)
+print()
 
 info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
 if "pv" in info:
@@ -102,6 +117,8 @@ for i in range(len(moves)):
     analys.append([played_san,score_before,best_san,score_after])
     board.push(played)
 
+print("   Best Damag White ## Black Damag Best")
+
 for i in range(len(analys)):
     print(pretty(analys[i], i%2), end='')
     if i%2==0: print(' ' + str(1 + i // 2).rjust(2) + ' ', end='')
@@ -109,6 +126,6 @@ for i in range(len(analys)):
 
 print()
 print()
-titles = "Glitches Inaccuracies Mistakes Blunders".split(" ")
-print("White", ' '.join([titles[i] + ":" + str(whiteStats[i]) for i in [3,2,1,0]]))
-print("Black", ' '.join([titles[i] + ":" + str(blackStats[i]) for i in [3,2,1,0]]))
+titles = "x • •• ••• ••••".split(" ")
+print("White:", ' '.join([titles[i] + " " + str(whiteStats[i]) for i in [4,3,2,1]]))
+print("Black:", ' '.join([titles[i] + " " + str(blackStats[i]) for i in [4,3,2,1]]))
