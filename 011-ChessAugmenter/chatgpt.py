@@ -1,11 +1,12 @@
 import chess.pgn
 import chess.engine
 
-STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
 TIME = 1
 MPV = 3
+FILENAME = "lichess_study_hhh_per-hamnstrom-vs-cn_by_ChristerNilsson_2025.05.26.pgn"
 
 HEADERS = "Date White WhiteElo Black BlackElo Result TimeControl ChapterURL".split(" ")
+STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
 
 whiteStats = [0,0,0,0]
 blackStats = [0,0,0,0]
@@ -16,7 +17,6 @@ def centipawn(score):
     return score.score()
 
 def klassificera(cp_diff):
-    # if cp_diff == 0:
     if cp_diff < 20: return -1  # utmärkt
     elif cp_diff < 50: return 0   # bättre drag fanns
     elif cp_diff < 100: return 1   # inaccuracy
@@ -37,34 +37,26 @@ def header(i):
 
 def dots(n): return "•" * n
 
-def dump(b,d):
-    return f"{b} {d} {abs(b-d)} {klassificera(b-d)}"
+def dump(b,d): return f"{b} {d} {abs(b-d)} {klassificera(b-d)}"
 
 def pretty(lst, remainder):
-    EXTRA = 0 # 12
     [a,b,c,d] = lst
-    filler = " " * (EXTRA+5+7)
+    filler = " " * 12
 
     if remainder == 0: # White
         if a==c: return filler + a.rjust(7)
         klass = klassificera(b-d)
         if klass == -1 : return filler + a.rjust(7)
         whiteStats[klass] += 1
-        if EXTRA == 0:
-            return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
-        else:
-            return c.rjust(7) + dump(b,d).rjust(EXTRA+5) + a.rjust(7)
+        return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
     else:
         if a==c: return a.ljust(7) + filler
         klass = klassificera(b-d)
         if klass == -1 : return a.ljust(7) + filler
         blackStats[klass] += 1
-        if EXTRA == 0:
-            return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
-        else:
-            return a.ljust(7) + dump(b,d).ljust(EXTRA+5) + c.ljust(7)
+        return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
 
-with open("lichess_study_hhh_per-hamnstrom-vs-cn_by_ChristerNilsson_2025.05.26.pgn",encoding='utf8') as pgn:
+with open(FILENAME, encoding='utf8') as pgn:
     game = chess.pgn.read_game(pgn)
 
 engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
@@ -73,7 +65,6 @@ board = game.board()
 analys = []
 evalueringar = []
 
-# Gör en analys per ställning (före varje drag)
 for move in game.mainline_moves():
     info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
     evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
@@ -84,9 +75,7 @@ evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
 
 engine.quit()
 
-# För att jämföra behöver vi alla utom sista analysen (som inte har något "efter")
 board = game.board()
-#for i, move in enumerate(game.mainline_moves()):
 moves = list(game.mainline_moves())
 for i in range(len(moves)):
     move = moves[i]
@@ -105,10 +94,8 @@ for i in range(len(moves)):
 
 for i in range(len(analys)):
     print(pretty(analys[i], i%2), end='')
-    if i%2==0:
-        print(' ' + str(1 + i // 2).rjust(2) + ' ', end='')
-    if i%2==1:
-        print(header((i-1)//2))
+    if i%2==0: print(' ' + str(1 + i // 2).rjust(2) + ' ', end='')
+    if i%2==1: print(header((i-1)//2))
 
 print()
 print()
