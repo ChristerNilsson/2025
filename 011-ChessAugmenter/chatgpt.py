@@ -1,9 +1,11 @@
 import chess.pgn
 import chess.engine
 
-TIME = 1
+TIME = 0.1
 MPV = 3
-FILENAME = "lichess_study_hhh_per-hamnstrom-vs-cn_by_ChristerNilsson_2025.05.26.pgn"
+#FILENAME = "lichess_study_hhh_per-hamnstrom-vs-cn_by_ChristerNilsson_2025.05.26.pgn"
+#FILENAME = "lichess_study_rrr_vida-radon_by_ChristerNilsson_2025.04.03.pgn"
+FILENAME = "lichess_study_rrr_vida-radon-vs-cn_by_ChristerNilsson_2025.05.13.pgn"
 
 HEADERS = "Date White WhiteElo Black BlackElo Result TimeControl ChapterURL".split(" ")
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
@@ -27,7 +29,7 @@ def header(i):
     if i==9:  return "White columns: 0:Best   1:Damage 2:Actual"
     if i==10: return "Black columns: 4:Actual 5:Damage 6:Best"
     if i==11: return f"Seek time: {TIME} seconds MPV: {MPV}"
-    if i==12: return f"Limits: [•••] 300 [••] 100 [•] 50 [] 20 Ok (centipawns)"
+    if i==12: return f"Limits: ••• 300 •• 100 • 50 ~ 20 Ok (centipawns)"
     if i >= len(HEADERS): return ""
     term = HEADERS[i]
     if term in game.headers:
@@ -35,7 +37,11 @@ def header(i):
     else:
         return ""
 
-def dots(n): return "•" * n
+def dots(n):
+    if n==0:
+        return "~"
+    else:
+        return "•" * n
 
 def dump(b,d): return f"{b} {d} {abs(b-d)} {klassificera(b-d)}"
 
@@ -71,13 +77,17 @@ for move in game.mainline_moves():
     board.push(move)
 
 info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
-evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
+if "pv" in info:
+    evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
+else:
+    evalueringar.append([info["score"], move])
 
 engine.quit()
 
 board = game.board()
 moves = list(game.mainline_moves())
 for i in range(len(moves)):
+    if i+1 >= len(evalueringar): continue
     move = moves[i]
     played = move
     played_san = board.san(played)
