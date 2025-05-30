@@ -19,6 +19,7 @@ def centipawn(score):
     return score.score()
 
 def klassificera(cp_diff):
+    cp_diff = abs(cp_diff)
     if cp_diff < 20: return 0  # utmärkt
     elif cp_diff < 50: return 1   # bättre drag fanns
     elif cp_diff < 100: return 2   # inaccuracy
@@ -30,42 +31,40 @@ def dots(n):
 
 def dump(b,d): return f"{b} {d} {abs(b-d)} {klassificera(b-d)}"
 
-def pretty(lst, remainder):
-    [a,b,c,d] = lst
-    filler = " " * 12
-
-    klass = klassificera(b - d)
-    if remainder == 0: # White
-        if a==c or klass == 0:
-            return filler + a.rjust(7)
-        # if klass == 0 : return filler + a.rjust(7)
-        whiteStats[klass] += 1
-        return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
-
+def pretty(nr, white, black=None):
+    WIDTH = [-2,-7,7,-4,4,-7,7]
+    [a,b,c,d] = white
+    klassW = klassificera(b - d)
+    if a == c or klassW == 0:
+        klassW = 0
+        c = ''
+    whiteStats[klassW] += 1
+    if black:
+        [e,f,g,h] = black
+        klassB = klassificera(f - h)
+        if e == g or klassB == 0:
+            klassB = 0
+            g = ''
+        blackStats[klassB] += 1
+        data = [str(nr), a, e, dots(klassW), dots(klassB), c, g]
     else:
-        if a==c or klass==0:
-            return a.ljust(7) + filler
-        blackStats[klass] += 1
-        return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
+        data = [str(nr), a, '', dots(klassW), '', c, '']
 
-# def pretty(lst, remainder):
-#     [a,b,c,d] = lst
-#     # filler = " " * 12
-#
-#     klass = klassificera(b - d)
-#     if remainder == 0: # White
-#         # if a==c or klass == 0:
-#         #     return str(b).rjust(12) + a.rjust(7)
-#         whiteStats[klass] += 1
-#         return c.rjust(7) + str(b-d).rjust(5) + a.rjust(7)
-#
-#     else:
-#         # if a==c or klass==0:
-#         #     return a.ljust(7) + str(b).ljust(12)
-#         blackStats[klass] += 1
-#         return a.ljust(7) + str(b-d).ljust(5) + c.ljust(7)
+    res = ''
+    for i in range(7):
+        w = WIDTH[i]
+        if w < 0: res += data[i].rjust(-w)
+        if w > 0: res += data[i].ljust(w)
+        if i == 3: res += ' | '
+        else: res += ' '
+
+    return res
 
 def process(pgnfile):
+    global whiteStats,blackStats
+
+    whiteStats = [0, 0, 0, 0, 0]
+    blackStats = [0, 0, 0, 0, 0]
 
     def header(i):
         if i == 9: return f"Seek time: {TIME} seconds MPV: {MPV}"
@@ -93,14 +92,12 @@ def process(pgnfile):
     for i in range(len(moves)):
         move = moves[i]
         print('.', end='')
-        # info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
-        info = engine.analyse(board, chess.engine.Limit(depth=21), multipv=5)[0]
+        info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
         evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
         board.push(move)
     print()
 
-    #info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
-    info = engine.analyse(board, chess.engine.Limit(depth=21), multipv=5)[0]
+    info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
     if "pv" in info:
         evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
     else:
@@ -120,19 +117,23 @@ def process(pgnfile):
 
         score_before = centipawn(evalueringar[i][0].white() if board.turn == chess.WHITE else evalueringar[i][0].black())
         score_after = centipawn(evalueringar[i+1][0].white() if board.turn == chess.WHITE else evalueringar[i+1][0].black())
-        cp_diff = score_before - score_after
-        klass = klassificera(cp_diff)
 
         analys.append([played_san,score_before,best_san,score_after])
         board.push(played)
 
     with open(pgnfile.replace('.pgn','.txt'), "w", encoding="utf-8") as txt:
 
-        txt.write("   Best Damag White ## Black Damag Best\n")
+        txt.write("##   White Black     Damage       Best moves\n")
 
-        for i in range(len(analys)):
-            if i%2==0: txt.write(pretty(analys[i], i%2) + ' ' + str(1 + i // 2).rjust(2))
-            if i%2==1: txt.write(' ' + pretty(analys[i], i%2) + header((i-1)//2)+'\n')
+        for i in range(0,len(analys),2):
+            white = analys[i]
+            if i+1 < len(analys):
+                black = analys[i + 1]
+                txt.write(pretty(1 + i // 2, white, black))
+            else:
+                txt.write(pretty(1 + i // 2, white))
+            # if i%2==0: txt.write(pretty(analys[i], i%2) + ' ' + str(1 + i // 2).rjust(2))
+            txt.write(' ' + header((i)//2)+'\n')
 
         txt.write("\n")
         txt.write("\n")
@@ -150,11 +151,7 @@ print(time.time() - start)
 def process_fen(fen):
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
     engine.configure({
-        "Skill Level": 20,
-        "Hash": 512,  # gärna 512 eller 1024 MB om du har RAM
-        "Threads": 4,  # eller fler, beroende på CPU
-        "Move Overhead": 0,
-    })
+        "Skill Level": 20, "Hash": 512, "Threads": 4, "Move Overhead": 0})
 
     board = chess.Board(fen)
     info = engine.analyse(board, chess.engine.Limit(depth=22), multipv=5)
