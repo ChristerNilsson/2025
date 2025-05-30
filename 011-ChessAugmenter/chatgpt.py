@@ -2,6 +2,7 @@ import chess.pgn
 import chess.engine
 import chess
 import os
+import time
 
 TIME = 1
 MPV = 5
@@ -92,12 +93,14 @@ def process(pgnfile):
     for i in range(len(moves)):
         move = moves[i]
         print('.', end='')
-        info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
+        # info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
+        info = engine.analyse(board, chess.engine.Limit(depth=21), multipv=5)[0]
         evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
         board.push(move)
     print()
 
-    info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
+    #info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
+    info = engine.analyse(board, chess.engine.Limit(depth=21), multipv=5)[0]
     if "pv" in info:
         evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
     else:
@@ -138,9 +141,11 @@ def process(pgnfile):
         txt.write("Black: " + ' '.join([titles[i] + " " + str(blackStats[i]) for i in [4,3,2,1]]) + '\n')
 
 # Gå igenom alla filer i aktuell katalog
+start = time.time()
 for filename in os.listdir():
     txt_file = os.path.splitext(filename)[0] + '.txt'
     if filename.endswith(".pgn") and not os.path.exists(txt_file): process(filename)
+print(time.time() - start)
 
 def process_fen(fen):
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
@@ -152,9 +157,12 @@ def process_fen(fen):
     })
 
     board = chess.Board(fen)
-    info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)
+    info = engine.analyse(board, chess.engine.Limit(depth=22), multipv=5)
     for item in info:
         print([item["score"], item["pv"][0]])  # score & bästa drag
 
 FEN = "r4rk1/1pp1pp2/p4bpp/3q2N1/3P2b1/2PB4/PP4PP/R1B1QRK1 w - - 0 17"
+
+# start = time.time()
 # process_fen(FEN)
+# print(time.time() - start)
