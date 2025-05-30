@@ -1,38 +1,38 @@
    Best Damag White ## Black Damag Best
                  e4  1 e5                 Date: 2025-04-03
-                Nf3  2 d6     •    Nc6    White: Christer Nilsson
-                Bc4  3 Bg4    ••   Be7    WhiteElo: 1616
+                Nf3  2 d6     •    Nf6    White: Christer Nilsson
+     d4    •    Bc4  3 Bg4    ••   Nf6    WhiteElo: 1616
                  h3  4 Bxf3               Black: Vida Radon
-               Qxf3  5 Qf6    ••   Qd7    BlackElo: 1557
+               Qxf3  5 Qf6    •••  Qd7    BlackElo: 1557
                 Qb3  6 b6                 Result: 1-0
-                Nc3  7 c6     •    Ne7    
+                Nc3  7 c6                 
     Nd5  •••    Bd5  8 cxd5   •••• Ne7    ChapterURL: https://lichess.org/study/badox5qN/xyRMGg0w
-               Qxd5  9 Qd8    •    Ne7    
+               Qxd5  9 Qd8                
                Qxa8 10 Be7    •    Nf6    Seek time: 1 seconds MPV: 5
-   Qxa7    •    Nd5 11 Nf6                Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+                Nd5 11 Nf6    •    Bh4    Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
                Nxe7 12 Kxe7               
   Qxa7+  •••     d3 13 h6     •••  Qc7    
               Qxa7+ 14 Nbd7               
-    Qb7    •    Bd2 15 Qb8    ••   Qc8    
+    Be3    •    Bd2 15 Qb8    ••   Re8    
                Qxb8 16 Rxb8               
-                 b4 17 Rc8    •    b5     
-    Kd1    •     c4 18 Ra8    •    Nf8    
-                 a4 19 Ne8    •    Nh5    
-                Ke2 20 g5     •    f5     
+                 b4 17 Rc8                
+                 c4 18 Ra8    •    Nh5    
+                 a4 19 Ne8    •    Nb8    
+                Ke2 20 g5                 
                 Be3 21 Ng7                
                  a5 22 bxa5               
                Rxa5 23 Rc8    •    Rb8    
-    Kd2    •     c5 24 dxc5               
-               bxc5 25 Rc6    ••   Ne6    
+   Rha1    •     c5 24 dxc5               
+               bxc5 25 Rc6    •    Ne6    
     Ra7   ••     d4 26 exd4               
                Bxd4 27 Ne6                
                 Ke3 28 Nf4                
                  g3 29 Ng6    ••   Ne6    
-    Ra7    •    Rb1 30 h5     •    Nge5   
-                Rb7 31 Ke6    •    g4     
+                Rb1 30 h5     •    Nge5   
+                Rb7 31 Ke6    •    Nf8    
                Raa7 32 Ndf8   •••• Ngf8   
    Rxf7 ••••    Rc7 33 Rxc5   •••• Rxc7   
 
 
-White: •••• 5 ••• 18 •• 29 • 33
-Black: •••• 5 ••• 12 •• 30 • 41
+White: •••• 6 ••• 19 •• 28 • 35
+Black: •••• 7 ••• 12 •• 27 • 35

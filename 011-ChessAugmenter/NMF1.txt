@@ -3,55 +3,55 @@
                 Nc3  2 e5                 White: Isak & Gregory - Cederquist 1
      g3  •••     f3  3 Bc5    •    d5     
      e3   ••     e4  4 Nc6                Black: Christer & Lily - SrS
-     d3   ••     b3  5 O-O                
-     d3    •    Bb2  6 Re8    ••   Nh5    Result: 0-1
+     d3    •     b3  5 O-O                
+                Bb2  6 Re8    •    Nh5    Result: 0-1
    Nge2    •     g3  7 a6                 TimeControl: 3 min + 3 sec/move
                Nge2  8 d6                 ChapterURL: https://lichess.org/study/w7W4RA4b/CZFzHG50
-     d3    •     a3  9 Nd4                
+     d3    •     a3  9 Nd4    ••   Ng4    
                Nxd4 10 Bxd4               Seek time: 1 seconds MPV: 5
     Qc2 ••••    Ne2 11 Bxb2               Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
-                Rb1 12 Bd4    ••   Bxa3   
+    Ra2    •    Rb1 12 Bd4    ••   Bxa3   
    Nxd4  •••     f4 13 Ba7    •    Nxe4   
-    Bg2   ••     d4 14 Nxe4               
+    Bg2    •     d4 14 Nxe4               
    fxe5   ••    Rb2 15 exd4               
     Bg2  •••    Qc2 16 Nf6    •••  d3     
-                 h3 17 g6     •    Re3    
-     g4    •    Bg2 18 d5     ••   Bf5    
+                 h3 17 g6                 
+                Bg2 18 d5     •    Bf5    
      c5   ••   cxd5 19 Bf5                
                 Qc4 20 d3                 
-    Kd1    •    Rd2 21 dxe2               
+     g4    •    Rd2 21 dxe2               
                Rxe2 22 Rxe2+              
-   Qxe2   ••   Kxe2 23 Qe7+               
+   Qxe2 ••••   Kxe2 23 Qe7+               
                 Kd1 24 Re8                
-     b4 ••••     g4 25 Qe3    •••• b5     
-               gxf5 26 Qf2    ••   Bd4    
-    Qc2 ••••    Rh2 27 Qd4+   •••• Re1#   
+                 g4 25 Qe3    •••• b5     
+               gxf5 26 Qf2    •••• Bd4    
+   fxg6 ••••    Rh2 27 Qd4+   •••• Re1#   
                Qxd4 28 Bxd4               
                 Rh1 29 Rd8                
                fxg6 30 fxg6               
                  h4 31 Nxd5               
-    Bf3    •    Ke2 32 Nxf4+              
+    Kc1    •    Ke2 32 Nxf4+              
                 Kf3 33 Nxg2               
-               Kxg2 34 Re8                
-                 b4 35 Bf6                
-                 h5 36 Re2+   •    gxh5   
+               Kxg2 34 Re8    •    Rd5    
+                 b4 35 Bf6    •    h5     
+                 h5 36 Re2+               
                 Kf3 37 Ra2                
                hxg6 38 Rxa3+              
-                Kf4 39 hxg6               
+    Ke2    •    Kf4 39 hxg6               
                 Rg1 40 Kg7                
     Rb1    •    Kg4 41 Rb3                
-                Rd1 42 Rxb4+              
-                Kg3 43 Be5+               
+    Kf4    •    Rd1 42 Rxb4+  •    Be5    
+    Kf3    •    Kg3 43 Be5+   •    a5     
                 Kf3 44 Kf6                
                 Ke3 45 Bd6                
                Rf1+ 46 Kg7                
     Ra1    •    Kd3 47 c5     ••   a5     
-                Re1 48 c4+    •    g5     
-    Ke4    •    Kc3 49 b6                 
+                Re1 48 c4+    •    a5     
+                Kc3 49 b6                 
                 Re6 50 Bf8                
                 Re8 51 Kf7                
-    Rc8   ••  Rxf8+ 52 Kxf8               
-   Kxb4 ••••    Kc2 53 Rb5    •••• Rb3    
+    Rd8    •  Rxf8+ 52 Kxf8               
+                Kc2 53 Rb5                
                 Kc3 54 Rh5                
                Kxc4 55 Rb5                
                 Kc3 56 a5                 
@@ -69,5 +69,5 @@
                 Kh6 68 Rh1#               
 
 
-White: •••• 9 ••• 21 •• 36 • 42
-Black: •••• 8 ••• 13 •• 35 • 46
+White: •••• 9 ••• 22 •• 31 • 48
+Black: •••• 10 ••• 13 •• 30 • 44

@@ -2,11 +2,11 @@
                  e4  1 e5                 Date: 2025-05-19
     Nf3   ••     c3  2 d5                 White: Jouko Liistamo
    exd5  •••    Bd3  3 c6     ••   Nf6    
-   exd5   ••    Ne2  4 Nf6                Black: Christer Nilsson
+    Bc2   ••    Ne2  4 Nf6                Black: Christer Nilsson
     Bc2   ••    Ng3  5 Nbd7   •••  h5     
-   exd5  •••    Qe2  6 Nc5                Result: 0-1
+   exd5  •••    Qe2  6 Nc5    •    h5     Result: 0-1
     Bc2  •••     f3  7 Be7    •••  dxe4   
-                Bc2  8 dxe4   •    h5     ChapterURL: https://lichess.org/study/AgzTp9sx/eJeKv5T6
+                Bc2  8 dxe4   ••   h5     ChapterURL: https://lichess.org/study/AgzTp9sx/eJeKv5T6
    Nxe4   ••   fxe4  9 Bg4    ••   h5     
     Qe3  •••    Qf2 10 Nd3+               Seek time: 1 seconds MPV: 5
                Bxd3 11 Qxd3               Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
@@ -16,43 +16,43 @@
                 Qe3 15 Qxe3   ••   Qc2    
                dxe3 16 O-O-O              
                 Nd2 17 Bf5                
-    Ke2   ••    Kg1 18 Bg5    •••  Bg3    
+     g4   ••    Kg1 18 Bg5    •••  Bg3    
     Kf2    •    Nf3 19 Rd1+               
                 Kh2 20 Rxh1+              
                Kxh1 21 Bf6                
                 Bd2 22 Rd8                
                 Re1 23 e4                 
-                Nd4 24 Bg6    ••   c5     
-     b4    •    Bc1 25 a6     •    c5     
-                 b4 26 Kc7    •    Rd7    
+                Nd4 24 Bg6    •••  c5     
+     b4   ••    Bc1 25 a6     •    c5     
+                 b4 26 Kc7                
                  a4 27 b6                 
-    Ba3   ••    Bb2 28 c5                 
-    Nb3    •   bxc5 29 bxc5               
+    Ba3  •••    Bb2 28 c5                 
+    Nb3   ••   bxc5 29 bxc5               
     Ne2   ••    Nb3 30 Rb8                
                Nxc5 31 Rxb2               
-              Nxa6+ 32 Kb6                
-                Nb4 33 Ka5                
-                Nd5 34 Kxa4               
-                 c4 35 Rc2                
-                Rb1 36 Rb2                
-                Rc1 37 Kb3    ••   Be5    
-   Nxf6   ••     c5 38 Bf5                
-                 c6 39 Rc2                
-   Rxc2    •   Rb1+ 40 Kc4    •    Bb2    
-   Nxf6   ••    Nb4 41 Rc3    ••   Rb2    
-     c7    •    Na6 42 Rxe3   •    Bc8    
-   Rb4+    •     c7 43 Bc8                
-    Nb4  •••    Rb6 44 Re1+               
+              Nxa6+ 32 Kb6    •    Kb7    
+                Nb4 33 Ka5    •    Kb7    
+   Nc6+    •    Nd5 34 Kxa4               
+                 c4 35 Rc2    •    Be5    
+     g4    •    Rb1 36 Rb2                
+                Rc1 37 Kb3                
+                 c5 38 Bf5                
+   Nxf6    •     c6 39 Rc2                
+               Rb1+ 40 Kc4                
+    Rd1   ••    Nb4 41 Rc3    ••   Rb2    
+     c7   ••    Na6 42 Rxe3   •    Bc8    
+   Rb4+   ••     c7 43 Bc8                
+     g3  •••    Rb6 44 Re1+               
                 Kh2 45 Be5+               
                  g3 46 Ra1    •••  Re2+   
-   Rc6+  •••    Nb8 47 Ra7    •••  Ra2+   
+   Rb4+  •••    Nb8 47 Ra7    ••   Ra2+   
                 Nc6 48 Ra2+               
                 Kg1 49 Kc5                
-                Rb8 50 Kxc6               
+   Nxe5    •    Rb8 50 Kxc6               
                Rxc8 51 Ra7    •••  Bxc7   
                 Re8 52 Bxc7               
    Rxe4 ••••    Re7 53 Bb6+               
 
 
-White: •••• 3 ••• 11 •• 19 • 17
-Black: •••• 1 ••• 9 •• 14 • 15
+White: •••• 3 ••• 13 •• 19 • 18
+Black: •••• 2 ••• 8 •• 14 • 16

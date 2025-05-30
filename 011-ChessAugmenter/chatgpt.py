@@ -1,12 +1,10 @@
 import chess.pgn
 import chess.engine
+import chess
 import os
 
 TIME = 1
 MPV = 5
-DEBUG = False
-
-# FILENAME = "lichess_study_lll_jouko-liistamo_by_ChristerNilsson_2025.03.20.pgn"
 
 HEADERS = "Date White WhiteElo Black BlackElo Result TimeControl ChapterURL".split(" ")
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
@@ -38,28 +36,33 @@ def pretty(lst, remainder):
     klass = klassificera(b - d)
     if remainder == 0: # White
         if a==c or klass == 0:
-            if DEBUG:
-                return str(b).rjust(12) + a.rjust(7)
-            else:
-                return filler + a.rjust(7)
+            return filler + a.rjust(7)
         # if klass == 0 : return filler + a.rjust(7)
         whiteStats[klass] += 1
-        if DEBUG:
-            return c.rjust(7) + str(b).rjust(5) + a.rjust(7)
-        else:
-            return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
+        return c.rjust(7) + dots(klass).rjust(5) + a.rjust(7)
 
     else:
         if a==c or klass==0:
-            if DEBUG:
-                return a.ljust(7) + str(b).ljust(12)
-            else:
-                return a.ljust(7) + filler
+            return a.ljust(7) + filler
         blackStats[klass] += 1
-        if DEBUG:
-            return a.ljust(7) + str(b).ljust(5) + c.ljust(7)
-        else:
-            return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
+        return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
+
+# def pretty(lst, remainder):
+#     [a,b,c,d] = lst
+#     # filler = " " * 12
+#
+#     klass = klassificera(b - d)
+#     if remainder == 0: # White
+#         # if a==c or klass == 0:
+#         #     return str(b).rjust(12) + a.rjust(7)
+#         whiteStats[klass] += 1
+#         return c.rjust(7) + str(b-d).rjust(5) + a.rjust(7)
+#
+#     else:
+#         # if a==c or klass==0:
+#         #     return a.ljust(7) + str(b).ljust(12)
+#         blackStats[klass] += 1
+#         return a.ljust(7) + str(b-d).ljust(5) + c.ljust(7)
 
 def process(pgnfile):
 
@@ -77,6 +80,8 @@ def process(pgnfile):
         game = chess.pgn.read_game(pgn)
 
     engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+    engine.configure({"Skill Level": 20, "Hash": 1024, "Threads": 4, "Move Overhead": 0})
+
     board = game.board()
 
     analys = []
@@ -134,10 +139,22 @@ def process(pgnfile):
 
 # Gå igenom alla filer i aktuell katalog
 for filename in os.listdir():
-    if filename.endswith(".pgn"):
-        base_name = os.path.splitext(filename)[0]
-        txt_file = base_name + ".txt"
+    txt_file = os.path.splitext(filename)[0] + '.txt'
+    if filename.endswith(".pgn") and not os.path.exists(txt_file): process(filename)
 
-        # Om det inte finns en motsvarande .txt-fil, kopiera innehållet
-        if not os.path.exists(txt_file):
-            process(filename) #, txt_file)
+def process_fen(fen):
+    engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+    engine.configure({
+        "Skill Level": 20,
+        "Hash": 512,  # gärna 512 eller 1024 MB om du har RAM
+        "Threads": 4,  # eller fler, beroende på CPU
+        "Move Overhead": 0,
+    })
+
+    board = chess.Board(fen)
+    info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)
+    for item in info:
+        print([item["score"], item["pv"][0]])  # score & bästa drag
+
+FEN = "r4rk1/1pp1pp2/p4bpp/3q2N1/3P2b1/2PB4/PP4PP/R1B1QRK1 w - - 0 17"
+# process_fen(FEN)
