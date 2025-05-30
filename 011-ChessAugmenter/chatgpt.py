@@ -1,14 +1,12 @@
 import chess.pgn
 import chess.engine
+import os
 
-TIME = 0.1
-MPV = 3
+TIME = 1
+MPV = 5
 DEBUG = False
 
-#FILENAME = "lichess_study_hhh_per-hamnstrom-vs-cn_by_ChristerNilsson_2025.05.26.pgn"
-#FILENAME = "lichess_study_rrr_vida-radon_by_ChristerNilsson_2025.04.03.pgn"
-#FILENAME = "lichess_study_rrr_vida-radon-vs-cn_by_ChristerNilsson_2025.05.10.pgn"
-FILENAME = "lichess_study_lll_jouko-liistamo-vs-cn_by_ChristerNilsson_2025.05.19.pgn"
+# FILENAME = "lichess_study_lll_jouko-liistamo_by_ChristerNilsson_2025.03.20.pgn"
 
 HEADERS = "Date White WhiteElo Black BlackElo Result TimeControl ChapterURL".split(" ")
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
@@ -27,16 +25,6 @@ def klassificera(cp_diff):
     elif cp_diff < 100: return 2   # inaccuracy
     elif cp_diff < 300: return 3   # mistake
     else: return 4   # blunder
-
-def header(i):
-    if i==9: return f"Seek time: {TIME} seconds MPV: {MPV}"
-    if i==10: return f"Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)"
-    if i >= len(HEADERS): return ""
-    term = HEADERS[i]
-    if term in game.headers:
-        return term + ": " + game.headers[term]
-    else:
-        return ""
 
 def dots(n):
     return "•" * n
@@ -73,59 +61,83 @@ def pretty(lst, remainder):
         else:
             return a.ljust(7) + dots(klass).ljust(5) + c.ljust(7)
 
-with open(FILENAME, encoding='utf8') as pgn:
-    game = chess.pgn.read_game(pgn)
+def process(pgnfile):
 
-engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
-board = game.board()
+    def header(i):
+        if i == 9: return f"Seek time: {TIME} seconds MPV: {MPV}"
+        if i == 10: return f"Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)"
+        if i >= len(HEADERS): return ""
+        term = HEADERS[i]
+        if term in game.headers:
+            return term + ": " + game.headers[term]
+        else:
+            return ""
 
-analys = []
-evalueringar = []
-moves = list(game.mainline_moves())
-print(len(moves),'', end='')
-for i in range(len(moves)):
-    move = moves[i]
-    print(i % 10, end='')
+    with open(pgnfile, encoding='utf8') as pgn:
+        game = chess.pgn.read_game(pgn)
+
+    engine = chess.engine.SimpleEngine.popen_uci(STOCKFISH_PATH)
+    board = game.board()
+
+    analys = []
+    evalueringar = []
+    moves = list(game.mainline_moves())
+
+    print(f"{filename} {len(moves)}",'', end='')
+    for i in range(len(moves)):
+        move = moves[i]
+        print('.', end='')
+        info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
+        evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
+        board.push(move)
+    print()
+
     info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
-    evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
-    board.push(move)
-print()
+    if "pv" in info:
+        evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
+    else:
+        evalueringar.append([info["score"], move])
 
-info = engine.analyse(board, chess.engine.Limit(time=TIME), multipv=MPV)[0]
-if "pv" in info:
-    evalueringar.append([info["score"], info["pv"][0]])  # score & bästa drag
-else:
-    evalueringar.append([info["score"], move])
+    engine.quit()
 
-engine.quit()
+    board = game.board()
+    moves = list(game.mainline_moves())
+    for i in range(len(moves)):
+        if i+1 >= len(evalueringar): continue
+        move = moves[i]
+        played = move
+        played_san = board.san(played)
+        best = evalueringar[i][1]
+        best_san = board.san(best)
 
-board = game.board()
-moves = list(game.mainline_moves())
-for i in range(len(moves)):
-    if i+1 >= len(evalueringar): continue
-    move = moves[i]
-    played = move
-    played_san = board.san(played)
-    best = evalueringar[i][1]
-    best_san = board.san(best)
+        score_before = centipawn(evalueringar[i][0].white() if board.turn == chess.WHITE else evalueringar[i][0].black())
+        score_after = centipawn(evalueringar[i+1][0].white() if board.turn == chess.WHITE else evalueringar[i+1][0].black())
+        cp_diff = score_before - score_after
+        klass = klassificera(cp_diff)
 
-    score_before = centipawn(evalueringar[i][0].white() if board.turn == chess.WHITE else evalueringar[i][0].black())
-    score_after = centipawn(evalueringar[i+1][0].white() if board.turn == chess.WHITE else evalueringar[i+1][0].black())
-    cp_diff = score_before - score_after
-    klass = klassificera(cp_diff)
+        analys.append([played_san,score_before,best_san,score_after])
+        board.push(played)
 
-    analys.append([played_san,score_before,best_san,score_after])
-    board.push(played)
+    with open(pgnfile.replace('.pgn','.txt'), "w", encoding="utf-8") as txt:
 
-print("   Best Damag White ## Black Damag Best")
+        txt.write("   Best Damag White ## Black Damag Best\n")
 
-for i in range(len(analys)):
-    print(pretty(analys[i], i%2), end='')
-    if i%2==0: print(' ' + str(1 + i // 2).rjust(2) + ' ', end='')
-    if i%2==1: print(header((i-1)//2))
+        for i in range(len(analys)):
+            if i%2==0: txt.write(pretty(analys[i], i%2) + ' ' + str(1 + i // 2).rjust(2))
+            if i%2==1: txt.write(' ' + pretty(analys[i], i%2) + header((i-1)//2)+'\n')
 
-print()
-print()
-titles = "x • •• ••• ••••".split(" ")
-print("White:", ' '.join([titles[i] + " " + str(whiteStats[i]) for i in [4,3,2,1]]))
-print("Black:", ' '.join([titles[i] + " " + str(blackStats[i]) for i in [4,3,2,1]]))
+        txt.write("\n")
+        txt.write("\n")
+        titles = "x • •• ••• ••••".split(" ")
+        txt.write("White: " + ' '.join([titles[i] + " " + str(whiteStats[i]) for i in [4,3,2,1]]) + '\n')
+        txt.write("Black: " + ' '.join([titles[i] + " " + str(blackStats[i]) for i in [4,3,2,1]]) + '\n')
+
+# Gå igenom alla filer i aktuell katalog
+for filename in os.listdir():
+    if filename.endswith(".pgn"):
+        base_name = os.path.splitext(filename)[0]
+        txt_file = base_name + ".txt"
+
+        # Om det inte finns en motsvarande .txt-fil, kopiera innehållet
+        if not os.path.exists(txt_file):
+            process(filename) #, txt_file)

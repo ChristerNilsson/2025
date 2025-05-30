@@ -1,0 +1,28 @@
+   Best Damag White ## Black Damag Best
+     e4   ••     f4  1 Nf6                Date: 2025-03-20
+                Nf3  2 d6     •    d5     White: Jouko Liistamo
+                 d4  3 g6     •    Bf5    WhiteElo: 1585
+     c4    •     e3  4 Bg7                Black: Christer Nilsson
+    Nc3    •    Bd3  5 Nc6    •    c5     BlackElo: 1639
+                 c3  6 d5     •    e5     Result: 1-0
+               Nbd2  7 a6     •    Bf5    
+    Qc2    •    Qe2  8 O-O    •    Bf5    ChapterURL: https://lichess.org/study/AgzTp9sx/arZfDGmc
+     b3    •    O-O  9 Bg4                
+     h3    •    Qe1 10 Qd7    ••   e6     Seek time: 1 seconds MPV: 5
+                Ne5 11 Qe6    •    Qc8    Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+   Nxg4   ••     e4 12 dxe4   •    Nxe5   
+   Nxg4    •   Nxe4 13 Qd5    •••  Nxe5   
+  Nxf6+  •••    Ng5 14 Nxe5   •••  Qd6    
+               fxe5 15 h6     ••   Nd7    
+               exf6 16 Bxf6   ••   exf6   
+                Ne4 17 Bg7                
+    Qg3    •    Qh4 18 f5                 
+                 b3 19 fxe4   ••   b5     
+                Bc4 20 Rxf1+              
+               Kxf1 21 Rf8+               
+                Kg1 22 Qxc4               
+               bxc4 23 Be2    •    h5     
+               Bxh6 24
+
+White: •••• 3 ••• 12 •• 21 • 24
+Black: •••• 1 ••• 11 •• 18 • 24

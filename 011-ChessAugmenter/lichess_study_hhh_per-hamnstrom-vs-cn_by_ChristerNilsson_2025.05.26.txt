@@ -1,0 +1,50 @@
+   Best Damag White ## Black Damag Best
+                 e4  1 c5                 Date: 2025-05-26
+                Nf3  2 Nc6                White: Christer Nilsson
+                 d4  3 cxd4               WhiteElo: 1618
+               Nxd4  4 d6                 Black: Per Hamnström
+     c4    •    Bb5  5 Bd7                BlackElo: 1699
+                O-O  6 a6     ••   g6     Result: 1-0
+               Nxc6  7 bxc6               
+    Ba4    •    Bc4  8 Nf6                ChapterURL: https://lichess.org/study/GFuwxt03/Gk9BfBFx
+                Nc3  9 e5     •    g6     
+    Qe2   ••    Bg5 10 h6                 Seek time: 1 seconds MPV: 5
+                Bh4 11 g5                 Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+                Bg3 12 Bg4    •    Be7    
+     f3  •••    Be2 13 Bxe2   ••   Be6    
+               Qxe2 14 h5     •    Qe7    
+   Rad1   ••     h3 15 h4                 
+                Bh2 16 Nh5    ••   Qc8    
+    Nd1    •   Rad1 17 Qb6    •    Qa5    
+    Rd3  •••    Na4 18 Qa7    •••  Qb5    
+    Qf3    •    Qg4 19 f6                 
+    Qf3   ••   Qe6+ 20 Qe7                
+               Rxd6 21 Qxe6               
+              Rxe6+ 22 Kd7                
+   Rxe5    •   Rxf6 23 Nxf6               
+               Nb6+ 24 Kc7    •••  Ke6    
+              Nxa8+ 25 Kb7                
+    Nc7 ••••    Rd1 26 Kxa8   •••  Be7    
+               Rd8+ 27 Kb7                
+               Bxe5 28 Bg7                
+   Rxh8    •    Rd6 29 Rf8                
+    Kf1    •     f3 30 Rf7                
+                Rd8 31 Nd7                
+               Bxg7 32 Rxg7               
+                Kf2 33 Kc7                
+                Re8 34 Kb6                
+                Ke3 35 Kc5                
+     a3   ••    Ra8 36 Ne5    •    Nb6    
+                 b3 37 Kb6    •    Ng6    
+    Re8   ••    Kd4 38 Ng6                
+               Rb8+ 39 Kc7                
+                Ra8 40 Nf4    •••• Kb7    
+               Ra7+ 41 Kb6    •    Kd8    
+               Rxg7 42 Nxg2   ••   Ne6+   
+               Rxg5 43 Ne1                
+    Rg8    •    Rf5 44 Nxc2+              
+    Ke5   ••    Kc3 45 Ne3                
+                Rf4 46
+
+White: •••• 1 ••• 2 •• 6 • 8
+Black: •••• 1 ••• 3 •• 4 • 7

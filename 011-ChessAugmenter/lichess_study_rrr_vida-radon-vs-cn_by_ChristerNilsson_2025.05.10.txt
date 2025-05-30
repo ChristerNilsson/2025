@@ -1,0 +1,39 @@
+   Best Damag White ## Black Damag Best
+                 d4  1 d5                 Date: 2025-05-10
+     c4    •     c3  2 e5     ••   Nf6    White: Vida Radon
+   dxe5  •••     e3  3 e4                 
+     c4   ••    Be2  4 c5     •    c6     Black: Christer Nilsson
+     c4  •••     b3  5 a6     ••   Nc6    
+    Ba3    •     a4  6 Nc6                Result: 0-1
+               dxc5  7 Bxc5               
+                 b4  8 Ba7    •    Be7    ChapterURL: https://lichess.org/study/badox5qN/IMm97JJk
+     b5    •    Bb2  9 Nf6    •    Nh6    
+     b5  •••     h3 10 O-O                Seek time: 1 seconds MPV: 5
+                 g4 11 h6     •    Be6    Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+     b5   ••    Ba3 12 Re8                
+                 b5 13 Na5    ••   Ne5    
+                Bb4 14 Be6                
+     h4    •   Bxa5 15 Qxa5               
+    Kf1   ••   bxa6 16 bxa6   ••   d4     
+                Kf1 17 Red8   •    Nd7    
+     h4   ••    Kg2 18 Rab8               
+                 h4 19 Rb2                
+                 g5 20 Nh7    ••   hxg5   
+               gxh6 21 gxh6               
+                Kf1 22 Kh8                
+    Qc1   ••    Rh2 23 Rg8    •    Qc7    
+    Nh3  •••    Rg2 24 Qd8    ••   Rxg2   
+              Rxg8+ 25 Kxg8               
+    Qc1   ••     a5 26 Qxh4               
+                Nd2 27 Bh3+   ••   Ng5    
+               Nxh3 28 Qxh3+              
+                Ke1 29 Ng5    •••• Bxe3   
+    Rb1 ••••    Bg4 30 Qg2                
+    Bh5   ••    Ke2 31 Qxg4+              
+                Kf1 32 Qh3+               
+                Kg1 33 Rxd2               
+               Qxd2 34 Nf3#               
+
+
+White: •••• 4 ••• 16 •• 28 • 28
+Black: •••• 2 ••• 11 •• 25 • 30
