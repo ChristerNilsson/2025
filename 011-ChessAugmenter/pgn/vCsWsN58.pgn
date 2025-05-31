@@ -1,0 +1,24 @@
+[Event "Rated Chess960 game"]
+[Site "https://lichess.org/vCsWsN58"]
+[Date "2025.05.31"]
+[White "ChristerNilsson"]
+[Black "Shaft71"]
+[Result "0-1"]
+[GameId "vCsWsN58"]
+[UTCDate "2025.05.31"]
+[UTCTime "08:05:40"]
+[WhiteElo "1570"]
+[BlackElo "1578"]
+[WhiteRatingDiff "-13"]
+[BlackRatingDiff "+5"]
+[Variant "Chess960"]
+[TimeControl "600+5"]
+[ECO "?"]
+[Opening "?"]
+[Termination "Normal"]
+[FEN "nnrqkrbb/pppppppp/8/8/8/8/PPPPPPPP/NNRQKRBB w KQkq - 0 1"]
+[SetUp "1"]
+
+1. e4 e5 2. f4 exf4 3. Rxf4 g6 4. c3 Nb6 5. d4 d6 6. g4 Qh4+ 7. Rf2 Nc4 8. Qa4+ Nd7 9. Qxc4 Qxg4 10. Qf1 O-O-O 11. Qg2 Qe6 12. e5 c6 13. O-O-O dxe5 14. dxe5 Qxe5 15. Re2 Qf4+ 16. Be3 Qa4 17. Bd4 Bxd4 18. Rxd4 Qxa2 19. b3 Qxa1 20. Ra2 Qxa2 21. Qxa2 Kb8 22. Qa3 Nb6 23. Rb4 f5 24. Qa5 Rfe8 25. Bf3 Re3 26. Bxc6 Re1+ 27. Kb2 bxc6 28. Qc5 Kb7 29. Qf2 Rde8 30. Qg3 R8e2+ 31. Ka1 Rd1 32. Qf3 Ree1 33. Ka2 Rxb1 34. c4 Ra1+ 35. Kb2 Reb1+ 36. Kc2 Bxc4 37. Rxc4 Nxc4 38. bxc4 Rc1+ 39. Kb2 Rab1+ 40. Ka2 Rb4 41. c5 Rxc5 42. Qe3 Ra5+ 0-1
+
+

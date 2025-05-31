@@ -1,21 +1,21 @@
 # chatgpt.py
 
-Detta program listar alla drag och visar bästa drag samt damage.
+Detta program skapar för varje pgn-fil, en .raw och en .txt-fil  
+För varje drag listas damage samt bästa drag.  
 
-I partiet https://lichess.org/study/AgzTp9sx/arZfDGmc har detta program svårt att hitta 17. Rxf6.
-Man måste sätta depth till 22 för att det draget ska hittas. 
+# Hantering
 
-Vid jämförelse med Lichess, hittar lichess Rxf6 inom några sekunder.
+* Skapa Lichesspartiet i en study.
+* Lägg in metadata
+* Exportera pgn-filen till pgn-katalogen
+* Kör Augmentprogrammet
+  * Nu skapas raw och txt-filer
 
-# Förslag 1
+# Förslag
 
-Täck över Best-kolumnerna med t ex ett papper.
-Försök hitta bästa svaret till alla blundrar.
-Försök hitta bästa svaret till alla misstag.
-Försök hitta bästa svaret till alla inaccuracies.
+Printa txt-filen  
+Computer Analysis Disable (om det visas)  
 
-Lämpligt är att visa brädet med Lichess, utan analys och utan lokal utvärdering.
-
-# Förslag 2
-
-Täck även över Damage-kolumnerna.
+Täck över Best-kolumnerna med t ex ett papper.  
+Försök hitta bästa svaret till alla blundrar.  
+Försök hitta bästa svaret till alla misstag.  
