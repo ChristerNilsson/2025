@@ -1,6 +1,6 @@
 # chatgpt.py
 
-Detta program skapar för varje pgn-fil, en .raw och en .txt-fil  
+Detta program skapar för varje pgn-fil en .txt-fil    
 För varje drag listas damage samt bästa drag.  
 
 # Hantering
@@ -9,7 +9,7 @@ För varje drag listas damage samt bästa drag.
 * Lägg in metadata
 * Exportera pgn-filen till pgn-katalogen
 * Kör Augmentprogrammet
-  * Nu skapas raw och txt-filer
+  * Nu skapas txt-filer
 
 # Förslag
 

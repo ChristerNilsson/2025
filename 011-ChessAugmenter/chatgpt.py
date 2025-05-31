@@ -3,10 +3,8 @@ import chess.engine
 import chess
 import os
 import time
-import io
-import re
 
-TIME = 0.1
+TIME = 1
 MPV = 5
 
 HEADERS = "Date White WhiteElo Black BlackElo Result TimeControl ChapterURL".split(" ")
@@ -14,155 +12,6 @@ STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.ex
 
 whiteStats = [0,0,0,0,0]
 blackStats = [0,0,0,0,0]
-
-def rensa_och_formattera_pgn(pgn_text):
-    # Extrahera taggar (rader som börjar med [ och slutar med ])
-    taggar = "\n".join(re.findall(r"^\[.*?\]$", pgn_text, re.MULTILINE))
-
-    # Ta bort kommentarer, varianter och NAGs
-    kropp = re.sub(r"\{[^}]*\}", "", pgn_text)  # kommentarer
-    kropp = re.sub(r";[^\n]*", "", kropp)       # radkommentarer
-    kropp = re.sub(r"\$\d+", "", kropp)         # NAGs
-    kropp = re.sub(r"\([^()]*\)", "", kropp)    # varianter
-
-    # Läs spelet i python-chess
-    game = chess.pgn.read_game(io.StringIO(kropp))
-
-    def rensa_node(node):
-        node.comment = ""
-        node.nags.clear()
-        for var in node.variations:
-            rensa_node(var)
-
-    if not game:
-        return taggar  # endast taggar
-
-    rensa_node(game)
-
-    # Bygg ny draglista med ett drag per rad
-    node = game
-    draglista = []
-    move_number = 1
-    while node.variations:
-        next_node = node.variations[0]
-        move = node.board().san(next_node.move)
-        if node.board().turn:  # vit
-            draglista.append(f"{move_number}. {move}")
-        else:  # svart
-            draglista[-1] += f" {move}"
-            move_number += 1
-        node = next_node
-
-    # Slå ihop taggar + drag
-    return taggar + "\n\n" + "\n".join(draglista) + "\n"
-
-
-# def rensa_och_radbryt_pgn(pgn_text):
-#     # Steg 1: Ta bort kommentarer, radkommentarer, NAGs, varianter
-#     pgn_text = re.sub(r"\{[^}]*\}", "", pgn_text)
-#     pgn_text = re.sub(r";[^\n]*", "", pgn_text)
-#     pgn_text = re.sub(r"\$\d+", "", pgn_text)
-#     pgn_text = re.sub(r"\([^()]*\)", "", pgn_text)
-#
-#     # Steg 2: Ladda in och ta bort ev. .comment
-#     game = chess.pgn.read_game(io.StringIO(pgn_text))
-#
-#     def rensa_node(node):
-#         node.comment = ""
-#         node.nags.clear()
-#         for var in node.variations:
-#             rensa_node(var)
-#
-#     if game is None:
-#         return ""
-#
-#     rensa_node(game)
-#
-#     # Steg 3: Gå igenom huvudvarianten och skriv ett drag per rad
-#     node = game
-#     draglista = []
-#     move_number = 1
-#     while node.variations:
-#         next_node = node.variations[0]
-#         move = node.board().san(next_node.move)
-#         if node.board().turn:  # vit vid drag
-#             draglista.append(f"{move_number}. {move}")
-#         else:  # svart vid drag
-#             draglista[-1] += f" {move}"
-#             move_number += 1
-#         node = next_node
-#
-#     return "\n".join(draglista)
-
-# def rensa_pgn_fullständigt(pgn_text):
-#     # Ta bort kommentarer: { ... }
-#     pgn_text = re.sub(r"\{[^}]*\}", "", pgn_text)
-#     # Ta bort radkommentarer: ; ...
-#     pgn_text = re.sub(r";[^\n]*", "", pgn_text)
-#     # Ta bort NAGs: $1, $2, ..., $255
-#     pgn_text = re.sub(r"\$\d+", "", pgn_text)
-#     # Ta bort varianter: ( ... )
-#     # OBS: detta tar inte bort nästlade parenteser
-#     pgn_text = re.sub(r"\([^()]*\)", "", pgn_text)
-#
-#     # Läs in i python-chess för att rensa eventuella .comment
-#     input_io = io.StringIO(pgn_text)
-#     game = chess.pgn.read_game(input_io)
-#
-#     def rensa_node(node):
-#         node.comment = ""
-#         node.nags.clear()  # säkerhetsåtgärd
-#         for var in node.variations:
-#             rensa_node(var)
-#
-#     if game:
-#         rensa_node(game)
-#         output_io = io.StringIO()
-#         print(game, file=output_io, end="\n\n")
-#         return output_io.getvalue()
-#     else:
-#         return ""
-
-
-# def rensa_alla_kommentarer(pgn_text):
-#     # Ta bort kommentarer inom { ... }
-#     pgn_text = re.sub(r"\{[^}]*\}", "", pgn_text)
-#     # Ta bort kommentarer som börjar med ;
-#     pgn_text = re.sub(r";[^\n]*", "", pgn_text)
-#
-#     # Ladda PGN i python-chess för att ta bort inbyggda .comment
-#     input_io = io.StringIO(pgn_text)
-#     game = chess.pgn.read_game(input_io)
-#
-#     def rensa_node_kommentarer(node):
-#         node.comment = ""
-#         for variation in node.variations:
-#             rensa_node_kommentarer(variation)
-#
-#     if game:
-#         rensa_node_kommentarer(game)
-#
-#         # Exportera rent PGN
-#         output_io = io.StringIO()
-#         print(game, file=output_io, end="\n\n")
-#         return output_io.getvalue()
-#     else:
-#         return ""
-
-# def rensa_kommentarer(pgn_text):
-#     input_io = io.StringIO(pgn_text)
-#     game = chess.pgn.read_game(input_io)
-#
-#     def ta_bort_kommentarer(node):
-#         node.comment = ""
-#         for variation in node.variations:
-#             ta_bort_kommentarer(variation)
-#
-#     ta_bort_kommentarer(game)
-#
-#     output_io = io.StringIO()
-#     print(game, file=output_io, end="\n\n")
-#     return output_io.getvalue()
 
 def centipawn(score):
     if score.is_mate():
@@ -283,7 +132,6 @@ def process(pgnfile):
                 txt.write(pretty(1 + i // 2, white, black))
             else:
                 txt.write(pretty(1 + i // 2, white))
-            # if i%2==0: txt.write(pretty(analys[i], i%2) + ' ' + str(1 + i // 2).rjust(2))
             txt.write(' ' + header((i)//2)+'\n')
 
         txt.write("\n")
@@ -291,15 +139,6 @@ def process(pgnfile):
         titles = "x • •• ••• ••••".split(" ")
         txt.write("White: " + ' '.join([titles[i] + " " + str(whiteStats[i]) for i in [4,3,2,1]]) + '\n')
         txt.write("Black: " + ' '.join([titles[i] + " " + str(blackStats[i]) for i in [4,3,2,1]]) + '\n')
-
-    # Exempel:
-    with open('pgn/' + pgnfile, encoding="utf-8") as f:
-        pgn_innehåll = f.read()
-
-    renad_pgn = rensa_och_formattera_pgn(pgn_innehåll)
-
-    with open('raw/' + pgnfile.replace('.pgn','.raw'), "w", encoding="utf-8") as f:
-        f.write(renad_pgn)
 
 # Gå igenom alla filer i aktuell katalog
 start = time.time()
