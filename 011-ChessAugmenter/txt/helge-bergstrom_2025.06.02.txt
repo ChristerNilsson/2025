@@ -1,0 +1,19 @@
+##   White Black     Damage       Best moves
+ 1      e4 c5           |                       Date: 2025-06-02
+ 2     Nf3 Nc6          |                       White: Christer Nilsson
+ 3     Bc4 e6         • |           d4          WhiteElo: 1653
+ 4     Nc3 a6           |                       Black: Helge Bergström
+ 5      a4 Na5        • | ••        d4 Nf6      
+ 6     Qe2 Be7      ••• | ••       Ba2 Nxc4     Result: 1-0
+ 7     O-O h5        •• | •••       d3 Nxc4     
+ 8      d4 Nxc4      •• |          Ba2          ChapterURL: https://lichess.org/study/8Ds1Bw7r/M084gH1g
+ 9    Qxc4 d5           | •••          b5       
+10    exd5 exd5         |                       Seek time: 0.1 seconds MPV: 5
+11    Qxd5 Qxd5         | •••          cxd4     Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+12    Nxd5 Bd6          | •••          Bd8      
+13    dxc5 Bxc5         | •            Ne7      
+14    Nc7+              |                       
+
+
+White: •••• 0 ••• 1 •• 2 • 2
+Black: •••• 0 ••• 4 •• 2 • 1

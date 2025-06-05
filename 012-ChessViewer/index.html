@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Schackanalys</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/www/css/chessboard.min.css" />
+
+
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chess.js@1.3.1/dist/cjs/chess.min.js"></script> -->
+  <script type="module">
+    import chess from 'https://cdn.jsdelivr.net/npm/chess.js@1.3.1/+esm'
+  </script>
+    
+  <!-- <script src="https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/www/js/chessboard.min.js"></script> -->
+
+  <script type="module"> 
+    import chessboardjs from 'https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/+esm' </script>
+
+<style>
+    table { border-collapse: collapse; margin: 1em 0; }
+    td, th { border: 1px solid #ccc; padding: 4px 8px; text-align: center; }
+    .blunder::after { content: " ···"; color: red; }
+    .mistake::after { content: " ··"; color: orange; }
+    .inaccuracy::after { content: " ·"; color: gray; }
+
+    #board { width: 400px; margin: 1em auto; }
+    #controls { text-align: center; margin: 1em; }
+    button { margin: 0 1em; padding: 0.5em 1em; }
+  </style>
+</head>
+<body>
+  <h1>Schackanalys</h1>
+  <div id="board"></div>
+
+  <table id="pgnHeaders">
+    <thead>
+      <tr>
+        <th>Name</th><th>Value</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+  <table id="chessTable">
+    <thead>
+      <tr>
+        <th>Best</th><th>Damage</th><th>White</th>
+        <th>#</th>
+        <th>Black</th><th>Damage</th><th>Best</th>
+      </tr>
+    </thead>
+    <tbody></tbody>
+  </table>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/chessboard.js/0.3.0/js/chessboard.min.js"></script>
+<script src="coffee/analyze.js"></script>
+
+</body>
+</html>

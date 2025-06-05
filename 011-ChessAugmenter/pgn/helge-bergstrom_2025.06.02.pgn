@@ -1,0 +1,30 @@
+[Event "BBB: CN-Helge Bergström"]
+[Date "2025-06-02"]
+[White "Christer Nilsson"]
+[Black "Helge Bergström"]
+[Result "1-0"]
+[WhiteElo "1653"]
+[Variant "Standard"]
+[ECO "B30"]
+[Opening "Sicilian Defense: Old Sicilian"]
+[StudyName "BBB"]
+[ChapterName "CN-Helge Bergström"]
+[Annotator "https://lichess.org/@/ChristerNilsson"]
+[ChapterURL "https://lichess.org/study/8Ds1Bw7r/M084gH1g"]
+
+1. e4 { [%eval 0.18] } 1... c5 { [%eval 0.25] }
+2. Nf3 { [%eval 0.2] } 2... Nc6 { [%eval 0.25] }
+3. Bc4 { [%eval 0.0] } 3... e6 { [%eval 0.0] }
+4. Nc3 { [%eval 0.0] } 4... a6 { [%eval 0.39] }
+5. a4?! { [%eval -0.27] } { Inaccuracy. d4 was best. }  5... Na5?! { [%eval 0.47] } { Inaccuracy. Nf6 was best. }
+6. Qe2?! { [%eval -0.36] } { Inaccuracy. Ba2 was best. }  6... Be7 { [%eval 0.11] }
+7. O-O?! { [%eval -0.54] } { Inaccuracy. d3 was best. }  7... h5? { [%eval 0.56] } { Mistake. Nxc4 was best. }
+8. d4?! { [%eval -0.07] } { Inaccuracy. Ba2 was best. }  8... Nxc4 { [%eval -0.01] }
+9. Qxc4 { [%eval 0.02] } 9... d5? { [%eval 1.62] } { Mistake. b5 was best. }
+10. exd5 { [%eval 1.69] } 10... exd5 { [%eval 1.66] }
+11. Qxd5 { [%eval 1.67] } 11... Qxd5? { [%eval 3.2] } { Mistake. cxd4 was best. }
+12. Nxd5 { [%eval 3.32] } 12... Bd6? { [%eval 5.65] } { Mistake. Bd8 was best. }
+13. dxc5 { [%eval 5.65] } 13... Bxc5 { [%eval 6.1] }
+14. Nc7+ { [%eval 5.97] } 1-0
+
+

@@ -1,0 +1,38 @@
+##   White Black     Damage       Best moves
+ 1      e4 e5           |                       Date: 2025-04-03
+ 2     Nf3 d6           | •            Nc6      White: Christer Nilsson
+ 3     Bc4 Bg4        • | ••        d4 Nf6      WhiteElo: 1616
+ 4      h3 Bxf3         | •            Bh5      Black: Vida Radon
+ 5    Qxf3 Qf6          | •••          Qd7      BlackElo: 1557
+ 6     Qb3 b6           |                       Result: 1-0
+ 7     Nc3 c6           | •            Ne7      
+ 8     Bd5 cxd5     ••• | ••••     Nd5 Ne7      ChapterURL: https://lichess.org/study/badox5qN/xyRMGg0w
+ 9    Qxd5 Qd8          |                       
+10    Qxa8 Be7          |                       Seek time: 1 seconds MPV: 5
+11     Nd5 Nf6          |                       Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+12    Nxe7 Kxe7         |                       
+13      d3 h6       ••• | •••    Qxa7+ Qc7      
+14   Qxa7+ Nbd7         |                       
+15     Bd2 Qb8          | ••           Re8      
+16    Qxb8 Rxb8         |                       
+17      b4 Rc8          |                       
+18      c4 Ra8          | •            Nb8      
+19      a4 Ne8          | •            Nb8      
+20     Ke2 g5           |                       
+21     Be3 Ng7        • |           a5          
+22      a5 bxa5         |                       
+23    Rxa5 Rc8          | •            Rb8      
+24      c5 dxc5      •• |         Rha1          
+25    bxc5 Rc6          | •            Ne6      
+26      d4 exd4      •• |          Rb1          
+27    Bxd4 Ne6          |                       
+28     Ke3 Nf4          | •            Rc8      
+29      g3 Ng6          | •            Ne6      
+30     Rb1 h5           | •            Nge5     
+31     Rb7 Ke6          | ••           Nf8      
+32    Raa7 Ndf8         | ••••         Ngf8     
+33     Rc7 Rxc5    •••• | ••••    Rxf7 Rxc7     
+
+
+White: •••• 1 ••• 2 •• 2 • 2
+Black: •••• 3 ••• 2 •• 3 • 10

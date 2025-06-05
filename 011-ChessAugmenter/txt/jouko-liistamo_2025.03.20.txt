@@ -1,0 +1,29 @@
+##   White Black     Damage       Best moves
+ 1      f4 Nf6       •• |           d4          Date: 2025-03-20
+ 2     Nf3 d6           | •            c5       White: Jouko Liistamo
+ 3      d4 g6           | •            d5       WhiteElo: 1585
+ 4      e3 Bg7        • |           c4          Black: Christer Nilsson
+ 5     Bd3 Nc6        • | •        Nc3 c5       BlackElo: 1639
+ 6      c3 d5         • | •         e4 O-O      Result: 1-0
+ 7    Nbd2 a6           | •            Bf5      
+ 8     Qe2 O-O        • | •        Qc2 Bf5      ChapterURL: https://lichess.org/study/AgzTp9sx/arZfDGmc
+ 9     O-O Bg4          |                       
+10     Qe1 Qd7        • | ••        h3 e6       Seek time: 1 seconds MPV: 5
+11     Ne5 Qe6          | ••           Qd8      Damage: •••• 300 ••• 100 •• 50 • 20 (centipawns)
+12      e4 dxe4      •• |         Nxg4          
+13    Nxe4 Qd5          | ••••         Nxe5     
+14     Ng5 Nxe5     ••• | •••    Nxf6+ Qd6      
+15    fxe5 h6           | •            Nd7      
+16    exf6 Bxf6         | ••           exf6     
+17     Ne4 Bg7          |                       
+18     Qh4 f5           |                       
+19      b3 fxe4         | ••           b5       
+20     Bc4 Rxf1+        |                       
+21    Kxf1 Rf8+         |                       
+22     Kg1 Qxc4         |                       
+23    bxc4 Be2          | •            h5       
+24    Bxh6              |                       
+
+
+White: •••• 0 ••• 1 •• 2 • 5
+Black: •••• 1 ••• 1 •• 4 • 8
