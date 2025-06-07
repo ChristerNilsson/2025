@@ -5,6 +5,7 @@ import os
 import time
 from urllib.parse import quote
 
+YEAR = 2025
 VIEWER = "https://christernilsson.github.io/2025/012-ChessViewer/"
 
 TIME = 1
@@ -88,7 +89,6 @@ for filename in os.listdir('pgn'):
     if not os.path.exists(year_file): process(filename)
 
 data = []
-YEAR = 2025
 with open(f"{YEAR}/_index.md", 'w', encoding="utf-8") as md:
     md.write(f"---\ntitle: {YEAR}\nauto: true\n---\n")
     for filename in os.listdir(str(YEAR)):
