@@ -102,10 +102,12 @@ makeTables = ->
 
     add tr, (i // 2) + 1, 'center'
 
-    href = getParam('Link') + "##{i+2}"
-    addLink tr, href, moves[i+1], 'left'
-    add tr, showLoss(i+1), 'left'
-    add tr, showBest(i+1), 'left'
+    if i+2 < moves.length
+
+      href = getParam('Link') + "##{i+2}"
+      addLink tr, href, moves[i+1], 'left'
+      add tr, showLoss(i+1), 'left'
+      add tr, showBest(i+1), 'left'
 
     tbody.appendChild tr
 
