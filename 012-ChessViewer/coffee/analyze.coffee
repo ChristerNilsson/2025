@@ -97,11 +97,13 @@ makeTables = ->
     #if i==0 then continue
     add tr, showBest i
     add tr, showLoss i
-    add tr, moves[i]
+    href = getParam('Link') + "##{i+1}"
+    addLink tr, href, moves[i]
 
     add tr, (i // 2) + 1, 'center'
 
-    add tr, moves[i+1], 'left'
+    href = getParam('Link') + "##{i+2}"
+    addLink tr, href, moves[i+1], 'left'
     add tr, showLoss(i+1), 'left'
     add tr, showBest(i+1), 'left'
 
