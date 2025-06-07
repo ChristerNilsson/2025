@@ -98,17 +98,21 @@ def process(pgnfile):
 
 # Gå igenom alla filer i aktuell katalog
 start = time.time()
+years = set()
 for filename in os.listdir('pgn'):
 	year = filename[0:4]
 	year_file = year + "\\" + filename.replace('.pgn','.txt')
-	if not os.path.exists(year_file): process(filename)
+	if not os.path.exists(year_file):
+		process(filename)
+		years.add(year)
 
 data = []
-with open(f"{YEAR}/_index.md", 'w', encoding="utf-8") as md:
-	md.write(f"---\ntitle: {YEAR}\nauto: true\n---\n")
-	for filename in os.listdir(str(YEAR)):
-		if not filename.endswith('.txt'): continue
-		with open(f"{YEAR}/{filename}", encoding="utf-8") as url:
-			md.write(f"[{filename.replace('.txt','')}]({url.read()})  \n")
+for year in years:
+	with open(f"{year}/_index.md", 'w', encoding="utf-8") as md:
+		md.write(f"---\ntitle: {year}\nauto: true\n---\n")
+		for filename in os.listdir(str(year)):
+			if not filename.endswith('.txt'): continue
+			with open(f"{year}/{filename}", encoding="utf-8") as url:
+				md.write(f"[{filename.replace('.txt','')}]({url.read()})  \n")
 
 print(time.time() - start)

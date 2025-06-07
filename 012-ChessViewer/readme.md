@@ -18,3 +18,9 @@ Observera att man får själv kopiera _index.md-filen
 Från: 2025/011-ChessAugmenter/YYYY  
 Till: HugoLab/klubben/medlemmar/jan-christer-nilsson/partier/YYYY/_index.md  
 
+# Tangenthantering
+
+d : Visar alla bästa drag samt värdet av alla loss  
+
+l : byter mellan engelsk och svensk notation. KQRBN <=> KDTLS
+
