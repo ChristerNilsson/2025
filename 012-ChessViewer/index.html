@@ -2,9 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>Schackanalys</title>
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/www/css/chessboard.min.css" />
-
 
   <!-- <script src="https://cdn.jsdelivr.net/npm/chess.js@1.3.1/dist/cjs/chess.min.js"></script> -->
   <script type="module">
@@ -14,7 +12,8 @@
   <!-- <script src="https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/www/js/chessboard.min.js"></script> -->
 
   <script type="module"> 
-    import chessboardjs from 'https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/+esm' </script>
+    import chessboardjs from 'https://cdn.jsdelivr.net/npm/chessboardjs@0.0.1/+esm' 
+  </script>
 
 <style>
     table { border-collapse: collapse; margin: 1em 0; }
@@ -29,24 +28,17 @@
   </style>
 </head>
 <body>
-  <h1>Schackanalys</h1>
   <div id="board"></div>
-
   <table id="pgnHeaders">
-    <thead>
-      <tr>
-        <th>Name</th><th>Value</th>
-      </tr>
-    </thead>
     <tbody></tbody>
   </table>
 
   <table id="chessTable">
     <thead>
       <tr>
-        <th>Best</th><th>Damage</th><th>White</th>
+        <th>Best</th><th>Loss</th><th>White</th>
         <th>#</th>
-        <th>Black</th><th>Damage</th><th>Best</th>
+        <th>Black</th><th>Loss</th><th>Best</th>
       </tr>
     </thead>
     <tbody></tbody>
