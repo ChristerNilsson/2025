@@ -92,24 +92,41 @@ makeTables = ->
   echo best
 
   # Fyll i tabellen
-  for i in [0...moves.length] by 2
-    tr = document.createElement "tr"
-    #if i==0 then continue
-    add tr, showBest i
-    add tr, showLoss i
-    href = getParam('Link') + "##{i+1}"
-    addLink tr, href, moves[i]
+  # for i in [0...moves.length] by 2
+  #   tr = document.createElement "tr"
+  #   #if i==0 then continue
+  #   add tr, showBest i
+  #   add tr, showLoss i
+  #   href = getParam('Link') + "##{i+1}"
+  #   addLink tr, href, moves[i]
 
-    add tr, (i // 2) + 1, 'center'
+  #   add tr, (i // 2) + 1, 'center'
 
-    if i+2 < moves.length
+  #   if i+2 <= moves.length
 
-      href = getParam('Link') + "##{i+2}"
-      addLink tr, href, moves[i+1], 'left'
-      add tr, showLoss(i+1), 'left'
-      add tr, showBest(i+1), 'left'
+  #     href = getParam('Link') + "##{i+2}"
+  #     addLink tr, href, moves[i+1], 'left'
+  #     add tr, showLoss(i+1), 'left'
+  #     add tr, showBest(i+1), 'left'
 
+  #   tbody.appendChild tr
+
+
+  for i in [0...moves.length]
+    if i % 2 == 0 # white
+      tr = document.createElement "tr"
+      add tr, showBest i
+      add tr, showLoss i
+      href = getParam('Link') + "##{i+1}"
+      addLink tr, href, moves[i]
+      add tr, (i // 2) + 1, 'center'
+    else # black
+      href = getParam('Link') + "##{i+1}"
+      addLink tr, href, moves[i], 'left'
+      add tr, showLoss(i), 'left'
+      add tr, showBest(i), 'left'
     tbody.appendChild tr
+
 
 window.onload = ->
   params = new URLSearchParams(window.location.search)
