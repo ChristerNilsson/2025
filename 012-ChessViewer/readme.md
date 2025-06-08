@@ -24,3 +24,7 @@ d : Visar alla bästa drag samt värdet av alla loss
 
 l : byter mellan engelsk och svensk notation. KQRBN <=> KDTLS
 
+# Kända problem.
+
+Vissa Lichess-urler hanterar inte val av drag med #. T ex 2025-06-01
+
