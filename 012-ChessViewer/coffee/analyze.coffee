@@ -2,14 +2,14 @@ echo = console.log
 
 state =
   letter: 0
-  loss: 0
-  best: 0 # visa bättre drag
+  losses: 0
+  bests: 0 # visa bättre drag
 
 params = null
 
 moves = []
-evals = []
-best = []
+losses = []
+bests = []
 
 byt = (san, a, b) ->
   for i in [0...a.length]
@@ -21,15 +21,16 @@ figurine = (san) -> if state.letter == 1 then byt san, 'QRBN','DTLS' else byt sa
 getParam = (name) ->
   params = new URLSearchParams window.location.search
   param = params.get(name)
-  if name in "move eval best".split ' ' then return param?.split("_") or []
+  if name in "moves losses bests".split ' ' then return param?.split("_") or []
   param
  
-klass = (value) -> 
-  value = Math.abs value
-  if value < 20  then return ""
-  if value < 50  then return "•"
-  if value < 100  then return "••"
-  if value < 300  then return "•••"
+klass = (loss,move,best) -> 
+  loss = Math.abs loss
+  if move == best then return ""
+  if loss < 20  then return ""
+  if loss < 50  then return "•"
+  if loss < 100  then return "••"
+  if loss < 300  then return "•••"
   "••••"
 
 parseMove = (moveStr, chess) ->
@@ -50,15 +51,15 @@ addLink = (tr,href,text,alignment='right') ->
   td.innerHTML = "<a href='#{href}'>#{text}</a>"
   tr.appendChild td
 
-calcLoss = (i) -> evals[i]
+calcLoss = (i) -> losses[i]
 
 showLoss = (i) ->
-  if state.loss == 0 then return klass evals[i]
-  if state.loss == 1 then return evals[i]
+  if state.losses == 0 then return klass losses[i],moves[i],bests[i]
+  if state.losses == 1 then return losses[i]
 
 showBest = (i) ->
-  if state.best == 1 then return best[i]
-  if best[i] != moves[i] and calcLoss(i) >= 20 then return best[i]
+  if state.bests == 1 then return bests[i]
+  if bests[i] != moves[i] and calcLoss(i) >= 20 then return bests[i]
   return ''
 
 makeTables = ->
@@ -74,7 +75,7 @@ makeTables = ->
     keys.push key 
 
   for key in keys
-    if key in 'move eval best'.split ' ' then continue
+    if key in 'moves losses bests'.split ' ' then continue
     tr = document.createElement "tr"
     add tr, key, 'right'
     if key == 'Link'
@@ -83,34 +84,9 @@ makeTables = ->
       add tr, getParam(key).replaceAll("_"," "), 'left'
     tbodypgn.appendChild tr
 
-  moves = getParam("move").map figurine
-  evals = getParam("eval").map parseFloat
-  best = getParam("best").map figurine
-
-  echo moves
-  echo evals
-  echo best
-
-  # Fyll i tabellen
-  # for i in [0...moves.length] by 2
-  #   tr = document.createElement "tr"
-  #   #if i==0 then continue
-  #   add tr, showBest i
-  #   add tr, showLoss i
-  #   href = getParam('Link') + "##{i+1}"
-  #   addLink tr, href, moves[i]
-
-  #   add tr, (i // 2) + 1, 'center'
-
-  #   if i+2 <= moves.length
-
-  #     href = getParam('Link') + "##{i+2}"
-  #     addLink tr, href, moves[i+1], 'left'
-  #     add tr, showLoss(i+1), 'left'
-  #     add tr, showBest(i+1), 'left'
-
-  #   tbody.appendChild tr
-
+  moves = getParam("moves").map figurine
+  losses = getParam("losses").map parseFloat
+  bests = getParam("bests").map figurine
 
   for i in [0...moves.length]
     if i % 2 == 0 # white
@@ -127,7 +103,6 @@ makeTables = ->
       add tr, showBest(i), 'left'
     tbody.appendChild tr
 
-
 window.onload = ->
   params = new URLSearchParams(window.location.search)
   makeTables()
@@ -139,6 +114,6 @@ document.addEventListener 'keydown', (event) ->
     makeTables()
 
   if event.key == 'd'
-    state.loss = 1 - state.loss
-    state.best = 1 - state.best
+    state.losses = 1 - state.losses
+    state.bests = 1 - state.bests
     makeTables()

@@ -5,29 +5,21 @@ import os
 import time
 from urllib.parse import quote
 
-YEAR = 2025
 VIEWER = "https://christernilsson.github.io/2025/012-ChessViewer/"
 
-TIME = .1
+TIME = 1
 MPV = 5
 
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
 
-def calcDiff(p_eval, b_eval):
-
-	if p_eval.is_mate() and b_eval.is_mate():	# Båda matt
-		pNum = p_eval.mate()
-		bNum = b_eval.mate()
-		diff = abs(pNum - bNum)
+def calcDiff(p_loss, b_loss):
+	if p_loss.is_mate() and b_loss.is_mate():	# Båda matt
+		diff = abs(p_loss.mate() - b_loss.mate())
 		if diff <= 1: return 0
-		elif diff == 2: return 50
-		else: return 100
-	elif p_eval.is_mate() or b_eval.is_mate(): 	# Exakt en matt
-		return 300
-	else: # Ingen matt
-		d = abs(b_eval.score() - p_eval.score())
-		return d
-
+		if diff == 2: return 50
+		return 100
+	if p_loss.is_mate() or b_loss.is_mate(): return 300	# Exakt en matt
+	return abs(b_loss.score() - p_loss.score()) # Ingen matt
 
 def eval_board(engine, board, time_limit=TIME):
 	info = engine.analyse(board, chess.engine.Limit(time=time_limit),multipv=MPV)[0]
@@ -52,7 +44,7 @@ def process(pgnfile):
 	movesx = list(game.mainline_moves())
 
 	moves = []
-	evals = []
+	losses = []
 	bests = []
 
 	print(f"{filename} {len(movesx)}",'', end='')
@@ -72,7 +64,7 @@ def process(pgnfile):
 		loss = calcDiff(actual_score, best_score)
 
 		moves.append(played_san)
-		evals.append(str(loss))
+		losses.append(str(loss))
 		bests.append(best_san)
 
 	engine.quit()
@@ -88,13 +80,12 @@ def process(pgnfile):
 		headers.append(f'Link={header('ChapterURL')}')
 		headers.append(f'Seek=TIME:{TIME} MPV:{MPV}')
 
-
 		headers = '&'.join(headers)
 		moves = quote('_'.join(moves))
-		evals = quote('_'.join(evals))
+		losses = quote('_'.join(losses))
 		bests = quote('_'.join(bests))
 
-		url.write(VIEWER + "index.html?" + headers.replace(" ","_") + '&move=' + moves + '&eval=' + evals + '&best=' + bests + '\n')
+		url.write(VIEWER + "index.html?" + headers.replace(" ","_") + '&moves=' + moves + '&losses=' + losses + '&bests=' + bests + '\n')
 
 # Gå igenom alla filer i aktuell katalog
 start = time.time()
@@ -106,7 +97,7 @@ for filename in os.listdir('pgn'):
 		process(filename)
 		years.add(year)
 
-data = []
+# Uppdatera .md
 for year in years:
 	with open(f"{year}/_index.md", 'w', encoding="utf-8") as md:
 		md.write(f"---\ntitle: {year}\nauto: true\n---\n")
