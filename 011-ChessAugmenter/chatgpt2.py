@@ -7,7 +7,7 @@ from urllib.parse import quote
 
 VIEWER = "https://christernilsson.github.io/2025/012-ChessViewer/"
 
-TIME = 1
+TIME = 0.1
 MPV = 5
 
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
@@ -77,7 +77,7 @@ def process(pgnfile):
 		headers.append(f"Date={header('Date')} Result:{header('Result')}")
 		headers.append(f"White={header('WhiteElo')} {header('White')}")
 		headers.append(f"Black={header('BlackElo')} {header('Black')}")
-		headers.append(f'Link={header('ChapterURL')}')
+		headers.append(f'Link={header('ChapterURL') or header('Link') or header('Site')}')
 		headers.append(f'Seek=TIME:{TIME} MPV:{MPV}')
 
 		headers = '&'.join(headers)
