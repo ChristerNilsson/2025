@@ -1,4 +1,4 @@
-http://127.0.0.1:5500/?
+https://christernilsson.github.io/2025/013-Berger/?
 p1=1698 Onni Aikio&
 p2=1558 Helge Bergström&
 p3=1549 Jonas Hök&

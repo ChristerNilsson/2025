@@ -79,7 +79,8 @@ makeKarpidisBerger = (n) ->
 
 showHelp = ->
 	url = []
-	url.push "http://127.0.0.1:5500/?title=Joukos Sommar 2025"
+	# url.push "http://127.0.0.1:5500/?title=Joukos Sommar 2025"
+	url.push "https://christernilsson.github.io/2025/013-Berger/?title=Joukos Sommar 2025"
 	url.push "&p1=1698 Onni Aikio"
 	url.push "&p2=1558 Helge Bergström"
 	url.push "&p3=1549 Jonas Hök"
