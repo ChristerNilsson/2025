@@ -3,6 +3,7 @@
 Skriv in namnen i en textfil
 
 ```
+http://127.0.0.1:5500/?title=Joukos Sommar 2025
 &p1=1698 Onni Aikio
 &p2=1558 Helge Bergström
 &p3=1549 Jonas Hök
@@ -14,7 +15,7 @@ Gå till Chrome och klistra in med ctrl-v
 
 Skriv ut sidan med ctrl-p
 
-Skriv in de vita resultaten i filen
+Skriv in de *vita* resultaten i filen
 
 ```
 &r1=10rx1
@@ -31,3 +32,11 @@ r = remi
 x = partiet ej spelat
 ```
 
+# Handhavande
+
+Rondnummerna är klickbara. Då visas bordslista för klickad rond.
+
+# Strul
+
+När man kopierar den flerradiga urlen genom att markera alla rader, kan det stoppas in ett mellanslag (%20) efter ? och &  
+Detta är orsaken till att safeGet används.
