@@ -30,11 +30,7 @@ skapaSorteringsklick = ->
 
 				tbody = document.querySelector '#bergertabell tbody'
 				rader = Array.from tbody.querySelectorAll 'tr'
-				if key of sorteringsOrdning
-					sorteringsOrdning[key] = -sorteringsOrdning[key]	
-				else
-					sorteringsOrdning[key] = index + 1
-				stigande = sorteringsOrdning[key] > 0
+				stigande = key in "# Namn".split ' '
 
 				rader.sort (a, b) ->
 					cellA = a.children[index].textContent.trim()
