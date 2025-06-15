@@ -4,7 +4,7 @@ echo = console.log
 DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
 
 MAX = 2
-RESULTS = ''
+RESULTS = '012'
 
 summa = (arr) ->
 	res = 0
@@ -50,7 +50,7 @@ parseQuery = ->
 	params = new URLSearchParams window.location.search
 
 	title = safeGet params, "title"
-	MAX = safeGet params, "MAX", "2"
+	MAX = parseInt safeGet params, "MAX", "2"
 	RESULTS = '012345678'.slice 0, MAX + 1
 	
 	players = []
@@ -66,7 +66,7 @@ parseQuery = ->
 	for i in [1..players.length - 1]
 		results.push safeGet params, "r#{i}", "x" * players.length / 2
 
-	{players, results, title, MAX}
+	{players, results, title}
 
 savePairing = (r, A, half, n) ->
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
@@ -117,7 +117,7 @@ showHelp = ->
 	link.text = "Exempel"
 	document.getElementById('berger').appendChild link
 
-showBerger = (title, players, rounds, results, points, MAX) ->
+showBerger = (title, players, rounds, results, points) ->
 	h2 =  document.createElement 'h2'
 	h2.textContent = title
 	document.getElementById('berger').appendChild h2
@@ -131,7 +131,7 @@ showBerger = (title, players, rounds, results, points, MAX) ->
 		do (i) ->
 			cell.addEventListener 'click', ->
 				echo "Du klickade på rond #{i+1}"
-				showTables rounds[i] or [], players, i, results, MAX
+				showTables rounds[i] or [], players, i, results
 
 		header.appendChild cell
 	cell = document.createElement 'th'
@@ -179,11 +179,11 @@ showBerger = (title, players, rounds, results, points, MAX) ->
 		row.insertCell().textContent = performance(points[i]/MAX, oppElos).toFixed 0
 	document.getElementById('berger').appendChild tbl
 
-prettify = (ch,MAX) ->
+prettify = (ch) ->
 	if ch in RESULTS then return "#{ch} - #{MAX - ch}"
 	"-"
 
-showTables = (rounds, players, selectedRound, results, MAX) ->
+showTables = (rounds, players, selectedRound, results) ->
 	if rounds.length == 0 then return
 
 	title = document.createElement 'h2'
@@ -217,7 +217,7 @@ showTables = (rounds, players, selectedRound, results, MAX) ->
 		tr.appendChild td
 
 		td = document.createElement 'td'
-		td.textContent = prettify results[selectedRound][i], MAX
+		td.textContent = prettify results[selectedRound][i]
 		td.style.align = 'center'
 		tr.appendChild td
 
@@ -225,7 +225,7 @@ showTables = (rounds, players, selectedRound, results, MAX) ->
 	document.getElementById('tables').appendChild table
 
 main = ->
-	{players, results, title, MAX} = parseQuery()
+	{players, results, title} = parseQuery()
 	document.title = title
 
 	if players.length < 4
@@ -243,7 +243,7 @@ main = ->
 				points[w] += parseInt res[j]
 				points[b] += MAX - parseInt res[j]
 
-	showBerger title, players, rounds, results, points, MAX
-	showTables rounds[0] or [], players, 0, results, MAX
+	showBerger title, players, rounds, results, points
+	showTables rounds[0] or [], players, 0, results
 
 main()
