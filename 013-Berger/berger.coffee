@@ -1,5 +1,11 @@
 echo = console.log
 
+#DOMAIN = "http://127.0.0.1:5500"
+DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
+
+MAX = 2
+RESULTS = ''
+
 summa = (arr) ->
 	res = 0
 	for item in arr
@@ -35,29 +41,32 @@ performance = (pp,elos) ->
 		if pp == n then return extrapolate n-1,n-0.5,elos
 	performance_rating pp,elos
 
-safeGet = (params,key) -> if params.get key then params.get key else params.get ' ' + key
+safeGet = (params,key,standard="") -> 
+	if params.get key then return params.get key 
+	if params.get ' ' + key then return params.get ' ' + key
+	standard
 
 parseQuery = ->
 	params = new URLSearchParams window.location.search
 
-	# echo params.toString()
-	# echo window.location.search
-
 	title = safeGet params, "title"
+	MAX = safeGet params, "MAX", "2"
+	RESULTS = '012345678'.slice 0, MAX + 1
 	
 	players = []
 	for i in [1..20]
-		p = safeGet params, "p#{i}"
-		if not p? then break
+		p = safeGet params, "p#{i}", ""
+		if p == "" then break
 		elo = parseInt p.slice 0,4
 		name = p.slice(4).trim()
 		players.push {elo, name, index: i - 1}
+	echo players
 
 	results = []
 	for i in [1..players.length - 1]
-		r = safeGet params, "r#{i}"
-		results.push if r? then r else "x" * players.length / 2
-	{players, results, title}
+		results.push safeGet params, "r#{i}", "x" * players.length / 2
+
+	{players, results, title, MAX}
 
 savePairing = (r, A, half, n) ->
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
@@ -65,7 +74,7 @@ savePairing = (r, A, half, n) ->
 		lst.push [A[i], A[n - 1 - i]]
 	lst
 
-makeKarpidisBerger = (n) ->
+makeBerger = (n) ->
 	if n % 2 == 1 then n += 1
 	half = n // 2 
 	A = [0...n]
@@ -79,8 +88,8 @@ makeKarpidisBerger = (n) ->
 
 showHelp = ->
 	url = []
-	# url.push "http://127.0.0.1:5500/?title=Joukos Sommar 2025"
-	url.push "https://christernilsson.github.io/2025/013-Berger/?title=Joukos Sommar 2025"
+	url.push "#{DOMAIN}/?title=Joukos Sommar 2025"
+	url.push "&MAX=2"
 	url.push "&p1=1698 Onni Aikio"
 	url.push "&p2=1558 Helge Bergström"
 	url.push "&p3=1549 Jonas Hök"
@@ -91,12 +100,12 @@ showHelp = ->
 	url.push "&p8=1504 Thomas Paulin"
 	url.push "&p9=1706 Abbas Razavi"
 	url.push "&p10=1579 Jouko Liistamo"
-	url.push "&r1=101x1"
-	url.push "&r2=0r010"
-	url.push "&r3=10011"
-	url.push "&r4=10001"
-	url.push "&r5=01111"
-	url.push "&r7=xx1xx"
+	url.push "&r1=202x2"
+	url.push "&r2=01020"
+	url.push "&r3=20022"
+	url.push "&r4=20002"
+	url.push "&r5=02222"
+	url.push "&r7=xx2xx"
 
 	help = document.createElement 'div'
 	help.className = 'help'
@@ -108,7 +117,7 @@ showHelp = ->
 	link.text = "Exempel"
 	document.getElementById('berger').appendChild link
 
-showBerger = (title, players, rounds, results, points) ->
+showBerger = (title, players, rounds, results, points, MAX) ->
 	h2 =  document.createElement 'h2'
 	h2.textContent = title
 	document.getElementById('berger').appendChild h2
@@ -122,7 +131,7 @@ showBerger = (title, players, rounds, results, points) ->
 		do (i) ->
 			cell.addEventListener 'click', ->
 				echo "Du klickade på rond #{i+1}"
-				showTables rounds[i] or [], players, i, results
+				showTables rounds[i] or [], players, i, results, MAX
 
 		header.appendChild cell
 	cell = document.createElement 'th'
@@ -147,36 +156,34 @@ showBerger = (title, players, rounds, results, points) ->
 			cell = row.insertCell()
 			tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
 			if tableIndex == -1 then continue
-			#color = if w == i then '' else '*'
 			result = results[r]?[tableIndex] or ""
-			result = result.replace "r", "½"
 			result = result.replace "x", ""
 
 			[w, b] = rounds[r][tableIndex]
 			opponent = if w == i then b else w
-			if result in '0½1' and players[opponent].elo != 0 then oppElos.push players[opponent].elo
+			if result in RESULTS and players[opponent].elo != 0 then oppElos.push players[opponent].elo
 
-			if i == b and result != "" and result != "½"
-				result = if result=='0' then '1' else '0'
+			if i == b and result != "" then result = MAX - parseInt result
 
 			if i == w then a = "right:-7px" else a = "left:-7px"
 
 			html = ""
-			html += "<div style='position:absolute; top:-17px;			#{a}; font-size:0.7em;'>#{opponent + 1}</div>"
-			html += "<div style='position:absolute; top:-4px;	left:-2px; font-size:1.0em;'>#{result}</div>"
+			html += "<div style='position:absolute; top:-17px; #{a}; font-size:0.7em;'>#{opponent + 1}</div>"
+			html += "<div style='position:absolute; top:-4px;        font-size:1.0em;'>#{result}</div>"
 			cell.innerHTML = "<div style='position:relative;'>" + html + "</div>"
 
-		row.insertCell().textContent = points[i].toFixed 1
-		row.insertCell().textContent = performance(points[i], oppElos).toFixed 0
+		cell = row.insertCell()
+		cell.textContent = points[i]
+		cell.style.textAlign = 'right'
+
+		row.insertCell().textContent = performance(points[i]/MAX, oppElos).toFixed 0
 	document.getElementById('berger').appendChild tbl
 
-prettify = (ch) ->
-	if ch=='1' then return "1 - 0"
-	if ch=='0' then return "0 - 1"
-	if ch=='r' then return "½ - ½"
+prettify = (ch,MAX) ->
+	if ch in RESULTS then return "#{ch} - #{MAX - ch}"
 	"-"
 
-showTables = (rounds, players, selectedRound, results) ->
+showTables = (rounds, players, selectedRound, results, MAX) ->
 	if rounds.length == 0 then return
 
 	title = document.createElement 'h2'
@@ -187,7 +194,7 @@ showTables = (rounds, players, selectedRound, results) ->
 	table = document.createElement 'table'
 
 	header = table.insertRow()
-	header.innerHTML = '<th>Bord</th><th>Vit</th><th>Svart</th><th>Resultat</th>'
+	header.innerHTML = "<th>Bord</th><th>Vit</th><th>Svart</th><th>#{RESULTS}</th>"
 
 	for i in [0...rounds.length]
 		tr = document.createElement 'tr'
@@ -210,7 +217,7 @@ showTables = (rounds, players, selectedRound, results) ->
 		tr.appendChild td
 
 		td = document.createElement 'td'
-		td.textContent = prettify results[selectedRound][i]
+		td.textContent = prettify results[selectedRound][i], MAX
 		td.style.align = 'center'
 		tr.appendChild td
 
@@ -218,13 +225,13 @@ showTables = (rounds, players, selectedRound, results) ->
 	document.getElementById('tables').appendChild table
 
 main = ->
-	{players, results, title} = parseQuery()
+	{players, results, title, MAX} = parseQuery()
 	document.title = title
 
 	if players.length < 4
 		showHelp()
 		return
-	rounds = makeKarpidisBerger(players.length)
+	rounds = makeBerger(players.length)
 	echo rounds
 	points = Array(players.length).fill(0)
 
@@ -232,13 +239,11 @@ main = ->
 		res = results[i]
 		round = rounds[i]
 		for j, [w, b] of round
-			val = res[j] or ''
-			switch val
-				when '1' then points[w] += 1
-				when '0' then points[b] += 1
-				when 'r' then points[w] += 0.5; points[b] += 0.5
+			if res[j] in RESULTS
+				points[w] += parseInt res[j]
+				points[b] += MAX - parseInt res[j]
 
-	showBerger title, players, rounds, results, points
-	showTables rounds[0] or [], players, 0, results
+	showBerger title, players, rounds, results, points, MAX
+	showTables rounds[0] or [], players, 0, results, MAX
 
 main()

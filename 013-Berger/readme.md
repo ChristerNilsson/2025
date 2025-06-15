@@ -6,6 +6,7 @@ Skriv in namnen i en textfil
 
 ```
 http://127.0.0.1:5500/?title=Joukos Sommar 2025
+&MAX=2
 &p1=1698 Onni Aikio
 &p2=1558 Helge Bergström
 &p3=1549 Jonas Hök
@@ -17,20 +18,34 @@ Gå till Chrome och klistra in med ctrl-v
 
 Skriv ut sidan med ctrl-p
 
-Skriv in de *vita* resultaten i filen
+Skriv in de VITA resultaten i filen  
+
+Observera: 
+* 0 - 2 vit förlust
+* 1 - 1 remi
+* 2 - 0 vit vinst
+
+Orsaken till detta är att även kunna hantera dubbelrond, MAX=4:
+* 0 - 4
+* 1 - 3
+* 2 - 2
+* 3 - 1
+* 4 - 0
+
+Maximalt kan fyra partier per rond hanteras, MAX=8
 
 ```
-&r1=10rx1
-&r2=0r101
+&r1=201x2
+&r2=01202
 ```
 
 Förklaring
 ```
 r1 = rond 1
 
-1 = vit vinst
 0 = vit förlust
-r = remi
+1 = remi
+2 = vit vinst
 x = partiet ej spelat
 ```
 
