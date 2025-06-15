@@ -6,6 +6,52 @@ DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
 MAX = 2
 RESULTS = '012'
 
+players = []
+rounds = []
+results = []
+
+sorteringsOrdning = {}	# Spara per kolumn
+
+skapaSorteringsklick = ->
+
+	ths = document.querySelectorAll '#bergertabell th'
+
+	echo ths 
+	index = -1
+	for th in ths
+		index += 1
+		do (th,index) ->
+			th.addEventListener 'click', (event) ->
+				key = th.textContent
+				if key in '1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20'.split ' '
+					key = parseInt(key) - 1 
+					showTables rounds[key] or [], key
+					return
+
+				tbody = document.querySelector '#bergertabell tbody'
+				rader = Array.from tbody.querySelectorAll 'tr'
+				if key of sorteringsOrdning
+					sorteringsOrdning[key] = -sorteringsOrdning[key]	
+				else
+					sorteringsOrdning[key] = index + 1
+				stigande = sorteringsOrdning[key] > 0
+
+				rader.sort (a, b) ->
+					cellA = a.children[index].textContent.trim()
+					cellB = b.children[index].textContent.trim()
+
+					# Försök jämföra som tal, annars som text
+					numA = parseFloat cellA
+					numB = parseFloat cellB
+					if !isNaN(numA) and !isNaN(numB)
+						return if stigande then numA - numB else numB - numA
+					else
+						return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
+
+				# Lägg tillbaka raderna i sorterad ordning
+				for rad in rader
+					tbody.appendChild rad
+
 summa = (arr) ->
 	res = 0
 	for item in arr
@@ -117,41 +163,53 @@ showHelp = ->
 	link.text = "Exempel"
 	document.getElementById('berger').appendChild link
 
-showBerger = (title, players, rounds, results, points) ->
+showBerger = (title, points) ->
 	h2 =  document.createElement 'h2'
 	h2.textContent = title
 	document.getElementById('berger').appendChild h2
 
-	tbl = document.createElement 'table'
-	header = tbl.insertRow()
-	header.innerHTML = '<th>#</th><th>Namn</th><th>Elo</th>'
+	tbl = document.getElementById('bergertabell')
+
+	thead = document.createElement 'thead'
+	tbl.appendChild thead
+	echo tbl
+
+	th = document.createElement 'th'
+	th.textContent = "#"
+	thead.appendChild th
+
+	th = document.createElement 'th'
+	th.textContent = "Namn"
+	thead.appendChild th
+
+	th = document.createElement 'th'
+	th.textContent = "Elo"
+	thead.appendChild th
+
 	for i in [0...rounds.length]
-		cell = document.createElement 'th'
-		cell.textContent = "#{i+1}"
-		do (i) ->
-			cell.addEventListener 'click', ->
-				echo "Du klickade på rond #{i+1}"
-				showTables rounds[i] or [], players, i, results
+		th = document.createElement 'th'
+		th.textContent = "#{i+1}"
+		thead.appendChild th
 
-		header.appendChild cell
-	cell = document.createElement 'th'
-	cell.textContent = "Poäng"
-	header.appendChild cell
+	th = document.createElement 'th'
+	th.textContent = "Poäng"
+	thead.appendChild th
 
-	cell = document.createElement 'th'
-	cell.textContent = "PR"
-	header.appendChild cell
+	th = document.createElement 'th'
+	th.textContent = "PR"
+	thead.appendChild th
 
 	for p, i in players
 		row = tbl.insertRow()
 		row.insertCell().textContent = i + 1
-		
+
 		cell = row.insertCell()
 		cell.textContent = p.name
 		cell.style.textAlign = 'left'
 
 		oppElos = []
 		row.insertCell().textContent = p.elo
+
 		for r in [0...rounds.length]
 			cell = row.insertCell()
 			tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
@@ -177,13 +235,12 @@ showBerger = (title, players, rounds, results, points) ->
 		cell.style.textAlign = 'right'
 
 		row.insertCell().textContent = performance(points[i]/MAX, oppElos).toFixed 0
-	document.getElementById('berger').appendChild tbl
 
 prettify = (ch) ->
 	if ch in RESULTS then return "#{ch} - #{MAX - ch}"
 	"-"
 
-showTables = (rounds, players, selectedRound, results) ->
+showTables = (rounds, selectedRound) ->
 	if rounds.length == 0 then return
 
 	title = document.createElement 'h2'
@@ -192,6 +249,7 @@ showTables = (rounds, players, selectedRound, results) ->
 	document.getElementById('tables').appendChild title
 
 	table = document.createElement 'table'
+	table.id = 'bordtabell'
 
 	header = table.insertRow()
 	header.innerHTML = "<th>Bord</th><th>Vit</th><th>Svart</th><th>#{RESULTS}</th>"
@@ -243,7 +301,9 @@ main = ->
 				points[w] += parseInt res[j]
 				points[b] += MAX - parseInt res[j]
 
-	showBerger title, players, rounds, results, points
-	showTables rounds[0] or [], players, 0, results
+	showBerger title, points
+	showTables rounds[0] or [], 0
+
+	skapaSorteringsklick()
 
 main()
