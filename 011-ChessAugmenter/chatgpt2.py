@@ -2,12 +2,11 @@ import chess.pgn
 import chess.engine
 import chess
 import os
-import time
 from urllib.parse import quote
 
 VIEWER = "https://christernilsson.github.io/2025/012-ChessViewer/"
 
-TIME = 0.1
+TIME = 1
 MPV = 5
 
 STOCKFISH_PATH = "C:\\Program Files\\stockfish\\stockfish-windows-x86-64-avx2.exe"
@@ -47,7 +46,7 @@ def process(pgnfile):
 	losses = []
 	bests = []
 
-	print(f"{filename} {len(movesx)}",'', end='')
+	print(f"{pgnfile} {len(movesx)}",'', end='')
 	for move in movesx:
 
 		print('.', end='')
@@ -71,7 +70,7 @@ def process(pgnfile):
 
 	print()
 
-	with open(year + '/' + pgnfile.replace('.pgn','.txt'), "w", encoding="utf-8") as url:
+	with open('txt/' + pgnfile.replace('.pgn','.txt'), "w", encoding="utf-8") as url:
 
 		headers = []
 		headers.append(f"Date={header('Date')} Result:{header('Result')}")
@@ -87,23 +86,44 @@ def process(pgnfile):
 
 		url.write(VIEWER + "index.html?" + headers.replace(" ","_") + '&moves=' + moves + '&losses=' + losses + '&bests=' + bests + '\n')
 
-# Gå igenom alla filer i aktuell katalog
-start = time.time()
-years = set()
-for filename in os.listdir('pgn'):
-	year = filename[0:4]
-	year_file = year + "\\" + filename.replace('.pgn','.txt')
-	if not os.path.exists(year_file):
-		process(filename)
-		years.add(year)
+dir_stack = []
 
-# Uppdatera .md
-for year in years:
-	with open(f"{year}/_index.md", 'w', encoding="utf-8") as md:
-		md.write(f"---\ntitle: {year}\nauto: true\n---\n")
-		for filename in os.listdir(str(year)):
+def pushdir(new_dir):
+	dir_stack.append(os.getcwd())
+	os.chdir(new_dir)
+
+def popdir():
+	os.chdir(dir_stack.pop())
+
+def hantera(katalog, title='', indexmd=''):
+	pushdir(katalog)
+	# Skapa txt-filer
+	for filename in os.listdir('pgn'):
+		if not os.path.exists('txt\\' + filename.replace('.pgn','.txt')):
+			process(filename)
+
+	# Skapa _index.md
+	with open(indexmd, 'w', encoding="utf-8") as md:
+
+		md.write("---\n")
+		md.write(f"title: {title}\n")
+		md.write("auto: false\n")
+		md.write("---\n")
+		md.write("\n")
+
+		# if bild:
+		# 	md.write(f"![]({bild})\n")
+		# 	md.write("\n")
+
+		for filename in os.listdir('txt'):
 			if not filename.endswith('.txt'): continue
-			with open(f"{year}/{filename}", encoding="utf-8") as url:
+			with open("txt\\" + filename, encoding="utf-8") as url:
 				md.write(f"[{filename.replace('.txt','')}]({url.read()})  \n")
 
-print(time.time() - start)
+	print('skapade ' + katalog +  "\\_index.md")
+	popdir()
+
+print("TIME:",TIME, "MPV:",MPV)
+hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Turneringar\\Joukos Sommar 2025", "Joukos Sommar 2025", "Partier\\_index.md")
+hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Partier\\2025","2025", "_index.md")
+hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Partier\\2024","2024", "_index.md")
