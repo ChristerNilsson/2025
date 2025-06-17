@@ -142,6 +142,7 @@ showHelp = ->
 	url.push "&p8=1504 Thomas Paulin"
 	url.push "&p9=1706 Abbas Razavi"
 	url.push "&p10=1579 Jouko Liistamo"
+
 	url.push "&r1=202x2"
 	url.push "&r2=01020"
 	url.push "&r3=20022"
