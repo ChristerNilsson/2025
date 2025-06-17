@@ -1,6 +1,6 @@
 echo = console.log
 
-# DOMAIN = "http://127.0.0.1:5500"
+#DOMAIN = "http://127.0.0.1:5500"
 DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
 
 MAX = 2
@@ -11,6 +11,13 @@ rounds = []
 results = []
 
 sorteringsOrdning = {}	# Spara per kolumn
+
+findNumberOfDecimals = (lst) ->
+	best = 0
+	for i in [0..6]
+		unik = _.uniq (item.toFixed(i) for item in lst)
+		if unik.length > best then [best,ibest] = [unik.length,i]
+	ibest
 
 skapaSorteringsklick = ->
 
@@ -161,6 +168,7 @@ showHelp = ->
 	document.getElementById('berger').appendChild link
 
 showBerger = (title, points) ->
+
 	h2 =  document.createElement 'h2'
 	h2.textContent = title
 	document.getElementById('berger').appendChild h2
@@ -230,8 +238,15 @@ showBerger = (title, points) ->
 		cell = row.insertCell()
 		cell.textContent = points[i]
 		cell.style.textAlign = 'right'
+		row.insertCell().textContent = performance points[i]/MAX, oppElos
 
-		row.insertCell().textContent = performance(points[i]/MAX, oppElos).toFixed 0
+	# Sätt antal decimaler för PR
+	tbody = document.querySelector '#bergertabell tbody'
+	rader = Array.from tbody.querySelectorAll 'tr'
+	lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
+	decimals = findNumberOfDecimals lst
+	for rad in rader
+		_.last(rad.children).textContent = parseFloat(_.last(rad.children).textContent).toFixed decimals
 
 prettify = (ch) ->
 	if ch in RESULTS then return "#{ch} - #{MAX - ch}"
