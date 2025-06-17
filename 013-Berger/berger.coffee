@@ -1,6 +1,6 @@
 echo = console.log
 
-#DOMAIN = "http://127.0.0.1:5500"
+# DOMAIN = "http://127.0.0.1:5500"
 DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
 
 MAX = 2
@@ -23,7 +23,7 @@ skapaSorteringsklick = ->
 		do (th,index) ->
 			th.addEventListener 'click', (event) ->
 				key = th.textContent
-				if key in '1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20'.split ' '
+				if !isNaN parseInt key
 					key = parseInt(key) - 1 
 					showTables rounds[key] or [], key
 					return
@@ -37,8 +37,8 @@ skapaSorteringsklick = ->
 					cellB = b.children[index].textContent.trim()
 
 					# Försök jämföra som tal, annars som text
-					numA = parseFloat cellA
-					numB = parseFloat cellB
+					numA = parseInt cellA
+					numB = parseInt cellB
 					if !isNaN(numA) and !isNaN(numB)
 						return if stigande then numA - numB else numB - numA
 					else
