@@ -1,29 +1,22 @@
+import {Player} from './player.js'
+import {FairPair} from './fairpair.js'
+
 echo = console.log
 range = _.range
 
-DOMAIN = "http://127.0.0.1:5500"
-#DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
+# DOMAIN = "http://127.0.0.1:5500"
+DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
 
 title = 'Bergerturnering'
 MAX = 2
 RESULTS = '012'
+R = 0
 
 players = []
 rounds = [] # vem möter vem? [w,b]
 results = [] # ['012xx', '22210'] Vitspelarnas resultat i varje rond
 
 sorteringsOrdning = {}	# Spara per kolumn
-
-class Player
-	constructor : (@id, @name, @elo) ->
-		@opp = []
-		@col = ""
-	balans : ->
-		result = 0
-		for ch in @col
-			if ch == 'w' then result += 1
-			if ch == 'b' then result -= 1
-		result
 
 findNumberOfDecimals = (lst) ->
 	best = 0
@@ -36,7 +29,7 @@ skapaSorteringsklick = ->
 
 	ths = document.querySelectorAll '#bergertabell th'
 
-	echo ths 
+	#echo ths
 	index = -1
 	for th in ths
 		index += 1
@@ -126,9 +119,11 @@ parseQuery = ->
 	echo players
 
 	results = []
-	if R == 0 then n = players.length - 1 else n = R
-	for i in range n
-		results.push safeGet params, "r#{i+1}", "x" * players.length / 2
+	# if R == 0 then n = players.length - 1 else n = R
+	echo 'R',R
+	for i in range R
+		results.push safeGet params, "r#{i+1}", "x".repeat players.length / 2
+	echo results
 
 savePairing = (r, A, half, n) ->
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
@@ -148,10 +143,26 @@ makeBerger = (n) ->
 		A.push(n-1)
 	rounds
 
+makeFairPair = (n) ->
+	fairpair = new FairPair players, R
+
+	for p in fairpair.players
+		echo p.opp,p.col,p.balans()
+
+	echo "" 
+
+	for i in range players.length
+		line = fairpair.matrix[i]
+		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
+
+	echo 'summa', fairpair.summa
+	fairpair.rounds	
+
 showHelp = ->
 	url = []
 	url.push "#{DOMAIN}/?title=Joukos Sommar 2025"
 	url.push "&MAX=2"
+	url.push "&R=9"
 
 	url.push "&p=1698 Onni Aikio"
 	url.push "&p=1558 Helge Bergström"
@@ -174,6 +185,35 @@ showHelp = ->
 	url.push "&r8=220x0"
 	url.push "&r9=0200x"
 
+	# url.push "&p=1698 Onni Aikio"
+	# url.push "&p=1558 Helge Bergström"
+	# url.push "&p=1549 Jonas Hök"
+	# url.push "&p=1679 Lars Johansson"
+	# url.push "&p=0000 Per Eriksson"
+	# url.push "&p=1653 Christer Nilsson"
+	# url.push "&p=1673 Per Hamnström"
+	# url.push "&p=1504 Thomas Paulin"
+	# url.push "&p=1706 Abbas Razavi"
+	# url.push "&p=1579 Jouko Liistamo"
+	# url.push "&p=1798 Aikio"
+	# url.push "&p=1658 Bergström"
+	# url.push "&p=1649 Hök"
+	# url.push "&p=1779 Johansson"
+	# url.push "&p=0000 Eriksson"
+	# url.push "&p=1753 Nilsson"
+	# url.push "&p=1773 Hamnström"
+	# url.push "&p=1604 Paulin"
+	# url.push "&p=1806 Razavi"
+	# url.push "&p=1679 Liistamo"
+
+	# url.push "&r1=0120120120"
+	# url.push "&r2=0120120120"
+	# url.push "&r3=0120120120"
+	# url.push "&r4=0120120120"
+	# url.push "&r5=0120120120"
+	# url.push "&r6=0120120120"
+	# url.push "&r7=0120120120"
+
 	help = document.createElement 'div'
 	help.className = 'help'
 	help.innerHTML = "<p>Exempel:</p><pre>#{url.join "\n"}</pre>"
@@ -184,7 +224,7 @@ showHelp = ->
 	link.text = "Exempel"
 	document.getElementById('berger').appendChild link
 
-showBerger = (title, points) ->
+showPlayers = (title, points) ->
 
 	h2 =  document.createElement 'h2'
 	h2.textContent = title
@@ -230,20 +270,31 @@ showBerger = (title, points) ->
 		cell.style.textAlign = 'left'
 
 		oppElos = []
+		pointsPR = 0
 		row.insertCell().textContent = p.elo
 
 		for r in range rounds.length
 			cell = row.insertCell()
 			tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
 			if tableIndex == -1 then continue
-			result = results[r]?[tableIndex] or ""
-			result = result.replace "x", ""
+			result = results[r]?[tableIndex] # or ""
+			#result = result.replace "x", ""
 
 			[w, b] = rounds[r][tableIndex]
 			opponent = if w == i then b else w
-			if result in RESULTS and players[opponent].elo != 0 then oppElos.push players[opponent].elo
 
-			if i == b and result != "" then result = MAX - parseInt result
+			if result in RESULTS
+				if w == i
+					result = parseInt result 
+				else
+					result = MAX - parseInt result 
+
+				if result.toString() in RESULTS and players[opponent].elo != 0
+					oppElos.push players[opponent].elo
+					pointsPR += parseInt result
+			else
+				result = ""
+				# if i == b and result != "" then result = MAX - parseInt result
 
 			if i == w then a = "right:-7px" else a = "left:-7px"
 
@@ -252,10 +303,11 @@ showBerger = (title, points) ->
 			html += "<div style='position:absolute; top:-4px;        font-size:1.0em;'>#{result}</div>"
 			cell.innerHTML = "<div style='position:relative;'>" + html + "</div>"
 
+		echo i,oppElos,pointsPR,p.name
 		cell = row.insertCell()
 		cell.textContent = points[i]
 		cell.style.textAlign = 'right'
-		row.insertCell().textContent = performance points[i]/MAX, oppElos
+		row.insertCell().textContent = performance pointsPR/MAX, oppElos
 
 	# Sätt antal decimaler för PR
 	tbody = document.querySelector '#bergertabell tbody'
@@ -318,10 +370,16 @@ main = ->
 	if players.length < 4
 		showHelp()
 		return
-	rounds = makeBerger(players.length)
+
+	if players.length == R + 1
+		rounds = makeBerger(players.length)
+	else
+		rounds = makeFairPair R
+
 	echo rounds
 	points = Array(players.length).fill(0)
 
+	echo 'results',results
 	for i in range results.length
 		res = results[i]
 		round = rounds[i]
@@ -330,7 +388,9 @@ main = ->
 				points[w] += parseInt res[j]
 				points[b] += MAX - parseInt res[j]
 
-	showBerger title, points
+	echo 'points',points
+
+	showPlayers title, points
 	showTables rounds[0] or [], 0
 
 	skapaSorteringsklick()
