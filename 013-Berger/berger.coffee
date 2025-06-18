@@ -1,16 +1,29 @@
 echo = console.log
+range = _.range
 
-#DOMAIN = "http://127.0.0.1:5500"
-DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
+DOMAIN = "http://127.0.0.1:5500"
+#DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
 
+title = 'Bergerturnering'
 MAX = 2
 RESULTS = '012'
 
 players = []
-rounds = []
-results = []
+rounds = [] # vem möter vem? [w,b]
+results = [] # ['012xx', '22210'] Vitspelarnas resultat i varje rond
 
 sorteringsOrdning = {}	# Spara per kolumn
+
+class Player
+	constructor : (@id, @name, @elo) ->
+		@opp = []
+		@col = ""
+	balans : ->
+		result = 0
+		for ch in @col
+			if ch == 'w' then result += 1
+			if ch == 'b' then result -= 1
+		result
 
 findNumberOfDecimals = (lst) ->
 	best = 0
@@ -101,21 +114,21 @@ parseQuery = ->
 	title = safeGet params, "title"
 	MAX = parseInt safeGet params, "MAX", "2"
 	RESULTS = '012345678'.slice 0, MAX + 1
+	R = parseInt safeGet params, "R", '0'
 	
 	players = []
-	for i in [1..20]
-		p = safeGet params, "p#{i}", ""
-		if p == "" then break
+	persons = params.getAll "p"
+	persons.sort().reverse()
+	for p in persons
 		elo = parseInt p.slice 0,4
 		name = p.slice(4).trim()
-		players.push {elo, name, index: i - 1}
+		players.push new Player players.length, name, elo
 	echo players
 
 	results = []
-	for i in [1..players.length - 1]
-		results.push safeGet params, "r#{i}", "x" * players.length / 2
-
-	{players, results, title}
+	if R == 0 then n = players.length - 1 else n = R
+	for i in range n
+		results.push safeGet params, "r#{i+1}", "x" * players.length / 2
 
 savePairing = (r, A, half, n) ->
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
@@ -139,23 +152,27 @@ showHelp = ->
 	url = []
 	url.push "#{DOMAIN}/?title=Joukos Sommar 2025"
 	url.push "&MAX=2"
-	url.push "&p1=1698 Onni Aikio"
-	url.push "&p2=1558 Helge Bergström"
-	url.push "&p3=1549 Jonas Hök"
-	url.push "&p4=1679 Lars Johansson"
-	url.push "&p5=0000 Per Eriksson"
-	url.push "&p6=1653 Christer Nilsson"
-	url.push "&p7=1673 Per Hamnström"
-	url.push "&p8=1504 Thomas Paulin"
-	url.push "&p9=1706 Abbas Razavi"
-	url.push "&p10=1579 Jouko Liistamo"
 
-	url.push "&r1=202x2"
-	url.push "&r2=01020"
-	url.push "&r3=20022"
-	url.push "&r4=20002"
-	url.push "&r5=02222"
-	url.push "&r7=xx2xx"
+	url.push "&p=1698 Onni Aikio"
+	url.push "&p=1558 Helge Bergström"
+	url.push "&p=1549 Jonas Hök"
+	url.push "&p=1679 Lars Johansson"
+	url.push "&p=0000 Per Eriksson"
+	url.push "&p=1653 Christer Nilsson"
+	url.push "&p=1673 Per Hamnström"
+	url.push "&p=1504 Thomas Paulin"
+	url.push "&p=1706 Abbas Razavi"
+	url.push "&p=1579 Jouko Liistamo"
+
+	url.push "&r1=0xxx2"
+	url.push "&r2=x0x0x"
+	url.push "&r3=002x0"
+	url.push "&r4=x0010"
+	url.push "&r5=xx222"
+	url.push "&r6=xxx1x"
+	url.push "&r7=1x002"
+	url.push "&r8=220x0"
+	url.push "&r9=0200x"
 
 	help = document.createElement 'div'
 	help.className = 'help'
@@ -215,7 +232,7 @@ showBerger = (title, points) ->
 		oppElos = []
 		row.insertCell().textContent = p.elo
 
-		for r in [0...rounds.length]
+		for r in range rounds.length
 			cell = row.insertCell()
 			tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
 			if tableIndex == -1 then continue
@@ -266,7 +283,7 @@ showTables = (rounds, selectedRound) ->
 	header = table.insertRow()
 	header.innerHTML = "<th>Bord</th><th>Vit</th><th>Svart</th><th>#{RESULTS}</th>"
 
-	for i in [0...rounds.length]
+	for i in range rounds.length
 		tr = document.createElement 'tr'
 		[w, b] = rounds[i]
 		vit = players[w]?.name or ""
@@ -295,7 +312,7 @@ showTables = (rounds, selectedRound) ->
 	document.getElementById('tables').appendChild table
 
 main = ->
-	{players, results, title} = parseQuery()
+	parseQuery()
 	document.title = title
 
 	if players.length < 4
@@ -305,7 +322,7 @@ main = ->
 	echo rounds
 	points = Array(players.length).fill(0)
 
-	for i in [0...results.length]
+	for i in range results.length
 		res = results[i]
 		round = rounds[i]
 		for j, [w, b] of round
