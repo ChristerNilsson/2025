@@ -4,12 +4,13 @@ import {FairPair} from './fairpair.js'
 echo = console.log
 range = _.range
 
-# DOMAIN = "http://127.0.0.1:5500"
-DOMAIN = "https://christernilsson.github.io/2025/013-Berger"
+DOMAIN_LOCAL = "http://127.0.0.1:5500"
+DOMAIN_GLOBAL = "https://christernilsson.github.io/2025/013-Berger"
 
-title = 'Bergerturnering'
-MAX = 2
+TITLE = 'Bergerturnering'
+GAMES = 2
 RESULTS = '012'
+TYPE = 'Berger'
 R = 0
 
 players = []
@@ -104,10 +105,10 @@ safeGet = (params,key,standard="") ->
 parseQuery = ->
 	params = new URLSearchParams window.location.search
 
-	title = safeGet params, "title"
-	MAX = parseInt safeGet params, "MAX", "2"
-	RESULTS = '012345678'.slice 0, MAX + 1
-	R = parseInt safeGet params, "R", '0'
+	TITLE = safeGet params, "TITLE"
+	GAMES = parseInt safeGet params, "GAMES", "1"
+	RESULTS = '012345678'.slice 0, 2 * GAMES + 1
+	TYPE = safeGet params, "TYPE", 'Berger'
 	
 	players = []
 	persons = params.getAll "p"
@@ -116,10 +117,11 @@ parseQuery = ->
 		elo = parseInt p.slice 0,4
 		name = p.slice(4).trim()
 		players.push new Player players.length, name, elo
-	echo players
+
+	R = parseInt safeGet params, "R", players.length-1
+	echo 'R',R
 
 	results = []
-	# if R == 0 then n = players.length - 1 else n = R
 	echo 'R',R
 	for i in range R
 		results.push safeGet params, "r#{i+1}", "x".repeat players.length / 2
@@ -131,7 +133,8 @@ savePairing = (r, A, half, n) ->
 		lst.push [A[i], A[n - 1 - i]]
 	lst
 
-makeBerger = (n) ->
+makeBerger = ->
+	n = players.length
 	if n % 2 == 1 then n += 1
 	half = n // 2 
 	A = [0...n]
@@ -143,7 +146,8 @@ makeBerger = (n) ->
 		A.push(n-1)
 	rounds
 
-makeFairPair = (n) ->
+makeFairPair = ->
+	echo 'R',R
 	fairpair = new FairPair players, R
 
 	for p in fairpair.players
@@ -156,78 +160,177 @@ makeFairPair = (n) ->
 		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
 
 	echo 'summa', fairpair.summa
+	echo fairpair.rounds
 	fairpair.rounds	
 
 showHelp = ->
-	url = []
-	url.push "#{DOMAIN}/?title=Joukos Sommar 2025"
-	url.push "&MAX=2"
-	url.push "&R=9"
+	a = (s) -> url.push s
+	bergerText = """?TITLE=Berger
+	&GAMES=1
+	&TYPE=Berger
+	&R=9
 
-	url.push "&p=1698 Onni Aikio"
-	url.push "&p=1558 Helge Bergström"
-	url.push "&p=1549 Jonas Hök"
-	url.push "&p=1679 Lars Johansson"
-	url.push "&p=0000 Per Eriksson"
-	url.push "&p=1653 Christer Nilsson"
-	url.push "&p=1673 Per Hamnström"
-	url.push "&p=1504 Thomas Paulin"
-	url.push "&p=1706 Abbas Razavi"
-	url.push "&p=1579 Jouko Liistamo"
+	&p=1698 Onni Aikio
+	&p=1558 Helge Bergström
+	&p=1549 Jonas Hök
+	&p=1679 Lars Johansson
+	&p=0000 Per Eriksson
+	&p=1653 Christer Nilsson
+	&p=1673 Per Hamnström
+	&p=1504 Thomas Paulin
+	&p=1706 Abbas Razavi
+	&p=1579 Jouko Liistamo
 
-	url.push "&r1=0xxx2"
-	url.push "&r2=x0x0x"
-	url.push "&r3=002x0"
-	url.push "&r4=x0010"
-	url.push "&r5=xx222"
-	url.push "&r6=xxx1x"
-	url.push "&r7=1x002"
-	url.push "&r8=220x0"
-	url.push "&r9=0200x"
+	&r1=01201
+	&r2=01201
+	&r3=01201
+	&r4=01201
+	&r5=11111
+	&r6=00000
+	&r7=22222
+	&r8=01201
+	&r9=01201
+	"""
 
-	# url.push "&p=1698 Onni Aikio"
-	# url.push "&p=1558 Helge Bergström"
-	# url.push "&p=1549 Jonas Hök"
-	# url.push "&p=1679 Lars Johansson"
-	# url.push "&p=0000 Per Eriksson"
-	# url.push "&p=1653 Christer Nilsson"
-	# url.push "&p=1673 Per Hamnström"
-	# url.push "&p=1504 Thomas Paulin"
-	# url.push "&p=1706 Abbas Razavi"
-	# url.push "&p=1579 Jouko Liistamo"
-	# url.push "&p=1798 Aikio"
-	# url.push "&p=1658 Bergström"
-	# url.push "&p=1649 Hök"
-	# url.push "&p=1779 Johansson"
-	# url.push "&p=0000 Eriksson"
-	# url.push "&p=1753 Nilsson"
-	# url.push "&p=1773 Hamnström"
-	# url.push "&p=1604 Paulin"
-	# url.push "&p=1806 Razavi"
-	# url.push "&p=1679 Liistamo"
+	fairpairText = """?TITLE=FairPair
+	&GAMES=1
+	&TYPE=FairPair
+	&R=4
 
-	# url.push "&r1=0120120120"
-	# url.push "&r2=0120120120"
-	# url.push "&r3=0120120120"
-	# url.push "&r4=0120120120"
-	# url.push "&r5=0120120120"
-	# url.push "&r6=0120120120"
-	# url.push "&r7=0120120120"
+	&p=1698 Onni Aikio
+	&p=1558 Helge Bergström
+	&p=1549 Jonas Hök
+	&p=1679 Lars Johansson
+	&p=0000 Per Eriksson
+	&p=1653 Christer Nilsson
+	&p=1673 Per Hamnström
+	&p=1504 Thomas Paulin
+	&p=1706 Abbas Razavi
+	&p=1579 Jouko Liistamo
+
+	&r1=01201
+	&r2=01201
+	&r3=01201
+	&r4=01201
+	"""
+
+	helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två olika turneringsformat:
+	  * Berger (alla möter alla)
+	  * FairPair (flytande Berger, typ)
+
+	* Alla ronder lottas i förväg
+	* Hanterar upp till fyra partier per rond, t ex dubbelrond eller lagmatch
+	* All nödvändig information skickas in som parametrar
+	<h3>Interaktioner</h3>* Klick på rond visar bordslistan
+	* Klick på annan kolumn sorterar
+	* ctrl p skriver ut
+	* ctrl + och ctrl - zoomar
+	<h3>Parametrar</h3>?TITLE=Sommarturnering 2025
+		Anger turneringens namn
+
+	&TYPE=Berger
+		Anger Berger eller FairPair
+
+	&GAMES=1
+		Anger antal partier per rond. 1 till 4.
+
+	&R=9
+		Anger antal ronder (automatisk för Berger)
+
+	&p=1653 Christer Nilsson
+		Alla deltagare anges med rating och namn
+		Använd 0000 för deltagare utan rating
+
+	&r1=012x0 
+		Vitspelarnas resultat för den första ronden, i bordsordning
+		GAMES=1:
+			0 = Förlust
+			1 = Remi
+			2 = Vinst
+
+		GAMES=2: 0 till 4 kan användas
+		GAMES=3: 0 till 6 kan användas
+		GAMES=4: 0 till 8 kan användas
+		x = Ej spelat
+
+	"""
+
+	# &p=1698 Onni Aikio
+	# &p=1558 Helge Bergström
+	# &p=1549 Jonas Hök
+	# &p=1679 Lars Johansson
+	# &p=0000 Per Eriksson
+	# &p=1653 Christer Nilsson
+	# &p=1673 Per Hamnström
+	# &p=1504 Thomas Paulin
+	# &p=1706 Abbas Razavi
+	# &p=1579 Jouko Liistamo
+	# &p=1798 Aikio
+	# &p=1658 Bergström
+	# &p=1649 Hök
+	# &p=1779 Johansson
+	# &p=0000 Eriksson
+	# &p=1753 Nilsson
+	# &p=1773 Hamnström
+	# &p=1604 Paulin
+	# &p=1806 Razavi
+	# &p=1679 Liistamo
+
+	# &r1=0120120120
+	# &r2=0120120120
+	# &r3=0120120120
+	# &r4=0120120120
+	# &r5=0120120120
+	# &r6=0120120120
+	# &r7=0120120120
 
 	help = document.createElement 'div'
 	help.className = 'help'
-	help.innerHTML = "<p>Exempel:</p><pre>#{url.join "\n"}</pre>"
+	help.innerHTML = "<pre>#{helpText}</pre>"
 	document.getElementById('berger').appendChild help
 
 	link = document.createElement 'a'
-	link.href = url.join ''
-	link.text = "Exempel"
-	document.getElementById('berger').appendChild link
+	link.href = DOMAIN_GLOBAL + bergerText
+	link.text = "Berger"
+	divnode = document.getElementById('berger').appendChild document.createElement 'p'
+	divnode.appendChild link
 
-showPlayers = (title, points) ->
+	link = document.createElement 'a'
+	link.href = DOMAIN_LOCAL + bergerText
+	link.text = "Berger dev"
+	divnode = document.getElementById('berger').appendChild document.createElement 'p' 
+	divnode.appendChild link
+
+	exempel = document.createElement 'div'
+	exempel.className = 'help'
+	exempel.innerHTML = "<pre>#{bergerText}</pre>"
+	divnode = document.getElementById('berger').appendChild document.createElement 'p'
+	divnode.appendChild exempel
+
+	link = document.createElement 'a'
+	link.href = DOMAIN_GLOBAL + fairpairText
+	link.text = "FairPair"
+	divnode = document.getElementById('berger').appendChild document.createElement 'p'
+	divnode.appendChild link
+
+	link = document.createElement 'a'
+	link.href = DOMAIN_LOCAL + fairpairText
+	link.text = "FairPair dev"
+	divnode = document.getElementById('berger').appendChild document.createElement 'p'
+	divnode.appendChild link
+
+	exempel = document.createElement 'div'
+	exempel.className = 'help'
+	exempel.innerHTML = "<pre>#{fairpairText}</pre>"
+	divnode = document.getElementById('berger').appendChild document.createElement 'p'
+	divnode.appendChild exempel
+
+showPlayers = (points) ->
+
+	echo rounds
 
 	h2 =  document.createElement 'h2'
-	h2.textContent = title
+	h2.textContent = TITLE
 	document.getElementById('berger').appendChild h2
 
 	tbl = document.getElementById('bergertabell')
@@ -287,14 +390,14 @@ showPlayers = (title, points) ->
 				if w == i
 					result = parseInt result 
 				else
-					result = MAX - parseInt result 
+					result = 2 * GAMES - parseInt result 
 
 				if result.toString() in RESULTS and players[opponent].elo != 0
 					oppElos.push players[opponent].elo
 					pointsPR += parseInt result
 			else
 				result = ""
-				# if i == b and result != "" then result = MAX - parseInt result
+				# if i == b and result != "" then result = 2 * GAMES - parseInt result
 
 			if i == w then a = "right:-7px" else a = "left:-7px"
 
@@ -307,7 +410,7 @@ showPlayers = (title, points) ->
 		cell = row.insertCell()
 		cell.textContent = points[i]
 		cell.style.textAlign = 'right'
-		row.insertCell().textContent = performance pointsPR/MAX, oppElos
+		row.insertCell().textContent = performance pointsPR/(2*GAMES), oppElos
 
 	# Sätt antal decimaler för PR
 	tbody = document.querySelector '#bergertabell tbody'
@@ -318,7 +421,7 @@ showPlayers = (title, points) ->
 		_.last(rad.children).textContent = parseFloat(_.last(rad.children).textContent).toFixed decimals
 
 prettify = (ch) ->
-	if ch in RESULTS then return "#{ch} - #{MAX - ch}"
+	if ch in RESULTS then return "#{ch} - #{2*GAMES - ch}"
 	"-"
 
 showTables = (rounds, selectedRound) ->
@@ -365,16 +468,17 @@ showTables = (rounds, selectedRound) ->
 
 main = ->
 	parseQuery()
-	document.title = title
+	document.title = TITLE
 
 	if players.length < 4
 		showHelp()
 		return
 
-	if players.length == R + 1
-		rounds = makeBerger(players.length)
-	else
-		rounds = makeFairPair R
+	if TYPE == 'Berger'
+		R = players.length-1
+		rounds = makeBerger()
+	else 
+		rounds = makeFairPair()
 
 	echo rounds
 	points = Array(players.length).fill(0)
@@ -386,11 +490,11 @@ main = ->
 		for j, [w, b] of round
 			if res[j] in RESULTS
 				points[w] += parseInt res[j]
-				points[b] += MAX - parseInt res[j]
+				points[b] += 2*GAMES - parseInt res[j]
 
 	echo 'points',points
 
-	showPlayers title, points
+	showPlayers points
 	showTables rounds[0] or [], 0
 
 	skapaSorteringsklick()
