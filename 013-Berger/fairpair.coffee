@@ -4,7 +4,7 @@ range = _.range
 echo = console.log
 
 export class FairPair 
-	constructor : (@players, @R) ->
+	constructor : (@players, @R, @GAMES) ->
 		echo 'constructor',@R
 		@N = @players.length
 		@matrix = (("•" for i in range @N) for j in range @N)
@@ -53,10 +53,11 @@ export class FairPair
 				tables.push [i, j] #, a.elo + b.elo]
 
 		#@sortTables tables
-		echo 'updatePlayers',tables
+		#echo 'updatePlayers',tables
 		tables
 
 	ok : (a,b) -> 
 		if a.id == b.id then return false
 		if a.id in b.opp then return false
+		if @GAMES % 2 == 0 then return true
 		Math.abs(a.balans() + b.balans()) < 2

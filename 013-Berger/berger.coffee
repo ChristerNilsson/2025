@@ -1,5 +1,7 @@
 import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
+import {bergerText, fairpairText, helpText} from './texts.js'
+import {performance} from './rating.js'
 
 echo = console.log
 range = _.range
@@ -62,41 +64,6 @@ skapaSorteringsklick = ->
 				for rad in rader
 					tbody.appendChild rad
 
-summa = (arr) ->
-	res = 0
-	for item in arr
-		res += item
-	res
-
-expected_score = (ratings, own_rating) -> summa (1 / (1 + 10**((rating - own_rating) / 400)) for rating in ratings)
-
-performance_rating = (pp, ratings) ->
-	lo = 0
-	hi = 4000
-	while Math.abs(hi - lo) > 0.001
-		rating = (lo + hi) / 2
-		if pp > expected_score ratings, rating
-			lo = rating
-		else
-			hi = rating
-	rating
- 
-# Use two extreme values when calculating 0% or 100%
-extrapolate = (a0, b0, elos) ->
-	a = performance_rating a0,elos
-	b = performance_rating b0,elos
-	b + b - a
-
-performance = (pp,elos) -> 
-	n = elos.length
-	if n == 1
-		if pp == 0 then return extrapolate 0.50,0.25,elos
-		if pp == n then return extrapolate 0.50,0.75,elos
-	else
-		if pp == 0 then return extrapolate   1,  0.5,elos
-		if pp == n then return extrapolate n-1,n-0.5,elos
-	performance_rating pp,elos
-
 safeGet = (params,key,standard="") -> 
 	if params.get key then return params.get key 
 	if params.get ' ' + key then return params.get ' ' + key
@@ -119,13 +86,13 @@ parseQuery = ->
 		players.push new Player players.length, name, elo
 
 	R = parseInt safeGet params, "R", players.length-1
-	echo 'R',R
+	#echo 'R',R
 
 	results = []
-	echo 'R',R
+	#echo 'R',R
 	for i in range R
 		results.push safeGet params, "r#{i+1}", "x".repeat players.length / 2
-	echo results
+	#echo results
 
 savePairing = (r, A, half, n) ->
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
@@ -147,8 +114,8 @@ makeBerger = ->
 	rounds
 
 makeFairPair = ->
-	echo 'R',R
-	fairpair = new FairPair players, R
+	#echo 'R',R
+	fairpair = new FairPair players, R, GAMES
 
 	for p in fairpair.players
 		echo p.opp,p.col,p.balans()
@@ -164,125 +131,6 @@ makeFairPair = ->
 	fairpair.rounds	
 
 showHelp = ->
-	a = (s) -> url.push s
-	bergerText = """?TITLE=Berger
-	&GAMES=1
-	&TYPE=Berger
-	&R=9
-
-	&p=1698 Onni Aikio
-	&p=1558 Helge Bergström
-	&p=1549 Jonas Hök
-	&p=1679 Lars Johansson
-	&p=0000 Per Eriksson
-	&p=1653 Christer Nilsson
-	&p=1673 Per Hamnström
-	&p=1504 Thomas Paulin
-	&p=1706 Abbas Razavi
-	&p=1579 Jouko Liistamo
-
-	&r1=01201
-	&r2=01201
-	&r3=01201
-	&r4=01201
-	&r5=11111
-	&r6=00000
-	&r7=22222
-	&r8=01201
-	&r9=01201
-	"""
-
-	fairpairText = """?TITLE=FairPair
-	&GAMES=1
-	&TYPE=FairPair
-	&R=4
-
-	&p=1698 Onni Aikio
-	&p=1558 Helge Bergström
-	&p=1549 Jonas Hök
-	&p=1679 Lars Johansson
-	&p=0000 Per Eriksson
-	&p=1653 Christer Nilsson
-	&p=1673 Per Hamnström
-	&p=1504 Thomas Paulin
-	&p=1706 Abbas Razavi
-	&p=1579 Jouko Liistamo
-
-	&r1=01201
-	&r2=01201
-	&r3=01201
-	&r4=01201
-	"""
-
-	helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två olika turneringsformat:
-	  * Berger (alla möter alla)
-	  * FairPair (flytande Berger, typ)
-
-	* Alla ronder lottas i förväg
-	* Hanterar upp till fyra partier per rond, t ex dubbelrond eller lagmatch
-	* All nödvändig information skickas in som parametrar
-	<h3>Interaktioner</h3>* Klick på rond visar bordslistan
-	* Klick på annan kolumn sorterar
-	* ctrl p skriver ut
-	* ctrl + och ctrl - zoomar
-	<h3>Parametrar</h3>?TITLE=Sommarturnering 2025
-		Anger turneringens namn
-
-	&TYPE=Berger
-		Anger Berger eller FairPair
-
-	&GAMES=1
-		Anger antal partier per rond. 1 till 4.
-
-	&R=9
-		Anger antal ronder (automatisk för Berger)
-
-	&p=1653 Christer Nilsson
-		Alla deltagare anges med rating och namn
-		Använd 0000 för deltagare utan rating
-
-	&r1=012x0 
-		Vitspelarnas resultat för den första ronden, i bordsordning
-		GAMES=1:
-			0 = Förlust
-			1 = Remi
-			2 = Vinst
-
-		GAMES=2: 0 till 4 kan användas
-		GAMES=3: 0 till 6 kan användas
-		GAMES=4: 0 till 8 kan användas
-		x = Ej spelat
-
-	"""
-
-	# &p=1698 Onni Aikio
-	# &p=1558 Helge Bergström
-	# &p=1549 Jonas Hök
-	# &p=1679 Lars Johansson
-	# &p=0000 Per Eriksson
-	# &p=1653 Christer Nilsson
-	# &p=1673 Per Hamnström
-	# &p=1504 Thomas Paulin
-	# &p=1706 Abbas Razavi
-	# &p=1579 Jouko Liistamo
-	# &p=1798 Aikio
-	# &p=1658 Bergström
-	# &p=1649 Hök
-	# &p=1779 Johansson
-	# &p=0000 Eriksson
-	# &p=1753 Nilsson
-	# &p=1773 Hamnström
-	# &p=1604 Paulin
-	# &p=1806 Razavi
-	# &p=1679 Liistamo
-
-	# &r1=0120120120
-	# &r2=0120120120
-	# &r3=0120120120
-	# &r4=0120120120
-	# &r5=0120120120
-	# &r6=0120120120
-	# &r7=0120120120
 
 	help = document.createElement 'div'
 	help.className = 'help'
@@ -327,7 +175,7 @@ showHelp = ->
 
 showPlayers = (points) ->
 
-	echo rounds
+	#echo rounds
 
 	h2 =  document.createElement 'h2'
 	h2.textContent = TITLE
@@ -337,7 +185,7 @@ showPlayers = (points) ->
 
 	thead = document.createElement 'thead'
 	tbl.appendChild thead
-	echo tbl
+	#echo tbl
 
 	th = document.createElement 'th'
 	th.textContent = "#"
@@ -406,7 +254,7 @@ showPlayers = (points) ->
 			html += "<div style='position:absolute; top:-4px;        font-size:1.0em;'>#{result}</div>"
 			cell.innerHTML = "<div style='position:relative;'>" + html + "</div>"
 
-		echo i,oppElos,pointsPR,p.name
+		#echo i,oppElos,pointsPR,p.name
 		cell = row.insertCell()
 		cell.textContent = points[i]
 		cell.style.textAlign = 'right'
@@ -480,10 +328,10 @@ main = ->
 	else 
 		rounds = makeFairPair()
 
-	echo rounds
+#	echo rounds
 	points = Array(players.length).fill(0)
 
-	echo 'results',results
+#	echo 'results',results
 	for i in range results.length
 		res = results[i]
 		round = rounds[i]
@@ -492,7 +340,7 @@ main = ->
 				points[w] += parseInt res[j]
 				points[b] += 2*GAMES - parseInt res[j]
 
-	echo 'points',points
+#	echo 'points',points
 
 	showPlayers points
 	showTables rounds[0] or [], 0
