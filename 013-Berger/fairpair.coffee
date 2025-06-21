@@ -24,7 +24,8 @@ export class FairPair
 			for j in range @N
 				if i==j then @matrix[i][j] = ' '
 				b = @players[j]
-				if @ok a,b then edges.push [i, j, 10000 - Math.abs a.elo - b.elo]
+				diff = a.elo - b.elo
+				if @ok a,b then edges.push [i, j, 10000 - diff ** 1.01]
 		edges
 
 	# sortTables : (tables) -> # Blossom verkar redan ge en bra bordsplacering

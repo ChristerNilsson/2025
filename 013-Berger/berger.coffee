@@ -130,48 +130,31 @@ makeFairPair = ->
 	echo fairpair.rounds
 	fairpair.rounds	
 
+wrap = (type,attr,b...) ->
+	b = b.join ""
+	if attr == '' then "<#{type}>#{b}</#{type}>"
+	else "<#{type} #{attr}>#{b}</#{type}>"
+
+table = (attr,b...) -> wrap 'table',attr,b...
+tr    = (attr,b...) -> wrap 'tr',attr,b...
+td    = (attr,b)    -> wrap 'td',attr, b
+a     = (attr,b)    -> wrap 'a',attr, b
+div   = (attr,b...) -> wrap 'div',attr,b...
+pre   = (attr,b...) -> wrap 'pre',attr,b...
+p     = (attr,b...) -> wrap 'p',attr,b...
+
 showHelp = ->
 
-	help = document.createElement 'div'
-	help.className = 'help'
-	help.innerHTML = "<pre>#{helpText}</pre>"
-	document.getElementById('berger').appendChild help
+	result = div "",
+		div 'class="help"', pre "", helpText
+		p "", a "href=\"#{DOMAIN_GLOBAL + bergerText}\"",'Berger'
+		p "", a "href=\"#{DOMAIN_LOCAL + bergerText}\"",'Berger dev'
+		div 'class="help"', pre "", bergerText
+		p "", a "href=\"#{DOMAIN_GLOBAL + fairpairText}\"",'FairPair'
+		p "", a "href=\"#{DOMAIN_LOCAL + fairpairText}\"",'FairPair dev'
+		div 'class="help"', pre "", fairpairText
 
-	link = document.createElement 'a'
-	link.href = DOMAIN_GLOBAL + bergerText
-	link.text = "Berger"
-	divnode = document.getElementById('berger').appendChild document.createElement 'p'
-	divnode.appendChild link
-
-	link = document.createElement 'a'
-	link.href = DOMAIN_LOCAL + bergerText
-	link.text = "Berger dev"
-	divnode = document.getElementById('berger').appendChild document.createElement 'p' 
-	divnode.appendChild link
-
-	exempel = document.createElement 'div'
-	exempel.className = 'help'
-	exempel.innerHTML = "<pre>#{bergerText}</pre>"
-	divnode = document.getElementById('berger').appendChild document.createElement 'p'
-	divnode.appendChild exempel
-
-	link = document.createElement 'a'
-	link.href = DOMAIN_GLOBAL + fairpairText
-	link.text = "FairPair"
-	divnode = document.getElementById('berger').appendChild document.createElement 'p'
-	divnode.appendChild link
-
-	link = document.createElement 'a'
-	link.href = DOMAIN_LOCAL + fairpairText
-	link.text = "FairPair dev"
-	divnode = document.getElementById('berger').appendChild document.createElement 'p'
-	divnode.appendChild link
-
-	exempel = document.createElement 'div'
-	exempel.className = 'help'
-	exempel.innerHTML = "<pre>#{fairpairText}</pre>"
-	divnode = document.getElementById('berger').appendChild document.createElement 'p'
-	divnode.appendChild exempel
+	document.getElementById('berger').innerHTML = result
 
 showPlayers = (points) ->
 
