@@ -132,10 +132,10 @@ export helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två 
 	Anger Berger eller FairPair
 
 &GAMES=1
-	Anger antal partier per rond. 1 till 4.
+	Anger antal partier per rond. 1, 2, 3 eller 4.
 
 &R=9
-	Anger antal ronder (automatisk för Berger)
+	Anger antal ronder
 
 &p=1653 Christer Nilsson
 	Alla deltagare anges med rating och namn
@@ -154,4 +154,3 @@ export helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två 
 	x = Ej spelat
 
 """
-

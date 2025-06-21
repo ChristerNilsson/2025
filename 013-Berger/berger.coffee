@@ -124,8 +124,11 @@ makeFairPair = ->
 
 wrap = (type,attr,b...) ->
 	b = b.join ""
-	if attr == '' then "<#{type}>#{b}</#{type}>"
-	else "<#{type} #{attr}>#{b}</#{type}>"
+	if attr == {} 
+		"<#{type}>#{b}</#{type}>"
+	else 
+		attr = "#{key}=\"#{value}\"" for key,value of attr
+		return "<#{type} #{attr}>#{b}</#{type}>"
 
 table = (attr,b...) -> wrap 'table',attr,b...
 thead = (attr,b...) -> wrap 'thead',attr,b...
@@ -140,14 +143,14 @@ h2    = (attr,b...) -> wrap 'h2',attr,b...
 
 showHelp = ->
 
-	result = div "",
-		div 'class="help"', pre "", helpText
-		p "", a "href=\"#{DOMAIN_GLOBAL + bergerText}\"",'Berger'
-		p "", a "href=\"#{DOMAIN_LOCAL + bergerText}\"",'Berger dev'
-		div 'class="help"', pre "", bergerText
-		p "", a "href=\"#{DOMAIN_GLOBAL + fairpairText}\"",'FairPair'
-		p "", a "href=\"#{DOMAIN_LOCAL + fairpairText}\"",'FairPair dev'
-		div 'class="help"', pre "", fairpairText
+	result = div {},
+		div {class:"help"}, pre {}, helpText
+		p {}, a {href: DOMAIN_GLOBAL + bergerText},'Berger'
+		p {}, a {href: DOMAIN_LOCAL + bergerText},'Berger dev'
+		div {class:"help"}, pre {}, bergerText
+		p {}, a {href: DOMAIN_GLOBAL + fairpairText},'FairPair'
+		p {}, a {href: DOMAIN_LOCAL + fairpairText},'FairPair dev'
+		div {class:"help"}, pre {}, fairpairText
 
 	document.getElementById('berger').innerHTML = result
 
@@ -180,14 +183,14 @@ roundsContent = (points, i) -> # rondernas data + poäng + PR
 			result = ""
 
 		if i == w then a = "right:0px;" else a = "left:0px;"
-		cell = td 'style="position:relative;"',
-			div 'style="position:absolute; top:0px;' + a + 'font-size:0.7em;"', opponent + 1
-			div 'style="position:absolute; top:12px;          font-size:1.1em;"', result
+		cell = td {style: "position:relative;"},
+			div {style: "position:absolute; top:0px;" + a + "font-size:0.7em;"}, opponent + 1
+			div {style: "position:absolute; top:12px;        font-size:1.1em;"}, result
 
 		ronder.push cell
 
-	ronder.push	td 'style="text-align:right"', points[i]
-	ronder.push td '', performance pointsPR/(2*GAMES), oppElos
+	ronder.push	td {style:"text-align:right"}, points[i]
+	ronder.push td {}, performance pointsPR/(2*GAMES), oppElos
 	ronder.join ""
 
 showPlayers = (points) ->
@@ -196,22 +199,22 @@ showPlayers = (points) ->
 
 	for p, i in players
 
-		rows.push tr "",
-			td "", i + 1
-			td 'style="text-align:left;"', p.name
-			td "", p.elo
+		rows.push tr {},
+			td {}, i + 1
+			td {style: "text-align:left;"}, p.name
+			td {}, p.elo
 			roundsContent points, i
 
-	result = div "",
-		h2 "", TITLE
-		table "",
-			thead "",
-				th "", "#"
-				th '', "Namn"
-				th "", "Elo"
-				(th "", "#{i+1}" for i in range rounds.length).join ""
-				th "", "P"
-				th "", "PR"
+	result = div {},
+		h2 {}, TITLE
+		table {},
+			thead {},
+				th {}, "#"
+				th {}, "Namn"
+				th {}, "Elo"
+				(th {}, "#{i+1}" for i in range rounds.length).join ""
+				th {}, "P"
+				th {}, "PR"
 			rows.join ""
 
 	document.getElementById('bergertabell').innerHTML = result
@@ -242,20 +245,20 @@ showTables = (rounds, selectedRound) ->
 		vit = players[w]?.name or ""
 		svart = players[b]?.name or ""
 
-		rows += tr "",
-			td "", i+1
-			td 'style="text-align:left"', vit #= document.createElement 'td'
-			td 'style="text-align:left"', svart # = document.createElement 'td'
-			td 'style="text-align:center"', prettify results[selectedRound][i]
+		rows += tr {},
+			td {}, i+1
+			td {style: "text-align:left"}, vit #= document.createElement 'td'
+			td {style: "text-align:left"}, svart # = document.createElement 'td'
+			td {style: "text-align:center"}, prettify results[selectedRound][i]
 
-	result = div "",
-		h2 "", "Bordslista för rond #{selectedRound+1}"
-		table "",
-			thead "",
-				th "", "Bord"
-				th "", "Vit"
-				th "", "Svart"
-				th "", "#{RESULTS}"
+	result = div {},
+		h2 {}, "Bordslista för rond #{selectedRound+1}"
+		table {},
+			thead {},
+				th {}, "Bord"
+				th {}, "Vit"
+				th {}, "Svart"
+				th {}, "#{RESULTS}"
 			rows
 
 	document.getElementById('tables').innerHTML = result

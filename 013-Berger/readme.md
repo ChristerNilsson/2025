@@ -6,10 +6,10 @@ Skriv in namnen i en textfil
 
 ```
 http://127.0.0.1:5500/?title=Joukos Sommar 2025
-&MAX=2
-&p1=1698 Onni Aikio
-&p2=1558 Helge Bergström
-&p3=1549 Jonas Hök
+&GAMES=2
+&p=1698 Onni Aikio
+&p=1558 Helge Bergström
+&p=1549 Jonas Hök
 ```
 
 Markera allt i textfilen med ctrl-a
@@ -25,14 +25,14 @@ Observera:
 * 1 - 1 remi
 * 2 - 0 vit vinst
 
-Orsaken till detta är att även kunna hantera dubbelrond, MAX=4:
+Orsaken till detta är att även kunna hantera dubbelrond, GAMES=2:
 * 0 - 4
 * 1 - 3
 * 2 - 2
 * 3 - 1
 * 4 - 0
 
-Maximalt kan fyra partier per rond hanteras, MAX=8
+Maximalt kan fyra partier per rond hanteras, GAMES=4
 
 ```
 &r1=201x2
@@ -53,7 +53,19 @@ x = partiet ej spelat
 
 Rondnummerna är klickbara. Då visas bordslista för klickad rond.
 
-# Strul
+# Skillnader gentemot andra turneringssystem
 
-När man kopierar den flerradiga urlen genom att markera alla rader, kan det stoppas in ett mellanslag (%20) efter ? och &  
-Detta är orsaken till att safeGet används.
+* Ratingen styr vilka som möts. Skillnaden minimeras.
+* Man behöver inte använda särskiljning
+* Man lottar alla ronder direkt. Inget strul med orapporterade resultat.
+* Inget bekymmer med att dela upp turneringen i flera Berger-grupper.
+* Alla spelare vet i vilken rond de ska möta varandra. Som Berger.
+* Enkel hantering av lottning, även dubbelrondigt.
+* Eftersom turneringens data finns i url:en, dvs länken, kan den enkelt publiceras.
+
+# Att tänka på
+
+* När turneringen börjat kan man inte lägga till eller ta bort spelare. 
+* Man får inte ändra elo under turneringens gång.
+* Skriv alltid ut Bordslistorna! De fungerar som backup.
+* Frirond hanteras manuellt.
