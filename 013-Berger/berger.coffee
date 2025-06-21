@@ -41,11 +41,11 @@ skapaSorteringsklick = ->
 
 	#echo ths
 	index = -1
-	for th in ths
+	for _th in ths
 		index += 1
-		do (th,index) ->
-			th.addEventListener 'click', (event) ->
-				key = th.textContent
+		do (_th,index) ->
+			_th.addEventListener 'click', (event) ->
+				key = _th.textContent
 				if !isNaN parseInt key
 					key = parseInt(key) - 1 
 					showTables rounds[key] or [], key
@@ -245,7 +245,7 @@ showTables = (rounds, selectedRound) ->
 				th {}, "Bord"
 				th {}, "Vit"
 				th {}, "Svart"
-				th {}, "#{RESULTS}"
+				th {}, "#{RESULTS}" 
 			rows
 
 	document.getElementById('tables').innerHTML = result
