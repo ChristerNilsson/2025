@@ -23,7 +23,7 @@ sorteringsOrdning = {}	# Spara per kolumn
 
 findNumberOfDecimals = (lst) ->
 	best = 0
-	for i in [0..6]
+	for i in range 6
 		unik = _.uniq (item.toFixed(i) for item in lst)
 		if unik.length > best then [best,ibest] = [unik.length,i]
 	ibest
@@ -113,9 +113,6 @@ makeBerger = ->
 makeFairPair = ->
 	fairpair = new FairPair players, R, GAMES
 
-	for p in fairpair.players
-		echo p.opp,p.col,p.balans()
-
 	echo "" 
 
 	for i in range players.length
@@ -123,7 +120,6 @@ makeFairPair = ->
 		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
 
 	echo 'summa', fairpair.summa
-	echo fairpair.rounds
 	fairpair.rounds	
 
 wrap = (type,attr,b...) ->
@@ -214,7 +210,7 @@ showPlayers = (points) ->
 				th '', "Namn"
 				th "", "Elo"
 				(th "", "#{i+1}" for i in range rounds.length).join ""
-				th "", "Poäng"
+				th "", "P"
 				th "", "PR"
 			rows.join ""
 
@@ -225,8 +221,12 @@ showPlayers = (points) ->
 	rader = Array.from tbody.querySelectorAll 'tr'
 	lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
 	decimals = findNumberOfDecimals lst
+	echo lst,decimals
 	for rad in rader
-		_.last(rad.children).textContent = parseFloat(_.last(rad.children).textContent).toFixed decimals
+		value = parseFloat _.last(rad.children).textContent
+		echo value
+		value = if value > 3999 then "" else value.toFixed decimals 
+		_.last(rad.children).textContent = value
 
 prettify = (ch) ->
 	if ch in RESULTS then return "#{ch} - #{2*GAMES - ch}"
@@ -235,44 +235,30 @@ prettify = (ch) ->
 showTables = (rounds, selectedRound) ->
 	if rounds.length == 0 then return
 
-	title = document.createElement 'h2'
-	title.textContent = "Bordslista för rond #{selectedRound+1}"
-	document.getElementById('tables').innerHTML = ''
-	document.getElementById('tables').appendChild title
-
-	table = document.createElement 'table'
-	table.id = 'bordtabell'
-
-	header = table.insertRow()
-	header.innerHTML = "<th>Bord</th><th>Vit</th><th>Svart</th><th>#{RESULTS}</th>"
+	rows = ""
 
 	for i in range rounds.length
-		tr = document.createElement 'tr'
 		[w, b] = rounds[i]
 		vit = players[w]?.name or ""
 		svart = players[b]?.name or ""
 
-		td = document.createElement 'td'
-		td.textContent = "#{i + 1}"
-		tr.appendChild td
+		rows += tr "",
+			td "", i+1
+			td 'style="text-align:left"', vit #= document.createElement 'td'
+			td 'style="text-align:left"', svart # = document.createElement 'td'
+			td 'style="text-align:center"', prettify results[selectedRound][i]
 
-		td = document.createElement 'td'
-		td.textContent = vit
-		td.style.textAlign = 'left'
-		tr.appendChild td
+	result = div "",
+		h2 "", "Bordslista för rond #{selectedRound+1}"
+		table "",
+			thead "",
+				th "", "Bord"
+				th "", "Vit"
+				th "", "Svart"
+				th "", "#{RESULTS}"
+			rows
 
-		td = document.createElement 'td'
-		td.textContent = svart
-		td.style.textAlign = 'left'
-		tr.appendChild td
-
-		td = document.createElement 'td'
-		td.textContent = prettify results[selectedRound][i]
-		td.style.align = 'center'
-		tr.appendChild td
-
-		table.appendChild tr
-	document.getElementById('tables').appendChild table
+	document.getElementById('tables').innerHTML = result
 
 main = ->
 	parseQuery()

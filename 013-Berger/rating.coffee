@@ -33,6 +33,4 @@ export performance = (pp,elos) ->
 	else
 		if pp == 0 then return extrapolate   1,  0.5,elos
 		if pp == n then return extrapolate n-1,n-0.5,elos
-	res = performance_rating pp,elos
-	echo pp,elos,n,res
-	res
+	performance_rating pp,elos

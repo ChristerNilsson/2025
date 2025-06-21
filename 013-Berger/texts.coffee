@@ -1,7 +1,7 @@
 export bergerText = """?TITLE=Berger
-&GAMES=2
+&GAMES=1
 &TYPE=Berger
-&R=4
+&R=9
 
 &p=1698 Onni Aikio
 &p=1558 Helge Bergström
@@ -25,12 +25,12 @@ export bergerText = """?TITLE=Berger
 &r9=01201
 """
 
-export fairpairTextOld = """?TITLE=FairPair
+export fairpairText = """?TITLE=FairPair
 &GAMES=2
 &TYPE=FairPair
-&R=7
+&R=5
 
-&p=1698_Onni Aikio
+&p=1698 Onni Aikio
 &p=1558 Helge Bergström
 &p=1549 Jonas Hök
 &p=1679 Lars Johansson
@@ -53,48 +53,47 @@ export fairpairTextOld = """?TITLE=FairPair
 
 &r1=0120120120
 &r2=0120120120
-&r3=0120120120
-&r4=0120120120
-&r5=0120120120
-&r6=0120120120
-&r7=0120120120
+
 """
 
+# &r1=0120120120
+# &r2=0120120120
+# &r3=0120120120
+# &r4=0120120120
+# &r5=0120120120
 
-export fairpairText = """?TITLE=FairPair
-&GAMES=2
-&TYPE=FairPair
-&R=4
+# export fairpairText = """?TITLE=FairPair
+# &GAMES=2
+# &TYPE=FairPair
+# &R=5
 
-&p=1419 Onni Aikio
-&p=1418 Helge Bergström
-&p=1417 Jonas Hök
-&p=1416 Lars Johansson
-&p=1415 Per Eriksson
-&p=1414 Christer Nilsson
-&p=1413 Per Hamnström
-&p=1412 Thomas Paulin
-&p=1411 Abbas Razavi
-&p=1410 Jouko Liistamo
-&p=1409 Aikio
-&p=1408 Bergström
-&p=1407 Hök
-&p=1406 Johansson
-&p=1405 Eriksson
-&p=1404 Nilsson
-&p=1403 Hamnström
-&p=1402 Paulin
-&p=1401 Razavi
-&p=1400 Liistamo
+# &p=1419 Onni Aikio
+# &p=1418 Helge Bergström
+# &p=1417 Jonas Hök
+# &p=1416 Lars Johansson
+# &p=1415 Per Eriksson
+# &p=1414 Christer Nilsson
+# &p=1413 Per Hamnström
+# &p=1412 Thomas Paulin
+# &p=1411 Abbas Razavi
+# &p=1410 Jouko Liistamo
+# &p=1409 Aikio
+# &p=1408 Bergström
+# &p=1407 Hök
+# &p=1406 Johansson
+# &p=1405 Eriksson
+# &p=1404 Nilsson
+# &p=1403 Hamnström
+# &p=1402 Paulin
+# &p=1401 Razavi
+# &p=1400 Liistamo
 
-&r1=0120120120
-&r2=0120120120
-&r3=0120120120
-&r4=0120120120
-&r5=0120120120
-&r6=0120120120
-&r7=0120120120
-"""
+# &r1=0120120120
+# &r2=0120120120
+# &r3=0120120120
+# &r4=0120120120
+# &r5=0120120120
+# """
 
 
 # &p=1698 Onni Aikio
