@@ -136,10 +136,10 @@ showHelp = ->
 		div {class:"help"}, pre {}, helpText
 		p {}, a {href: DOMAIN_GLOBAL + bergerText},'Berger'
 		p {}, a {href: DOMAIN_LOCAL + bergerText},'Berger dev'
-		div {class:"help"}, pre {}, bergerText
+		div {class:"help"}, pre {}, DOMAIN_GLOBAL + bergerText
 		p {}, a {href: DOMAIN_GLOBAL + fairpairText},'FairPair'
 		p {}, a {href: DOMAIN_LOCAL + fairpairText},'FairPair dev'
-		div {class:"help"}, pre {}, fairpairText
+		div {class:"help"}, pre {}, DOMAIN_GLOBAL + fairpairText
 
 	document.getElementById('berger').innerHTML = result
 
