@@ -2,6 +2,7 @@ import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
 import {bergerText, fairpairText, helpText} from './texts.js'
 import {performance} from './rating.js'
+import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 
 echo = console.log
 range = _.range
@@ -15,9 +16,15 @@ RESULTS = '012'
 TYPE = 'Berger'
 R = 0
 
+alignLeft   = {style: "text-align:left"}
+alignCenter = {style: "text-align:center"}
+alignRight  = {style: "text-align:right"}
+
 players = []
 rounds = [] # vem möter vem? [w,b]
 results = [] # ['012xx', '22210'] Vitspelarnas resultat i varje rond
+
+display = 3 # both
 
 sorteringsOrdning = {}	# Spara per kolumn
 
@@ -80,9 +87,9 @@ parseQuery = ->
 	players = []
 	persons = params.getAll "p"
 	persons.sort().reverse()
-	for p in persons
-		elo = parseInt p.slice 0,4
-		name = p.slice(4).trim()
+	for person in persons
+		elo = parseInt person.slice 0,4
+		name = person.slice(4).trim()
 		players.push new Player players.length, name, elo
 
 	R = parseInt safeGet params, "R", players.length-1
@@ -122,24 +129,6 @@ makeFairPair = ->
 	echo 'summa', fairpair.summa
 	fairpair.rounds	
 
-wrap = (type,attr,b...) ->
-	b = b.join ""
-	if attr == {} 
-		"<#{type}>#{b}</#{type}>"
-	else 
-		attr = "#{key}=\"#{value}\"" for key,value of attr
-		return "<#{type} #{attr}>#{b}</#{type}>"
-
-table = (attr,b...) -> wrap 'table',attr,b...
-thead = (attr,b...) -> wrap 'thead',attr,b...
-th    = (attr,b...) -> wrap 'th',attr,b...
-tr    = (attr,b...) -> wrap 'tr',attr,b...
-td    = (attr,b...) -> wrap 'td',attr, b...
-a     = (attr,b)    -> wrap 'a',attr, b
-div   = (attr,b...) -> wrap 'div',attr,b...
-pre   = (attr,b...) -> wrap 'pre',attr,b...
-p     = (attr,b...) -> wrap 'p',attr,b...
-h2    = (attr,b...) -> wrap 'h2',attr,b...
 
 showHelp = ->
 
@@ -182,14 +171,14 @@ roundsContent = (points, i) -> # rondernas data + poäng + PR
 		else
 			result = ""
 
-		if i == w then a = "right:0px;" else a = "left:0px;"
+		if i == w then attr = "right:0px;" else attr = "left:0px;"
 		cell = td {style: "position:relative;"},
-			div {style: "position:absolute; top:0px;" + a + "font-size:0.7em;"}, opponent + 1
-			div {style: "position:absolute; top:12px;        font-size:1.1em;"}, result
+			div {style: "position:absolute; top:0px;" + attr + "font-size:0.7em;"}, opponent + 1
+			div {style: "position:absolute; top:12px;           font-size:1.1em;"}, result
 
 		ronder.push cell
 
-	ronder.push	td {style:"text-align:right"}, points[i]
+	ronder.push	td alignRight, points[i]
 	ronder.push td {}, performance pointsPR/(2*GAMES), oppElos
 	ronder.join ""
 
@@ -197,12 +186,12 @@ showPlayers = (points) ->
 
 	rows = []
 
-	for p, i in players
+	for player, i in players
 
 		rows.push tr {},
 			td {}, i + 1
-			td {style: "text-align:left;"}, p.name
-			td {}, p.elo
+			td alignLeft, player.name
+			td {}, player.elo
 			roundsContent points, i
 
 	result = div {},
@@ -224,10 +213,8 @@ showPlayers = (points) ->
 	rader = Array.from tbody.querySelectorAll 'tr'
 	lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
 	decimals = findNumberOfDecimals lst
-	echo lst,decimals
 	for rad in rader
 		value = parseFloat _.last(rad.children).textContent
-		echo value
 		value = if value > 3999 then "" else value.toFixed decimals 
 		_.last(rad.children).textContent = value
 
@@ -247,9 +234,9 @@ showTables = (rounds, selectedRound) ->
 
 		rows += tr {},
 			td {}, i+1
-			td {style: "text-align:left"}, vit #= document.createElement 'td'
-			td {style: "text-align:left"}, svart # = document.createElement 'td'
-			td {style: "text-align:center"}, prettify results[selectedRound][i]
+			td alignLeft, vit
+			td alignLeft, svart
+			td alignCenter, prettify results[selectedRound][i]
 
 	result = div {},
 		h2 {}, "Bordslista för rond #{selectedRound+1}"
@@ -291,5 +278,14 @@ main = ->
 	showTables rounds[0] or [], 0
 
 	skapaSorteringsklick()
+
+document.addEventListener 'keyup', (event) ->
+
+	if event.key == '1' then display = 1
+	if event.key == '2' then display = 2
+	if event.key == '3' then display = 3
+
+	document.getElementById("bergertabell").style.display = if display in [1,3] then "table" else "none"
+	document.getElementById("tables").style.display = if display in [2,3] then "table" else "none"
 
 main()

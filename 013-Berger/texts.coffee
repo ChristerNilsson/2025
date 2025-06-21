@@ -123,8 +123,14 @@ export helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två 
 * All nödvändig information skickas in som parametrar
 <h3>Interaktioner</h3>* Klick på rond visar bordslistan
 * Klick på annan kolumn sorterar
+
 * ctrl p skriver ut
 * ctrl + och ctrl - zoomar
+
+* 1 visar enbart ställningen
+* 2 visar enbart borden
+* 3 visar både ställning och bord
+
 <h3>Parametrar</h3>?TITLE=Sommarturnering 2025
 	Anger turneringens namn
 
