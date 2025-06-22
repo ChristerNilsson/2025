@@ -87,19 +87,20 @@ saveStorage = -> localStorage[KEY] = maxLevel
 loadStorage = -> maxLevel = if KEY of localStorage then parseInt localStorage[KEY] else maxLevel = 2
 
 setup = ->
-	canvas = createCanvas window.innerWidth, window.innerHeight # TILE*(SIZE+1),TILE*(SIZE+2)
+	canvas = createCanvas window.innerWidth, window.innerHeight
 
 	canvas.position 0,0 # hides text field used for clipboard copy.
 
 	rectMode CENTER
 	loadStorage()
 	level = maxLevel
-	buttons.push new Button 180+90,height-TILE/2,'<', -> newGame 1
-	buttons.push new Button 180+150,height-TILE/2,'-', -> newGame level-1
-	buttons.push new Button 180+210,height-TILE/2,level, -> 
-	buttons.push new Button 180+270,height-TILE/2,'+', -> newGame level+1
-	buttons.push new Button 180+330,height-TILE/2,'>', -> newGame maxLevel
-	buttons.push new Button 720,height-TILE/2,'?', -> window.open 'https://github.com/ChristerNilsson/Lab/blob/master/2025/016-Twins2/README.md#twins'
+	w2 = width/2
+	buttons.push new Button w2-120,height-TILE/2,'<', -> newGame 1
+	buttons.push new Button w2-60, height-TILE/2,'-', -> newGame level-1
+	buttons.push new Button w2,    height-TILE/2,level, -> 
+	buttons.push new Button w2+60, height-TILE/2,'+', -> newGame level+1
+	buttons.push new Button w2+120,height-TILE/2,'>', -> newGame maxLevel
+	buttons.push new Button width-120,height-TILE/2,'?', -> window.open 'https://github.com/ChristerNilsson/Lab/blob/master/2025/016-Twins2/README.md#twins'
 
 	hearts = new Hearts 60,35
 
@@ -227,6 +228,8 @@ draw = ->
 		button.draw()
 	hearts.draw()
 
+	TILE = height/Size/1.5
+
 	textAlign CENTER,CENTER
 	textSize 0.8 * TILE
 
@@ -282,16 +285,16 @@ draw = ->
 drawHints = ->
 	if hints0.length > 0 
 		fc 0,1,0 
-		text '*', TILE, height - 0.3 * TILE
+		text '*', TILE, height - 0.1 * TILE
 	if hints1.length > 0 
 		fc 1,0,0
-		text '*', TILE, height - 0.3 * TILE
+		text '*', TILE, height - 0.1 * TILE
 
 drawProgress = ->
 	fc 1
 	sc()
 	textSize 30
-	text numbers,2.5*TILE,height-0.5*TILE
+	text numbers,2.5*TILE,height-0.3*TILE
 
 drawLittera = (i,j) ->
 	if showLittera
