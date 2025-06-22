@@ -309,12 +309,25 @@ within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 keyPressed = ->
 	keys += key 
 	if keys.endsWith 'QPZM'
-		keys = ''
+		keys = '' 
 		showHint = not showHint
 
-mouseReleased = -> released = true
+# === För iPad och mobiler ===
+touchStarted = ->
+	handlePress()
+	false
+	
+touchEnded = ->
+	handleRelease()
+	false
 
-mousePressed = ->
+# === För PC med mus ===
+mousePressed = -> handlePress()
+mouseReleased = -> handleRelease()
+
+handleRelease = -> released = true
+
+handlePress = ->
 
 	if not released then return 
 	released = false
