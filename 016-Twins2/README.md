@@ -1,6 +1,6 @@
 # Twins
 
-[Try it!](https://christernilsson.github.io/Lab/2018/049-Twins/index.html)
+[Try it!](https://christernilsson.github.io/2025/016-Twins2/index.html)
 
 ![Screenshot](screenshot.jpg)
 
