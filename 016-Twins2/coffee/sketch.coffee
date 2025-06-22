@@ -316,7 +316,8 @@ mouseReleased = -> released = true
 
 mousePressed = ->
 
-	if not released then return else released = true
+	if not released then return 
+	released = false
 
 	if state=='halted' 
 		newGame level
