@@ -446,6 +446,7 @@ copyToClipboard = (txt) ->
 	copyText.value = txt 
 	copyText.select()
 	document.execCommand "copy"
+	window.getSelection().removeAllRanges()
 
 showMoves = -> 
 	hints0 = showMoves1 false
