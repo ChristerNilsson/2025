@@ -3,7 +3,7 @@
 # Ramens celler innehåller 0.
 
 ALFABET = "abcdefghijklmnopqrstuvwxyz"
-SIZE = 12
+# SIZE = 12
 TILE = 60
 FREE = 0
 COLORS = '#fff #f00 #0f0 #ff0 #f0f #0ff #880 #f88 #088 #8f8'.split ' '
@@ -87,7 +87,8 @@ saveStorage = -> localStorage[KEY] = maxLevel
 loadStorage = -> maxLevel = if KEY of localStorage then parseInt localStorage[KEY] else maxLevel = 2
 
 setup = ->
-	canvas = createCanvas TILE*(SIZE+1),TILE*(SIZE+2)
+	canvas = createCanvas window.innerWidth, window.innerHeight # TILE*(SIZE+1),TILE*(SIZE+2)
+
 	canvas.position 0,0 # hides text field used for clipboard copy.
 
 	rectMode CENTER
