@@ -7,7 +7,7 @@ import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 echo = console.log
 range = _.range
 
-DOMAIN_LOCAL = "http://127.0.0.1:5500"
+DOMAIN_LOCAL = "http://127.0.0.1:5501"
 DOMAIN_GLOBAL = "https://christernilsson.github.io/2025/013-Berger"
 
 TITLE = 'Bergerturnering'
@@ -72,8 +72,8 @@ skapaSorteringsklick = ->
 					tbody.appendChild rad
 
 safeGet = (params,key,standard="") -> 
-	if params.get key then return params.get key 
-	if params.get ' ' + key then return params.get ' ' + key
+	if params.get key then return params.get(key).trim()
+	if params.get ' ' + key then return params.get(' ' + key).trim()
 	standard
 
 parseQuery = ->
@@ -83,13 +83,14 @@ parseQuery = ->
 	GAMES = parseInt safeGet params, "GAMES", "1"
 	RESULTS = '012345678'.slice 0, 2 * GAMES + 1
 	TYPE = safeGet params, "TYPE", 'Berger'
-	
+
 	players = []
 	persons = params.getAll "p"
 	persons.sort().reverse()
 	for person in persons
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
+		echo elo,name
 		players.push new Player players.length, name, elo
 
 	R = parseInt safeGet params, "R", players.length-1
@@ -281,11 +282,8 @@ main = ->
 
 document.addEventListener 'keyup', (event) ->
 
-	if event.key == '1' then display = 1
-	if event.key == '2' then display = 2
-	if event.key == '3' then display = 3
-
-	document.getElementById("bergertabell").style.display = if display in [1,3] then "table" else "none"
-	document.getElementById("tables").style.display = if display in [2,3] then "table" else "none"
+	if event.key in '123' 
+		document.getElementById("bergertabell").style.display = if event.key in "13" then "table" else "none"
+		document.getElementById("tables").style.display = if event.key in "23" then "table" else "none"
 
 main()

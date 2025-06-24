@@ -69,3 +69,8 @@ Rondnummerna är klickbara. Då visas bordslista för klickad rond.
 * Man får inte ändra elo under turneringens gång.
 * Skriv alltid ut Bordslistorna! De fungerar som backup.
 * Frirond hanteras manuellt.
+
+# Strul
+
+Chrome byter radbrytningar till mellanslag som visas som %20 i adressfältet.
+Live Server startar med port 5500 eller 5501 lite hipp som happ.

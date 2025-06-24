@@ -1,3 +1,50 @@
+export helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två olika turneringsformat:
+	* Berger (alla möter alla)
+	* FairPair (spelarna möter spelare med liknande rating, oavsett poäng)
+
+* Alla ronder lottas i förväg
+* Hanterar upp till fyra partier per rond, t ex dubbelrond eller lagmatch
+* All nödvändig information skickas in som parametrar
+<h3>Interaktioner</h3>* Klick på rond visar bordslistan
+* Klick på annan kolumn sorterar
+
+* ctrl p skriver ut
+* ctrl + och ctrl - zoomar
+
+* 1 visar enbart ställningen
+* 2 visar enbart borden
+* 3 visar både ställning och bord
+
+<h3>Parametrar</h3>?TITLE=Sommarturnering 2025
+	Anger turneringens namn
+
+&TYPE=Berger
+	Anger Berger eller FairPair
+
+&GAMES=1
+	Anger antal partier per rond. 1, 2, 3 eller 4.
+
+&R=9
+	Anger antal ronder
+
+&p=1653 Christer Nilsson
+	Alla deltagare anges med rating och namn
+	Använd 0000 för deltagare utan rating 
+
+&r1=012x0 
+	Vitspelarnas resultat för den första ronden, i bordsordning
+	GAMES=1:
+		0 = Förlust
+		1 = Remi
+		2 = Vinst
+
+	GAMES=2: 0 till 4 kan användas
+	GAMES=3: 0 till 6 kan användas
+	GAMES=4: 0 till 8 kan användas
+	x = Ej spelat
+
+"""
+
 export bergerText = """?TITLE=Berger
 &GAMES=1
 &TYPE=Berger
@@ -12,7 +59,7 @@ export bergerText = """?TITLE=Berger
 &p=1673 Per Hamnström
 &p=1504 Thomas Paulin
 &p=1706 Abbas Razavi
-&p=1579 Jouko Liistamo
+&p=0000 FRIROND
 
 &r1=01201
 &r2=01201
@@ -24,6 +71,17 @@ export bergerText = """?TITLE=Berger
 &r8=01201
 &r9=01201
 """
+
+# export bergerText = """?TITLE=Berger
+# &GAMES=1
+# &TYPE=Berger
+# &R=3
+
+# &p=1698 Onni Aikio
+# &p=1558 Helge Bergström
+
+# &r1=2
+# """
 
 export fairpairText = """?TITLE=FairPair
 &GAMES=2
@@ -114,49 +172,3 @@ export fairpairText = """?TITLE=FairPair
 # &r3=012010
 # &r4=012010
 
-export helpText = """<h3>Introduktion</h3>Detta program kan lotta och visa två olika turneringsformat:
-	* Berger (alla möter alla)
-	* FairPair (flytande Berger, typ)
-
-* Alla ronder lottas i förväg
-* Hanterar upp till fyra partier per rond, t ex dubbelrond eller lagmatch
-* All nödvändig information skickas in som parametrar
-<h3>Interaktioner</h3>* Klick på rond visar bordslistan
-* Klick på annan kolumn sorterar
-
-* ctrl p skriver ut
-* ctrl + och ctrl - zoomar
-
-* 1 visar enbart ställningen
-* 2 visar enbart borden
-* 3 visar både ställning och bord
-
-<h3>Parametrar</h3>?TITLE=Sommarturnering 2025
-	Anger turneringens namn
-
-&TYPE=Berger
-	Anger Berger eller FairPair
-
-&GAMES=1
-	Anger antal partier per rond. 1, 2, 3 eller 4.
-
-&R=9
-	Anger antal ronder
-
-&p=1653 Christer Nilsson
-	Alla deltagare anges med rating och namn
-	Använd 0000 för deltagare utan rating 
-
-&r1=012x0 
-	Vitspelarnas resultat för den första ronden, i bordsordning
-	GAMES=1:
-		0 = Förlust
-		1 = Remi
-		2 = Vinst
-
-	GAMES=2: 0 till 4 kan användas
-	GAMES=3: 0 till 6 kan användas
-	GAMES=4: 0 till 8 kan användas
-	x = Ej spelat
-
-"""
