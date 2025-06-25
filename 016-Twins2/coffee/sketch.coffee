@@ -83,7 +83,7 @@ class Button
 		sw 2
 		circle @x,@y,@r
 		fc 0
-		textSize 30
+		textSize 0.07 * width
 		sc()
 		text @txt,@x,@y
 
@@ -116,7 +116,7 @@ setup = ->
 		buttons.push new Button w2+60,    height-margin/2,'+', -> newGame level+1
 		buttons.push new Button w2+120,   height-margin/2,'>', -> newGame maxLevel
 		buttons.push new Button w2+200,height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
-		hearts = new Hearts margin/4,margin/2
+		hearts = new Hearts margin/2,margin/2
 	else # landscape
 		margin = (width-height)/2
 		buttons.push new Button width-margin/2, h2-120  ,'<', -> newGame 1
@@ -221,7 +221,7 @@ drawHint  = (hints,r,g,b) ->
 		sw 1
 		fc r,g,b
 		sc()
-		textSize 20
+		textSize 0.07 * width
 		for [[i0,j0],[i1,j1]],index in hints
 			drawHintHelp ALFABET[index],i0,j0
 			drawHintHelp ALFABET[index],i1,j1
@@ -314,10 +314,10 @@ drawHints = ->
 	if width < height # portrait
 		if hints0.length > 0 
 			fc 0,1,0 
-			text '•', width-TILE*0.5, margin*0.5
+			text '•', width-margin*0.5, margin*0.5
 		if hints1.length > 0 
 			fc 1,0,0
-			text '•', width-TILE*0.5, margin*0.5
+			text '•', width-margin*0.75, margin*0.5
 	else
 		if hints0.length > 0 
 			fc 0,1,0 
@@ -329,23 +329,24 @@ drawHints = ->
 drawProgress = ->
 	fc 1
 	sc()
-	textSize 30
+	textSize 0.07*width
 	if width < height # portrait
-		text numbers,width-TILE,margin*0.5
+		text numbers,width-margin,margin*0.5
 	else # landscape
 		text numbers,margin/2,height-TILE
 
 drawLittera = (i,j) ->
-	if showLittera
-		push()
-		textSize 32
-		fc 0.25
-		sc 0.25
-		if j in [0,Size-1] and i < Size-1
-			text ' abcdefghik '[i],TILE*i,TILE*j
-		else if i in [0,Size-1] and 0<j<Size-1
-			text Size-1-j,TILE*i,TILE*j
-		pop()
+	return
+	# if showLittera
+	# 	push()
+	# 	textSize 32
+	# 	fc 0.25
+	# 	sc 0.25
+	# 	if j in [0,Size-1] and i < Size-1
+	# 		text ' abcdefghik '[i],TILE*i,TILE*j
+	# 	else if i in [0,Size-1] and 0<j<Size-1
+	# 		text Size-1-j,TILE*i,TILE*j
+	# 	pop()
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 
