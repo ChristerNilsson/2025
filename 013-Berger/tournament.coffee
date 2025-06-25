@@ -1,20 +1,17 @@
 import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
-import {bergerText, fairpairText, helpText} from './texts.js'
+import {helpText} from './texts.js'
 import {performance} from './rating.js'
 import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 
 echo = console.log
 range = _.range
 
-DOMAIN_LOCAL = "http://127.0.0.1:5501"
-DOMAIN_GLOBAL = "https://christernilsson.github.io/2025/013-Berger"
+TITLE = ''
+GAMES = 0
+ROUNDS = 0
 
-TITLE = 'Bergerturnering'
-GAMES = 2
-RESULTS = '012'
-TYPE = 'Berger'
-R = 0
+RESULTS = ''
 
 alignLeft   = {style: "text-align:left"}
 alignCenter = {style: "text-align:center"}
@@ -37,7 +34,7 @@ findNumberOfDecimals = (lst) ->
 
 skapaSorteringsklick = ->
 
-	ths = document.querySelectorAll '#bergertabell th'
+	ths = document.querySelectorAll '#stallning th'
 
 	#echo ths
 	index = -1
@@ -51,7 +48,7 @@ skapaSorteringsklick = ->
 					showTables rounds[key] or [], key
 					return
 
-				tbody = document.querySelector '#bergertabell tbody'
+				tbody = document.querySelector '#stallning tbody'
 				rader = Array.from tbody.querySelectorAll 'tr'
 				stigande = key in "# Namn".split ' '
 
@@ -77,13 +74,13 @@ safeGet = (params,key,standard="") ->
 	standard
 
 parseQuery = ->
+	echo window.location.search
 	params = new URLSearchParams window.location.search
 
 	TITLE = safeGet params, "TITLE"
 	GAMES = parseInt safeGet params, "GAMES", "1"
 	RESULTS = '012345678'.slice 0, 2 * GAMES + 1
-	TYPE = safeGet params, "TYPE", 'Berger'
-
+	# TYPE = safeGet params, "TYPE", 'Berger'
 	players = []
 	persons = params.getAll "p"
 	persons.sort().reverse()
@@ -93,11 +90,50 @@ parseQuery = ->
 		echo elo,name
 		players.push new Player players.length, name, elo
 
-	R = parseInt safeGet params, "R", players.length-1
+	ROUNDS = parseInt safeGet params, "ROUNDS", players.length-1
+	echo {TITLE,GAMES,ROUNDS}
+	N = players.length
+	LOG2 = Math.ceil Math.log2 N
+	if ROUNDS == N-1 then # Berger
+	else if ROUNDS < LOG2 then alert "Too few ROUNDS! Minimum is #{LOG2}"
+	else if ROUNDS >= N then alert "Too many ROUNDS! Maximum is #{N-1}"
 
 	results = []
-	for i in range R
+	for i in range ROUNDS
 		results.push safeGet params, "r#{i+1}", "x".repeat players.length / 2
+
+parseTextarea = ->
+	echo 'parseTextArea'
+	raw = document.getElementById "textarea"
+	echo raw.value
+
+	lines = raw.value
+	lines = lines.split "\n"
+
+	for line in lines 
+		if line == "" then continue
+		if line.includes '='
+			[key, val] = line.split '='
+			if key == 'TITLE' then TITLE = val
+			if key == 'GAMES' then GAMES = val
+			if key == 'ROUNDS' then ROUNDS = val
+			if key[0] == 'r' then rounds.push val
+		else
+			players.push line
+
+	url = 'http://127.0.0.1:5501'
+	url += "?TITLE=#{TITLE}"
+	url += "&GAMES=#{GAMES}"
+	url += "&ROUNDS=#{ROUNDS}"
+	for player in players
+		url += "&p=#{player}"
+	for r in range rounds.length
+		url += "&r#{r+1}=#{rounds[r]}"
+
+	url = url.replaceAll ' ', '+'
+
+	echo url
+	window.location.href = url
 
 savePairing = (r, A, half, n) ->
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
@@ -117,9 +153,9 @@ makeBerger = ->
 		A = A.slice(half).concat A.slice(0,half)
 		A.push(n-1)
 	rounds
-
+ 
 makeFairPair = ->
-	fairpair = new FairPair players, R, GAMES
+	fairpair = new FairPair players, ROUNDS, GAMES
 
 	echo "" 
 
@@ -128,21 +164,11 @@ makeFairPair = ->
 		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
 
 	echo 'summa', fairpair.summa
-	fairpair.rounds	
+	fairpair.rounds
 
-
-showHelp = ->
-
-	result = div {},
+showInfo = ->
+	document.getElementById('info').innerHTML = div {},
 		div {class:"help"}, pre {}, helpText
-		p {}, a {href: DOMAIN_GLOBAL + bergerText},'Berger'
-		p {}, a {href: DOMAIN_LOCAL + bergerText},'Berger dev'
-		div {class:"help"}, pre {}, DOMAIN_GLOBAL + bergerText
-		p {}, a {href: DOMAIN_GLOBAL + fairpairText},'FairPair'
-		p {}, a {href: DOMAIN_LOCAL + fairpairText},'FairPair dev'
-		div {class:"help"}, pre {}, DOMAIN_GLOBAL + fairpairText
-
-	document.getElementById('berger').innerHTML = result
 
 roundsContent = (points, i) -> # rondernas data + poäng + PR
 
@@ -207,10 +233,10 @@ showPlayers = (points) ->
 				th {}, "PR"
 			rows.join ""
 
-	document.getElementById('bergertabell').innerHTML = result
+	document.getElementById('stallning').innerHTML = result
 
 	# Sätt antal decimaler för PR
-	tbody = document.querySelector '#bergertabell tbody'
+	tbody = document.querySelector '#stallning tbody'
 	rader = Array.from tbody.querySelectorAll 'tr'
 	lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
 	decimals = findNumberOfDecimals lst
@@ -252,15 +278,27 @@ showTables = (rounds, selectedRound) ->
 	document.getElementById('tables').innerHTML = result
 
 main = ->
+
+	params = new URLSearchParams window.location.search
+	echo params
+
+	if params.size == 0 
+		document.getElementById("button").addEventListener "click", parseTextarea 
+		showInfo()
+		return
+
+	document.getElementById("textarea").style = 'display: none'
+	document.getElementById("button").style = 'display: none'
+
 	parseQuery()
+
 	document.title = TITLE
 
 	if players.length < 4
-		showHelp()
+		showInfo()
 		return
 
-	if TYPE == 'Berger'
-		R = players.length-1
+	if ROUNDS == players.length - 1
 		rounds = makeBerger()
 	else 
 		rounds = makeFairPair()
@@ -283,7 +321,7 @@ main = ->
 document.addEventListener 'keyup', (event) ->
 
 	if event.key in '123' 
-		document.getElementById("bergertabell").style.display = if event.key in "13" then "table" else "none"
+		document.getElementById("stallning").style.display = if event.key in "13" then "table" else "none"
 		document.getElementById("tables").style.display = if event.key in "23" then "table" else "none"
 
 main()

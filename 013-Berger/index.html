@@ -7,16 +7,45 @@
     table { border-collapse: collapse; margin-top: 1em; }
     td, th { border: 1px solid #ccc; padding: 0.4em 0.5em; text-align: center; }
     .help { background: #f0f0f0; padding: 1em; }
+    pre { white-space: pre-wrap; word-wrap: break-word; }
   </style>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
 </head>
 <body>
 
-	<div id="berger"></div>
-  <div id="bergertabell"></div>
-  <div id="tables"></div>
+<textarea id="textarea" rows="25" cols="50">
+TITLE=Sommarturnering RIO 2025
+GAMES=1
+ROUNDS=9
 
-	<script type="module" src="berger.js"></script>
+1698 Onni Aikio
+1558 Helge Bergström
+1549 Jonas Hök
+1679 Lars Johansson
+1400 Per Eriksson
+1653 Christer Nilsson
+1673 Per Hamnström
+1504 Thomas Paulin
+1706 Abbas Razavi
+1800 Numa
+
+r1=01201
+r2=01201
+r3=01201
+r4=01201
+r5=11111
+r6=00000
+r7=22222
+r8=01201
+r9=01201
+</textarea>
+<button id="button">Continue</button>
+
+<div id="info"></div>
+<div id="stallning"></div>
+<div id="tables"></div>
+
+<script type="module" src="tournament.js"></script>
 
 </body>
 </html>
