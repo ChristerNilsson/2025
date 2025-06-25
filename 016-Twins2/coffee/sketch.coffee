@@ -116,6 +116,7 @@ setup = ->
 		buttons.push new Button w2+60,    height-margin/2,'+', -> newGame level+1
 		buttons.push new Button w2+120,   height-margin/2,'>', -> newGame maxLevel
 		buttons.push new Button w2+200,height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		hearts = new Hearts margin/4,margin/2
 	else # landscape
 		margin = (width-height)/2
 		buttons.push new Button width-margin/2, h2-120  ,'<', -> newGame 1
@@ -124,8 +125,8 @@ setup = ->
 		buttons.push new Button width-margin/2, h2+60    ,'+', -> newGame level+1
 		buttons.push new Button width-margin/2, h2+120   ,'>', -> newGame maxLevel
 		buttons.push new Button width-margin/2, h2+180,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		hearts = new Hearts margin/2,TILE
 
-	hearts = new Hearts margin/2,TILE
 
 	if -1 != window.location.href.indexOf 'level'
 		urlGame()
@@ -313,24 +314,24 @@ drawHints = ->
 	if width < height # portrait
 		if hints0.length > 0 
 			fc 0,1,0 
-			text '*', width-margin*0.5, margin*0.7
+			text '•', width-TILE*0.5, margin*0.5
 		if hints1.length > 0 
 			fc 1,0,0
-			text '*', width-margin*0.75, margin*0.7
+			text '•', width-TILE*0.5, margin*0.5
 	else
 		if hints0.length > 0 
 			fc 0,1,0 
-			text '*', margin/2, height - 0.3 * TILE
+			text '•', margin/2, height - 0.3 * TILE
 		if hints1.length > 0 
 			fc 1,0,0
-			text '*', margin/2, height - 0.3 * TILE
+			text '•', margin/2, height - 0.3 * TILE
 
 drawProgress = ->
 	fc 1
 	sc()
 	textSize 30
 	if width < height # portrait
-		text numbers,width-margin,margin*0.5
+		text numbers,width-TILE,margin*0.5
 	else # landscape
 		text numbers,margin/2,height-TILE
 
