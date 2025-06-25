@@ -2,6 +2,8 @@
 # Då ett tal plockats bort negeras det. Dessa visas gråa och förminskade.
 # Ramens celler innehåller 0.
 
+echo = console.log
+
 ALFABET = "abcdefghijklmnopqrstuvwxyz"
 # SIZE = 12
 TILE = 60
@@ -36,17 +38,26 @@ latestPair = []
 counter = {}
 keys = ''
 released = true
+margin = 0
 
 class Hearts
 	constructor : (@x,@y,@count=12,@maximum=12) -> 
 
 	draw : ->
-		for i in range @maximum
-			x = @x + 60*i
-			if i < @count
-				@drawHeart x,@y,10,1,0,0
-			else
-				@drawHeart x,@y,10,0.5,0.5,0.5
+		if width < height # portrait
+			for i in range @maximum
+				x = @x + 60*i
+				if i < @count
+					@drawHeart x,@y,10,1,0,0
+				else
+					@drawHeart x,@y,10,0.5,0.5,0.5
+		else # landscape
+			for i in range @maximum
+				y = @y + 60*i
+				if i < @count
+					@drawHeart @x,y,10,1,0,0
+				else
+					@drawHeart @x,y,10,0.5,0.5,0.5
 
 	drawHeart : (x,y,n,r,g,b) ->
 			fc r,g,b
@@ -89,20 +100,32 @@ loadStorage = -> maxLevel = if KEY of localStorage then parseInt localStorage[KE
 setup = ->
 	canvas = createCanvas window.innerWidth, window.innerHeight
 
-	canvas.position 0,0 # hides text field used for clipboard copy.
-
 	rectMode CENTER
+	textAlign CENTER,CENTER
 	loadStorage()
 	level = maxLevel
+	echo level
 	w2 = width/2
-	buttons.push new Button w2-120,height-TILE/2,'<', -> newGame 1
-	buttons.push new Button w2-60, height-TILE/2,'-', -> newGame level-1
-	buttons.push new Button w2,    height-TILE/2,level, -> 
-	buttons.push new Button w2+60, height-TILE/2,'+', -> newGame level+1
-	buttons.push new Button w2+120,height-TILE/2,'>', -> newGame maxLevel
-	buttons.push new Button width-120,height-TILE/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+	h2 = height/2
 
-	hearts = new Hearts 60,35
+	if width < height # portrait
+		margin = (height-width)/2
+		buttons.push new Button w2-120,   height-margin/2,'<', -> newGame 1
+		buttons.push new Button w2-60,    height-margin/2,'-', -> newGame level-1
+		buttons.push new Button w2,       height-margin/2,level, -> 
+		buttons.push new Button w2+60,    height-margin/2,'+', -> newGame level+1
+		buttons.push new Button w2+120,   height-margin/2,'>', -> newGame maxLevel
+		buttons.push new Button w2+200,height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+	else # landscape
+		margin = (width-height)/2
+		buttons.push new Button width-margin/2, h2-120  ,'<', -> newGame 1
+		buttons.push new Button width-margin/2, h2-60    ,'-', -> newGame level-1
+		buttons.push new Button width-margin/2, h2       ,level, -> 
+		buttons.push new Button width-margin/2, h2+60    ,'+', -> newGame level+1
+		buttons.push new Button width-margin/2, h2+120   ,'>', -> newGame maxLevel
+		buttons.push new Button width-margin/2, h2+180,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+
+	hearts = new Hearts margin/2,TILE
 
 	if -1 != window.location.href.indexOf 'level'
 		urlGame()
@@ -114,8 +137,8 @@ urlGame = ->
 	params = getParameters()
 	level = parseInt params.level
 	b = JSON.parse params.b
-	Size = 4+level//4 
-	if Size>12 then Size=12
+	Size = 4 + level // 4 
+	if Size > 12 then Size=12
 	hearts.count   = constrain 1+level//8,0,12
 	hearts.maximum = constrain 1+level//8,0,12 
 	numbers = (Size-2)*(Size-2)
@@ -164,17 +187,17 @@ makeGame = ->
 						b[i][j] = candidates.pop()
 	milliseconds0 = millis()
 	state = 'running'
-	link = makeLink()
-	copyToClipboard link
-	print link 
+	# link = makeLink()
+	# copyToClipboard link
+	# print link 
 
-makeLink = -> 
-	url = window.location.href + '?'
-	index = url.indexOf '?'
-	url = url.substring 0,index
-	url += '?b=' + JSON.stringify b
-	url += '&level=' + level
-	url
+# makeLink = -> 
+# 	url = window.location.href + '?'
+# 	index = url.indexOf '?'
+# 	url = url.substring 0,index
+# 	url += '?b=' + JSON.stringify b
+# 	url += '&level=' + level
+# 	url
 
 drawRect = (i,j) ->
 	fc 0
@@ -228,7 +251,10 @@ draw = ->
 		button.draw()
 	hearts.draw()
 
-	TILE = height/Size/1.5
+	if width < height 
+		TILE = width/Size
+	else
+		TILE = height/Size
 
 	textAlign CENTER,CENTER
 	textSize 0.8 * TILE
@@ -283,18 +309,30 @@ draw = ->
 	drawProgress()
 
 drawHints = ->
-	if hints0.length > 0 
-		fc 0,1,0 
-		text '*', TILE, height - 0.1 * TILE
-	if hints1.length > 0 
-		fc 1,0,0
-		text '*', TILE, height - 0.1 * TILE
+	echo margin
+	if width < height # portrait
+		if hints0.length > 0 
+			fc 0,1,0 
+			text '*', width-margin*0.5, margin*0.7
+		if hints1.length > 0 
+			fc 1,0,0
+			text '*', width-margin*0.75, margin*0.7
+	else
+		if hints0.length > 0 
+			fc 0,1,0 
+			text '*', margin/2, height - 0.3 * TILE
+		if hints1.length > 0 
+			fc 1,0,0
+			text '*', margin/2, height - 0.3 * TILE
 
 drawProgress = ->
 	fc 1
 	sc()
 	textSize 30
-	text numbers,2.5*TILE,height-0.3*TILE
+	if width < height # portrait
+		text numbers,width-margin,margin*0.5
+	else # landscape
+		text numbers,margin/2,height-TILE
 
 drawLittera = (i,j) ->
 	if showLittera
@@ -445,12 +483,12 @@ legal = (wrap,i0,j0,i1,j1) ->
 								cands.push next
 	[]
 
-copyToClipboard = (txt) ->
-	copyText = document.getElementById "myClipboard"
-	copyText.value = txt 
-	copyText.select()
-	document.execCommand "copy"
-	window.getSelection().removeAllRanges()
+# copyToClipboard = (txt) ->
+# 	copyText = document.getElementById "myClipboard"
+# 	copyText.value = txt 
+# 	copyText.select()
+# 	document.execCommand "copy"
+# 	window.getSelection().removeAllRanges()
 
 showMoves = -> 
 	hints0 = showMoves1 false
