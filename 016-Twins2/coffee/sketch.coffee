@@ -39,6 +39,7 @@ counter = {}
 keys = ''
 released = true
 margin = 0
+diagonal = 0
 
 class Hearts
 	constructor : (@x,@y,@count=12,@maximum=12) -> 
@@ -75,7 +76,7 @@ class Hearts
 			circle x+n,y,n
 
 class Button
-	constructor : (@x,@y,@txt,@click) -> @r=24
+	constructor : (@x,@y,@txt,@click) -> @r=0.025 * diagonal
 	inside : (x,y) -> @r > dist @x,@y,x,y
 	draw : ->
 		fc 0.5
@@ -83,7 +84,7 @@ class Button
 		sw 2
 		circle @x,@y,@r
 		fc 0
-		textSize 0.04 * sqrt width * width + height * height
+		textSize 0.04 * diagonal
 		sc()
 		text @txt,@x,@y
 
@@ -109,15 +110,16 @@ setup = ->
 	h2 = height/2
 	dx = width/8
 	dy = height/8
+	diagonal = sqrt width * width + height * height
 
 	if width < height # portrait
 		margin = (height-width)/2
 		buttons.push new Button w2-2*dx,   height-margin/2,'<', -> newGame 1
-		buttons.push new Button w2-dx,    height-margin/2,'-', -> newGame level-1
-		buttons.push new Button w2,       height-margin/2,level, -> 
-		buttons.push new Button w2+dx,    height-margin/2,'+', -> newGame level+1
+		buttons.push new Button w2-dx,     height-margin/2,'-', -> newGame level-1
+		buttons.push new Button w2,        height-margin/2,level, -> 
+		buttons.push new Button w2+dx,     height-margin/2,'+', -> newGame level+1
 		buttons.push new Button w2+2*dx,   height-margin/2,'>', -> newGame maxLevel
-		buttons.push new Button w2+3*dx,height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		buttons.push new Button w2+3*dx,   height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 		hearts = new Hearts margin/2,margin/2
 	else # landscape
 		margin = (width-height)/2
@@ -222,7 +224,7 @@ drawHint  = (hints,r,g,b) ->
 		sw 1
 		fc r,g,b
 		sc()
-		textSize 0.07 * width
+		textSize 0.05 * diagonal
 		for [[i0,j0],[i1,j1]],index in hints
 			drawHintHelp ALFABET[index],i0,j0
 			drawHintHelp ALFABET[index],i1,j1
@@ -330,7 +332,7 @@ drawHints = ->
 drawProgress = ->
 	fc 1
 	sc()
-	textSize 0.07*width
+	textSize 0.05 * diagonal
 	if width < height # portrait
 		text numbers,width-margin,margin*0.5
 	else # landscape
