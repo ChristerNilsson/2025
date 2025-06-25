@@ -83,7 +83,7 @@ class Button
 		sw 2
 		circle @x,@y,@r
 		fc 0
-		textSize 0.07 * width
+		textSize 0.04 * sqrt width * width + height * height
 		sc()
 		text @txt,@x,@y
 
@@ -107,26 +107,27 @@ setup = ->
 	echo level
 	w2 = width/2
 	h2 = height/2
+	dx = width/8
+	dy = height/8
 
 	if width < height # portrait
 		margin = (height-width)/2
-		buttons.push new Button w2-120,   height-margin/2,'<', -> newGame 1
-		buttons.push new Button w2-60,    height-margin/2,'-', -> newGame level-1
+		buttons.push new Button w2-2*dx,   height-margin/2,'<', -> newGame 1
+		buttons.push new Button w2-dx,    height-margin/2,'-', -> newGame level-1
 		buttons.push new Button w2,       height-margin/2,level, -> 
-		buttons.push new Button w2+60,    height-margin/2,'+', -> newGame level+1
-		buttons.push new Button w2+120,   height-margin/2,'>', -> newGame maxLevel
-		buttons.push new Button w2+200,height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		buttons.push new Button w2+dx,    height-margin/2,'+', -> newGame level+1
+		buttons.push new Button w2+2*dx,   height-margin/2,'>', -> newGame maxLevel
+		buttons.push new Button w2+3*dx,height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 		hearts = new Hearts margin/2,margin/2
 	else # landscape
 		margin = (width-height)/2
-		buttons.push new Button width-margin/2, h2-120  ,'<', -> newGame 1
-		buttons.push new Button width-margin/2, h2-60    ,'-', -> newGame level-1
+		buttons.push new Button width-margin/2, h2-2*dy  ,'<', -> newGame 1
+		buttons.push new Button width-margin/2, h2-dy    ,'-', -> newGame level-1
 		buttons.push new Button width-margin/2, h2       ,level, -> 
-		buttons.push new Button width-margin/2, h2+60    ,'+', -> newGame level+1
-		buttons.push new Button width-margin/2, h2+120   ,'>', -> newGame maxLevel
-		buttons.push new Button width-margin/2, h2+180,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		buttons.push new Button width-margin/2, h2+dy    ,'+', -> newGame level+1
+		buttons.push new Button width-margin/2, h2+2*dy   ,'>', -> newGame maxLevel
+		buttons.push new Button width-margin/2, h2+3*dy,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 		hearts = new Hearts margin/2,TILE
-
 
 	if -1 != window.location.href.indexOf 'level'
 		urlGame()
