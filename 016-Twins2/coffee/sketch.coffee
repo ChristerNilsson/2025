@@ -42,38 +42,34 @@ margin = 0
 diagonal = 0
 
 class Hearts
-	constructor : (@x,@y,@count=12,@maximum=12) -> 
+	constructor : (@x,@y,@count=12,@maximum=24) -> 
 
 	draw : ->
 		if width < height # portrait
 			for i in range @maximum
-				x = @x + 60*i
+				x = @x + TILE*i
 				if i < @count
-					@drawHeart x,@y,10,1,0,0
+					@drawHeart x,@y,TILE,'red'
 				else
-					@drawHeart x,@y,10,0.5,0.5,0.5
+					@drawHeart x,@y,TILE,'gray'
 		else # landscape
 			for i in range @maximum
-				y = @y + 60*i
-				if i < @count
-					@drawHeart @x,y,10,1,0,0
-				else
-					@drawHeart @x,y,10,0.5,0.5,0.5
+				y = @y + TILE*i + TILE*0.3
+				@drawHeart @x,y,TILE,if i < @count then 'red' else 'gray'
 
-	drawHeart : (x,y,n,r,g,b) ->
-			fc r,g,b
-			sc r,g,b
-			sw n
-			dx = 1.2*n
-			y -= 0.8*n
-			y1 = y+0.6*n
-			y2 = y+2.2*n
-			line x-dx,y1, x,y2
-			line x+dx,y1, x,y2
-			line x,y+0.5*n,x,y+2*n
+	drawHeart : (x,y,tile,col) ->
+			fill col
+			stroke col
+			sw tile*0.3
+			dx = 0.2*tile
+			y1 = y + 0.1*tile
+			y2 = y + 0.4*tile
+			line x-dx, y1, x, y2
+			line x+dx, y1, x, y2
+			line x,    y1, x, y2
 			sc()
-			circle x-n,y,n
-			circle x+n,y,n
+			circle x-0.2*tile, y, 0.2*tile
+			circle x+0.2*tile, y, 0.2*tile
 
 class Button
 	constructor : (@x,@y,@txt,@click) -> @r=0.025 * diagonal
@@ -84,7 +80,7 @@ class Button
 		sw 2
 		circle @x,@y,@r
 		fc 0
-		textSize 0.04 * diagonal
+		textSize 0.03 * diagonal
 		sc()
 		text @txt,@x,@y
 
@@ -121,7 +117,7 @@ setup = ->
 
 		buttons.push new Button w2-dx,     height-margin/2,'-', -> newGame level - 1
 		buttons.push new Button w2+dx,     height-margin/2,'+', -> newGame level + 1
-		hearts = new Hearts margin/2,margin/2
+		hearts = new Hearts margin/2, 0 #margin/2
 	else # landscape
 		margin = (width-height)/2
 		buttons.push new Button width - 2*margin/3, 1*dy, level, ->
@@ -132,7 +128,7 @@ setup = ->
 
 		buttons.push new Button width - 2*margin/3, 3*dy, '-', -> newGame level - 1
 		buttons.push new Button width - 1*margin/3, 3*dy, '+', -> newGame level + 1
-		hearts = new Hearts margin/2,TILE
+		hearts = new Hearts margin/2, 0 #TILE
 
 	if -1 != window.location.href.indexOf 'level'
 		urlGame()
@@ -282,20 +278,21 @@ draw = ->
 
 	pop()
 
-	# if state=='halted'
-	# 	fc 1,1,0,0.5
-	# 	x = width/2 
-	# 	y = height/2 
-	# 	w = Size*TILE
-	# 	h = Size*TILE
-	# 	rect x,y,w,h
+	if state=='halted'
+		fc 1,1,0,0.5
+		x = width/2 
+		y = height/2 
+		w = Size*TILE
+		h = Size*TILE
+		rect x,y,w,h
 		# ms = round((milliseconds1-milliseconds0)/100)/10
 		# if ms > 0
 		# 	y = Size*TILE-10
 		# 	fc 1
 		# 	sc()
 		# 	textSize 30
-		# 	text ms,width-2.5*TILE,height-30
+			# text ms,width-2.5*TILE,height-30
+
 	if millis() < deathTimestamp
 		x = width/2 
 		y = height/2 
@@ -307,17 +304,17 @@ drawHints = ->
 	if width < height # portrait
 		if hints0.length > 0 
 			fc 0,1,0 
-			text '•', width-margin*0.5, margin*0.5
+			circle width-margin*0.5, margin*0.5, 0.025 * diagonal
 		if hints1.length > 0 
 			fc 1,0,0
-			text '•', width-margin*0.75, margin*0.5
+			circle width-margin*0.75, margin*0.5, 0.025 * diagonal
 	else
 		if hints0.length > 0 
 			fc 0,1,0 
-			text '•', margin/2, height - 0.3 * TILE
+			circle width-margin/2, margin*1, 0.025 * diagonal
 		if hints1.length > 0 
 			fc 1,0,0
-			text '•', margin/2, height - 0.3 * TILE
+			circle width-margin/2, margin*1, 0.025 * diagonal
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 
