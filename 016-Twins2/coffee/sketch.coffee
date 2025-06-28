@@ -31,7 +31,7 @@ delta = 0
 found = null
 showLittera = false
 showShadow = true
-showHint = false
+# showHint = true # false
 hints0 = []
 hints1 = []
 latestPair = []
@@ -207,25 +207,25 @@ drawNumber = (cell,i,j) ->
 	if c1==c2 then c1='#000'
 	fill   c1
 	stroke c2
-	text cell,TILE*i,TILE*j + if showHint then 10 else 0
+	text cell,TILE*i,TILE*j + 0 # if showHint then 10 else 0
 
-drawHint  = (hints,r,g,b) -> 
-	if showHint 
-		sw 1
-		fc r,g,b
-		sc()
-		textSize 0.05 * diagonal
-		for [[i0,j0],[i1,j1]],index in hints
-			drawHintHelp ALFABET[index],i0,j0
-			drawHintHelp ALFABET[index],i1,j1
+# drawHint  = (hints,r,g,b) -> 
+# 	if showHint 
+# 		sw 1
+# 		fc r,g,b
+# 		sc()
+# 		textSize 0.05 * diagonal
+# 		for [[i0,j0],[i1,j1]],index in hints
+# 			drawHintHelp ALFABET[index],i0,j0
+# 			drawHintHelp ALFABET[index],i1,j1
 
-drawHintHelp = (cell,i,j) ->
-		key = "#{i}-#{j}"
-		if key not of counter then counter[key] = 0
-		dx = [-20,0,20][counter[key] %% 3]
-		dy = [-20,0,20][counter[key] // 3]
-		text cell,TILE*i+dx,TILE*j+dy
-		counter[key]++
+# drawHintHelp = (cell,i,j) ->
+# 		key = "#{i}-#{j}"
+# 		if key not of counter then counter[key] = 0
+# 		dx = [-20,0,20][counter[key] %% 3]
+# 		dy = [-20,0,20][counter[key] // 3]
+# 		text cell,TILE*i+dx,TILE*j+dy
+# 		counter[key]++
 
 drawShadow = (i,j) ->
 	if showShadow
@@ -275,8 +275,8 @@ draw = ->
 
 	counter = {}
 
-	drawHint hints0,0,1,0
-	drawHint hints1,1,0,0
+	# drawHint hints0,0,1,0
+	# drawHint hints1,1,0,0
 
 	pop()
 
@@ -327,11 +327,11 @@ drawHints = ->
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 
-keyPressed = ->
-	keys += key 
-	if keys.endsWith 'QPZM'
-		keys = '' 
-		showHint = not showHint
+# keyPressed = ->
+# 	keys += key 
+# 	if keys.endsWith 'QPZM'
+# 		keys = '' 
+# 		showHint = not showHint
 
 # === För iPad och mobiler ===
 touchStarted = ->
