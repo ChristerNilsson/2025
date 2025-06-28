@@ -105,7 +105,6 @@ setup = ->
 	textAlign CENTER,CENTER
 	loadStorage()
 	level = maxLevel
-	echo level
 	w2 = width/2
 	h2 = height/2
 	dx = width/8
@@ -114,21 +113,25 @@ setup = ->
 
 	if width < height # portrait
 		margin = (height-width)/2
-		buttons.push new Button w2-2*dx,   height-margin/2,'<', -> newGame 1
-		buttons.push new Button w2-dx,     height-margin/2,'-', -> newGame level-1
-		buttons.push new Button w2,        height-margin/2,level, -> 
-		buttons.push new Button w2+dx,     height-margin/2,'+', -> newGame level+1
-		buttons.push new Button w2+2*dx,   height-margin/2,'>', -> newGame maxLevel
+		buttons.push new Button w2,        height-margin/2,level, ->
 		buttons.push new Button w2+3*dx,   height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+
+		buttons.push new Button w2-2*dx,   height-margin/2,'<', -> newGame 1
+		buttons.push new Button w2+2*dx,   height-margin/2,'>', -> newGame maxLevel
+
+		buttons.push new Button w2-dx,     height-margin/2,'-', -> newGame level - 1
+		buttons.push new Button w2+dx,     height-margin/2,'+', -> newGame level + 1
 		hearts = new Hearts margin/2,margin/2
 	else # landscape
 		margin = (width-height)/2
-		buttons.push new Button width-margin/2, h2-2*dy  ,'<', -> newGame 1
-		buttons.push new Button width-margin/2, h2-dy    ,'-', -> newGame level-1
-		buttons.push new Button width-margin/2, h2       ,level, -> 
-		buttons.push new Button width-margin/2, h2+dy    ,'+', -> newGame level+1
-		buttons.push new Button width-margin/2, h2+2*dy   ,'>', -> newGame maxLevel
-		buttons.push new Button width-margin/2, h2+3*dy,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		buttons.push new Button width - 2*margin/3, 1*dy, level, ->
+		buttons.push new Button width - 1*margin/3, 1*dy,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+
+		buttons.push new Button width - 2*margin/3, 2*dy, '<', -> newGame 1
+		buttons.push new Button width - 1*margin/3, 2*dy, '>', -> newGame maxLevel
+
+		buttons.push new Button width - 2*margin/3, 3*dy, '-', -> newGame level - 1
+		buttons.push new Button width - 1*margin/3, 3*dy, '+', -> newGame level + 1
 		hearts = new Hearts margin/2,TILE
 
 	if -1 != window.location.href.indexOf 'level'
@@ -191,17 +194,6 @@ makeGame = ->
 						b[i][j] = candidates.pop()
 	milliseconds0 = millis()
 	state = 'running'
-	# link = makeLink()
-	# copyToClipboard link
-	# print link 
-
-# makeLink = -> 
-# 	url = window.location.href + '?'
-# 	index = url.indexOf '?'
-# 	url = url.substring 0,index
-# 	url += '?b=' + JSON.stringify b
-# 	url += '&level=' + level
-# 	url
 
 drawRect = (i,j) ->
 	fc 0
@@ -244,12 +236,12 @@ drawShadow = (i,j) ->
 		stroke 48 
 		for [x,y] in latestPair
 			if i==x and j==y 
-				text -b[i][j]-1, TILE*i,TILE*j				
+				text -b[i][j]-1, TILE*i,TILE*j
 
 draw = ->
 	bg 0.25
 	sw 1
-	buttons[2].txt = level-1
+	buttons[0].txt = level-1
 
 	for button in buttons
 		button.draw()
@@ -271,12 +263,12 @@ draw = ->
 		for j in range Size
 			drawRect i,j
 			cell = b[i][j]
-			if state == 'halted' 		
+			if state == 'halted'
 				if cell != FREE then drawNumber abs(cell),i,j
 			else
 				if cell > 0 then drawNumber cell,i,j
 				else if cell != FREE then drawShadow i,j
-			if i in [0,Size-1] or j in [0,Size-1] then drawLittera i,j
+			# if i in [0,Size-1] or j in [0,Size-1] then drawLittera i,j
 	for [i,j] in selected
 		fc 1,1,0,0.5
 		sc()
@@ -290,30 +282,28 @@ draw = ->
 
 	pop()
 
-	if state=='halted'
-		fc 1,1,0,0.5
-		x = width/2 
-		y = height/2 
-		w = Size*TILE
-		h = Size*TILE
-		rect x,y,w,h
-		ms = round((milliseconds1-milliseconds0)/100)/10
-		if ms > 0
-			y = Size*TILE-10
-			fc 1
-			sc()
-			textSize 30
-			text ms,width-2.5*TILE,height-30
+	# if state=='halted'
+	# 	fc 1,1,0,0.5
+	# 	x = width/2 
+	# 	y = height/2 
+	# 	w = Size*TILE
+	# 	h = Size*TILE
+	# 	rect x,y,w,h
+		# ms = round((milliseconds1-milliseconds0)/100)/10
+		# if ms > 0
+		# 	y = Size*TILE-10
+		# 	fc 1
+		# 	sc()
+		# 	textSize 30
+		# 	text ms,width-2.5*TILE,height-30
 	if millis() < deathTimestamp
 		x = width/2 
 		y = height/2 
 		hearts.drawHeart x,y,Size*TILE/5,1,0,0
 
 	drawHints()
-	drawProgress()
 
 drawHints = ->
-	echo margin
 	if width < height # portrait
 		if hints0.length > 0 
 			fc 0,1,0 
@@ -328,28 +318,6 @@ drawHints = ->
 		if hints1.length > 0 
 			fc 1,0,0
 			text '•', margin/2, height - 0.3 * TILE
-
-drawProgress = ->
-	fc 1
-	sc()
-	textSize 0.05 * diagonal
-	if width < height # portrait
-		text numbers,width-margin,margin*0.5
-	else # landscape
-		text numbers,margin/2,height-TILE
-
-drawLittera = (i,j) ->
-	return
-	# if showLittera
-	# 	push()
-	# 	textSize 32
-	# 	fc 0.25
-	# 	sc 0.25
-	# 	if j in [0,Size-1] and i < Size-1
-	# 		text ' abcdefghik '[i],TILE*i,TILE*j
-	# 	else if i in [0,Size-1] and 0<j<Size-1
-	# 		text Size-1-j,TILE*i,TILE*j
-	# 	pop()
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 
@@ -487,13 +455,6 @@ legal = (wrap,i0,j0,i1,j1) ->
 								reached[key] = next
 								cands.push next
 	[]
-
-# copyToClipboard = (txt) ->
-# 	copyText = document.getElementById "myClipboard"
-# 	copyText.value = txt 
-# 	copyText.select()
-# 	document.execCommand "copy"
-# 	window.getSelection().removeAllRanges()
 
 showMoves = -> 
 	hints0 = showMoves1 false

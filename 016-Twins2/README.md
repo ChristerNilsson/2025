@@ -21,16 +21,13 @@
 * Pairing without a path costs two lives
 
 ## Information
-* Green star : One or more Free pairs available
-* Red star : One or more Wrapping pairs available
-* White number : Numbers left
+* Green circle : One or more Free pairs available
+* Red circle : One or more Wrapping pairs available
 * Less Than : First Sum
 * Minus : Decrease Sum
 * Sum
 * Plus : Increase Sum
 * Greater Than : Last Sum
-* Time in seconds
 * Question Mark : Help
-* Clicking on labels toggles them
 * 99 is maximum Sum
-* Board sizes varies between 4 by 4 and 12 by 12
+* Board sizes varies between 2 by 2 and 10 by 10
