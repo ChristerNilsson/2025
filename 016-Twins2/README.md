@@ -9,10 +9,10 @@
 * Position after pairing of 14 and 1 making the sum 15.
 
 ## Rules
-* Make pairs with the same Sum
-* The Sum is found in the top right corner
-* The path must make zero, one or two 90 degrees turns
+* Find a pair with the Sum found in the top right corner
 * The path must avoid other numbers
+* The path must make zero, one or two turns
+  * Three or more turns will cost you a heart
 * Pairing with wrong sum costs one heart
 * Pairing without a path costs two hearts
 * Wrapping wraps around horizontal and vertical edges
