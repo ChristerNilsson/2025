@@ -101,34 +101,36 @@ setup = ->
 	textAlign CENTER,CENTER
 	loadStorage()
 	level = maxLevel
-	w2 = width/2
-	h2 = height/2
 	dx = width/8
 	dy = height/8
+	w2 = dx
 	diagonal = sqrt width * width + height * height
 
 	if width < height # portrait
 		margin = (height-width)/2
-		buttons.push new Button w2,        height-margin/2,level, ->
-		buttons.push new Button w2+3*dx,   height-margin/2,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		y = height - margin/2
+		buttons.push new Button w2,        y,level, ->
+		buttons.push new Button w2+1*dx,   y,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 
-		buttons.push new Button w2-2*dx,   height-margin/2,'<', -> newGame 1
-		buttons.push new Button w2+2*dx,   height-margin/2,'>', -> newGame maxLevel
+		buttons.push new Button w2+2*dx,   y,'-', -> newGame level - 1
+		buttons.push new Button w2+3*dx,   y,'+', -> newGame level + 1
 
-		buttons.push new Button w2-dx,     height-margin/2,'-', -> newGame level - 1
-		buttons.push new Button w2+dx,     height-margin/2,'+', -> newGame level + 1
-		hearts = new Hearts margin/2, 0 #margin/2
+		buttons.push new Button w2+4*dx,   y,'<', -> newGame 1
+		buttons.push new Button w2+5*dx,   y,'>', -> newGame maxLevel
+
+		hearts = new Hearts 0.35*TILE, 0.4*TILE
 	else # landscape
 		margin = (width-height)/2
-		buttons.push new Button width - 2*margin/3, 1*dy, level, ->
-		buttons.push new Button width - 1*margin/3, 1*dy,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
+		x = width - margin/2
+		buttons.push new Button x, 1*dy, level, ->
+		buttons.push new Button x, 2*dy,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 
-		buttons.push new Button width - 2*margin/3, 2*dy, '<', -> newGame 1
-		buttons.push new Button width - 1*margin/3, 2*dy, '>', -> newGame maxLevel
+		buttons.push new Button x, 3*dy, '<', -> newGame 1
+		buttons.push new Button x, 4*dy, '>', -> newGame maxLevel
 
-		buttons.push new Button width - 2*margin/3, 3*dy, '-', -> newGame level - 1
-		buttons.push new Button width - 1*margin/3, 3*dy, '+', -> newGame level + 1
-		hearts = new Hearts margin/2, 0 #TILE
+		buttons.push new Button x, 5*dy, '-', -> newGame level - 1
+		buttons.push new Button x, 6*dy, '+', -> newGame level + 1
+		hearts = new Hearts margin/2, 0
 
 	if -1 != window.location.href.indexOf 'level'
 		urlGame()
@@ -302,19 +304,26 @@ draw = ->
 
 drawHints = ->
 	if width < height # portrait
+		dx = width/8
+		margin = (height-width)/2
+		x = width - margin/2	
+		y = height - margin/2
 		if hints0.length > 0 
-			fc 0,1,0 
-			circle width-margin*0.5, margin*0.5, 0.025 * diagonal
+			fill 'green' 
+			circle x, y, 0.025 * diagonal
 		if hints1.length > 0 
-			fc 1,0,0
-			circle width-margin*0.75, margin*0.5, 0.025 * diagonal
+			fill 'red'
+			circle x, y, 0.025 * diagonal
 	else
+		margin = (width-height)/2
+		x = width - margin/2	
+		dy = height/8
 		if hints0.length > 0 
-			fc 0,1,0 
-			circle width-margin/2, margin*1, 0.025 * diagonal
+			fill 'green'
+			circle x, 7*dy, 0.025 * diagonal
 		if hints1.length > 0 
-			fc 1,0,0
-			circle width-margin/2, margin*1, 0.025 * diagonal
+			fill 'red'
+			circle x, 7*dy, 0.025 * diagonal
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 
