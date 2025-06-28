@@ -47,29 +47,29 @@ class Hearts
 	draw : ->
 		if width < height # portrait
 			for i in range @maximum
-				x = @x + TILE*i
-				if i < @count
-					@drawHeart x,@y,TILE,'red'
-				else
-					@drawHeart x,@y,TILE,'gray'
+				x = @x + i * width/12
+				@drawHeart x, @y, if i < @count then 'red' else 'gray'
 		else # landscape
+			y = @y - 0.6*height/12
 			for i in range @maximum
-				y = @y + TILE*i + TILE*0.3
-				@drawHeart @x,y,TILE,if i < @count then 'red' else 'gray'
+				y += height/12 #TILE*i + TILE*0.3
+				@drawHeart @x, y, if i < @count then 'red' else 'gray'
 
-	drawHeart : (x,y,tile,col) ->
-			fill col
-			stroke col
-			sw tile*0.3
-			dx = 0.2*tile
-			y1 = y + 0.1*tile
-			y2 = y + 0.4*tile
-			line x-dx, y1, x, y2
-			line x+dx, y1, x, y2
-			line x,    y1, x, y2
-			sc()
-			circle x-0.2*tile, y, 0.2*tile
-			circle x+0.2*tile, y, 0.2*tile
+	drawHeart : (x,y,col) ->
+		tile = if width < height then width/12 else height/12
+			
+		fill col
+		stroke col
+		sw 0.3 * tile
+		dx = 0.2*tile
+		y1 = y + 0.1*tile
+		y2 = y + 0.4*tile
+		line x-dx, y1, x, y2
+		line x+dx, y1, x, y2
+		line x,    y1, x, y2
+		sc()
+		circle x-0.2*tile, y, 0.2*tile
+		circle x+0.2*tile, y, 0.2*tile
 
 class Button
 	constructor : (@x,@y,@txt,@click) -> @r=0.025 * diagonal
@@ -287,18 +287,18 @@ draw = ->
 		w = Size*TILE
 		h = Size*TILE
 		rect x,y,w,h
-		# ms = round((milliseconds1-milliseconds0)/100)/10
-		# if ms > 0
-		# 	y = Size*TILE-10
-		# 	fc 1
-		# 	sc()
-		# 	textSize 30
-			# text ms,width-2.5*TILE,height-30
+		ms = round((milliseconds1-milliseconds0)/100)/10
+		if ms > 0
+			y = Size*TILE-10
+			fc 1
+			sc()
+			textSize 30
+			text ms,width-2.5*TILE,height-30
 
 	if millis() < deathTimestamp
 		x = width/2 
 		y = height/2 
-		hearts.drawHeart x,y,Size*TILE/5,1,0,0
+		hearts.drawHeart x,y,Size*TILE/5,'red'
 
 	drawHints()
 
@@ -376,7 +376,8 @@ handlePress = ->
 		if b[i][j] > 0 then selected.push [i,j]
 	else
 		[i1,j1] = selected[0]
-		if i==i1 and j==j1 then return selected.pop()
+		if i==i1 and j==j1
+			return selected.pop()
 		if b[i][j]-1 + b[i1][j1]-1 != level-1
 			hearts.count -= 1 # Punish one, wrong sum
 			deathTimestamp = 200 + millis()
