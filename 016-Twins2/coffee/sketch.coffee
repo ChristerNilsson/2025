@@ -293,7 +293,7 @@ draw = ->
 			fc 1
 			sc()
 			textSize 30
-			text ms,width-2.5*TILE,height-30
+			# text ms,width-2.5*TILE,height-30
 
 	if millis() < deathTimestamp
 		x = width/2 
