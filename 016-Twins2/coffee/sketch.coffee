@@ -19,7 +19,10 @@ numbers = null
 b = null
 selected = []
 message = ''
+
 buttons = []
+stopLight = null
+
 path = []
 pathTimestamp = null
 deathTimestamp = null
@@ -29,7 +32,7 @@ milliseconds1 = null
 state = 'halted' # 'running' 'halted'
 delta = 0
 found = null
-showLittera = false
+showLittera = true
 showShadow = true
 # showHint = true # false
 hints0 = []
@@ -84,6 +87,23 @@ class Button
 		sc()
 		text @txt,@x,@y
 
+class StopLight 
+	constructor : (@x,@y,@txt) -> 
+		@r=0.025 * diagonal
+		@color = 'yellow'
+	inside : (x,y) -> @r > dist @x,@y,x,y
+	draw : ->
+		fc 0.5
+		if level == maxLevel then sc 1 else sc()
+		sw 2
+		fill @color
+		circle @x,@y,@r
+		fill 'black'
+		textSize 0.03 * diagonal
+		sc()
+		text @txt,@x,@y
+
+
 newGame = (n) ->
 #	if n in [0,maxLevel+1] then return 
 	if n in [0,maxLevel+2] then return 
@@ -111,7 +131,8 @@ setup = ->
 	if width < height # portrait
 		margin = (height-width)/2
 		y = height - margin/2
-		buttons.push new Button w2,        y,level, ->
+		stopLight = new StopLight w2,        y,level
+		buttons.push stopLight
 		buttons.push new Button w2+1*dx,   y,'?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 
 		buttons.push new Button w2+2*dx,   y,'-', -> newGame level - 1
@@ -124,7 +145,8 @@ setup = ->
 	else # landscape
 		margin = (width-height)/2
 		x = width - margin/2
-		buttons.push new Button x, 1*dy, level, ->
+		stopLight = new StopLight x, 1*dy, level
+		buttons.push stopLight
 		buttons.push new Button x, 2*dy,  '?', -> window.open 'https://github.com/ChristerNilsson/2025/tree/main/016-Twins2#readme'
 
 		buttons.push new Button x, 3*dy, '<', -> newGame 1
@@ -141,7 +163,7 @@ setup = ->
 	showMoves()
 
 trans = ([[a,b],[c,d]]) ->
-	"#{' abcdefghij'[a]}#{Size-2-b}#{' abcdefghij'[c]}#{Size-2-d}"
+	"#{' abcdefghij'[a]}#{b-1}#{' abcdefghij'[c]}#{d-1}"
 
 urlGame = ->
 	params = getParameters()
@@ -197,6 +219,18 @@ makeGame = ->
 						b[i][j] = candidates.pop()
 	milliseconds0 = millis()
 	state = 'running'
+
+drawLittera = (i,j) ->
+	if showLittera
+		push()
+		textSize 32
+		fc 0.25
+		sc 0.25
+		if j == Size-1 and i < Size-1
+			text ' abcdefghij '[i],TILE*i,TILE*j
+		else if i == 0 and 0<j<Size-1
+			text j-1,TILE*i,TILE*j
+		pop()
 
 drawRect = (i,j) ->
 	fc 0
@@ -272,7 +306,7 @@ draw = ->
 			else
 				if cell > 0 then drawNumber cell,i,j
 				else if cell != FREE then drawShadow i,j
-			# if i in [0,Size-1] or j in [0,Size-1] then drawLittera i,j
+			if i in [0,Size-1] or j in [0,Size-1] then drawLittera i,j
 	for [i,j] in selected
 		fc 1,1,0,0.5
 		sc()
@@ -314,22 +348,24 @@ drawHints = ->
 		margin = (height-width)/2
 		x = width - margin/2	
 		y = height - margin/2
+		stopLight.color = 'red' 
 		if hints0.length > 0 
-			fill 'green' 
-			circle x, y, 0.025 * diagonal
+			stopLight.color = 'green' 
+			# circle x, y, 0.025 * diagonal
 		if hints1.length > 0 
-			fill 'red'
-			circle x, y, 0.025 * diagonal
+			stopLight.color = 'yellow'
+			# circle x, y, 0.025 * diagonal
 	else
 		margin = (width-height)/2
 		x = width - margin/2	
 		dy = height/8
+		stopLight.color = 'red' 
 		if hints0.length > 0 
-			fill 'green'
-			circle x, 7*dy, 0.025 * diagonal
+			stopLight.color = 'green' 
+			# circle x, 7*dy, 0.025 * diagonal
 		if hints1.length > 0 
-			fill 'red'
-			circle x, 7*dy, 0.025 * diagonal
+			stopLight.color = 'yellow' 
+			# circle x, 7*dy, 0.025 * diagonal
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
 

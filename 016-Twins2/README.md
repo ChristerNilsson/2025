@@ -6,7 +6,7 @@
 
 ## Picture
 
-* Position after pairing of 14 and 1 making the sum 15.
+* Position after pairing of 2 and 5 making the sum 7.
 
 ## Rules
 * Find a pair with the Sum found in the top right corner
@@ -20,13 +20,14 @@
 
 ## Information
 * Sum, the number you aim for
+  * Green circle : One or more normal pairs available
+  * Yellow circle : One or more wrapping pairs available
+  * Red circle : No pairs available, game over
 * Question Mark : Help
 * Less Than : First Sum, 1
 * Greater Than : Highest Sum so far
 * Minus : Decrease Sum by one
 * Plus : Increase Sum by one
-* Green circle : One or more normal pairs available
-* Red circle : One or more wrapping pairs available
 
 99 is maximum Sum.  
 Board sizes varies between 2 by 2 and 10 by 10  
