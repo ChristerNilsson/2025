@@ -32,7 +32,7 @@ milliseconds1 = null
 state = 'halted' # 'running' 'halted'
 delta = 0
 found = null
-showLittera = true
+#showLittera = true
 showShadow = true
 # showHint = true # false
 hints0 = []
@@ -219,16 +219,15 @@ makeGame = ->
 	state = 'running'
 
 drawLittera = (i,j) ->
-	if showLittera
-		push()
-		textSize 32
-		fc 0.25
-		sc 0.25
-		if j == Size-1 and i < Size-1
-			text ' abcdefghij '[i],TILE*i,TILE*j
-		else if i == 0 and 0<j<Size-1
-			text j-1,TILE*i,TILE*j
-		pop()
+	push()
+	textSize 0.5 * TILE
+	fc 0.25
+	sc 0.25
+	if j == Size-1 and i < Size-1
+		text ' abcdefghij '[i],TILE*i,TILE*j
+	else if i == 0 and 0<j<Size-1
+		text j-1,TILE*i,TILE*j
+	pop()
 
 drawRect = (i,j) ->
 	fc 0
@@ -404,9 +403,7 @@ handlePress = ->
 	[i,j] = [x//TILE,y//TILE]
 	if not within i,j then return
 
-	if i in [0,Size-1] or j in [0,Size-1] 
-		showLittera = false # not showLittera
-		return
+	if i in [0,Size-1] or j in [0,Size-1] then return
 
 	if b[i][j] < 0
 		showShadow = not showShadow 
