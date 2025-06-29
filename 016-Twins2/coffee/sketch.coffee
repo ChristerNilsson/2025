@@ -97,6 +97,8 @@ loadStorage = -> maxLevel = if KEY of localStorage then parseInt localStorage[KE
 setup = ->
 	canvas = createCanvas window.innerWidth, window.innerHeight
 
+	# noLoop()
+
 	rectMode CENTER
 	textAlign CENTER,CENTER
 	loadStorage()
@@ -137,6 +139,9 @@ setup = ->
 	else
 		makeGame()
 	showMoves()
+
+trans = ([[a,b],[c,d]]) ->
+	"#{' abcdefghij'[a]}#{Size-2-b}#{' abcdefghij'[c]}#{Size-2-d}"
 
 urlGame = ->
 	params = getParameters()
@@ -237,6 +242,7 @@ drawShadow = (i,j) ->
 				text -b[i][j]-1, TILE*i,TILE*j
 
 draw = ->
+
 	bg 0.25
 	sw 1
 	buttons[0].txt = level-1
@@ -468,6 +474,7 @@ showMoves = ->
 	hints1 = if hints0.length > 0 then [] else showMoves1 true
 
 showMoves1 = (wrap) ->
+	start = new Date()
 	res = []
 	for i0 in range 1,Size-1
 		for j0 in range 1,Size-1
@@ -486,4 +493,8 @@ showMoves1 = (wrap) ->
 											if _.isEqual(p0,q0) and _.isEqual(p1,q1) then ok = false
 											if _.isEqual(p0,q1) and _.isEqual(p1,q0) then ok = false
 										if ok then res.push [[i0,j0],[i1,j1]]
+
+	wrap = if wrap then 'wrap' else ''
+	echo wrap, (trans item for item in res).join(' '), "#{(new Date()) - start}ms"
+
 	res # innehåller koordinaterna för paren.
