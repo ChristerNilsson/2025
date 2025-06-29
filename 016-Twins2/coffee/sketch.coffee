@@ -58,21 +58,19 @@ class Hearts
 				y += height/12 #TILE*i + TILE*0.3
 				@drawHeart @x, y, if i < @count then 'red' else 'gray'
 
-	drawHeart : (x,y,col) ->
-		tile = if width < height then width/12 else height/12
-			
+	drawHeart : (x,y,col,size=if width < height then width/12 else height/12) ->
 		fill col
 		stroke col
-		sw 0.3 * tile
-		dx = 0.2*tile
-		y1 = y + 0.1*tile
-		y2 = y + 0.4*tile
+		sw 0.3 * size
+		dx = 0.2*size
+		y1 = y + 0.1*size
+		y2 = y + 0.4*size
 		line x-dx, y1, x, y2
 		line x+dx, y1, x, y2
 		line x,    y1, x, y2
 		sc()
-		circle x-0.2*tile, y, 0.2*tile
-		circle x+0.2*tile, y, 0.2*tile
+		circle x-0.2*size, y, 0.2*size
+		circle x+0.2*size, y, 0.2*size
 
 class Button
 	constructor : (@x,@y,@txt,@click) -> @r=0.025 * diagonal
@@ -117,7 +115,7 @@ loadStorage = -> maxLevel = if KEY of localStorage then parseInt localStorage[KE
 setup = ->
 	canvas = createCanvas window.innerWidth, window.innerHeight
 
-	# noLoop()
+	# localStorage[KEY] = 57
 
 	rectMode CENTER
 	textAlign CENTER,CENTER
@@ -336,9 +334,9 @@ draw = ->
 			# text ms,width-2.5*TILE,height-30
 
 	if millis() < deathTimestamp
-		x = width/2 
-		y = height/2 
-		hearts.drawHeart x,y,Size*TILE/5,'red'
+		x = 0.5 * width
+		y = 0.4 * height
+		hearts.drawHeart x, y, 'red', height
 
 	drawHints()
 
