@@ -5,7 +5,6 @@
 echo = console.log
 
 ALFABET = "abcdefghijklmnopqrstuvwxyz"
-# SIZE = 12
 TILE = 60
 FREE = 0
 COLORS = '#fff #f00 #0f0 #ff0 #f0f #0ff #880 #f88 #088 #8f8'.split ' '
@@ -32,9 +31,7 @@ milliseconds1 = null
 state = 'halted' # 'running' 'halted'
 delta = 0
 found = null
-#showLittera = true
 showShadow = true
-# showHint = true # false
 hints0 = []
 hints1 = []
 latestPair = []
@@ -160,8 +157,7 @@ setup = ->
 		makeGame()
 	showMoves()
 
-trans = ([[a,b],[c,d]]) ->
-	"#{' abcdefghij'[a]}#{b-1}#{' abcdefghij'[c]}#{d-1}"
+trans = ([[a,b],[c,d]]) -> "#{' abcdefghij'[a]}#{b-1}#{' abcdefghij'[c]}#{d-1}"
 
 urlGame = ->
 	params = getParameters()
@@ -245,24 +241,6 @@ drawNumber = (cell,i,j) ->
 	stroke c2
 	text cell,TILE*i,TILE*j + 0 # if showHint then 10 else 0
 
-# drawHint  = (hints,r,g,b) -> 
-# 	if showHint 
-# 		sw 1
-# 		fc r,g,b
-# 		sc()
-# 		textSize 0.05 * diagonal
-# 		for [[i0,j0],[i1,j1]],index in hints
-# 			drawHintHelp ALFABET[index],i0,j0
-# 			drawHintHelp ALFABET[index],i1,j1
-
-# drawHintHelp = (cell,i,j) ->
-# 		key = "#{i}-#{j}"
-# 		if key not of counter then counter[key] = 0
-# 		dx = [-20,0,20][counter[key] %% 3]
-# 		dy = [-20,0,20][counter[key] // 3]
-# 		text cell,TILE*i+dx,TILE*j+dy
-# 		counter[key]++
-
 drawShadow = (i,j) ->
 	if showShadow
 		sw 3
@@ -273,7 +251,6 @@ drawShadow = (i,j) ->
 				text -b[i][j]-1, TILE*i,TILE*j
 
 draw = ->
-
 	bg 0.25
 	sw 1
 	buttons[0].txt = level-1
@@ -282,10 +259,7 @@ draw = ->
 		button.draw()
 	hearts.draw()
 
-	if width < height 
-		TILE = width/Size
-	else
-		TILE = height/Size
+	TILE = if width < height then width/Size else height/Size
 
 	textAlign CENTER,CENTER
 	textSize 0.8 * TILE
@@ -312,9 +286,6 @@ draw = ->
 
 	counter = {}
 
-	# drawHint hints0,0,1,0
-	# drawHint hints1,1,0,0
-
 	pop()
 
 	if state=='halted'
@@ -340,37 +311,11 @@ draw = ->
 	drawHints()
 
 drawHints = ->
-	if width < height # portrait
-		dx = width/8
-		margin = (height-width)/2
-		x = width - margin/2	
-		y = height - margin/2
-		stopLight.color = 'red' 
-		if hints0.length > 0 
-			stopLight.color = 'green' 
-			# circle x, y, 0.025 * diagonal
-		if hints1.length > 0 
-			stopLight.color = 'yellow'
-			# circle x, y, 0.025 * diagonal
-	else
-		margin = (width-height)/2
-		x = width - margin/2	
-		dy = height/8
-		stopLight.color = 'red' 
-		if hints0.length > 0 
-			stopLight.color = 'green' 
-			# circle x, 7*dy, 0.025 * diagonal
-		if hints1.length > 0 
-			stopLight.color = 'yellow' 
-			# circle x, 7*dy, 0.025 * diagonal
+	stopLight.color = 'red' 
+	if hints0.length > 0 then stopLight.color = 'green' 
+	if hints1.length > 0 then stopLight.color = 'yellow' 
 
 within = (i,j) -> 0 <= i < Size and 0 <= j < Size
-
-# keyPressed = ->
-# 	keys += key 
-# 	if keys.endsWith 'QPZM'
-# 		keys = '' 
-# 		showHint = not showHint
 
 # === För iPad och mobiler ===
 touchStarted = ->
