@@ -7,8 +7,8 @@ export helpText = """<h3>Introduktion</h3>Detta program hanterar två olika turn
 		* FairPair väljs genom att sätta ROUNDS till ett lågt antal.
 
 * Alla ronder lottas i förväg
-* Hanterar upp till fyra partier per rond, t ex dubbelrond eller lagmatch
-* Färghänsyn tas enbart för udda antal GAMES. 
+* Hanterar enkelrond (GAMES=1) eller dubbelrond (GAMES=2)
+* Färghänsyn tas ej vid dubbelrond (GAMES=2)
 * All nödvändig information skickas in som parametrar till adressfältet
 <h3>Interaktioner</h3>* Klick på rond visar bordslistan
 * Klick på annan kolumn sorterar
@@ -23,10 +23,10 @@ export helpText = """<h3>Introduktion</h3>Detta program hanterar två olika turn
   Anger turneringens namn
 
 GAMES=1
-  Anger antal partier per rond. 1 (default), 2, 3 eller 4.
+  Anger antal partier per rond. 1 (default) eller 2 (dubbelrond)
 
 ROUNDS=9
-  Anger antal ronder. (default: antal spelare minus 1)
+  Anger antal ronder
 
 1653 Christer Nilsson
   Alla deltagare anges med rating och namn
@@ -34,14 +34,10 @@ ROUNDS=9
 
 r1=012x0 
   Vitspelarnas resultat för rond 1, i bordsordning
-  Svartspelarnas resultat beräknas med hjälp av GAMES
-  GAMES=1: (default)
-    0 = Förlust
-    1 = Remi
-    2 = Vinst
-    x = Ej spelat
-  GAMES=2: 0 till 4 kan användas
-  GAMES=3: 0 till 6 kan användas
-  GAMES=4: 0 till 8 kan användas
+  Svartspelarnas resultat automatiskt
+  0 = Förlust
+  r = Remi
+  1 = Vinst
+  x = Ej spelat
 
 """

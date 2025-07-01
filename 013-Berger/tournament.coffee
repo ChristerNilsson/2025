@@ -1,3 +1,5 @@
+# ½
+
 import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
 import {helpText} from './texts.js'
@@ -80,8 +82,7 @@ parseQuery = ->
 
 	TITLE = safeGet params, "TITLE"
 	GAMES = parseInt safeGet params, "GAMES", "1"
-	echo GAMES
-	RESULTS = [0,1,2,3,4,5,6,7,8].slice 0, 2 * GAMES + 1
+	RESULTS = [0,1,2] # internt bruk
 
 	players = []
 	persons = params.getAll "p"
@@ -104,12 +105,11 @@ parseQuery = ->
 	LOG2 = Math.ceil Math.log2 N
 	if ROUNDS == N-1 then # Berger
 	else if ROUNDS < LOG2 then alert "Too few ROUNDS! Minimum is #{LOG2}"
-	else if ROUNDS >= N then alert "Too many ROUNDS! Maximum is #{N-1}"
+	# else if ROUNDS >= N then alert "Too many ROUNDS! Maximum is #{N-1}"
 
 
-listify = (s) -> # omvandla "102x2" till [1,0,2,-1,2] 
-	(if ch == 'x' then -1 else parseInt ch) for ch in s
-console.assert _.isEqual [0,1,2,-1,2], listify '012x2'
+listify = (s) -> ('0r1'.indexOf ch) for ch in s # omvandla "r01x1" till [1,0,2,-1,2] 
+console.assert _.isEqual [0,1,2,-1,2], listify '0r1x1'
 
 parseTextarea = ->
 	echo 'parseTextArea'
@@ -132,15 +132,11 @@ parseTextarea = ->
 		else
 			players.push line
 
-	# if not GAMES then GAMES = 1
-	# if not ROUNDS then ROUNDS = players.length - 1 
-	# if not TITLE then if ROUNDS = players.length - 1 then TITLE = 'Berger' else TITLE = "FairPair"
-
 	#url = 'http://127.0.0.1:5501'
 	url = '/'
 	url += "?TITLE=#{TITLE}"
 	if GAMES then url += "&GAMES=#{GAMES}"
-	if ROUNDS then url += "&ROUNDS=#{ROUNDS}"
+	url += "&ROUNDS=#{ROUNDS}"
 	for player in players
 		url += "&p=#{player}"
 	for r in range rounds.length
@@ -158,16 +154,19 @@ savePairing = (r, A, half, n) ->
 	lst
 
 makeBerger = ->
+	echo 'BERGER'
+
 	n = players.length
 	if n % 2 == 1 then n += 1
 	half = n // 2 
 	A = [0...n]
 	rounds = []
-	for i in [0...n-1]
+	for i in range ROUNDS
 		rounds.push(savePairing(i, A, half, n))
 		A.pop()
 		A = A.slice(half).concat A.slice(0,half)
 		A.push(n-1)
+	echo 'BERGER',rounds
 	rounds
  
 makeFairPair = ->
@@ -180,6 +179,8 @@ makeFairPair = ->
 		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
 
 	echo 'summa', fairpair.summa
+	echo 'FAIRPAIR', fairpair.rounds
+
 	fairpair.rounds
 
 showInfo = ->
@@ -194,6 +195,7 @@ roundsContent = (points, i) -> # rondernas data + poäng + PR
 	pointsPR = 0
 
 	for r in range rounds.length
+		echo 'roundsContent',r
 
 		tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
 		if tableIndex == -1 then continue
@@ -204,13 +206,13 @@ roundsContent = (points, i) -> # rondernas data + poäng + PR
 
 		if result in RESULTS
 			if w == i
-				result = parseInt result 
+				result = "0½1"[result]
 			else
-				result = 2 * GAMES - parseInt result 
+				result = "0½1"[(2 - result)]
 
 			if result in RESULTS and players[opponent].elo != 0
 				oppElos.push players[opponent].elo
-				pointsPR += parseInt result
+				pointsPR += 0.5 * "0½1".indexOf result
 		else
 			result = ""
 
@@ -261,9 +263,11 @@ showPlayers = (points) ->
 		value = if value > 3999 then "" else value.toFixed decimals 
 		_.last(rad.children).textContent = value
 
-prettify = (ch) ->
-	if ch in RESULTS then return "#{ch} - #{2*GAMES - ch}"
-	"-"
+prettify = (ch) -> if ch == 'x' then " - " else "#{'0½1'[ch]} - #{'0½1'[2 - ch]}" 
+console.assert "0 - 1" == prettify '0'
+console.assert "½ - ½" == prettify '1'
+console.assert "1 - 0" == prettify '2'
+console.assert " - " == prettify 'x'
 
 showTables = (rounds, selectedRound) ->
 	if rounds.length == 0 then return
@@ -289,16 +293,16 @@ showTables = (rounds, selectedRound) ->
 				th {}, "Bord"
 				th {}, "Vit"
 				th {}, "Svart"
-				th {}, "#{RESULTS.join ''}" 
+				th {}, "Resultat" 
 			rows
 
-	result += "<br>(G#{GAMES} R#{ROUNDS} #{if ROUNDS==players.length - 1 then 'Berger' else 'FairPair'})"
+	result += "<br>(G#{GAMES} R#{ROUNDS} #{if ROUNDS == players.length - 1 then 'Berger' else 'FairPair'})"
 
 	document.getElementById('tables').innerHTML = result
 
 readResults = (params) ->
 	results = []
-	for r in range ROUNDS
+	for r in range GAMES * ROUNDS
 		lst = listify safeGet params, "r#{r+1}", "x".repeat players.length // 2 
 		echo rounds[r]
 		res = []
@@ -327,6 +331,13 @@ readResults = (params) ->
 		# 	s = safeGet params, "r#{r+1}", "x".repeat players.length // 2
 		# 	results.push listify s
 
+expand = (rounds) -> 
+	result = []
+	for round in rounds
+		result.push ([w,b] for [w,b] in round)
+		result.push ([b,w] for [w,b] in round)
+	result
+console.assert _.isEqual [[[1,2],[2,1],[3,4],[4,3]], [[1,4],[4,1],[2,3][3,2]]], expand [[[1,2],[3,4]], [[1,4],[2,3]]]
 
 main = ->
 
@@ -349,14 +360,17 @@ main = ->
 		showInfo()
 		return
 
+	echo {ROUNDS,GAMES}
 	if ROUNDS == players.length - 1
+		echo 'BERGER'
 		rounds = makeBerger()
+		if GAMES == 2 then rounds = expand rounds
 	else 
+		echo 'FP'
 		rounds = makeFairPair()
+		if GAMES == 2 then rounds = expand rounds
 
 	readResults params
-
-	# round = [[0,9], [1,8], ...]
 
 	points = Array(players.length).fill(0)
 
@@ -365,8 +379,8 @@ main = ->
 		round = rounds[i]
 		for j, [w, b] of round
 			if res[j] in RESULTS
-				points[w] += parseInt res[j]
-				points[b] += 2*GAMES - parseInt res[j]
+				points[w] += 0.5 * parseInt res[j]
+				points[b] += 0.5 * (2 - parseInt res[j])
 
 	showPlayers points
 	showTables rounds[0] or [], 0

@@ -5,6 +5,7 @@ echo = console.log
 
 export class FairPair 
 	constructor : (@players, @R, @GAMES) ->
+		echo 'FAIRPAIR'
 		@N = @players.length
 		@matrix = (("•" for i in range @N) for j in range @N)
 		@summa = 0
