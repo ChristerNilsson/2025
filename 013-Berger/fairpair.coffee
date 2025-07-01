@@ -5,7 +5,6 @@ echo = console.log
 
 export class FairPair 
 	constructor : (@players, @R, @GAMES) ->
-		echo 'FAIRPAIR'
 		@N = @players.length
 		@matrix = (("•" for i in range @N) for j in range @N)
 		@summa = 0
@@ -37,7 +36,7 @@ export class FairPair
 		for id in magic
 			i = id
 			j = magic[id]
-			echo 'updateplayers',magic, r 
+			# echo 'updateplayers',magic, r 
 			@matrix[i][j] = (r + 1).toString()
 			if i > j then continue
 			@summa += Math.abs @players[i].elo - @players[j].elo

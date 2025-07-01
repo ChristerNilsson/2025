@@ -179,7 +179,7 @@ makeFairPair = ->
 		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
 
 	echo 'summa', fairpair.summa
-	echo 'FAIRPAIR', fairpair.rounds
+	# echo 'FAIRPAIR', fairpair.rounds
 
 	fairpair.rounds
 
@@ -190,41 +190,37 @@ showInfo = ->
 roundsContent = (points, i) -> # rondernas data + poäng + PR
 
 	ronder = []
-
 	oppElos = []
 	pointsPR = 0
 
 	for r in range rounds.length
-		echo 'roundsContent',r
 
 		tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
 		if tableIndex == -1 then continue
+
 		result = results[r]?[tableIndex]
 
 		[w, b] = rounds[r][tableIndex]
 		opponent = if w == i then b else w
 
 		if result in RESULTS
-			if w == i
-				result = "0½1"[result]
-			else
-				result = "0½1"[(2 - result)]
+			if i == b then result = 2 - result
 
-			if result in RESULTS and players[opponent].elo != 0
+			if result in [0,1,2] and players[opponent].elo != 0
 				oppElos.push players[opponent].elo
-				pointsPR += 0.5 * "0½1".indexOf result
+				pointsPR += result
 		else
 			result = ""
 
 		if i == w then attr = "right:0px;" else attr = "left:0px;"
 		cell = td {style: "position:relative;"},
 			div {style: "position:absolute; top:0px;" + attr + "font-size:0.7em;"}, opponent + 1
-			div {style: "position:absolute; top:12px;           font-size:1.1em;"}, result
+			div {style: "position:absolute; top:12px; transform: translate(-10%, -10%); font-size:1.1em;"}, "0½1"[result]
 
 		ronder.push cell
 
-	ronder.push	td alignRight, points[i]
-	ronder.push td {}, performance pointsPR/(2*GAMES), oppElos
+	ronder.push	td alignRight, points[i].toFixed 1
+	ronder.push td {}, performance pointsPR/2, oppElos
 	ronder.join ""
 
 showPlayers = (points) ->
@@ -283,7 +279,7 @@ showTables = (rounds, selectedRound) ->
 			td {}, i+1
 			td alignLeft, vit
 			td alignLeft, svart
-			echo selectedRound,i,results
+			# echo selectedRound,i,results
 			td alignCenter, prettify results[selectedRound][i]
 
 	result = div {},
@@ -304,7 +300,7 @@ readResults = (params) ->
 	results = []
 	for r in range GAMES * ROUNDS
 		lst = listify safeGet params, "r#{r+1}", "x".repeat players.length // 2 
-		echo rounds[r]
+		# echo rounds[r]
 		res = []
 		for i in range players.length // 2
 			if lst[i] == -1
@@ -321,7 +317,7 @@ readResults = (params) ->
 			else
 				res.push lst[i]
 		results.push res
-		echo res
+		# echo res
 
 		# for ch in safeGet params, "r#{r+1}", "x".repeat players.length // 2 
 		# if frirond == -1
@@ -337,7 +333,16 @@ expand = (rounds) ->
 		result.push ([w,b] for [w,b] in round)
 		result.push ([b,w] for [w,b] in round)
 	result
-console.assert _.isEqual [[[1,2],[2,1],[3,4],[4,3]], [[1,4],[4,1],[2,3][3,2]]], expand [[[1,2],[3,4]], [[1,4],[2,3]]]
+aaa =  [[[1,2],[3,4]],[[2,1],[4,3]],[[1,4],[2,3]],[[4,1],[3,2]]]
+bbb = expand [[[1,2],[3,4]], [[1,4],[2,3]]]
+console.assert _.isEqual aaa,bbb
+
+progress = (points) ->
+	antal = 0
+	# echo 'progress',results
+	for point in points
+		antal += point
+	" • #{antal} av #{ROUNDS * players.length}"
 
 main = ->
 
@@ -354,19 +359,15 @@ main = ->
 
 	parseQuery()
 
-	document.title = TITLE
-
 	if players.length < 4
 		showInfo()
 		return
 
 	echo {ROUNDS,GAMES}
 	if ROUNDS == players.length - 1
-		echo 'BERGER'
 		rounds = makeBerger()
 		if GAMES == 2 then rounds = expand rounds
 	else 
-		echo 'FP'
 		rounds = makeFairPair()
 		if GAMES == 2 then rounds = expand rounds
 
@@ -381,6 +382,8 @@ main = ->
 			if res[j] in RESULTS
 				points[w] += 0.5 * parseInt res[j]
 				points[b] += 0.5 * (2 - parseInt res[j])
+
+	document.title = TITLE + progress points
 
 	showPlayers points
 	showTables rounds[0] or [], 0
