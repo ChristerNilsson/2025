@@ -36,7 +36,8 @@ export class FairPair
 		for id in magic
 			i = id
 			j = magic[id]
-			# echo 'updateplayers',magic, r 
+			# echo 'updateplayers',magic, r
+			if i == @matrix.length or j == @matrix[0].length then continue
 			@matrix[i][j] = (r + 1).toString()
 			if i > j then continue
 			@summa += Math.abs @players[i].elo - @players[j].elo
