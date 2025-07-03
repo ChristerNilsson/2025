@@ -50,18 +50,22 @@ shortForm = (rounds, results) -> # produces the short form for ONE round (bordsl
 ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"F"]], shortForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
 ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], shortForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
-listify = (s) -> ('0r1'.indexOf ch) for ch in s # omvandla "r01x1" till [1,0,2,-1,2] 
-ass [0,1,2,-1,2], listify '0r1x1'
+# listify = (s) -> ('0r1'.indexOf ch) for ch in s # omvandla "r01x1" till [1,0,2,-1,2] 
+# ass [0,1,2,-1,2], listify '0r1x1'
 
-other = (res) ->
-	if res == '0' then return '1'
-	if res == '1' then return '0'
-	if res == 'F' then return 'G'
-	res
+convert = (input,a,b) -> if input in a then b[a.indexOf input] else input # a och b är strängar
+
+convertLong = (input,a,b) -> # b är separerad med |
+	i = a.indexOf input
+	b = b.split '|'
+	if input in a then b[i] else input
+
+other = (input) -> convert input, "01FG","1011"
 ass '1', other '0'
 ass 'r', other 'r'
 ass '0', other '1'
-ass 'G', other 'F'
+ass '1', other 'F'
+ass '1', other 'G'
 ass 'x', other 'x'
 
 longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
@@ -89,13 +93,7 @@ ass [
 ], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
 # ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
-prettify = (ch) -> 
-	if ch == undefined then return " - "
-	if ch == 'x' then return " - "
-	if ch == 'F' then return " - "
-	if ch == '0' then return '0 - 1'
-	if ch == 'r' then return '½ - ½'
-	if ch == '1' then return '1 - 0'
+prettify = (ch) -> if ch == undefined then return " - " else convertLong ch, "xF0r1","-|-|0 - 1|½ - ½|1 - 0"
 ass "0 - 1", prettify '0'
 ass "½ - ½", prettify 'r'
 ass "1 - 0", prettify '1'
@@ -284,17 +282,18 @@ roundsContent = (long, points, i) -> # rondernas data + poäng + PR. i anger spe
 	pointsPR = 0
 
 	for [w,b,color,result] in long
-		opponent = if w == i then b else w
-		result = {'x':'', '1':'1', '0':'0', 'r':'½', 'F':'F'}[result]
+		opponent = 1 + if w == i then b else w
+		if frirond and opponent == frirond + 1 then opponent = 'F'
+		result = convert result, 'x10rFG', ' 10½11'
 
-		if i == w then attr = "right:0px;" else attr = "left:0px;"
+		if color == 'w' then attr = "right:0px;" else attr = "left:0px;"
 		cell = td {style: "position:relative;"},
-			div {style: "position:absolute; top:0px;" + attr + "font-size:0.7em;"}, opponent+1
-			div {style: "position:absolute; top:12px; transform: translate(-10%, -10%); font-size:1.1em;"}, result
+			div {style: "position:absolute; top:0px;  font-size:0.7em;" + attr}, opponent
+			div {style: "position:absolute; top:12px; font-size:1.1em; transform: translate(-10%, -10%)"}, result
 
 		ronder.push cell
 
-	ronder.push	td alignRight, points[i].toFixed 1
+	ronder.push	td alignRight, (points[i]/2).toFixed 1
 	ronder.push td {}, performance pointsPR/2, oppElos
 	ronder.join ""
 
@@ -303,8 +302,8 @@ showPlayers = (longs, points) -> # longs lagrad som lista av spelare
 	rows = []
 
 	for long, i in longs
-		# if i == frirond then continue
 		player = players[i]
+		if player.name == 'FRIROND' then continue
 		rows.push tr {},
 			td {}, i + 1
 			td alignLeft, player.name
@@ -340,19 +339,25 @@ showTables = (shorts, selectedRound) ->
 
 	rows = ""
 	bord = 0
+	message = ""
 
 	for short in shorts[selectedRound]
 		[w, b, res] = short
-		# if frirond in [w,b] or selectedRound >= results.length then continue
 		vit = players[w]?.name or ""
 		svart = players[b]?.name or ""
 		echo w,b,res,vit,svart, prettify res
 
+		if vit == 'FRIROND'
+			message = " • #{svart} har frirond"
+			continue
+		if svart == 'FRIROND'
+			message = " • #{vit} har frirond"
+			continue
 		rows += tr {},
 			td {}, bord+1
 			td alignLeft, vit
 			td alignLeft, svart
-			td alignCenter, prettify res #results[selectedRound][bord]
+			td alignCenter, prettify res
 		bord += 1
 
 	result = div {},
@@ -365,7 +370,7 @@ showTables = (shorts, selectedRound) ->
 				th {}, "Resultat" 
 			rows
 
-	result += "<br>(G#{GAMES} R#{ROUNDS} #{if ROUNDS == players.length - 1 then 'Berger' else 'FairPair'})"
+	result += "<br>G#{GAMES} • R#{ROUNDS} • #{if ROUNDS == players.length - 1 then 'Berger' else 'FairPair'} #{message}"
 
 	document.getElementById('tables').innerHTML = result
 
@@ -376,7 +381,7 @@ readResults = (params) ->
 	n //= 2
 	
 	for r in range GAMES * ROUNDS
-		results.push safeGet params, "r#{r+1}", "x".repeat n # listify
+		results.push safeGet params, "r#{r+1}", "x".repeat n
 	echo 'readResults', results
 
 progress = (points) ->
@@ -419,9 +424,12 @@ main = ->
 	for i in range results.length
 		res = results[i]
 		round = rounds[i]
+		echo res,round
 		for j, [w, b] of round
 			if res[j] in "0r1"
-				score = "0r1".indexOf res[j]
+				score = 0
+				if res[j] == 'r' then score = 1
+				if res[j] == '1' then score = 2
 				points[w] += score
 				points[b] += 2 - score
 
