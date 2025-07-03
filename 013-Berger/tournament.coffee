@@ -30,30 +30,75 @@ frirond = null # ingen frirond. Annars index för frironden
 
 sorteringsOrdning = {}	# Spara per kolumn
 
+longs = [] # underlag för showPlayers
+shorts = [] # underlag för showTables
+
 ass = (a,b) ->
 	if _.isEqual a, b then return
 	echo 'Assertion failed: (open the Assertion below to find the failing assertion)'
-	echo '  ', JSON.stringify a 
-	echo '  ', JSON.stringify b
+	echo '  expect', JSON.stringify a 
+	echo '  actual', JSON.stringify b
 	console.assert false # can be used to track the assert
 ass 7, 3 + 4
 
-# The Normal Form can be used to construct both the standings list and the table list
+# The short Form is used to render the table list
 # rounds: produced by makeBerger and makeFairPair
 # results: produced by the human
-normalForm = (rounds, results) -> # produces the normal form for ONE round. If there is a BYE, put it last in the list
+shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 	if rounds.length > results.length then results += 'F'
 	rounds[i].concat results[i] for i in range results.length
-ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"F"]], normalForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
-ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], normalForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
+ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"F"]], shortForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
+ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], shortForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
 listify = (s) -> ('0r1'.indexOf ch) for ch in s # omvandla "r01x1" till [1,0,2,-1,2] 
 ass [0,1,2,-1,2], listify '0r1x1'
 
-prettify = (ch) -> if ch == 'x' or ch == undefined then " - " else "#{'0½1'[ch]} - #{'0½1'[2 - ch]}" 
+other = (res) ->
+	if res == '0' then return '1'
+	if res == '1' then return '0'
+	if res == 'F' then return 'G'
+	res
+ass '1', other '0'
+ass 'r', other 'r'
+ass '0', other '1'
+ass 'G', other 'F'
+ass 'x', other 'x'
+
+longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
+	if rounds.length > results.length then results += 'F'
+	result = []
+	for i in range rounds.length
+		[w,b] = rounds[i]
+		res = results[i]
+		result.push [w,b,'w',res]
+		result.push [b,w,'b',other res]
+	result.sort (a,b) -> a[0] - b[0]
+ass [
+	[ 0,11,'w','F']
+	[ 1,10,'w','0']
+	[ 2, 9,'w','r']
+	[ 3, 8,'w','1']
+	[ 4, 7,'w','0']
+	[ 5, 6,'w','r']
+	[ 6, 5,'b','r']
+	[ 7, 4,'b','1']
+	[ 8, 3,'b','0']
+	[ 9, 2,'b','r']
+	[10, 1,'b','1']
+	[11, 0,'b','G']
+], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
+# ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
+
+prettify = (ch) -> 
+	if ch == undefined then return " - "
+	if ch == 'x' then return " - "
+	if ch == 'F' then return " - "
+	if ch == '0' then return '0 - 1'
+	if ch == 'r' then return '½ - ½'
+	if ch == '1' then return '1 - 0'
 ass "0 - 1", prettify '0'
-ass "½ - ½", prettify '1'
-ass "1 - 0", prettify '2'
+ass "½ - ½", prettify 'r'
+ass "1 - 0", prettify '1'
 ass " - ", prettify 'x'
 
 expand = (rounds) -> # make a double round from a single
@@ -91,7 +136,7 @@ skapaSorteringsklick = ->
 				key = _th.textContent
 				if !isNaN parseInt key
 					key = parseInt(key) - 1 
-					showTables rounds[key] or [], key
+					showTables shorts, key
 					return
 
 				tbody = document.querySelector '#stallning tbody'
@@ -130,11 +175,13 @@ parseQuery = ->
 	players = []
 	persons = params.getAll "p"
 	persons.sort().reverse()
+	i = 0
 	echo persons.length
 	for person in persons
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
-		echo elo,name
+		echo i, elo,name
+		i += 1
 		players.push new Player players.length, name, elo
 
 	if players.length % 2 == 1
@@ -230,42 +277,20 @@ showInfo = ->
 	document.getElementById('info').innerHTML = div {},
 		div {class:"help"}, pre {}, helpText
 
-roundsContent = (points, i) -> # rondernas data + poäng + PR
+roundsContent = (long, points, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
 	ronder = []
 	oppElos = []
 	pointsPR = 0
 
-	for r in range rounds.length
-
-		tableIndex = rounds[r].findIndex(([w, b]) -> w == i or b == i)
-		if tableIndex == -1 then continue
-
-		result = results[r]?[tableIndex]
-
-		[w, b] = rounds[r][tableIndex]
+	for [w,b,color,result] in long
 		opponent = if w == i then b else w
-
-		if result in RESULTS
-			if i == b then result = 2 - result
-
-			if result in [0,1,2] and players[opponent].elo != 0
-				oppElos.push players[opponent].elo
-				pointsPR += result
-		else
-			result = ""
-
-		if frirond and opponent == frirond
-			sOpponent = 'F'
-			sResult = "1"
-		else 
-			sOpponent = opponent + 1
-			sResult = "0½1"[result]
+		result = {'x':'', '1':'1', '0':'0', 'r':'½', 'F':'F'}[result]
 
 		if i == w then attr = "right:0px;" else attr = "left:0px;"
 		cell = td {style: "position:relative;"},
-			div {style: "position:absolute; top:0px;" + attr + "font-size:0.7em;"}, sOpponent
-			div {style: "position:absolute; top:12px; transform: translate(-10%, -10%); font-size:1.1em;"}, sResult
+			div {style: "position:absolute; top:0px;" + attr + "font-size:0.7em;"}, opponent+1
+			div {style: "position:absolute; top:12px; transform: translate(-10%, -10%); font-size:1.1em;"}, result
 
 		ronder.push cell
 
@@ -273,17 +298,18 @@ roundsContent = (points, i) -> # rondernas data + poäng + PR
 	ronder.push td {}, performance pointsPR/2, oppElos
 	ronder.join ""
 
-showPlayers = (points) ->
+showPlayers = (longs, points) -> # longs lagrad som lista av spelare
 
 	rows = []
 
-	for player, i in players
-		if i == frirond then continue
+	for long, i in longs
+		# if i == frirond then continue
+		player = players[i]
 		rows.push tr {},
 			td {}, i + 1
 			td alignLeft, player.name
 			td {}, player.elo
-			roundsContent points, i
+			roundsContent long, points, i
 
 	result = div {},
 		h2 {}, TITLE
@@ -309,24 +335,24 @@ showPlayers = (points) ->
 		value = if value > 3999 then "" else value.toFixed decimals 
 		_.last(rad.children).textContent = value
 
-showTables = (rounds, selectedRound) ->
+showTables = (shorts, selectedRound) ->
 	if rounds.length == 0 then return
 
 	rows = ""
 	bord = 0
 
-	for i in range rounds.length
-		[w, b] = rounds[i]
-		echo frirond,w,b
-		if frirond in [w,b] or selectedRound >= results.length then continue
+	for short in shorts[selectedRound]
+		[w, b, res] = short
+		# if frirond in [w,b] or selectedRound >= results.length then continue
 		vit = players[w]?.name or ""
 		svart = players[b]?.name or ""
+		echo w,b,res,vit,svart, prettify res
 
 		rows += tr {},
 			td {}, bord+1
 			td alignLeft, vit
 			td alignLeft, svart
-			td alignCenter, prettify results[selectedRound][bord]
+			td alignCenter, prettify res #results[selectedRound][bord]
 		bord += 1
 
 	result = div {},
@@ -345,38 +371,16 @@ showTables = (rounds, selectedRound) ->
 
 readResults = (params) ->
 	results = []
+	n = players.length
+	if frirond then n -= 2
+	n //= 2
+	
 	for r in range GAMES * ROUNDS
-		lst = listify safeGet params, "r#{r+1}", "x".repeat players.length // 2 
-		# echo rounds[r]
-		res = []
-		for i in range players.length // 2
-			if lst[i] == -1
-				[w,b] = rounds[r][i]
-				# echo w,b
-				if ROUNDS == players.length - 1
-					if w == frirond then res.push 2*GAMES
-					else if b == frirond then res.push 0
-					else res.push lst[i]
-				else # FairPair
-					if b == frirond then res.push 2*GAMES
-					else if w == frirond then res.push 0
-					else res.push lst[i]
-			else
-				res.push lst[i]
-		results.push res
+		results.push safeGet params, "r#{r+1}", "x".repeat n # listify
 	echo 'readResults', results
-
-		# for ch in safeGet params, "r#{r+1}", "x".repeat players.length // 2 
-		# if frirond == -1
-		# 	s = 
-		# 	results.push listify s
-		# else
-		# 	s = safeGet params, "r#{r+1}", "x".repeat players.length // 2
-		# 	results.push listify s
 
 progress = (points) ->
 	antal = 0
-	# echo 'progress',results
 	for point in points
 		antal += point
 	" • #{antal} av #{ROUNDS * players.length}"
@@ -416,14 +420,25 @@ main = ->
 		res = results[i]
 		round = rounds[i]
 		for j, [w, b] of round
-			if res[j] in RESULTS
-				points[w] += 0.5 * parseInt res[j]
-				points[b] += 0.5 * (2 - parseInt res[j])
+			if res[j] in "0r1"
+				score = "0r1".indexOf res[j]
+				points[w] += score
+				points[b] += 2 - score
 
 	document.title = TITLE + progress points
+	
+	shorts = []
+	for r in range rounds.length
+		shorts.push shortForm rounds[r],results[r]
 
-	showPlayers points
-	showTables rounds[0] or [], 0
+	longs = [] # innehåller alla ronderna
+	for r in range rounds.length
+		longs.push longForm rounds[r],results[r]
+
+	longs = _.zip ...longs # transponerar matrisen
+
+	showPlayers longs,points
+	showTables shorts, 0
 
 	skapaSorteringsklick()
 
