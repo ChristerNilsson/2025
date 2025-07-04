@@ -1,7 +1,5 @@
 # ½
 
-# TODO: Change the name Berger to something better
-
 import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
 import {helpText} from './texts.js'
@@ -32,8 +30,6 @@ sorteringsOrdning = {}	# Spara per kolumn
 
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
-
-echo 'version 1.1'
 
 ass = (a,b) ->
 	if _.isEqual a, b then return
@@ -91,7 +87,7 @@ ass [
 	[ 8, 3,'b','0']
 	[ 9, 2,'b','r']
 	[10, 1,'b','1']
-	[11, 0,'b','G']
+	[11, 0,'b','1']
 ], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
 # ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
@@ -99,7 +95,7 @@ prettify = (ch) -> if ch == undefined then return " - " else convertLong ch, "xF
 ass "0 - 1", prettify '0'
 ass "½ - ½", prettify 'r'
 ass "1 - 0", prettify '1'
-ass " - ", prettify 'x'
+ass "-", prettify 'x'
 
 expand = (rounds) -> # make a double round from a single
 	result = []
@@ -174,7 +170,9 @@ parseQuery = ->
 
 	players = []
 	persons = params.getAll "p"
-	persons.sort().reverse()
+
+	# persons.sort().reverse()
+
 	i = 0
 	echo ""
 	for person in persons
@@ -245,7 +243,7 @@ savePairing = (r, A, half, n) ->
 	for i in [1...half]
 		lst.push [A[i], A[n - 1 - i]]
 	if frirond then lst.push lst.shift()
-	lst
+	lst.sort()  ####
 
 makeBerger = ->
 	echo 'BERGER'
@@ -348,10 +346,12 @@ showTables = (shorts, selectedRound) ->
 	message = ""
 
 	for short in shorts[selectedRound]
-		[w, b, res] = short
-		vit = players[w]?.name or ""
-		svart = players[b]?.name or ""
-		echo w,b,res,vit,svart, prettify res
+		[w, b, color, res] = short
+		if color == 'b' then continue
+
+		vit = players[w].name # or ""
+		svart = players[b].name # or ""
+		# echo w,b,res,vit,svart, prettify res
 
 		if vit == 'FRIROND'
 			message = " • #{svart} har frirond"
@@ -439,7 +439,7 @@ calcPoints = -> # Hämta cellerna från GUI:t
 main = ->
 
 	params = new URLSearchParams window.location.search
-	echo params
+	# echo params
 
 	if params.size == 0 
 		document.getElementById("button").addEventListener "click", parseTextarea 
@@ -465,15 +465,22 @@ main = ->
 
 	readResults params
 	
-	shorts = []
-	for r in range rounds.length
-		shorts.push shortForm rounds[r],results[r]
+	# shorts = []
+	# for r in range rounds.length
+	# 	shorts.push shortForm rounds[r],results[r]
+
+	echo rounds
+	# echo shorts
 
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
 		longs.push longForm rounds[r],results[r]
 
+	shorts = _.cloneDeep longs
 	longs = _.zip ...longs # transponerar matrisen
+
+	echo 'longs',longs
+	echo 'shorts',shorts	
 
 	showPlayers longs
 	showTables shorts, 0
