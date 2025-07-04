@@ -1,76 +1,74 @@
-# Berger
+# Floating Berger
 
-[Try it!](https://christernilsson.github.io/2025/013-Berger/)
+[Try it!](https://christernilsson.github.io/2025/013-FloatingBerger/)
 
-Skriv in namnen i en textfil
-
-```
-http://127.0.0.1:5500/?title=Joukos Sommar 2025
-&GAMES=2
-&p=1698 Onni Aikio
-&p=1558 Helge Bergström
-&p=1549 Jonas Hök
-```
-
-Markera allt i textfilen med ctrl-a
-
-Gå till Chrome och klistra in med ctrl-v
-
-Skriv ut sidan med ctrl-p
-
-Skriv in de VITA resultaten i filen  
-
-Observera: 
-* 0 - 2 vit förlust
-* 1 - 1 remi
-* 2 - 0 vit vinst
-
-Orsaken till detta är att även kunna hantera dubbelrond, GAMES=2:
-* 0 - 4
-* 1 - 3
-* 2 - 2
-* 3 - 1
-* 4 - 0
-
-Maximalt kan fyra partier per rond hanteras, GAMES=4
+Byt ut elos och namn mot de som ska gälla i din turnering
 
 ```
-&r1=201x2
-&r2=01202
+TITLE = Sommarturnering RIO 2025
+GAMES = 1
+ROUNDS = 11
+
+1698 Onni Aikio
+1558 Helge Bergström
+1549 Jonas Hök
+1679 Lars Johansson
+1400 Per Eriksson
+
+1653 Christer Nilsson
+1673 Per Hamnström
+1504 Thomas Paulin
+1706 Abbas Razavi
+1650 Ture Turesson
+
+1677 Cesar
+
+r1 = 0r10r
+r2 = 0rx0r
+r3 = 0r10r
+r4 = 0r10r
 ```
+
+Vid dubbelrond sätts GAMES = 2  
+
+Skriv in VITS resultat i textrutan i den ordning Bordslistan anger  
 
 Förklaring
 ```
 r1 = rond 1
 
 0 = vit förlust
-1 = remi
-2 = vit vinst
+r = remi
+1 = vit vinst
 x = partiet ej spelat
 ```
 
 # Handhavande
 
-Rondnummerna är klickbara. Då visas bordslista för klickad rond.
+* Rondnummerna är klickbara. Då visas Bordslistan för klickad rond
+* Övriga kolumner sorteras när man klickar på dem
+* 1 visar enbart Spelarlistan
+* 2 visar enbart Bordslistan
+* 3 visar båda listorna
+* ctrl p skriver ut sidan
+* ctrl + zoomar in
+* ctrl - zoomar ut
+* ctrl h visar tidigare ronder
 
 # Skillnader gentemot andra turneringssystem
 
-* Ratingen styr vilka som möts. Skillnaden minimeras.
+* Ratingen styr vilka som möts. Skillnaden minimeras
 * Man behöver inte använda särskiljning
-* Man lottar alla ronder direkt. Inget strul med orapporterade resultat.
-* Inget bekymmer med att dela upp turneringen i flera Berger-grupper.
-* Alla spelare vet i vilken rond de ska möta varandra. Som Berger.
-* Enkel hantering av lottning, även dubbelrondigt.
-* Eftersom turneringens data finns i url:en, dvs länken, kan den enkelt publiceras.
+* Man lottar alla ronder direkt
+* Man kan spela partierna i valfri ordning
+* Turneringen behöver ej delas upp i flera Berger-grupper
+* Alla spelare vet i vilken rond de ska möta varandra. Som Berger
+* Enkel hantering av lottning, även dubbelrondigt
+* Eftersom turneringens data finns i url:en, dvs länken, kan den enkelt publiceras
 
 # Att tänka på
 
-* När turneringen börjat kan man inte lägga till eller ta bort spelare. 
-* Man får inte ändra elo under turneringens gång.
-* Skriv alltid ut Bordslistorna! De fungerar som backup.
-* Frirond hanteras manuellt.
-
-# Strul
-
-Chrome byter radbrytningar till mellanslag som visas som %20 i adressfältet.
-Live Server startar med port 5500 eller 5501 lite hipp som happ.
+* När turneringen börjat kan man inte lägga till eller ta bort spelare
+* Man får inte ändra elo under turneringens gång
+* Skriv alltid ut Bordslistorna! De fungerar som backup
+* Historiken innehåller tidigare ronder

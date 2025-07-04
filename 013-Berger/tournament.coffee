@@ -388,7 +388,10 @@ progress = (points) ->
 	antal = 0
 	for point in points
 		antal += point
-	" • #{antal} av #{ROUNDS * players.length}"
+	if frirond 
+		" • #{antal} av #{GAMES * ROUNDS * (players.length - 2) // 2}"
+	else
+		" • #{antal} av #{GAMES * ROUNDS * players.length / 2}"
 
 calcPoints = -> # Hämta cellerna från GUI:t
 	tbody = document.querySelector '#stallning tbody'
@@ -396,10 +399,11 @@ calcPoints = -> # Hämta cellerna från GUI:t
 
 	PS = []
 	PRS = []
+	performances = [] 
 
 	for rad in rader
 		points = 0
-		pointsPR = 0 
+		pointsPR = 0
 		elos = []
 		for i in range GAMES * ROUNDS
 			cell = rad.children[3+i]
@@ -415,13 +419,16 @@ calcPoints = -> # Hämta cellerna från GUI:t
 				elos.push players[opp-1].elo
 
 		PS.push points
-		PRS.push performance pointsPR, elos
+		PRS.push pointsPR
+		performances.push performance pointsPR, elos
 
-	decimals = findNumberOfDecimals PRS
+	decimals = findNumberOfDecimals performances
 	for i in range rader.length
 		rad = rader[i]
 		rad.children[GAMES * ROUNDS + 3].textContent = PS[i].toFixed 1
-		rad.children[GAMES * ROUNDS + 4].textContent = PRS[i].toFixed decimals
+		rad.children[GAMES * ROUNDS + 4].textContent = performances[i].toFixed decimals
+
+	PRS
 
 main = ->
 
@@ -451,7 +458,6 @@ main = ->
 		if GAMES == 2 then rounds = expand rounds
 
 	readResults params
-
 	
 	shorts = []
 	for r in range rounds.length
@@ -467,9 +473,9 @@ main = ->
 	showTables shorts, 0
 
 	skapaSorteringsklick()
-	calcPoints()
-	document.title = TITLE # + progress points
 
+	PRS = calcPoints()
+	document.title = TITLE + progress PRS
 
 document.addEventListener 'keyup', (event) ->
 
