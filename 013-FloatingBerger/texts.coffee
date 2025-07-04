@@ -1,4 +1,4 @@
-export helpText = """<h3>Introduktion</h3>Detta program hanterar två olika turneringsformat:
+export helpText = """<h3>Introduktion version 1.0</h3>Detta program hanterar två olika turneringsformat:
 	* Berger 
 		* alla möter alla
 		* default

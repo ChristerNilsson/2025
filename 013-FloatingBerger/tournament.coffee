@@ -237,6 +237,7 @@ parseTextarea = ->
 	url = url.replaceAll ' ', '+'
 
 	echo url
+	players = []
 	window.location.href = url
 
 savePairing = (r, A, half, n) ->
