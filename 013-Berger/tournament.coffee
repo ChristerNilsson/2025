@@ -146,8 +146,8 @@ skapaSorteringsklick = ->
 					cellB = b.children[index].textContent.trim()
 
 					# Försök jämföra som tal, annars som text
-					numA = parseInt cellA
-					numB = parseInt cellB
+					numA = parseFloat cellA
+					numB = parseFloat cellB
 					if !isNaN(numA) and !isNaN(numB)
 						return if stigande then numA - numB else numB - numA
 					else
@@ -275,11 +275,11 @@ showInfo = ->
 	document.getElementById('info').innerHTML = div {},
 		div {class:"help"}, pre {}, helpText
 
-roundsContent = (long, points, i) -> # rondernas data + poäng + PR. i anger spelarnummer
+roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
 	ronder = []
 	oppElos = []
-	pointsPR = 0
+	# pointsPR = 0
 
 	for [w,b,color,result] in long
 		opponent = 1 + if w == i then b else w
@@ -293,11 +293,11 @@ roundsContent = (long, points, i) -> # rondernas data + poäng + PR. i anger spe
 
 		ronder.push cell
 
-	ronder.push	td alignRight, (points[i]/2).toFixed 1
-	ronder.push td {}, performance pointsPR/2, oppElos
+	ronder.push	td alignRight, "" #(points[i]/2).toFixed 1
+	ronder.push td {}, "" # performance pointsPR/2, oppElos
 	ronder.join ""
 
-showPlayers = (longs, points) -> # longs lagrad som lista av spelare
+showPlayers = (longs) -> # longs lagrad som lista av spelare
 
 	rows = []
 
@@ -308,7 +308,7 @@ showPlayers = (longs, points) -> # longs lagrad som lista av spelare
 			td {}, i + 1
 			td alignLeft, player.name
 			td {}, player.elo
-			roundsContent long, points, i
+			roundsContent long, i
 
 	result = div {},
 		h2 {}, TITLE
@@ -390,6 +390,39 @@ progress = (points) ->
 		antal += point
 	" • #{antal} av #{ROUNDS * players.length}"
 
+calcPoints = -> # Hämta cellerna från GUI:t
+	tbody = document.querySelector '#stallning tbody'
+	rader = Array.from tbody.querySelectorAll 'tr'
+
+	PS = []
+	PRS = []
+
+	for rad in rader
+		points = 0
+		pointsPR = 0 
+		elos = []
+		for i in range GAMES * ROUNDS
+			cell = rad.children[3+i]
+			opp = cell.children[0].textContent
+			val = cell.children[1].textContent
+			value = 0
+			if val == '½' then value = 0.5
+			if val == '1' then value = 1
+			points += value
+
+			if val in '0½1' and opp != 'F' and players[opp-1].elo > 0
+				pointsPR += value
+				elos.push players[opp-1].elo
+
+		PS.push points
+		PRS.push performance pointsPR, elos
+
+	decimals = findNumberOfDecimals PRS
+	for i in range rader.length
+		rad = rader[i]
+		rad.children[GAMES * ROUNDS + 3].textContent = PS[i].toFixed 1
+		rad.children[GAMES * ROUNDS + 4].textContent = PRS[i].toFixed decimals
+
 main = ->
 
 	params = new URLSearchParams window.location.search
@@ -419,21 +452,6 @@ main = ->
 
 	readResults params
 
-	points = Array(players.length).fill(0)
-
-	for i in range results.length
-		res = results[i]
-		round = rounds[i]
-		echo res,round
-		for j, [w, b] of round
-			if res[j] in "0r1"
-				score = 0
-				if res[j] == 'r' then score = 1
-				if res[j] == '1' then score = 2
-				points[w] += score
-				points[b] += 2 - score
-
-	document.title = TITLE + progress points
 	
 	shorts = []
 	for r in range rounds.length
@@ -445,10 +463,13 @@ main = ->
 
 	longs = _.zip ...longs # transponerar matrisen
 
-	showPlayers longs,points
+	showPlayers longs
 	showTables shorts, 0
 
 	skapaSorteringsklick()
+	calcPoints()
+	document.title = TITLE # + progress points
+
 
 document.addEventListener 'keyup', (event) ->
 
