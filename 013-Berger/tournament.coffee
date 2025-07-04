@@ -174,12 +174,12 @@ parseQuery = ->
 	persons = params.getAll "p"
 	persons.sort().reverse()
 	i = 0
-	echo persons.length
+	echo ""
 	for person in persons
+		i += 1
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
 		echo i, elo,name
-		i += 1
 		players.push new Player players.length, name, elo
 
 	if players.length % 2 == 1
@@ -426,7 +426,7 @@ calcPoints = -> # Hämta cellerna från GUI:t
 	for i in range rader.length
 		rad = rader[i]
 		rad.children[GAMES * ROUNDS + 3].textContent = PS[i].toFixed 1
-		rad.children[GAMES * ROUNDS + 4].textContent = performances[i].toFixed decimals
+		rad.children[GAMES * ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
 
 	PRS
 
@@ -449,7 +449,7 @@ main = ->
 		showInfo()
 		return
 
-	echo {ROUNDS,GAMES}
+	# echo {ROUNDS,GAMES}
 	if ROUNDS == players.length - 1
 		rounds = makeBerger()
 		if GAMES == 2 then rounds = expand rounds
