@@ -416,7 +416,7 @@ drawPath = ->
 		[i1,j1] = [i2,j2]
 	if millis() > 500 + pathTimestamp then path = []
 
-# A*
+# Detta är inte A*.
 legal = (wrap,i0,j0,i1,j1) ->
 	start = [0,i0,j0,[]] # turns,x,y,move
 	cands = []
@@ -434,7 +434,7 @@ legal = (wrap,i0,j0,i1,j1) ->
 				turns = turns0
 				if indexes0.length > 0 and index != _.last(indexes0) then turns++
 				next = [turns,x,y,indexes0.concat [index]]
-				if x==i1 and y==j1 and turns<=2
+				if x == i1 and y == j1 and turns <= 2
 					reached[key] = next
 					return makePath wrap,reached,i1,j1
 				if within x,y
