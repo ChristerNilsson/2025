@@ -220,7 +220,10 @@ parseTextarea = ->
 	echo rounds
 
 	#url = 'http://127.0.0.1:5501'
-	url = '/'
+
+	echo window.location.href
+
+	if "github" in window.location.href  then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
 	url += "?TITLE=#{TITLE}"
 	if GAMES then url += "&GAMES=#{GAMES}"
 	url += "&ROUNDS=#{ROUNDS}"
