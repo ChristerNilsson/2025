@@ -33,6 +33,8 @@ sorteringsOrdning = {}	# Spara per kolumn
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
 
+echo 'version 1.0'
+
 ass = (a,b) ->
 	if _.isEqual a, b then return
 	echo 'Assertion failed: (open the Assertion below to find the failing assertion)'
@@ -223,7 +225,7 @@ parseTextarea = ->
 
 	echo window.location.href
 
-	if "github" in window.location.href  then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
+	if "github" in window.location.href then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
 	url += "?TITLE=#{TITLE}"
 	if GAMES then url += "&GAMES=#{GAMES}"
 	url += "&ROUNDS=#{ROUNDS}"
