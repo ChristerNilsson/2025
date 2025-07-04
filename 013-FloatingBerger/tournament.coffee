@@ -190,10 +190,10 @@ parseQuery = ->
 
 	ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
 	echo {TITLE,GAMES,ROUNDS}
-	N = players.length
-	LOG2 = Math.ceil Math.log2 N
-	if ROUNDS == N-1 then # Berger
-	else if ROUNDS < LOG2 then alert "Too few ROUNDS! Minimum is #{LOG2}"
+	# N = players.length
+	# LOG2 = Math.ceil Math.log2 N
+	# if ROUNDS == N-1 then # Berger
+	# else if ROUNDS < LOG2 then alert "Too few ROUNDS! Minimum is #{LOG2}"
 	# else if ROUNDS >= N then alert "Too many ROUNDS! Maximum is #{N-1}"
 
 parseTextarea = ->
