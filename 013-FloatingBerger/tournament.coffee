@@ -33,7 +33,7 @@ sorteringsOrdning = {}	# Spara per kolumn
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
 
-echo 'version 1.0'
+echo 'version 1.1'
 
 ass = (a,b) ->
 	if _.isEqual a, b then return
@@ -225,7 +225,7 @@ parseTextarea = ->
 
 	echo window.location.href
 
-	if "github" in window.location.href then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
+	if window.location.href.includes "github" then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
 	url += "?TITLE=#{TITLE}"
 	if GAMES then url += "&GAMES=#{GAMES}"
 	url += "&ROUNDS=#{ROUNDS}"
