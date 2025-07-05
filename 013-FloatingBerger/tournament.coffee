@@ -9,9 +9,9 @@ import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 echo = console.log
 range = _.range
 
-TITLE = ''
-GAMES = 0
-ROUNDS = 0
+settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1}
+
+ONE = 0 # 0=dev 1=prod
 
 RESULTS = []
 
@@ -164,14 +164,16 @@ parseQuery = ->
 	echo window.location.search
 	params = new URLSearchParams window.location.search
 
-	TITLE = safeGet params, "TITLE"
-	GAMES = parseInt safeGet params, "GAMES", "1"
+	settings.TITLE = safeGet params, "TITLE"
+	settings.GAMES = parseInt safeGet params, "GAMES", "1"
+	settings.SORT = parseInt safeGet params, "SORT", "1"
+
 	RESULTS = [0,1,2] # internt bruk
 
 	players = []
 	persons = params.getAll "p"
 
-	# persons.sort().reverse()
+	if settings.SORT == 1 then persons.sort().reverse()
 
 	i = 0
 	echo ""
@@ -188,13 +190,8 @@ parseQuery = ->
 	else
 		frirond = null
 
-	ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
-	echo {TITLE,GAMES,ROUNDS}
-	# N = players.length
-	# LOG2 = Math.ceil Math.log2 N
-	# if ROUNDS == N-1 then # Berger
-	# else if ROUNDS < LOG2 then alert "Too few ROUNDS! Minimum is #{LOG2}"
-	# else if ROUNDS >= N then alert "Too many ROUNDS! Maximum is #{N-1}"
+	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
+	echo settings
 
 parseTextarea = ->
 	echo 'parseTextArea'
@@ -212,30 +209,32 @@ parseTextarea = ->
 			[key, val] = line.split '='
 			key = key.trim()
 			val = val.trim()
-			if key == 'TITLE' then TITLE = val
-			if key == 'GAMES' then GAMES = val
-			if key == 'ROUNDS' then ROUNDS = val
+			if key == 'TITLE' then settings.TITLE = val
+			if key == 'GAMES' then settings.GAMES = val
+			if key == 'ROUNDS' then settings.ROUNDS = val
+			if key == 'SORT' then settings.SORT = val
 			if key[0] == 'r'
 				n = players.length // 2
-				if rounds == null then rounds = new Array(GAMES * ROUNDS).fill "x".repeat n
+				if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
 				rounds[key.slice(1) - 1] = val
 		else
 			players.push line
 
 	echo rounds
-
-	#url = 'http://127.0.0.1:5501'
-
 	echo window.location.href
 
 	if rounds == null then rounds = []
 
 	if window.location.href.includes "github" then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
-	url += "?TITLE=#{TITLE}"
-	if GAMES then url += "&GAMES=#{GAMES}"
-	url += "&ROUNDS=#{ROUNDS}"
+
+	url += "?TITLE=#{settings.TITLE}"
+	if settings.GAMES then url += "&GAMES=#{settings.GAMES}"
+	url += "&ROUNDS=#{settings.ROUNDS}"
+	url += "&SORT=#{settings.SORT}"
+
 	for player in players
 		url += "&p=#{player}"
+
 	for r in range rounds.length
 		if rounds[r] == 'xxxxx' then continue
 		url += "&r#{r+1}=#{rounds[r]}"
@@ -262,7 +261,7 @@ makeBerger = ->
 	half = n // 2 
 	A = [0...n]
 	rounds = []
-	for i in range ROUNDS
+	for i in range settings.ROUNDS
 		rounds.push savePairing i, A, half, n
 		A.pop()
 		A = A.slice(half).concat A.slice(0,half)
@@ -271,7 +270,7 @@ makeBerger = ->
 	rounds
  
 makeFairPair = ->
-	fairpair = new FairPair players, ROUNDS, GAMES
+	fairpair = new FairPair players, settings.ROUNDS, settings.GAMES
 
 	if players.length <= 20
 
@@ -294,7 +293,6 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 
 	ronder = []
 	oppElos = []
-	# pointsPR = 0
 
 	for [w,b,color,result] in long
 		opponent = 1 + if w == i then b else w
@@ -326,7 +324,7 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 			roundsContent long, i
 
 	result = div {},
-		h2 {}, TITLE
+		h2 {}, settings.TITLE
 		table {},
 			thead {},
 				th {}, "#"
@@ -338,16 +336,6 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 			rows.join ""
 
 	document.getElementById('stallning').innerHTML = result
-
-	# Sätt antal decimaler för PR
-	# tbody = document.querySelector '#stallning tbody'
-	# rader = Array.from tbody.querySelectorAll 'tr'
-	# lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
-	# decimals = findNumberOfDecimals lst
-	# for rad in rader
-	# 	value = parseFloat _.last(rad.children).textContent
-	# 	value = if value > 3999 then "" else value.toFixed decimals 
-	# 	_.last(rad.children).textContent = value
 
 showTables = (shorts, selectedRound) ->
 	if rounds.length == 0 then return
@@ -387,7 +375,7 @@ showTables = (shorts, selectedRound) ->
 				th {}, "Resultat" 
 			rows
 
-	result += "<br>G#{GAMES} • R#{ROUNDS} • #{if ROUNDS == players.length - 1 then 'Berger' else 'FairPair'} #{message}"
+	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'FairPair'} #{message}"
 
 	document.getElementById('tables').innerHTML = result
 
@@ -397,7 +385,7 @@ readResults = (params) ->
 	if frirond then n -= 2
 	n //= 2
 	
-	for r in range GAMES * ROUNDS
+	for r in range settings.GAMES * settings.ROUNDS
 		results.push safeGet params, "r#{r+1}", "x".repeat n
 	echo 'readResults', results
 
@@ -406,9 +394,9 @@ progress = (points) ->
 	for point in points
 		antal += point
 	if frirond 
-		" • #{antal} av #{GAMES * ROUNDS * (players.length - 2) // 2}"
+		" • #{antal} av #{settings.GAMES * settings.ROUNDS * (players.length - 2) // 2}"
 	else
-		" • #{antal} av #{GAMES * ROUNDS * players.length / 2}"
+		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
 
 calcPoints = -> # Hämta cellerna från GUI:t
 	tbody = document.querySelector '#stallning tbody'
@@ -422,7 +410,7 @@ calcPoints = -> # Hämta cellerna från GUI:t
 		points = 0
 		pointsPR = 0
 		elos = []
-		for i in range GAMES * ROUNDS
+		for i in range settings.GAMES * settings.ROUNDS
 			cell = rad.children[3+i]
 			opp = cell.children[0].textContent
 			val = cell.children[1].textContent
@@ -442,8 +430,8 @@ calcPoints = -> # Hämta cellerna från GUI:t
 	decimals = findNumberOfDecimals performances
 	for i in range rader.length
 		rad = rader[i]
-		rad.children[GAMES * ROUNDS + 3].textContent = PS[i].toFixed 1
-		rad.children[GAMES * ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
+		rad.children[settings.GAMES * settings.ROUNDS + 3].textContent = PS[i].toFixed 1
+		rad.children[settings.GAMES * settings.ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
 
 	PRS
 
@@ -465,8 +453,8 @@ main = ->
 		showInfo()
 		return
 
-	rounds = if ROUNDS == players.length - 1 then makeBerger() else makeFairPair()
-	if GAMES == 2 then rounds = expand rounds
+	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFairPair()
+	if settings.GAMES == 2 then rounds = expand rounds
 
 	readResults params
 	
@@ -483,7 +471,7 @@ main = ->
 	skapaSorteringsklick()
 
 	PRS = calcPoints()
-	document.title = TITLE + progress PRS
+	document.title = settings.TITLE + progress PRS
 
 document.addEventListener 'keyup', (event) ->
 

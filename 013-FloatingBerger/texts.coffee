@@ -31,6 +31,9 @@ GAMES = 1
 ROUNDS = 9
   Anger antal ronder
 
+SORT = 1
+  Anger att spelarnas ursprungliga ordning ska vara sorterad på fallande elo-tal
+
 1653 Christer Nilsson
   Alla deltagare anges med rating och namn
   Använd 0000 för deltagare utan rating 
