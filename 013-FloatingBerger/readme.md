@@ -8,6 +8,7 @@ Byt ut elos och namn mot de som ska gälla i din turnering
 TITLE = Sommarturnering RIO 2025
 GAMES = 1
 ROUNDS = 11
+SORT = 0
 
 1698 Onni Aikio
 1558 Helge Bergström

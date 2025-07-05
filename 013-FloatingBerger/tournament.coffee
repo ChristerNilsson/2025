@@ -9,9 +9,7 @@ import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 echo = console.log
 range = _.range
 
-settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1}
-
-ONE = 0 # 0=dev 1=prod
+settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1} # ONE = 1 # 0=dev 1=prod
 
 RESULTS = []
 
@@ -126,12 +124,12 @@ skapaSorteringsklick = ->
 	#echo ths
 	index = -1
 	for _th in ths
-		index += 1
+		index++
 		do (_th,index) ->
 			_th.addEventListener 'click', (event) ->
 				key = _th.textContent
 				if !isNaN parseInt key
-					key = parseInt(key) - 1 
+					key = parseInt(key) - settings.ONE
 					showTables shorts, key
 					return
 
@@ -167,6 +165,7 @@ parseQuery = ->
 	settings.TITLE = safeGet params, "TITLE"
 	settings.GAMES = parseInt safeGet params, "GAMES", "1"
 	settings.SORT = parseInt safeGet params, "SORT", "1"
+	settings.ONE = parseInt safeGet params, "ONE", "1"
 
 	RESULTS = [0,1,2] # internt bruk
 
@@ -213,6 +212,7 @@ parseTextarea = ->
 			if key == 'GAMES' then settings.GAMES = val
 			if key == 'ROUNDS' then settings.ROUNDS = val
 			if key == 'SORT' then settings.SORT = val
+			if key == 'ONE' then settings.ONE = val
 			if key[0] == 'r'
 				n = players.length // 2
 				if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
@@ -231,6 +231,7 @@ parseTextarea = ->
 	if settings.GAMES then url += "&GAMES=#{settings.GAMES}"
 	url += "&ROUNDS=#{settings.ROUNDS}"
 	url += "&SORT=#{settings.SORT}"
+	url += "&ONE=#{settings.ONE}"
 
 	for player in players
 		url += "&p=#{player}"
@@ -295,8 +296,8 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 	oppElos = []
 
 	for [w,b,color,result] in long
-		opponent = 1 + if w == i then b else w
-		if frirond and opponent == frirond + 1 then opponent = 'F'
+		opponent = settings.ONE + if w == i then b else w
+		if frirond and opponent == frirond + settings.ONE then opponent = 'F'
 		result = convert result, 'x10rFG', ' 10½11'
 
 		if color == 'w' then attr = "right:0px;" else attr = "left:0px;"
@@ -306,8 +307,8 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 
 		ronder.push cell
 
-	ronder.push	td alignRight, "" #(points[i]/2).toFixed 1
-	ronder.push td {}, "" # performance pointsPR/2, oppElos
+	ronder.push	td alignRight, ""
+	ronder.push td {}, ""
 	ronder.join ""
 
 showPlayers = (longs) -> # longs lagrad som lista av spelare
@@ -318,7 +319,7 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 		player = players[i]
 		if player.name == 'FRIROND' then continue
 		rows.push tr {},
-			td {}, i + 1
+			td {}, i + settings.ONE
 			td alignLeft, player.name
 			td {}, player.elo
 			roundsContent long, i
@@ -330,7 +331,7 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 				th {}, "#"
 				th {}, "Namn"
 				th {}, "Elo"
-				(th {}, "#{i+1}" for i in range rounds.length).join ""
+				(th {}, "#{i + settings.ONE}" for i in range rounds.length).join ""
 				th {}, "P"
 				th {}, "PR"
 			rows.join ""
@@ -348,9 +349,8 @@ showTables = (shorts, selectedRound) ->
 		[w, b, color, res] = short
 		if color == 'b' then continue
 
-		vit = players[w].name # or ""
-		svart = players[b].name # or ""
-		# echo w,b,res,vit,svart, prettify res
+		vit = players[w].name
+		svart = players[b].name
 
 		if vit == 'FRIROND'
 			message = " • #{svart} har frirond"
@@ -359,14 +359,14 @@ showTables = (shorts, selectedRound) ->
 			message = " • #{vit} har frirond"
 			continue
 		rows += tr {},
-			td {}, bord+1
+			td {}, bord + settings.ONE
 			td alignLeft, vit
 			td alignLeft, svart
 			td alignCenter, prettify res
-		bord += 1
+		bord++
 
 	result = div {},
-		h2 {}, "Bordslista för rond #{selectedRound+1}"
+		h2 {}, "Bordslista för rond #{selectedRound + settings.ONE}"
 		table {},
 			thead {},
 				th {}, "Bord"
