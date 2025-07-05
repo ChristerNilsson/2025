@@ -199,10 +199,12 @@ parseQuery = ->
 parseTextarea = ->
 	echo 'parseTextArea'
 	raw = document.getElementById "textarea"
-	echo raw.value
+	echo 'textarea',raw.value
 
 	lines = raw.value
 	lines = lines.split "\n"
+
+	rounds = null
 
 	for line in lines 
 		if line == "" then continue
@@ -213,7 +215,10 @@ parseTextarea = ->
 			if key == 'TITLE' then TITLE = val
 			if key == 'GAMES' then GAMES = val
 			if key == 'ROUNDS' then ROUNDS = val
-			if key[0] == 'r' then rounds.push val
+			if key[0] == 'r'
+				n = players.length // 2
+				if rounds == null then rounds = new Array(GAMES * ROUNDS).fill "x".repeat n
+				rounds[key.slice(1) - 1] = val
 		else
 			players.push line
 
@@ -223,6 +228,8 @@ parseTextarea = ->
 
 	echo window.location.href
 
+	if rounds == null then rounds = []
+
 	if window.location.href.includes "github" then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
 	url += "?TITLE=#{TITLE}"
 	if GAMES then url += "&GAMES=#{GAMES}"
@@ -230,12 +237,14 @@ parseTextarea = ->
 	for player in players
 		url += "&p=#{player}"
 	for r in range rounds.length
+		if rounds[r] == 'xxxxx' then continue
 		url += "&r#{r+1}=#{rounds[r]}"
 
 	url = url.replaceAll ' ', '+'
 
 	echo url
 	players = []
+	rounds = []
 	window.location.href = url
 
 savePairing = (r, A, half, n) ->
@@ -264,14 +273,16 @@ makeBerger = ->
 makeFairPair = ->
 	fairpair = new FairPair players, ROUNDS, GAMES
 
-	echo "" 
+	if players.length <= 20
 
-	for i in range players.length
-		line = fairpair.matrix[i]
-		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
+		echo "" 
 
-	echo 'summa', fairpair.summa
-	echo 'FAIRPAIR', fairpair.rounds
+		for i in range players.length
+			line = fairpair.matrix[i]
+			echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
+
+		echo 'summa', fairpair.summa
+		echo 'FAIRPAIR', fairpair.rounds
 
 	fairpair.rounds
 
@@ -329,14 +340,14 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 	document.getElementById('stallning').innerHTML = result
 
 	# Sätt antal decimaler för PR
-	tbody = document.querySelector '#stallning tbody'
-	rader = Array.from tbody.querySelectorAll 'tr'
-	lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
-	decimals = findNumberOfDecimals lst
-	for rad in rader
-		value = parseFloat _.last(rad.children).textContent
-		value = if value > 3999 then "" else value.toFixed decimals 
-		_.last(rad.children).textContent = value
+	# tbody = document.querySelector '#stallning tbody'
+	# rader = Array.from tbody.querySelectorAll 'tr'
+	# lst = (parseFloat rad.children[rad.children.length-1].textContent for rad in rader)
+	# decimals = findNumberOfDecimals lst
+	# for rad in rader
+	# 	value = parseFloat _.last(rad.children).textContent
+	# 	value = if value > 3999 then "" else value.toFixed decimals 
+	# 	_.last(rad.children).textContent = value
 
 showTables = (shorts, selectedRound) ->
 	if rounds.length == 0 then return
@@ -439,7 +450,6 @@ calcPoints = -> # Hämta cellerna från GUI:t
 main = ->
 
 	params = new URLSearchParams window.location.search
-	# echo params
 
 	if params.size == 0 
 		document.getElementById("button").addEventListener "click", parseTextarea 
@@ -455,32 +465,17 @@ main = ->
 		showInfo()
 		return
 
-	# echo {ROUNDS,GAMES}
-	if ROUNDS == players.length - 1
-		rounds = makeBerger()
-		if GAMES == 2 then rounds = expand rounds
-	else 
-		rounds = makeFairPair()
-		if GAMES == 2 then rounds = expand rounds
+	rounds = if ROUNDS == players.length - 1 then makeBerger() else makeFairPair()
+	if GAMES == 2 then rounds = expand rounds
 
 	readResults params
 	
-	# shorts = []
-	# for r in range rounds.length
-	# 	shorts.push shortForm rounds[r],results[r]
-
-	echo rounds
-	# echo shorts
-
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
 		longs.push longForm rounds[r],results[r]
 
-	shorts = _.cloneDeep longs
+	shorts = longs # _.cloneDeep
 	longs = _.zip ...longs # transponerar matrisen
-
-	echo 'longs',longs
-	echo 'shorts',shorts	
 
 	showPlayers longs
 	showTables shorts, 0

@@ -72,3 +72,11 @@ x = partiet ej spelat
 * Man får inte ändra elo under turneringens gång
 * Skriv alltid ut Bordslistorna! De fungerar som backup
 * Historiken innehåller tidigare ronder
+
+# Begränsningar
+
+* URL:en bör vara mindre än cirka 5600 tecken lång. 
+* Begränsningar finns dels i bläddraren, men även på servern, i detta fall chrome + github.com
+
+200 spelare och tio ronder gav en url på 5600 tecken.  
+400 spelare gav felmeddelandet: URL too long. (11000 tecken)  

@@ -1,10 +1,13 @@
-export helpText = """<h3>Introduktion version 1.0</h3>Detta program hanterar två olika turneringsformat:
+export helpText = """<h3>Floating Berger version 1.0</h3>Detta program hanterar två olika turneringsformat:
+
 	* Berger 
-		* alla möter alla
-		* default
+	  * alla möter alla
 	* FairPair 
-		* som Schweizer, fast spelarna möter spelare med minimal ratingskillnad, oavsett poäng)
-		* FairPair väljs genom att sätta ROUNDS till ett lågt antal.
+	  * som Schweizer, fast spelarna möter spelare med minimal ratingskillnad, oavsett poäng
+	  * FairPair väljs genom att sätta ROUNDS till ett lågt antal.
+
+Namnet Floating Berger kommer av att de flesta spelare upplever att de är i mitten av sin egen lilla virtuella Berger-grupp.
+Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagare att uppleva detta.
 
 * Alla ronder lottas i förväg
 * Hanterar enkelrond (GAMES=1) eller dubbelrond (GAMES=2)
@@ -19,7 +22,7 @@ export helpText = """<h3>Introduktion version 1.0</h3>Detta program hanterar tv�
 * 1 visar enbart ställningen
 * 2 visar enbart borden
 * 3 visar både ställning och bord
-<h3>Parametrar</h3>TITLE=Sommarturnering 2025
+<h3>Parametrar</h3>TITLE = Sommarturnering 2025
   Anger turneringens namn
 
 GAMES = 1
