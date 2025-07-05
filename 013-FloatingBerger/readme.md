@@ -75,8 +75,8 @@ x = partiet ej spelat
 
 # Begränsningar
 
-* URL:en bör vara mindre än cirka 5600 tecken lång. 
+* URL:en bör vara mindre än cirka 8000 tecken lång. 
 * Begränsningar finns dels i bläddraren, men även på servern, i detta fall chrome + github.com
 
-200 spelare och tio ronder gav en url på 5600 tecken.  
-400 spelare gav felmeddelandet: URL too long. (11000 tecken)  
+250 spelare och tio ronder gav en url på 6700 tecken.  
+400 spelare med sex tecken per namn tog 7935 tecken.  
