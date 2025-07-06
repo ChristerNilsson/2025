@@ -228,7 +228,7 @@ parseTextarea = ->
 	if window.location.href.includes "github" then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
 
 	url += "?TITLE=#{settings.TITLE}"
-	if settings.GAMES then url += "&GAMES=#{settings.GAMES}"
+	url += "&GAMES=#{settings.GAMES}"
 	url += "&ROUNDS=#{settings.ROUNDS}"
 	url += "&SORT=#{settings.SORT}"
 	url += "&ONE=#{settings.ONE}"
@@ -243,8 +243,8 @@ parseTextarea = ->
 	url = url.replaceAll ' ', '+'
 
 	echo url
-	players = []
-	rounds = []
+	# players = []
+	# rounds = []
 	window.location.href = url
 
 savePairing = (r, A, half, n) ->
@@ -252,7 +252,7 @@ savePairing = (r, A, half, n) ->
 	for i in [1...half]
 		lst.push [A[i], A[n - 1 - i]]
 	if frirond then lst.push lst.shift()
-	lst.sort()  ####
+	lst.sort()
 
 makeBerger = ->
 	echo 'BERGER'
@@ -269,21 +269,19 @@ makeBerger = ->
 		A.push n-1
 	echo 'BERGER',rounds
 	rounds
- 
+
+showMatrix = (fairpair) ->
+	if players.length > 20 then return 
+	echo "" 
+	for i in range players.length
+		line = fairpair.matrix[i]
+		echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
+	echo 'summa', fairpair.summa
+	echo 'FAIRPAIR', fairpair.rounds
+
 makeFairPair = ->
 	fairpair = new FairPair players, settings.ROUNDS, settings.GAMES
-
-	if players.length <= 20
-
-		echo "" 
-
-		for i in range players.length
-			line = fairpair.matrix[i]
-			echo i%10 + '   ' + line.join('   ') + '  ' + players[i].elo
-
-		echo 'summa', fairpair.summa
-		echo 'FAIRPAIR', fairpair.rounds
-
+	showMatrix fairpair
 	fairpair.rounds
 
 showInfo = ->

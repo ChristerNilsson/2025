@@ -69,9 +69,11 @@ x = partiet ej spelat
 
 # Att tänka på
 
-* När turneringen börjat kan man inte lägga till eller ta bort spelare
-* Man får inte ändra elo under turneringens gång
-* Skriv alltid ut Bordslistorna! De fungerar som backup
+* När turneringen börjat får man bara modifiera resultaten. Dvs r1 = osv
+* Man får EJ ändra elo, namn, SORT, ROUND eller GAMES under turneringens gång
+	* Detta pga att lottningen kan påverkas
+* Skriv alltid ut Bordslistorna! 
+	* De fungerar som backup
 * Historiken innehåller tidigare ronder
 
 # Begränsningar
@@ -80,4 +82,8 @@ x = partiet ej spelat
 * Begränsningar finns dels i bläddraren, men även på servern, i detta fall chrome + github.com
 
 250 spelare och tio ronder gav en url på 6700 tecken.  
-400 spelare med sex tecken per namn tog 7935 tecken.  
+400 spelare med sex tecken per namn krävde 7935 tecken.  
+
+# Utveckling
+
+ONE används för att visa noll- eller ett-baserade värden.  

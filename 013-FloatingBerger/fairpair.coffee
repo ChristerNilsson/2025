@@ -6,6 +6,8 @@ echo = console.log
 export class FairPair 
 	constructor : (@players, @R, @GAMES) ->
 		@N = @players.length
+		#@players.sort (a,b) -> a.elo - b.elo
+		echo @players
 		@matrix = (("•" for i in range @N) for j in range @N)
 		@summa = 0
 		@rounds = []
