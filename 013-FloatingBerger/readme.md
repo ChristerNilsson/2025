@@ -9,6 +9,7 @@ TITLE = Sommarturnering RIO 2025
 GAMES = 1
 ROUNDS = 11
 SORT = 0
+BALANS = 1
 
 1698 Onni Aikio
 1558 Helge Bergström
@@ -20,7 +21,7 @@ SORT = 0
 1673 Per Hamnström
 1504 Thomas Paulin
 1706 Abbas Razavi
-1650 Ture Turesson
+1650 Jouko Liistamo
 
 1677 Cesar
 

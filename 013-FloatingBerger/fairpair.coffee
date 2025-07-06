@@ -4,18 +4,21 @@ range = _.range
 echo = console.log
 
 export class FairPair 
-	constructor : (@players, @R, @GAMES) ->
+	constructor : (@players, @settings) ->
 		@N = @players.length
 		#@players.sort (a,b) -> a.elo - b.elo
 		echo @players
 		@matrix = (("•" for i in range @N) for j in range @N)
+		echo @matrix
 		@summa = 0
 		@rounds = []
 
-		for r in range @R
+		for r in range @settings.ROUNDS
 			edges = @makeEdges()
+			echo 'edges',edges
 			edmonds = new Edmonds edges
 			magic = edmonds.maxWeightMatching edges
+			#echo 'magic',magic
 			@rounds.push @updatePlayers magic,r
 
 	makeEdges : ->
@@ -25,7 +28,7 @@ export class FairPair
 			for j in range @N
 				if i==j then @matrix[i][j] = ' '
 				b = @players[j]
-				diff = a.elo - b.elo
+				diff = Math.abs a.elo - b.elo
 				if @ok a,b then edges.push [i, j, 10000 - diff ** 1.01]
 		edges
 
@@ -35,13 +38,14 @@ export class FairPair
 
 	updatePlayers : (magic,r) ->
 		tables = []
+		echo 'matrix',@matrix
 		for id in magic
 			i = id
 			j = magic[id]
-			# echo 'updateplayers',magic, r
 			if i == @matrix.length or j == @matrix[0].length then continue
-			@matrix[i][j] = (r + 1).toString()
+			@matrix[i][j] = (r + @settings.ONE).toString()
 			if i > j then continue
+			echo i + @settings.ONE, j + @settings.ONE, Math.abs @players[i].elo - @players[j].elo
 			@summa += Math.abs @players[i].elo - @players[j].elo
 			a = @players[i]
 			b = @players[j]
@@ -50,11 +54,11 @@ export class FairPair
 			if a.balans() > b.balans()
 				a.col += 'b'
 				b.col += 'w'
-				tables.push [j, i] #, a.elo + b.elo]
+				tables.push [j, i]
 			else
 				a.col += 'w'
 				b.col += 'b'
-				tables.push [i, j] #, a.elo + b.elo]
+				tables.push [i, j]
 
 		#@sortTables tables
 		#echo 'updatePlayers',tables
@@ -63,5 +67,6 @@ export class FairPair
 	ok : (a,b) -> 
 		if a.id == b.id then return false
 		if a.id in b.opp then return false
-		if @GAMES % 2 == 0 then return true
+		# if not @settings.BALANS and @settings.GAMES % 2 == 0 then return true
+		if @settings.BALANS == 0 then return true
 		Math.abs(a.balans() + b.balans()) < 2
