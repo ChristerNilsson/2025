@@ -9,7 +9,7 @@ import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 echo = console.log
 range = _.range
 
-settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANS:1} # ONE = 1 # 0=dev 1=prod
+settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1} # ONE = 1 # 0=dev 1=prod
 
 RESULTS = []
 
@@ -166,7 +166,7 @@ parseQuery = ->
 	settings.GAMES = parseInt safeGet params, "GAMES", "1"
 	settings.SORT = parseInt safeGet params, "SORT", "1"
 	settings.ONE = parseInt safeGet params, "ONE", "1"
-	settings.BALANS = parseInt safeGet params, "BALANS", "1"
+	settings.BALANCE = parseInt safeGet params, "BALANCE", "1"
 
 	RESULTS = [0,1,2] # internt bruk
 
@@ -214,7 +214,7 @@ parseTextarea = ->
 			if key == 'ROUNDS' then settings.ROUNDS = val
 			if key == 'SORT' then settings.SORT = val
 			if key == 'ONE' then settings.ONE = val
-			if key == 'BALANS' then settings.BALANS = val
+			if key == 'BALANCE' then settings.BALANCE = val
 			if key[0] == 'r'
 				n = players.length // 2
 				if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
@@ -234,7 +234,7 @@ parseTextarea = ->
 	url += "&ROUNDS=#{settings.ROUNDS}"
 	url += "&SORT=#{settings.SORT}"
 	url += "&ONE=#{settings.ONE}"
-	url += "&BALANS=#{settings.BALANS}"
+	url += "&BALANCE=#{settings.BALANCE}"
 
 	for player in players
 		url += "&p=#{player}"
@@ -246,8 +246,8 @@ parseTextarea = ->
 	url = url.replaceAll ' ', '+'
 
 	echo url
-	# players = []
-	# rounds = []
+	players = []
+	rounds = []
 	window.location.href = url
 
 savePairing = (r, A, half, n) ->
@@ -376,7 +376,7 @@ showTables = (shorts, selectedRound) ->
 				th {}, "Resultat" 
 			rows
 
-	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANS} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'FairPair'} #{message}"
+	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'FairPair'} #{message}"
 
 	document.getElementById('tables').innerHTML = result
 

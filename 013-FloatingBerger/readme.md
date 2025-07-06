@@ -9,7 +9,7 @@ TITLE = Sommarturnering RIO 2025
 GAMES = 1
 ROUNDS = 11
 SORT = 0
-BALANS = 1
+BALANCE = 1
 
 1698 Onni Aikio
 1558 Helge Bergström

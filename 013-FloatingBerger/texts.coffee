@@ -1,4 +1,4 @@
-export helpText = """<h3>Floating Berger version 1.0</h3>Detta program hanterar två olika turneringsformat:
+export helpText = """<h3>Floating Berger version 1.1</h3>Detta program hanterar två olika turneringsformat:
 
 	* Berger 
 	  * alla möter alla
@@ -12,7 +12,7 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * Alla ronder lottas i förväg
 * Hanterar enkelrond (GAMES=1) eller dubbelrond (GAMES=2)
 * Färgbalans anges med BALANS=1 (Ej aktuellt för Berger)
-* Dubbelrond behöver bara färgbalanseras om man tillåter att dubbelronden körs som enkelrond (anvancerad)
+* Dubbelrond behöver bara färgbalanseras om man tillåter att dubbelronden körs som enkelrond (avancerad)
 * All nödvändig information skickas in som parametrar till adressfältet
 <h3>Interaktioner</h3>* Klick på rond visar bordslistan
 * Klick på annan kolumn sorterar
@@ -20,8 +20,8 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * ctrl p skriver ut
 * ctrl + och ctrl - zoomar
 
-* 1 visar enbart ställningen
-* 2 visar enbart borden
+* 1 visar enbart ställning
+* 2 visar enbart bord
 * 3 visar både ställning och bord
 <h3>Parametrar</h3>TITLE = Sommarturnering 2025
   Anger turneringens namn
@@ -35,7 +35,7 @@ ROUNDS = 9
 SORT = 1
   Anger att spelarnas ursprungliga ordning ska vara sorterad på fallande elo-tal
 
-BALANS = 1
+BALANCE = 1
   Anger att färgbalans ska användas.
   Behövs normalt inte då GAMES är jämnt.
   Färgbalanskrav kan ge större elodiffar.
