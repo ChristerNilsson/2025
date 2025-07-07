@@ -3,7 +3,7 @@ import { Edmonds } from './blossom.js'
 range = _.range
 echo = console.log
 
-export class FairPair 
+export class Floating
 	constructor : (@players, @settings) ->
 		@N = @players.length
 		#@players.sort (a,b) -> a.elo - b.elo
@@ -36,7 +36,7 @@ export class FairPair
 	# 	tables.sort (x,y) -> y[2] - x[2]
 	# 	table.slice 0,2 for table in tables
 
-	updatePlayers : (magic,r) ->
+	updatePlayers : (magic,r) -> 
 		tables = []
 		echo 'matrix',@matrix
 		for id in magic

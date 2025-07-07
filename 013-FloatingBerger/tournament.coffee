@@ -1,7 +1,7 @@
 # ½
 
 import {Player} from './player.js'
-import {FairPair} from './fairpair.js'
+import {Floating} from './floating.js'
 import {helpText} from './texts.js'
 import {performance} from './rating.js'
 import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
@@ -38,7 +38,7 @@ ass = (a,b) ->
 ass 7, 3 + 4
 
 # The short Form is used to render the table list
-# rounds: produced by makeBerger and makeFairPair
+# rounds: produced by makeBerger and makeFloating
 # results: produced by the human
 shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 	if rounds.length > results.length then results += 'F'
@@ -273,19 +273,19 @@ makeBerger = ->
 	echo 'BERGER',rounds
 	rounds
 
-showMatrix = (fairpair) ->
+showMatrix = (floating) ->
 	if players.length > 20 then return 
 	echo "" 
 	for i in range players.length
-		line = fairpair.matrix[i]
+		line = floating.matrix[i]
 		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
-	echo 'summa', fairpair.summa
-	echo 'FAIRPAIR', fairpair.rounds
+	echo 'Summa', floating.summa
+	echo 'Floating', floating.rounds
 
-makeFairPair = ->
-	fairpair = new FairPair players, settings
-	showMatrix fairpair
-	fairpair.rounds
+makeFloating = ->
+	floating = new Floating players, settings
+	showMatrix floating
+	floating.rounds
 
 showInfo = ->
 	document.getElementById('info').innerHTML = div {},
@@ -376,7 +376,7 @@ showTables = (shorts, selectedRound) ->
 				th {}, "Resultat" 
 			rows
 
-	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'FairPair'} #{message}"
+	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'Floating'} #{message}"
 
 	document.getElementById('tables').innerHTML = result
 
@@ -454,7 +454,7 @@ main = ->
 		showInfo()
 		return
 
-	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFairPair()
+	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFloating()
 	if settings.GAMES == 2 then rounds = expand rounds
 
 	readResults params
