@@ -240,7 +240,7 @@ parseTextarea = ->
 		url += "&p=#{player}"
 
 	for r in range rounds.length
-		if rounds[r] == 'xxxxx' then continue
+		if '' == rounds[r].replaceAll 'x','' then continue
 		url += "&r#{r+1}=#{rounds[r]}"
 
 	url = url.replaceAll ' ', '+'

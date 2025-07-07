@@ -43,7 +43,7 @@ export class FairPair
 			i = id
 			j = magic[id]
 			if i == @matrix.length or j == @matrix[0].length then continue
-			@matrix[i][j] = (r + @settings.ONE).toString()
+			@matrix[i][j] = "#{r + @settings.ONE}"
 			if i > j then continue
 			echo i + @settings.ONE, j + @settings.ONE, Math.abs @players[i].elo - @players[j].elo
 			@summa += Math.abs @players[i].elo - @players[j].elo

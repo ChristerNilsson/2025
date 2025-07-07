@@ -1,20 +1,29 @@
-export helpText = """<h3>Floating Berger version 1.1</h3>Detta program hanterar två olika turneringsformat:
+export helpText = """<h3>Floating Berger version 1.2</h3>TITLE:   Turneringens namn
+ROUNDS:  Anger antal ronder. Default Berger
+GAMES:   1 (default) = antal partier per rond. 2 = dubbelrond
+SORT:    1 (default) = spelarnas ursprungliga ordning sorteras på fallande elo-tal. 0 = ingen sortering
+BALANCE: 1 (default) = färgbalans används. 0 = ingen färgbalans
+1653 Christer Nilsson: elo + namn. 0000 om elo saknas
+r7 = x0r1: resultat för rond 7 i bordsordning.
+  x = Resultat saknas
+  0 = Vit Förlust
+  r = Remi
+  1 = Vit Vinst
 
-	* Berger 
-	  * alla möter alla
-	* FairPair 
-	  * som Schweizer, fast spelarna möter spelare med minimal ratingskillnad, oavsett poäng
-	  * FairPair väljs genom att sätta ROUNDS till ett lågt antal.
+Programmet hanterar två olika former:
+
+  * Berger 
+    * alla möter alla
+  
+  * Floating
+    * som Schweizer, fast spelarna möter spelare med samma rating istf poäng
+    * ronderna lottas i förväg
+    * vinnare utses mha Performance Rating istf poäng
+    * Floating väljs genom att minska ROUNDS
 
 Namnet Floating Berger kommer av att de flesta spelare upplever att de är i mitten av sin egen lilla virtuella Berger-grupp.
 Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagare att uppleva detta.
-
-* Alla ronder lottas i förväg
-* Hanterar enkelrond (GAMES=1) eller dubbelrond (GAMES=2)
-* Färgbalans anges med BALANS=1 (Ej aktuellt för Berger)
-* Dubbelrond behöver bara färgbalanseras om man tillåter att dubbelronden körs som enkelrond (avancerad)
-* All nödvändig information skickas in som parametrar till adressfältet
-<h3>Interaktioner</h3>* Klick på rond visar bordslistan
+<h3>Handhavande</h3>* Klick på rond visar bordslistan
 * Klick på annan kolumn sorterar
 
 * ctrl p skriver ut
@@ -23,34 +32,5 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * 1 visar enbart ställning
 * 2 visar enbart bord
 * 3 visar både ställning och bord
-<h3>Parametrar</h3>TITLE = Sommarturnering 2025
-  Anger turneringens namn
-
-GAMES = 1
-  Anger antal partier per rond. 1 (default) eller 2 (dubbelrond)
-
-ROUNDS = 9
-  Anger antal ronder
-
-SORT = 1
-  Anger att spelarnas ursprungliga ordning ska vara sorterad på fallande elo-tal
-
-BALANCE = 1
-  Anger att färgbalans ska användas.
-  Behövs normalt inte då GAMES är jämnt.
-  Färgbalanskrav kan ge större elodiffar.
-
-1653 Christer Nilsson
-  Alla deltagare anges med rating och namn
-  Använd 0000 för deltagare utan rating 
-
-r1 = 0r1x0 
-  Vitspelarnas resultat för rond 1, i bordsordning, fem partier
-  Svartspelarnas resultat sätts automatiskt
-  Totalt 5 + 5 = 10 spelare
-  0 = Förlust
-  r = Remi
-  1 = Vinst
-  x = Ej spelat
 
 """
