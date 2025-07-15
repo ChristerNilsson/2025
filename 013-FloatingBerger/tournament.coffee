@@ -232,7 +232,7 @@ parseTextarea = ->
 
 	if rounds == null then rounds = []
 
-	if window.location.href.includes "github" then url = "https://christernilsson.github.io/2025/013-FloatingBerger/" else url = '/'
+	url = "./"
 
 	url += "?TITLE=#{settings.TITLE}"
 	url += "&GAMES=#{settings.GAMES}"
