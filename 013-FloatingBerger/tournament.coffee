@@ -65,14 +65,19 @@ ass '1', other 'G'
 ass 'x', other 'x'
 
 longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
-	if rounds.length > results.length then results += 'F'
+	if rounds.length > results.length #then results += 'F'
+		[w,b] = rounds[0]
+		results = if w==frirond or b==frirond then 'F' + results else results + 'F'
 	result = []
 	for i in range rounds.length
 		[w,b] = rounds[i]
 		res = results[i]
 		result.push [w,b,'w',res]
 		result.push [b,w,'b',other res]
+
 	result.sort (a,b) -> a[0] - b[0]
+	echo 'longForm',rounds,results,result
+	result
 ass [
 	[ 0,11,'w','F']
 	[ 1,10,'w','0']
@@ -293,15 +298,17 @@ showInfo = ->
 
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
+	echo {long}
 	ronder = []
 	oppElos = []
 
 	for [w,b,color,result] in long
 		opponent = settings.ONE + if w == i then b else w
+		echo {w,b,color,result,opponent,frirond}
 		if frirond and opponent == frirond + settings.ONE then opponent = 'F'
 		result = convert result, 'x10rFG', ' 10½11'
 
-		if color == 'w' then attr = "right:0px;" else attr = "left:0px;"
+		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = td {style: "position:relative;"},
 			div {style: "position:absolute; top:0px;  font-size:0.7em;" + attr}, opponent
 			div {style: "position:absolute; top:12px; font-size:1.1em; transform: translate(-10%, -10%)"}, result
@@ -420,9 +427,10 @@ calcPoints = -> # Hämta cellerna från GUI:t
 			if val == '1' then value = 1
 			points += value
 
-			if val in '0½1' and opp != 'F' and players[opp-1].elo > 0
+			echo {opp}
+			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
 				pointsPR += value
-				elos.push players[opp-1].elo
+				elos.push players[opp-settings.ONE].elo
 
 		PS.push points
 		PRS.push pointsPR
@@ -458,6 +466,8 @@ main = ->
 	if settings.GAMES == 2 then rounds = expand rounds
 
 	readResults params
+
+	echo 'results',results
 	
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
@@ -465,6 +475,8 @@ main = ->
 
 	shorts = longs # _.cloneDeep
 	longs = _.zip ...longs # transponerar matrisen
+
+	echo {longs}
 
 	showPlayers longs
 	showTables shorts, 0
