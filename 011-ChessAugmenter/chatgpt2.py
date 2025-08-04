@@ -124,6 +124,6 @@ def hantera(katalog, title='', indexmd=''):
 	popdir()
 
 print("TIME:",TIME, "MPV:",MPV)
-hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Turneringar\\Joukos Sommar 2025", "Joukos Sommar 2025", "partier\\_index.md")
+# hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Turneringar\\Joukos Sommar 2025", "Joukos Sommar 2025", "partier\\_index.md")
 hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Partier\\2025","2025", "_index.md")
-hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Partier\\2024","2024", "_index.md")
+# hantera("C:\\github\\HugoLab\\content\\klubben\\medlemmar\\jan-christer-nilsson\\Partier\\2024","2024", "_index.md")
