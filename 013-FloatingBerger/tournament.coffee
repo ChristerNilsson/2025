@@ -21,7 +21,10 @@ players = []
 rounds = [] # vem möter vem? [w,b]. T ex [0,9], [1,8] ...]
 results = [] # [[0,1,2,-1,2], [1,2,-1,0,2]] Vitspelarnas resultat i varje rond. -1 <=> x dvs ej spelad
 
-display = 3 # both
+currRound = 0
+currTable = 0
+
+# display = 3 # both
 frirond = null # ingen frirond. Annars index för frironden
 
 sorteringsOrdning = {}	# Spara per kolumn
@@ -121,6 +124,37 @@ ass 1, findNumberOfDecimals [1200.23,1200.3]
 ass 1, findNumberOfDecimals [1200.23,1200.3]
 ass 3, findNumberOfDecimals [1200.23,1200.2345]
 ass 0, findNumberOfDecimals [1200.12345,1200.12345]
+
+sättMarkör = (round, table) ->
+
+	ths = document.querySelectorAll '#stallning th'
+	index = -1
+	for _th in ths
+		index++
+		if index >= 3
+			color = if index == currRound + 3 then 'yellow' else 'white'
+			_th.style = "background-color:#{color}"
+
+	trs = document.querySelectorAll '#tables tr'
+	index = -1
+	for _tr in trs
+		index++
+		if index >= 1
+			color = if index == currTable + 1 then 'yellow' else 'white'
+			_tr.children[3].style = "background-color:#{color}"
+
+setTableResult = (key, res) ->
+	trs = document.querySelectorAll '#tables tr'
+	index = -1
+	success = false
+	for _tr in trs
+		tr3 = _tr.children[3]
+		index++
+		if index != currTable + 1 then continue
+		if key == 'Delete' then success = true
+		else success = tr3.textContent == '-' or tr3.textContent == res
+		if success then tr3.textContent = res
+	if success then currTable = (currTable + 1) %% 3
 
 skapaSorteringsklick = ->
 
@@ -298,13 +332,13 @@ showInfo = ->
 
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
-	echo {long}
+	# echo {long}
 	ronder = []
 	oppElos = []
 
 	for [w,b,color,result] in long
 		opponent = settings.ONE + if w == i then b else w
-		echo {w,b,color,result,opponent,frirond}
+		# echo {w,b,color,result,opponent,frirond}
 		if frirond and opponent == frirond + settings.ONE then opponent = 'F'
 		result = convert result, 'x10rFG', ' 10½11'
 
@@ -366,7 +400,10 @@ showTables = (shorts, selectedRound) ->
 		if svart == 'FRIROND'
 			message = " • #{vit} har frirond"
 			continue
-		rows += tr {},
+			hash = {style : "background-color:red"}
+#			hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
+			echo hash 
+		rows += tr hash,
 			td {}, bord + settings.ONE
 			td alignLeft, vit
 			td alignLeft, svart
@@ -427,7 +464,7 @@ calcPoints = -> # Hämta cellerna från GUI:t
 			if val == '1' then value = 1
 			points += value
 
-			echo {opp}
+			# echo {opp}
 			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
 				pointsPR += value
 				elos.push players[opp-settings.ONE].elo
@@ -482,14 +519,29 @@ main = ->
 	showTables shorts, 0
 
 	skapaSorteringsklick()
+	sättMarkör currRound,currTable
 
 	PRS = calcPoints()
 	document.title = settings.TITLE + progress PRS
 
-document.addEventListener 'keyup', (event) ->
+document.addEventListener 'keydown', (event) ->
 
-	if event.key in '123' 
-		document.getElementById("stallning").style.display = if event.key in "13" then "table" else "none"
-		document.getElementById("tables").style.display = if event.key in "23" then "table" else "none"
+	if event.key in 'abc' 
+		document.getElementById("stallning").style.display = if event.key in "ac" then "table" else "none"
+		document.getElementById("tables").style.display = if event.key in "bc" then "table" else "none"
+	
+	if event.key == 'ArrowLeft'  then currRound = (currRound - 1) %% rounds.length
+	if event.key == 'ArrowRight' then currRound = (currRound + 1) %% rounds.length
+	if event.key == 'ArrowUp'    then currTable = (currTable - 1) %% 3 # todo
+	if event.key == 'ArrowDown'  then currTable = (currTable + 1) %% 3 # todo
+
+	del = 'Delete'
+	key = event.key
+	if key == del then setTableResult key, "-"
+	if key == '0' then setTableResult key, "0 - 1"
+	if key == ' ' then setTableResult key, "½ - ½"
+	if key == '1' then setTableResult key, "1 - 0"
+
+	sättMarkör currRound,currTable
 
 main()

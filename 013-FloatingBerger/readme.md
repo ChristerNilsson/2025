@@ -25,10 +25,6 @@ BALANCE = 1
 
 1677 Cesar
 
-r1 = 0r10r
-r2 = 0rx0r
-r3 = 0r10r
-r4 = 0r10r
 ```
 
 Vid dubbelrond sätts GAMES = 2  
