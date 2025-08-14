@@ -6,7 +6,7 @@
 import sys
 import os
 import ctypes
-import conv1
+import conv_bertil
 
 def test():
 

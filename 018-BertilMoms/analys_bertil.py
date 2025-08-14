@@ -11,7 +11,7 @@
 # som dragits av (baserat på yta).
 
 # Exempel:
-# python analys.py "2022-01-01_2022-12-31-filtrerad.txt" "2022-01-01_2022-12-31-analyserad.txt"
+# python analys_bertil.py "2022-01-01_2022-12-31-filtrerad.txt" "2022-01-01_2022-12-31-analyserad.txt"
 
 # Exempel input:
 
@@ -53,12 +53,7 @@
 # enter:<momsandel 613,20735,-613>
 # 14.78
 
-
-import sys
-import os
-import ctypes
 import re
-
 
 def analys(inFil: object, utFil: object) -> None:
    # Läg till en rad till varje verifikaton med uträknad moms-andel
@@ -102,10 +97,10 @@ def analys(inFil: object, utFil: object) -> None:
             konton1xxxOch3000Plus = 0
 
          else:
-            print('*** analys(rad ' + int(radNr) + '): Förväntade "{" efter verifikationstitel "' + 
+            print('*** analys(rad ' + int(radNr) + '): Förväntade "{" efter verifikationstitel "' +
                verifTitel + '" men fann istället "' + inRad + '".')
             level = 10
-      
+
       elif level == 3:
          # Verifikationsnivå: Har läst titelrad till verifikation och inledande krullparentes {
          # Förväntar transaktioner. Exempel:
@@ -113,7 +108,7 @@ def analys(inFil: object, utFil: object) -> None:
          # #TRANS 2640 {} 613 "Ingående moms"
          # #TRANS 4344 {} 20735 "Elinstallationer"
          # #TRANS 4344 {} -613 "Elinstallationer"
-         
+
          match = re.search(r"^#TRANS (\d\d\d\d) (\{[^\}]*\}) (-?\d+).*$",inRad)
          if match:
             kontoNr = int(match.group(1))
@@ -123,7 +118,7 @@ def analys(inFil: object, utFil: object) -> None:
 
             if kontoNr>=3000 or kontoNr<2000:
                konton1xxxOch3000Plus += belopp
-            
+
             # Kopiera transaktionsrad till utfil
             verif = verif + inRad + '\n'
 
@@ -141,10 +136,10 @@ def analys(inFil: object, utFil: object) -> None:
                else:
                   momsAndel = ingaendeMoms / summaUtgiftInklMoms / 0.2 * 100
 
-               # Lägg till resultat av momsanalys. 
+               # Lägg till resultat av momsanalys.
                # Exempel: #PROSA "Momsandel=14.78%"
                momsAndelStr = '{:.2f}'.format(momsAndel)
-               verif = verif + '#PROSA "Momsandel = ' + momsAndelStr + ' %"' + '\n'
+               verif = verif + '#PROSA "Momsandel = ' + momsAndelStr + ' %"' + '\n}\n'
 
                if momsAndel > 13 and momsAndel < 16:
                   summaUtgiftSomBerors += summaUtgiftInklMoms
@@ -160,7 +155,7 @@ def analys(inFil: object, utFil: object) -> None:
       elif level == 10:
          # Stanna här tills filen är slut
          None
-    
+
    if level == 1:
       # Kopiera utRader till utfil och spara utfil.
 
@@ -171,23 +166,24 @@ def analys(inFil: object, utFil: object) -> None:
    else:
       print('*** analys: Förväntade att level skulle vara 1 (normalt slut) men den var ' + str(level) + '.');
 
+analys('2206B.txt', '2206C_bertil.txt')
 
-def test():
-
-   numOfArguments = len(sys.argv)-1
-
-   if numOfArguments==2:
-      # Check that input file exists first
-      if os.path.exists(sys.argv[1]):
-         print('File ' + sys.argv[1] + ' exists.')
-         ctypes.windll.user32.MessageBoxW(0, 'File ' + sys.argv[1] + ' exists.', 'xxx', 1)
-         analys(sys.argv[1], sys.argv[2])
-      else:
-         print('*** analys: Expected name of existing file in command arg 1 but found "' + sys.argv[1] + '".')
-         ctypes.windll.user32.MessageBoxW(0,
-            '*** ConvFromCP437: Expected name of existing file in command arg 1 but found "' + sys.argv[1] + '".',
-            'xxx', 1)
-   else: print('2 arguments were expected but '+str(numOfArguments)+ ' were found.')
-
-
-test()
+# def test():
+#
+#    numOfArguments = len(sys.argv)-1
+#
+#    if numOfArguments==2:
+#       # Check that input file exists first
+#       if os.path.exists(sys.argv[1]):
+#          print('File ' + sys.argv[1] + ' exists.')
+#          ctypes.windll.user32.MessageBoxW(0, 'File ' + sys.argv[1] + ' exists.', 'xxx', 1)
+#          analys(sys.argv[1], sys.argv[2])
+#       else:
+#          print('*** analys: Expected name of existing file in command arg 1 but found "' + sys.argv[1] + '".')
+#          ctypes.windll.user32.MessageBoxW(0,
+#             '*** ConvFromCP437: Expected name of existing file in command arg 1 but found "' + sys.argv[1] + '".',
+#             'xxx', 1)
+#    else: print('2 arguments were expected but '+str(numOfArguments)+ ' were found.')
+#
+#
+# test()
