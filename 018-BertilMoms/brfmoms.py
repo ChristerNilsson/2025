@@ -84,7 +84,6 @@ for verifikat in filtrerade:
 
 	summaUtgiftInklMoms = kontonPlus + ingåendeMoms
 	momsAndel = ingåendeMoms / summaUtgiftInklMoms / 0.2 * 100
-	verifikat["momsAndel"] = momsAndel
 	if UNDRE_MOMS_ANDEL < momsAndel < ÖVRE_MOMS_ANDEL: summaUtgiftSomBerörs += summaUtgiftInklMoms
 	print(f"   momsAndel: {momsAndel:.2f}%")
 	print()
