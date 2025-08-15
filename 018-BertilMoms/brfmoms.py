@@ -2,6 +2,13 @@ import re
 import time
 from pathlib import Path
 
+MOMS_KONTO = 2640
+UNDRE_KONTO = 2000
+ÖVRE_KONTO = 3000
+UNDRE_MOMS_ANDEL = 13
+ÖVRE_MOMS_ANDEL = 16
+SIE_FIL = "2206.sie4"
+
 VER_RE = re.compile(r'#VER\s+"(?P<serie>\d+)"\s+"(?P<id>\d+)"\s+(?P<datum>\d{8})\s+"(?P<text>[^"]*)"')
 TRANS_RE = re.compile(r'#TRANS\s+(?P<konto>\d+)\s+{}\s+(?P<belopp>[-+]?\d+(?:[.,]\d+)?)')
 
@@ -54,14 +61,14 @@ def read_sie(infile):
 
 start = time.time()
 
-konton,verifikationer = read_sie("2206.sie4")
+konton,verifikationer = read_sie(SIE_FIL)
 
 filtrerade = []
 for verifikat in verifikationer:
 	for transaktion in verifikat["transaktioner"]:
 		konto = transaktion["konto"]
 		belopp = transaktion["belopp"]
-		if konto == 2640 and belopp != 0: filtrerade.append(verifikat)
+		if konto == MOMS_KONTO and belopp != 0: filtrerade.append(verifikat)
 
 summaUtgiftSomBerörs = 0
 for verifikat in filtrerade:
@@ -71,14 +78,14 @@ for verifikat in filtrerade:
 	for transaktion in verifikat["transaktioner"]:
 		konto = transaktion["konto"]
 		belopp = transaktion["belopp"]
-		if konto == 2640: ingåendeMoms += belopp
-		if konto >= 3000 or konto < 2000: kontonPlus += belopp
+		if konto == MOMS_KONTO: ingåendeMoms += belopp
+		if konto >= ÖVRE_KONTO or konto < UNDRE_KONTO: kontonPlus += belopp
 		if belopp != 0: print('  ',konto,f"{belopp:.2f}", konton[konto])
 
 	summaUtgiftInklMoms = kontonPlus + ingåendeMoms
 	momsAndel = ingåendeMoms / summaUtgiftInklMoms / 0.2 * 100
 	verifikat["momsAndel"] = momsAndel
-	if 13 < momsAndel < 16: summaUtgiftSomBerörs += summaUtgiftInklMoms
+	if UNDRE_MOMS_ANDEL < momsAndel < ÖVRE_MOMS_ANDEL: summaUtgiftSomBerörs += summaUtgiftInklMoms
 	print(f"   momsAndel: {momsAndel:.2f}%")
 	print()
 
