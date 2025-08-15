@@ -4,13 +4,14 @@ Detta paket innehåller filer för att analysera omprövning av moms för bostad
    * filter.py In: bokföringsfil kodad i UTF-8. Ut: Nerminskad fil.
    * analys.py In: Nerminskad fil. Ut: Nerminskad fil analys för varje verifikation
    * 2022-06-15_2022-06-30.SE: Källdata
-   * Readme.txt (denna fil)
-   
+   * Readme.md (denna fil)
+
 Kör i kommandoprompt:
+```
 C: ...>python conv.py "2022-06-15_2022-06-30.SE" "2022-06-15_2022-06-30.txt"
 C: ...>python filter.py "2022-06-15_2022-06-30.txt" "2022-06-15_2022-06-30-filtrerad.txt"
 C: ...>python analys.py "2022-06-15_2022-06-30-filtrerad.txt" "2022-06-15_2022-06-30-analyserad.txt"
-
+```
 Bakgrund:
 Genom ett domstolsutslag nyligen, får bostadsrättsföreningarna dra av en större del av momsen för kostnader som varken kan hänföras till lägenheter eller momsade lokaler.
 
