@@ -2,7 +2,8 @@ import re
 import time
 from pathlib import Path
 
-SIE_FIL = "2206.sie4"
+#SIE_FIL = "2206.sie4"
+SIE_FIL = "2022.sie4"
 MOMS_KONTO = '2640'
 EGET_KAPITAL_OCH_SKULDER = "2"
 UNDRE_MOMS_ANDEL = 13 # %
@@ -10,6 +11,8 @@ UNDRE_MOMS_ANDEL = 13 # %
 
 VER_RE = re.compile(r'#VER\s+"(?P<serie>\d+)"\s+"(?P<id>\d+)"\s+(?P<datum>\d{8})\s+"(?P<text>[^"]*)"')
 TRANS_RE = re.compile(r'#TRANS\s+(?P<konto>\d+)\s+{}\s+(?P<belopp>[-+]?\d+(?:[.,]\d+)?)')
+
+ignorerade = []
 
 def read_sie(infile):
 	path = Path(infile)
@@ -79,13 +82,18 @@ for verifikat in filtrerade:
 		if belopp != 0: print('  ',konto,f"{belopp:.2f}", konton[konto])
 
 	summaUtgiftInklMoms = kontonPlus + ingåendeMoms
-	momsAndel = ingåendeMoms / summaUtgiftInklMoms / 0.2 * 100
-	if UNDRE_MOMS_ANDEL < momsAndel < ÖVRE_MOMS_ANDEL: summaUtgiftSomBerörs += summaUtgiftInklMoms
-	print(f"   momsAndel: {momsAndel:.2f}%")
+	if summaUtgiftInklMoms == 0:
+		ignorerade.append(verifikat["id"])
+		print("   *** IGNORERAT VERIFIKAT")
+	else:
+		momsAndel = ingåendeMoms / summaUtgiftInklMoms / 0.2 * 100
+		if UNDRE_MOMS_ANDEL < momsAndel < ÖVRE_MOMS_ANDEL: summaUtgiftSomBerörs += summaUtgiftInklMoms
+		print(f"   momsAndel: {momsAndel:.2f}%")
 	print()
 
-print('Antal verifikationer:', len(verifikationer))
-print('Antal filtrerade verifikationer:', len(filtrerade))
+print("IGNORERADE VERIFIKAT:", ' '.join(ignorerade))
+print('Antal verifikat:', len(verifikationer))
+print('Antal filtrerade verifikat:', len(filtrerade))
 print('summaUtgiftSomBerörs:',summaUtgiftSomBerörs)
 print()
 print(f'cpu: {time.time() - start:.6f}')
