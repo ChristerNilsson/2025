@@ -21,7 +21,7 @@ def read_sie(infile):
 	path = Path(infile)
 	text = path.read_text(encoding="cp437")
 
-	current = None
+	verifikat = None
 	in_block = False
 	konton = {}
 	verifikationer = []
@@ -38,18 +38,18 @@ def read_sie(infile):
 		if line.startswith("#VER"):
 			m = VER_RE.match(line)
 			if not m: raise ValueError(f"Kunde inte tolka VER-raden: {line}")
-			current = {"serie": m.group("serie"),"id": m.group("id"),"datum": m.group("datum"),"text": m.group("text"),"transaktioner": []}
+			verifikat = {"serie": m.group("serie"),"id": m.group("id"),"datum": m.group("datum"),"text": m.group("text"),"transaktioner": []}
 			continue
 
 		if line == "{":
-			if current is None: raise ValueError("Hittade '{' utan föregående VER")
+			if verifikat is None: raise ValueError("Hittade '{' utan föregående VER")
 			in_block = True
 			continue
 
 		if line == "}":
 			if not in_block: raise ValueError("Hittade '}' utan ett pågående block")
-			verifikationer.append(current)
-			current = None
+			verifikationer.append(verifikat)
+			verifikat = None
 			in_block = False
 			continue
 
@@ -58,7 +58,7 @@ def read_sie(infile):
 			if not tm: raise ValueError(f"Kunde inte tolka TRANS-rad: {line}")
 			konto = tm.group("konto")
 			belopp = float(tm.group("belopp").replace(",", "."))
-			current["transaktioner"].append({"konto": konto, "belopp": belopp})
+			verifikat["transaktioner"].append({"konto": konto, "belopp": belopp})
 
 	return konton,verifikationer
 
@@ -76,8 +76,6 @@ summaUtgiftSomBerörs = 0 # ören
 for verifikat in filtrerade:
 	ingåendeMoms = 0 # ören
 	kontonPlus = 0 # ören
-	if verifikat["id"] == '221720':
-		z=99
 	print(verifikat["serie"], verifikat["id"], verifikat["datum"], verifikat["text"])
 	for transaktion in verifikat["transaktioner"]:
 		konto = transaktion["konto"]
@@ -104,7 +102,5 @@ print('Antal verifikat:', len(verifikationer))
 print('Antal filtrerade verifikat:', len(filtrerade))
 print('summaUtgiftSomBerörs:',summaUtgiftSomBerörs/100)
 print()
-#for verifikat in filtrerade:
-#	print(verifikat["id"])
 
 print(f'cpu: {time.time() - start:.6f}')
