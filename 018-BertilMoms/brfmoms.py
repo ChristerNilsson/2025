@@ -2,12 +2,15 @@ import re
 import time
 from pathlib import Path
 
-#SIE_FIL = "2206.sie4"
-SIE_FIL = "2022.sie4"
-MOMS_KONTO = '2640'
-EGET_KAPITAL_OCH_SKULDER = "2"
+#SIE_FIL = "202206.sie4"
+#SIE_FIL = "2022.sie4"
+SIE_FIL = "2023.sie4"
+
 UNDRE_MOMS_ANDEL = 13 # %
 ÖVRE_MOMS_ANDEL = 16 # %
+
+MOMS_KONTO = '2640'
+EGET_KAPITAL_OCH_SKULDER = "2"
 
 VER_RE = re.compile(r'#VER\s+"(?P<serie>\d+)"\s+"(?P<id>\d+)"\s+(?P<datum>\d{8})\s+"(?P<text>[^"]*)"')
 TRANS_RE = re.compile(r'#TRANS\s+(?P<konto>\d+)\s+{}\s+(?P<belopp>[-+]?\d+(?:[.,]\d+)?)')
@@ -69,31 +72,39 @@ for verifikat in verifikationer:
 		belopp = transaktion["belopp"]
 		if konto == MOMS_KONTO and belopp != 0: filtrerade.append(verifikat)
 
-summaUtgiftSomBerörs = 0
+summaUtgiftSomBerörs = 0 # ören
 for verifikat in filtrerade:
-	ingåendeMoms = 0
-	kontonPlus = 0
+	ingåendeMoms = 0 # ören
+	kontonPlus = 0 # ören
+	if verifikat["id"] == '221720':
+		z=99
 	print(verifikat["serie"], verifikat["id"], verifikat["datum"], verifikat["text"])
 	for transaktion in verifikat["transaktioner"]:
 		konto = transaktion["konto"]
-		belopp = transaktion["belopp"]
+		belopp = 100 * transaktion["belopp"] # pga avrundningsfel i python räknas i ören
 		if konto == MOMS_KONTO: ingåendeMoms += belopp
 		if konto[0] != EGET_KAPITAL_OCH_SKULDER: kontonPlus += belopp
-		if belopp != 0: print('  ',konto,f"{belopp:.2f}", konton[konto])
+		if belopp != 0: print('  ',konto,f"{belopp/100:.2f}", konton[konto])
 
-	summaUtgiftInklMoms = kontonPlus + ingåendeMoms
+	summaUtgiftInklMoms = kontonPlus + ingåendeMoms # ören
 	if summaUtgiftInklMoms == 0:
 		ignorerade.append(verifikat["id"])
-		print("   *** IGNORERAT VERIFIKAT")
+		print("   *** DIV MED NOLL",summaUtgiftInklMoms)
 	else:
 		momsAndel = ingåendeMoms / summaUtgiftInklMoms / 0.2 * 100
-		if UNDRE_MOMS_ANDEL < momsAndel < ÖVRE_MOMS_ANDEL: summaUtgiftSomBerörs += summaUtgiftInklMoms
-		print(f"   momsAndel: {momsAndel:.2f}%")
+		if UNDRE_MOMS_ANDEL < momsAndel < ÖVRE_MOMS_ANDEL:
+			summaUtgiftSomBerörs += summaUtgiftInklMoms
+			print(f"   momsAndel: {momsAndel:.2f}%")
+		else:
+			print(f"   momsAndel: {momsAndel:.2f}% summaUtgiftInklMoms: {summaUtgiftInklMoms/100:.2f}", kontonPlus/100, ingåendeMoms/100)
 	print()
 
-print("IGNORERADE VERIFIKAT:", ' '.join(ignorerade))
+print("IGNORERADE VERIFIKAT:", len(ignorerade), '(', ' '.join(ignorerade), ')')
 print('Antal verifikat:', len(verifikationer))
 print('Antal filtrerade verifikat:', len(filtrerade))
-print('summaUtgiftSomBerörs:',summaUtgiftSomBerörs)
+print('summaUtgiftSomBerörs:',summaUtgiftSomBerörs/100)
 print()
+#for verifikat in filtrerade:
+#	print(verifikat["id"])
+
 print(f'cpu: {time.time() - start:.6f}')
