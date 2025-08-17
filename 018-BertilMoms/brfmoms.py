@@ -9,8 +9,14 @@ SIE_FIL = "2023.sie4"
 UNDRE_MOMS_ANDEL = 13 # %
 ÖVRE_MOMS_ANDEL = 16 # %
 
+TILLGÅNGAR = '1'
+EGET_KAPITAL_OCH_SKULDER = '2'
 MOMS_KONTO = '2640'
-EGET_KAPITAL_OCH_SKULDER = "2"
+INTÄKTER = '3'
+INKöP_AV_VAROR_OCH_MATERIAL = '30'
+VARUKOSTNADER = '4'
+PERSONALKOSTNADER = '7'
+FINANSIELLA_OCH_ÖVRIGA_INTÄKTER_O_KOSTNADER = '8'
 
 VER_RE = re.compile(r'#VER\s+"(?P<serie>\d+)"\s+"(?P<id>\d+)"\s+(?P<datum>\d{8})\s+"(?P<text>[^"]*)"')
 TRANS_RE = re.compile(r'#TRANS\s+(?P<konto>\d+)\s+{}\s+(?P<belopp>[-+]?\d+(?:[.,]\d+)?)')
