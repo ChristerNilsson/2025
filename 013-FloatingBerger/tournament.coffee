@@ -17,10 +17,10 @@ alignLeft   = {style: "text-align:left"}
 alignCenter = {style: "text-align:center"}
 alignRight  = {style: "text-align:right"}
 
+# Tillståndet ges av dessa fem variabler:
 players = []
 rounds = [] # vem möter vem? [w,b]. T ex [0,9], [1,8] ...]
 results = [] # [[0,1,2,-1,2], [1,2,-1,0,2]] Vitspelarnas resultat i varje rond. -1 <=> x dvs ej spelad
-
 currRound = 0
 currTable = 0
 
@@ -103,6 +103,16 @@ ass "½ - ½", prettify 'r'
 ass "1 - 0", prettify '1'
 ass "-", prettify 'x'
 
+prettyResult = (ch) -> 
+	if ch == 'x' then return "-"
+	if ch == '0' then return "0 - 1"
+	if ch == '1' then return "½ - ½"
+	if ch == '2' then return "1 - 0"
+ass "-",     prettyResult 'x'
+ass "0 - 1", prettyResult '0'
+ass "½ - ½", prettyResult '1'
+ass "1 - 0", prettyResult '2'
+
 expand = (rounds) -> # make a double round from a single
 	result = []
 	for round in rounds
@@ -131,30 +141,42 @@ sättMarkör = (round, table) ->
 	index = -1
 	for _th in ths
 		index++
-		if index >= 3
-			color = if index == currRound + 3 then 'yellow' else 'white'
-			_th.style = "background-color:#{color}"
+		color = if index == currRound + 3 then 'yellow' else 'white'
+		_th.style = "background-color:#{color}"
 
 	trs = document.querySelectorAll '#tables tr'
 	index = -1
 	for _tr in trs
 		index++
-		if index >= 1
-			color = if index == currTable + 1 then 'yellow' else 'white'
-			_tr.children[3].style = "background-color:#{color}"
+		color = if index == currTable + 1 then 'yellow' else 'white'
+		_tr.children[3].style = "background-color:#{color}"
 
-setTableResult = (key, res) ->
+setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
+	# Sätt stallning
+	trs = document.querySelectorAll '#stallning tr'
+
+	[w,b] = rounds[currRound][currTable]
+
+	results[currRound][currTable] = res
+
+	_td = trs[w + 1].children[3 + currRound].children[1]
+	_td.textContent = "0½1"[res]
+
+	_td = trs[b + 1].children[3 + currRound].children[1]
+	_td.textContent = "1½0"[res]
+
+	# Sätt tables
 	trs = document.querySelectorAll '#tables tr'
-	index = -1
+	_tr = trs[currTable + 1]
+	tr3 = _tr.children[3]
+
 	success = false
-	for _tr in trs
-		tr3 = _tr.children[3]
-		index++
-		if index != currTable + 1 then continue
-		if key == 'Delete' then success = true
-		else success = tr3.textContent == '-' or tr3.textContent == res
-		if success then tr3.textContent = res
-	if success then currTable = (currTable + 1) %% 3
+	if key == 'Delete' then success = true
+	else success = tr3.textContent == '-' or tr3.textContent == res
+	if success
+		tr3.textContent = prettyResult res
+		currTable = (currTable + 1) %% 3 # todo
+
 
 skapaSorteringsklick = ->
 
@@ -502,7 +524,8 @@ main = ->
 	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFloating()
 	if settings.GAMES == 2 then rounds = expand rounds
 
-	readResults params
+	results = [['x','x','x'],['x','x','x'],['x','x','x'],['x','x','x'],['x','x','x']] # todo
+#	readResults params
 
 	echo 'results',results
 	
@@ -537,10 +560,10 @@ document.addEventListener 'keydown', (event) ->
 
 	del = 'Delete'
 	key = event.key
-	if key == del then setTableResult key, "-"
-	if key == '0' then setTableResult key, "0 - 1"
-	if key == ' ' then setTableResult key, "½ - ½"
-	if key == '1' then setTableResult key, "1 - 0"
+	if key == del then setResult key, 'x' # "  -  "
+	if key == '0' then setResult key, '0' # "0 - 1"
+	if key == ' ' then setResult key, '1' # "½ - ½"
+	if key == '1' then setResult key, '2' # "1 - 0"
 
 	sättMarkör currRound,currTable
 

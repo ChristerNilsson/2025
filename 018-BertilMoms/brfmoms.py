@@ -2,8 +2,8 @@ import re
 import time
 from pathlib import Path
 
-SIE_FIL = "202206.sie4"
-#SIE_FIL = "2022.sie4"
+#SIE_FIL = "202206.sie4"
+SIE_FIL = "2022.sie4"
 #SIE_FIL = "2023.sie4"
 
 UNDRE_MOMS_ANDEL = 13 # %
@@ -90,6 +90,8 @@ def read_sie(infile):
 start = time.time()
 konton,verifikationer = read_sie(SIE_FIL)
 filtrerade = [v for v in verifikationer if any([t.konto == MOMS_KONTO and t.belopp != 0 for t in v.transaktioner])]
+
+#filtrerade2 = [v for v in verifikationer if any([t.konto[0:2] == INTÄKTER for t in v.transaktioner])]
 
 summaUtgiftSomBerörs = 0 # ören
 for verifikat in filtrerade:
