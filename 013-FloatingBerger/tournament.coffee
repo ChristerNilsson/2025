@@ -40,6 +40,8 @@ ass = (a,b) ->
 	console.assert false # can be used to track the assert
 ass 7, 3 + 4
 
+antalBord = -> (players.length + 1) // 2
+
 # The short Form is used to render the table list
 # rounds: produced by makeBerger and makeFloating
 # results: produced by the human
@@ -175,7 +177,7 @@ setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
 	else success = tr3.textContent == '-' or tr3.textContent == res
 	if success
 		tr3.textContent = prettyResult res
-		currTable = (currTable + 1) %% 3 # todo
+		currTable = (currTable + 1) %% antalBord() # todo
 
 
 skapaSorteringsklick = ->
@@ -524,7 +526,11 @@ main = ->
 	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFloating()
 	if settings.GAMES == 2 then rounds = expand rounds
 
-	results = [['x','x','x'],['x','x','x'],['x','x','x'],['x','x','x'],['x','x','x']] # todo
+	for i in range settings.ROUNDS
+		results.push Array(antalBord()).fill 'x'
+
+	echo 'results',results
+	# results = [['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x']] # todo
 #	readResults params
 
 	echo 'results',results
@@ -555,8 +561,8 @@ document.addEventListener 'keydown', (event) ->
 	
 	if event.key == 'ArrowLeft'  then currRound = (currRound - 1) %% rounds.length
 	if event.key == 'ArrowRight' then currRound = (currRound + 1) %% rounds.length
-	if event.key == 'ArrowUp'    then currTable = (currTable - 1) %% 3 # todo
-	if event.key == 'ArrowDown'  then currTable = (currTable + 1) %% 3 # todo
+	if event.key == 'ArrowUp'    then currTable = (currTable - 1) %% antalBord() # todo
+	if event.key == 'ArrowDown'  then currTable = (currTable + 1) %% antalBord() # todo
 
 	del = 'Delete'
 	key = event.key

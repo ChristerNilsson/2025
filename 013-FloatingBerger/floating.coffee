@@ -6,7 +6,7 @@ echo = console.log
 export class Floating
 	constructor : (@players, @settings) ->
 		@N = @players.length
-		#@players.sort (a,b) -> a.elo - b.elo
+		if @settings.sort==1 then @players.sort (a,b) -> a.elo - b.elo
 		echo @players
 		@matrix = (("•" for i in range @N) for j in range @N)
 		echo @matrix
