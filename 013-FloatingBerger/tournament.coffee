@@ -29,7 +29,7 @@ currTable = 0
 # display = 3 # both
 frirond = null # ingen frirond. Annars index för frironden
 
-sorteringsOrdning = {}	# Spara per kolumn
+#sorteringsOrdning = {}	# Spara per kolumn
 
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
@@ -90,7 +90,7 @@ convertLong = (input,a,b) -> # byt alla tecken i input som finns i a mot sträng
 	b = b.split '|'
 	if input in a then b[i] else input
 
-createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man klickar på
+createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man klickar på. # Namn Elo P eller PR
 
 	ths = document.querySelectorAll '#stallning th'
 
