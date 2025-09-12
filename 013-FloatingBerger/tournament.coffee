@@ -34,11 +34,10 @@ sorteringsOrdning = {}	# Spara per kolumn
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
 
+# funktioner i alfabetisk ordning #
 
-######
-
-antalBord = -> (players.length + 1) // 2
-
+antalBord = -> # Beräkna antal bord
+	(players.length + 1) // 2
 
 calcPoints = -> # Hämta cellerna från GUI:t
 	tbody = document.querySelector '#stallning tbody'
@@ -78,17 +77,18 @@ calcPoints = -> # Hämta cellerna från GUI:t
 
 	PRS
 
-changeRound = (delta) ->
+changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
 	updateLongsAndShorts()
 	showTables shorts, currRound
 
-changeTable = (delta) ->
+changeTable = (delta) -> # byt bord
 	currTable = (currTable + delta) %% antalBord()
 
-convert = (input,a,b) -> if input in a then b[a.indexOf input] else input # a och b är strängar
+convert = (input,a,b) -> # byt alla tecken i input som finns i a mot tecken med samma index i b
+	if input in a then b[a.indexOf input] else input # a och b är strängar
 
-convertLong = (input,a,b) -> # b är separerad med |
+convertLong = (input,a,b) -> # byt alla tecken i input som finns i a mot sträng med samma index i b. b är separerad med |
 	i = a.indexOf input
 	b = b.split '|'
 	if input in a then b[i] else input
@@ -100,7 +100,7 @@ export expand = (rounds) -> # make a double round from a single
 		result.push ([b,w] for [w,b] in round)
 	result
 
-export findNumberOfDecimals = (lst) ->
+export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
 	best = 0
 	for i in range 6
 		unik = _.uniq (item.toFixed(i) for item in lst)
@@ -122,13 +122,7 @@ export longForm = (rounds, results) -> # produces the long form for ONE round (s
 	# echo 'longForm',rounds,results,result
 	result
 
-# prettify = (ch) -> if ch == undefined then return " - " else convertLong ch, "xF0r1","-|-|0 - 1|½ - ½|1 - 0"
-# ass "0 - 1", prettify '0'
-# ass "½ - ½", prettify 'r'
-# ass "1 - 0", prettify '1'
-# ass "-", prettify 'x'
-
-makeBerger = ->
+makeBerger = -> # lotta en hel berger-turnering.
 	echo 'BERGER'
 
 	n = players.length
@@ -144,14 +138,14 @@ makeBerger = ->
 	echo 'BERGER',rounds
 	rounds
 
-makeFloating = ->
+makeFloating = -> # lotta en hel floating-turnering
 	floating = new Floating players, settings
 	showMatrix floating
 	floating.rounds
 
 export other = (input) -> convert input, "01FG","1011"
 
-parseQuery = ->
+parseQuery = -> # parsa hela urlen.
 	echo window.location.search
 	params = new URLSearchParams window.location.search
 
@@ -186,7 +180,7 @@ parseQuery = ->
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
 	echo settings
 
-parseTextarea = ->
+parseTextarea = -> # parsa textarean
 	echo 'parseTextArea'
 	raw = document.getElementById "textarea"
 	echo 'textarea',raw.value
@@ -243,13 +237,13 @@ parseTextarea = ->
 	rounds = []
 	window.location.href = url
 
-export prettyResult = (ch) -> 
+export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == 'x' then return "-"
 	if ch == '0' then return "0 - 1"
 	if ch == '1' then return "½ - ½"
 	if ch == '2' then return "1 - 0"
 
-progress = (points) ->
+progress = (points) -> # Visa hur stor andel av partierna som spelats
 	antal = 0
 	for point in points
 		antal += point
@@ -281,19 +275,19 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 	ronder.push td {}, ""
 	ronder.join ""
 
-safeGet = (params,key,standard="") -> 
+safeGet = (params,key,standard="") -> # Hämta parametern given av key från urlen
 	if params.get key then return params.get(key).trim()
 	if params.get ' ' + key then return params.get(' ' + key).trim()
 	standard
 
-savePairing = (r, A, half, n) ->
+savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
 	for i in [1...half]
 		lst.push [A[i], A[n - 1 - i]]
 	if frirond then lst.push lst.shift()
 	lst.sort()
 
-setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
+setResult = (key, res) -> # Uppdatera resultatet i gui:t. Sätt det även i results
 	# Sätt stallning
 	trs = document.querySelectorAll '#stallning tr'
 
@@ -330,11 +324,11 @@ export shortForm = (rounds, results) -> # produces the short form for ONE round 
 	if rounds.length > results.length then results += 'F'
 	rounds[i].concat results[i] for i in range results.length
 
-showInfo = ->
+showInfo = -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},
 		div {class:"help"}, pre {}, helpText
 
-showPlayers = (longs) -> # longs lagrad som lista av spelare
+showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare)
 
 	rows = []
 
@@ -361,7 +355,7 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 
 	document.getElementById('stallning').innerHTML = result
 
-showMatrix = (floating) ->
+showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	if players.length > 20 then return 
 	echo "" 
 	for i in range players.length
@@ -370,7 +364,7 @@ showMatrix = (floating) ->
 	echo 'Summa', floating.summa
 	echo 'Floating', floating.rounds
 
-showTables = (shorts, selectedRound) ->
+showTables = (shorts, selectedRound) -> # Visa bordslistan
 	if rounds.length == 0 then return
 
 	rows = ""
@@ -414,7 +408,7 @@ showTables = (shorts, selectedRound) ->
 
 	document.getElementById('tables').innerHTML = result
 
-skapaSorteringsklick = ->
+skapaSorteringsklick = -> # Spelarlistan sorteras beroende på vilken kolumn man klickar på
 
 	ths = document.querySelectorAll '#stallning th'
 
@@ -450,7 +444,7 @@ skapaSorteringsklick = ->
 				for rad in rader
 					tbody.appendChild rad
 
-sättMarkör = (round, table) ->
+sättMarkör = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 
 	ths = document.querySelectorAll '#stallning th'
 	index = -1
@@ -466,7 +460,7 @@ sättMarkör = (round, table) ->
 		color = if index == currTable + 1 then 'yellow' else 'white'
 		_tr.children[3].style = "background-color:#{color}"
 
-readResults = (params) ->
+readResults = (params) -> # Resultaten läses från urlen
 	results = []
 	n = players.length
 	if frirond then n -= 2
@@ -476,7 +470,7 @@ readResults = (params) ->
 		results.push safeGet params, "r#{r+1}", "x".repeat n
 	echo 'readResults', results
 
-updateLongsAndShorts = ->
+updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån results
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
 		longs.push longForm rounds[r],results[r]
@@ -484,7 +478,7 @@ updateLongsAndShorts = ->
 	shorts = longs # _.cloneDeep
 	longs = _.zip ...longs # transponerar matrisen
 
-main = ->
+main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	params = new URLSearchParams window.location.search
 
@@ -510,7 +504,7 @@ main = ->
 
 	echo 'results',results
 	# results = [['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x']] # todo
-#	readResults params
+	#	readResults params
 
 	echo 'results',results
 
@@ -527,7 +521,7 @@ main = ->
 	PRS = calcPoints()
 	document.title = settings.TITLE + progress PRS
 
-document.addEventListener 'keydown', (event) ->
+document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckningar
 
 	if event.key in 'abc' 
 		document.getElementById("stallning").style.display = if event.key in "ac" then "table" else "none"
