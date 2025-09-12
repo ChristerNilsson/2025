@@ -36,6 +36,13 @@ export class Floating
 	# 	tables.sort (x,y) -> y[2] - x[2]
 	# 	table.slice 0,2 for table in tables
 
+	ok : (a,b) -> 
+		if a.id == b.id then return false
+		if a.id in b.opp then return false
+		# if not @settings.BALANS and @settings.GAMES % 2 == 0 then return true
+		if @settings.BALANS == 0 then return true
+		Math.abs(a.balans() + b.balans()) < 2
+
 	updatePlayers : (magic,r) -> 
 		tables = []
 		echo 'matrix',@matrix
@@ -63,10 +70,3 @@ export class Floating
 		#@sortTables tables
 		#echo 'updatePlayers',tables
 		tables
-
-	ok : (a,b) -> 
-		if a.id == b.id then return false
-		if a.id in b.opp then return false
-		# if not @settings.BALANS and @settings.GAMES % 2 == 0 then return true
-		if @settings.BALANS == 0 then return true
-		Math.abs(a.balans() + b.balans()) < 2
