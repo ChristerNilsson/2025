@@ -9,6 +9,8 @@ import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 echo = console.log
 range = _.range
 
+# variabler #
+
 settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1} # ONE = 1 # 0=dev 1=prod
 
 RESULTS = []
@@ -32,27 +34,57 @@ sorteringsOrdning = {}	# Spara per kolumn
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
 
-ass = (a,b) ->
-	if _.isEqual a, b then return
-	echo 'Assertion failed: (open the Assertion below to find the failing assertion)'
-	echo '  expect', JSON.stringify a 
-	echo '  actual', JSON.stringify b
-	console.assert false # can be used to track the assert
-ass 7, 3 + 4
+
+######
 
 antalBord = -> (players.length + 1) // 2
 
-# The short Form is used to render the table list
-# rounds: produced by makeBerger and makeFloating
-# results: produced by the human
-shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
-	if rounds.length > results.length then results += 'F'
-	rounds[i].concat results[i] for i in range results.length
-ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"F"]], shortForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
-ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], shortForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
-# listify = (s) -> ('0r1'.indexOf ch) for ch in s # omvandla "r01x1" till [1,0,2,-1,2] 
-# ass [0,1,2,-1,2], listify '0r1x1'
+calcPoints = -> # Hämta cellerna från GUI:t
+	tbody = document.querySelector '#stallning tbody'
+	rader = Array.from tbody.querySelectorAll 'tr'
+
+	PS = []
+	PRS = []
+	performances = [] 
+
+	for rad in rader
+		points = 0
+		pointsPR = 0
+		elos = []
+		for i in range settings.GAMES * settings.ROUNDS
+			cell = rad.children[3+i]
+			opp = cell.children[0].textContent
+			val = cell.children[1].textContent
+			value = 0
+			if val == '½' then value = 0.5
+			if val == '1' then value = 1
+			points += value
+
+			# echo {opp}
+			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
+				pointsPR += value
+				elos.push players[opp-settings.ONE].elo
+
+		PS.push points
+		PRS.push pointsPR
+		performances.push performance pointsPR, elos
+
+	decimals = findNumberOfDecimals performances
+	for i in range rader.length
+		rad = rader[i]
+		rad.children[settings.GAMES * settings.ROUNDS + 3].textContent = PS[i].toFixed 1
+		rad.children[settings.GAMES * settings.ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
+
+	PRS
+
+changeRound = (delta) ->
+	currRound = (currRound + delta) %% rounds.length
+	updateLongsAndShorts()
+	showTables shorts, currRound
+
+changeTable = (delta) ->
+	currTable = (currTable + delta) %% antalBord()
 
 convert = (input,a,b) -> if input in a then b[a.indexOf input] else input # a och b är strängar
 
@@ -61,15 +93,21 @@ convertLong = (input,a,b) -> # b är separerad med |
 	b = b.split '|'
 	if input in a then b[i] else input
 
-other = (input) -> convert input, "01FG","1011"
-ass '1', other '0'
-ass 'r', other 'r'
-ass '0', other '1'
-ass '1', other 'F'
-ass '1', other 'G'
-ass 'x', other 'x'
+export expand = (rounds) -> # make a double round from a single
+	result = []
+	for round in rounds
+		result.push ([w,b] for [w,b] in round)
+		result.push ([b,w] for [w,b] in round)
+	result
 
-longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
+export findNumberOfDecimals = (lst) ->
+	best = 0
+	for i in range 6
+		unik = _.uniq (item.toFixed(i) for item in lst)
+		if unik.length > best then [best,ibest] = [unik.length,i]
+	ibest
+
+export longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
 	if rounds.length > results.length #then results += 'F'
 		[w,b] = rounds[0]
 		results = if w==frirond or b==frirond then 'F' + results else results + 'F'
@@ -83,21 +121,6 @@ longForm = (rounds, results) -> # produces the long form for ONE round (spelarli
 	result.sort (a,b) -> a[0] - b[0]
 	# echo 'longForm',rounds,results,result
 	result
-ass [
-	[ 0,11,'w','F']
-	[ 1,10,'w','0']
-	[ 2, 9,'w','r']
-	[ 3, 8,'w','1']
-	[ 4, 7,'w','0']
-	[ 5, 6,'w','r']
-	[ 6, 5,'b','r']
-	[ 7, 4,'b','1']
-	[ 8, 3,'b','0']
-	[ 9, 2,'b','r']
-	[10, 1,'b','1']
-	[11, 0,'b','1']
-], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
-# ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
 # prettify = (ch) -> if ch == undefined then return " - " else convertLong ch, "xF0r1","-|-|0 - 1|½ - ½|1 - 0"
 # ass "0 - 1", prettify '0'
@@ -105,125 +128,28 @@ ass [
 # ass "1 - 0", prettify '1'
 # ass "-", prettify 'x'
 
-prettyResult = (ch) -> 
-	if ch == 'x' then return "-"
-	if ch == '0' then return "0 - 1"
-	if ch == '1' then return "½ - ½"
-	if ch == '2' then return "1 - 0"
-ass "-",     prettyResult 'x'
-ass "0 - 1", prettyResult '0'
-ass "½ - ½", prettyResult '1'
-ass "1 - 0", prettyResult '2'
+makeBerger = ->
+	echo 'BERGER'
 
-expand = (rounds) -> # make a double round from a single
-	result = []
-	for round in rounds
-		result.push ([w,b] for [w,b] in round)
-		result.push ([b,w] for [w,b] in round)
-	result
-ass [[[1,2],[3,4]],[[2,1],[4,3]],[[1,4],[2,3]],[[4,1],[3,2]]], expand [[[1,2],[3,4]], [[1,4],[2,3]]]
+	n = players.length
+	if n % 2 == 1 then n += 1
+	half = n // 2 
+	A = [0...n]
+	rounds = []
+	for i in range settings.ROUNDS
+		rounds.push savePairing i, A, half, n
+		A.pop()
+		A = A.slice(half).concat A.slice(0,half)
+		A.push n-1
+	echo 'BERGER',rounds
+	rounds
 
-findNumberOfDecimals = (lst) ->
-	best = 0
-	for i in range 6
-		unik = _.uniq (item.toFixed(i) for item in lst)
-		if unik.length > best then [best,ibest] = [unik.length,i]
-	ibest
-ass 0, findNumberOfDecimals [1200,1200]
-ass 0, findNumberOfDecimals [1200,1201]
-ass 0, findNumberOfDecimals [1200.23,1200.23]
-ass 1, findNumberOfDecimals [1200.23,1200.3]
-ass 1, findNumberOfDecimals [1200.23,1200.3]
-ass 3, findNumberOfDecimals [1200.23,1200.2345]
-ass 0, findNumberOfDecimals [1200.12345,1200.12345]
+makeFloating = ->
+	floating = new Floating players, settings
+	showMatrix floating
+	floating.rounds
 
-sättMarkör = (round, table) ->
-
-	ths = document.querySelectorAll '#stallning th'
-	index = -1
-	for _th in ths
-		index++
-		color = if index == currRound + 3 then 'yellow' else 'white'
-		_th.style = "background-color:#{color}"
-
-	trs = document.querySelectorAll '#tables tr'
-	index = -1
-	for _tr in trs
-		index++
-		color = if index == currTable + 1 then 'yellow' else 'white'
-		_tr.children[3].style = "background-color:#{color}"
-
-setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
-	# Sätt stallning
-	trs = document.querySelectorAll '#stallning tr'
-
-	[w,b] = rounds[currRound][currTable]
-
-	results[currRound][currTable] = res
-
-	updateLongsAndShorts()
-
-	echo 'results',results
-
-	_td = trs[w + 1].children[3 + currRound].children[1]
-	_td.textContent = "0½1"[res]
-
-	_td = trs[b + 1].children[3 + currRound].children[1]
-	_td.textContent = "1½0"[res]
-
-	# Sätt tables
-	trs = document.querySelectorAll '#tables tr'
-	_tr = trs[currTable + 1]
-	tr3 = _tr.children[3]
-
-	success = false
-	if key == 'Delete' then success = true
-	else success = tr3.textContent == '-' or tr3.textContent == res
-	if success
-		tr3.textContent = prettyResult res
-		currTable = (currTable + 1) %% antalBord()
-
-
-skapaSorteringsklick = ->
-
-	ths = document.querySelectorAll '#stallning th'
-
-	#echo ths
-	index = -1
-	for _th in ths
-		index++
-		do (_th,index) ->
-			_th.addEventListener 'click', (event) ->
-				key = _th.textContent
-				if !isNaN parseInt key
-					key = parseInt(key) - settings.ONE
-					showTables shorts, key
-					return
-
-				tbody = document.querySelector '#stallning tbody'
-				rader = Array.from tbody.querySelectorAll 'tr'
-				stigande = key in "# Namn".split ' '
-
-				rader.sort (a, b) ->
-					cellA = a.children[index].textContent.trim()
-					cellB = b.children[index].textContent.trim()
-
-					# Försök jämföra som tal, annars som text
-					numA = parseFloat cellA
-					numB = parseFloat cellB
-					if !isNaN(numA) and !isNaN(numB)
-						return if stigande then numA - numB else numB - numA
-					else
-						return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
-
-				# Lägg tillbaka raderna i sorterad ordning
-				for rad in rader
-					tbody.appendChild rad
-
-safeGet = (params,key,standard="") -> 
-	if params.get key then return params.get(key).trim()
-	if params.get ' ' + key then return params.get(' ' + key).trim()
-	standard
+export other = (input) -> convert input, "01FG","1011"
 
 parseQuery = ->
 	echo window.location.search
@@ -317,46 +243,20 @@ parseTextarea = ->
 	rounds = []
 	window.location.href = url
 
-savePairing = (r, A, half, n) ->
-	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
-	for i in [1...half]
-		lst.push [A[i], A[n - 1 - i]]
-	if frirond then lst.push lst.shift()
-	lst.sort()
+export prettyResult = (ch) -> 
+	if ch == 'x' then return "-"
+	if ch == '0' then return "0 - 1"
+	if ch == '1' then return "½ - ½"
+	if ch == '2' then return "1 - 0"
 
-makeBerger = ->
-	echo 'BERGER'
-
-	n = players.length
-	if n % 2 == 1 then n += 1
-	half = n // 2 
-	A = [0...n]
-	rounds = []
-	for i in range settings.ROUNDS
-		rounds.push savePairing i, A, half, n
-		A.pop()
-		A = A.slice(half).concat A.slice(0,half)
-		A.push n-1
-	echo 'BERGER',rounds
-	rounds
-
-showMatrix = (floating) ->
-	if players.length > 20 then return 
-	echo "" 
-	for i in range players.length
-		line = floating.matrix[i]
-		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
-	echo 'Summa', floating.summa
-	echo 'Floating', floating.rounds
-
-makeFloating = ->
-	floating = new Floating players, settings
-	showMatrix floating
-	floating.rounds
-
-showInfo = ->
-	document.getElementById('info').innerHTML = div {},
-		div {class:"help"}, pre {}, helpText
+progress = (points) ->
+	antal = 0
+	for point in points
+		antal += point
+	if frirond 
+		" • #{antal} av #{settings.GAMES * settings.ROUNDS * (players.length - 2) // 2}"
+	else
+		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
 
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
@@ -380,6 +280,59 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 	ronder.push	td alignRight, ""
 	ronder.push td {}, ""
 	ronder.join ""
+
+safeGet = (params,key,standard="") -> 
+	if params.get key then return params.get(key).trim()
+	if params.get ' ' + key then return params.get(' ' + key).trim()
+	standard
+
+savePairing = (r, A, half, n) ->
+	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
+	for i in [1...half]
+		lst.push [A[i], A[n - 1 - i]]
+	if frirond then lst.push lst.shift()
+	lst.sort()
+
+setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
+	# Sätt stallning
+	trs = document.querySelectorAll '#stallning tr'
+
+	[w,b] = rounds[currRound][currTable]
+
+	results[currRound][currTable] = res
+
+	updateLongsAndShorts()
+
+	echo 'results',results
+
+	_td = trs[w + 1].children[3 + currRound].children[1]
+	_td.textContent = "0½1"[res]
+
+	_td = trs[b + 1].children[3 + currRound].children[1]
+	_td.textContent = "1½0"[res]
+
+	# Sätt tables
+	trs = document.querySelectorAll '#tables tr'
+	_tr = trs[currTable + 1]
+	tr3 = _tr.children[3]
+
+	success = false
+	if key == 'Delete' then success = true
+	else success = tr3.textContent == '-' or tr3.textContent == res
+	if success
+		tr3.textContent = prettyResult res
+		currTable = (currTable + 1) %% antalBord()
+
+export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
+	# The short Form is used to render the table list
+	# rounds: produced by makeBerger and makeFloating
+	# results: produced by the human
+	if rounds.length > results.length then results += 'F'
+	rounds[i].concat results[i] for i in range results.length
+
+showInfo = ->
+	document.getElementById('info').innerHTML = div {},
+		div {class:"help"}, pre {}, helpText
 
 showPlayers = (longs) -> # longs lagrad som lista av spelare
 
@@ -408,6 +361,15 @@ showPlayers = (longs) -> # longs lagrad som lista av spelare
 
 	document.getElementById('stallning').innerHTML = result
 
+showMatrix = (floating) ->
+	if players.length > 20 then return 
+	echo "" 
+	for i in range players.length
+		line = floating.matrix[i]
+		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
+	echo 'Summa', floating.summa
+	echo 'Floating', floating.rounds
+
 showTables = (shorts, selectedRound) ->
 	if rounds.length == 0 then return
 
@@ -429,7 +391,7 @@ showTables = (shorts, selectedRound) ->
 			message = " • #{vit} har frirond"
 			continue
 			hash = {style : "background-color:red"}
-#			hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
+			# hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
 			echo hash 
 		rows += tr hash,
 			td {}, bord + settings.ONE
@@ -452,6 +414,58 @@ showTables = (shorts, selectedRound) ->
 
 	document.getElementById('tables').innerHTML = result
 
+skapaSorteringsklick = ->
+
+	ths = document.querySelectorAll '#stallning th'
+
+	#echo ths
+	index = -1
+	for _th in ths
+		index++
+		do (_th,index) ->
+			_th.addEventListener 'click', (event) ->
+				key = _th.textContent
+				if !isNaN parseInt key
+					key = parseInt(key) - settings.ONE
+					showTables shorts, key
+					return
+
+				tbody = document.querySelector '#stallning tbody'
+				rader = Array.from tbody.querySelectorAll 'tr'
+				stigande = key in "# Namn".split ' '
+
+				rader.sort (a, b) ->
+					cellA = a.children[index].textContent.trim()
+					cellB = b.children[index].textContent.trim()
+
+					# Försök jämföra som tal, annars som text
+					numA = parseFloat cellA
+					numB = parseFloat cellB
+					if !isNaN(numA) and !isNaN(numB)
+						return if stigande then numA - numB else numB - numA
+					else
+						return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
+
+				# Lägg tillbaka raderna i sorterad ordning
+				for rad in rader
+					tbody.appendChild rad
+
+sättMarkör = (round, table) ->
+
+	ths = document.querySelectorAll '#stallning th'
+	index = -1
+	for _th in ths
+		index++
+		color = if index == currRound + 3 then 'yellow' else 'white'
+		_th.style = "background-color:#{color}"
+
+	trs = document.querySelectorAll '#tables tr'
+	index = -1
+	for _tr in trs
+		index++
+		color = if index == currTable + 1 then 'yellow' else 'white'
+		_tr.children[3].style = "background-color:#{color}"
+
 readResults = (params) ->
 	results = []
 	n = players.length
@@ -461,61 +475,6 @@ readResults = (params) ->
 	for r in range settings.GAMES * settings.ROUNDS
 		results.push safeGet params, "r#{r+1}", "x".repeat n
 	echo 'readResults', results
-
-progress = (points) ->
-	antal = 0
-	for point in points
-		antal += point
-	if frirond 
-		" • #{antal} av #{settings.GAMES * settings.ROUNDS * (players.length - 2) // 2}"
-	else
-		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
-
-calcPoints = -> # Hämta cellerna från GUI:t
-	tbody = document.querySelector '#stallning tbody'
-	rader = Array.from tbody.querySelectorAll 'tr'
-
-	PS = []
-	PRS = []
-	performances = [] 
-
-	for rad in rader
-		points = 0
-		pointsPR = 0
-		elos = []
-		for i in range settings.GAMES * settings.ROUNDS
-			cell = rad.children[3+i]
-			opp = cell.children[0].textContent
-			val = cell.children[1].textContent
-			value = 0
-			if val == '½' then value = 0.5
-			if val == '1' then value = 1
-			points += value
-
-			# echo {opp}
-			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
-				pointsPR += value
-				elos.push players[opp-settings.ONE].elo
-
-		PS.push points
-		PRS.push pointsPR
-		performances.push performance pointsPR, elos
-
-	decimals = findNumberOfDecimals performances
-	for i in range rader.length
-		rad = rader[i]
-		rad.children[settings.GAMES * settings.ROUNDS + 3].textContent = PS[i].toFixed 1
-		rad.children[settings.GAMES * settings.ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
-
-	PRS
-
-changeRound = (delta) ->
-	currRound = (currRound + delta) %% rounds.length
-	updateLongsAndShorts()
-	showTables shorts, currRound
-
-changeTable = (delta) ->
-	currTable = (currTable + delta) %% antalBord()
 
 updateLongsAndShorts = ->
 	longs = [] # innehåller alla ronderna
@@ -557,7 +516,6 @@ main = ->
 
 	updateLongsAndShorts()
 	
-
 	echo {longs}
 
 	showPlayers longs
