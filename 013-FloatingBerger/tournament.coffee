@@ -9,15 +9,13 @@ import {table,thead,th,tr,td,a,div,pre,p,h2} from './html.js'
 echo = console.log
 range = _.range
 
-# variabler #
+ALIGN_LEFT   = {style: "text-align:left"}
+ALIGN_CENTER = {style: "text-align:center"}
+ALIGN_RIGHT  = {style: "text-align:right"}
+
+# # variabler # #
 
 settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1} # ONE = 1 # 0=dev 1=prod
-
-RESULTS = []
-
-alignLeft   = {style: "text-align:left"}
-alignCenter = {style: "text-align:center"}
-alignRight  = {style: "text-align:right"}
 
 # Tillståndet ges av dessa fem variabler:
 players = []
@@ -26,15 +24,12 @@ results = [] # [[0,1,2,-1,2], [1,2,-1,0,2]] Vitspelarnas resultat i varje rond. 
 currRound = 0
 currTable = 0
 
-# display = 3 # both
 frirond = null # ingen frirond. Annars index för frironden
-
-#sorteringsOrdning = {}	# Spara per kolumn
 
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
 
-# funktioner i alfabetisk ordning #
+# # funktioner i alfabetisk ordning # #
 
 calcPoints = -> # Hämta cellerna från GUI:t
 	tbody = document.querySelector '#stallning tbody'
@@ -188,8 +183,6 @@ parseQuery = -> # parsa hela urlen.
 	settings.ONE = parseInt safeGet params, "ONE", "1"
 	settings.BALANCE = parseInt safeGet params, "BALANCE", "1"
 
-	RESULTS = [0,1,2] # internt bruk
-
 	players = []
 	persons = params.getAll "p"
 
@@ -314,7 +307,7 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 
 		ronder.push cell
 
-	ronder.push	td alignRight, ""
+	ronder.push	td ALIGN_RIGHT, ""
 	ronder.push td {}, ""
 	ronder.join ""
 
@@ -417,7 +410,7 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 		if player.name == 'FRIROND' then continue
 		rows.push tr {},
 			td {}, i + settings.ONE
-			td alignLeft, player.name
+			td ALIGN_LEFT, player.name
 			td {}, player.elo
 			roundsContent long, i
 
@@ -460,9 +453,9 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 			echo hash 
 		rows += tr hash,
 			td {}, bord + settings.ONE
-			td alignLeft, vit
-			td alignLeft, svart
-			td alignCenter, prettyResult res # prettify
+			td ALIGN_LEFT, vit
+			td ALIGN_LEFT, svart
+			td ALIGN_CENTER, prettyResult res # prettify
 		bord++
 
 	result = div {},
