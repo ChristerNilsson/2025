@@ -36,9 +36,6 @@ shorts = [] # underlag för showTables
 
 # funktioner i alfabetisk ordning #
 
-antalBord = -> # Beräkna antal bord
-	(players.length + 1) // 2
-
 calcPoints = -> # Hämta cellerna från GUI:t
 	tbody = document.querySelector '#stallning tbody'
 	rader = Array.from tbody.querySelectorAll 'tr'
@@ -83,7 +80,7 @@ changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	showTables shorts, currRound
 
 changeTable = (delta) -> # byt bord
-	currTable = (currTable + delta) %% antalBord()
+	currTable = (currTable + delta) %% tableCount()
 
 convert = (input,a,b) -> # byt alla tecken i input som finns i a mot tecken med samma index i b
 	if input in a then b[a.indexOf input] else input # a och b är strängar
@@ -92,6 +89,42 @@ convertLong = (input,a,b) -> # byt alla tecken i input som finns i a mot sträng
 	i = a.indexOf input
 	b = b.split '|'
 	if input in a then b[i] else input
+
+createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man klickar på
+
+	ths = document.querySelectorAll '#stallning th'
+
+	#echo ths
+	index = -1
+	for _th in ths
+		index++
+		do (_th,index) ->
+			_th.addEventListener 'click', (event) ->
+				key = _th.textContent
+				if !isNaN parseInt key
+					key = parseInt(key) - settings.ONE
+					showTables shorts, key
+					return
+
+				tbody = document.querySelector '#stallning tbody'
+				rader = Array.from tbody.querySelectorAll 'tr'
+				stigande = key in "# Namn".split ' '
+
+				rader.sort (a, b) ->
+					cellA = a.children[index].textContent.trim()
+					cellB = b.children[index].textContent.trim()
+
+					# Försök jämföra som tal, annars som text
+					numA = parseFloat cellA
+					numB = parseFloat cellB
+					if !isNaN(numA) and !isNaN(numB)
+						return if stigande then numA - numB else numB - numA
+					else
+						return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
+
+				# Lägg tillbaka raderna i sorterad ordning
+				for rad in rader
+					tbody.appendChild rad
 
 export expand = (rounds) -> # make a double round from a single
 	result = []
@@ -252,6 +285,16 @@ progress = (points) -> # Visa hur stor andel av partierna som spelats
 	else
 		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
 
+readResults = (params) -> # Resultaten läses från urlen
+	results = []
+	n = players.length
+	if frirond then n -= 2
+	n //= 2
+	
+	for r in range settings.GAMES * settings.ROUNDS
+		results.push safeGet params, "r#{r+1}", "x".repeat n
+	echo 'readResults', results
+
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
 	# echo {long}
@@ -287,6 +330,22 @@ savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
 	if frirond then lst.push lst.shift()
 	lst.sort()
 
+setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
+
+	ths = document.querySelectorAll '#stallning th'
+	index = -1
+	for _th in ths
+		index++
+		color = if index == currRound + 3 then 'yellow' else 'white'
+		_th.style = "background-color:#{color}"
+
+	trs = document.querySelectorAll '#tables tr'
+	index = -1
+	for _tr in trs
+		index++
+		color = if index == currTable + 1 then 'yellow' else 'white'
+		_tr.children[3].style = "background-color:#{color}"
+
 setResult = (key, res) -> # Uppdatera resultatet i gui:t. Sätt det även i results
 	# Sätt stallning
 	trs = document.querySelectorAll '#stallning tr'
@@ -315,7 +374,7 @@ setResult = (key, res) -> # Uppdatera resultatet i gui:t. Sätt det även i resu
 	else success = tr3.textContent == '-' or tr3.textContent == res
 	if success
 		tr3.textContent = prettyResult res
-		currTable = (currTable + 1) %% antalBord()
+		currTable = (currTable + 1) %% tableCount()
 
 export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 	# The short Form is used to render the table list
@@ -327,6 +386,15 @@ export shortForm = (rounds, results) -> # produces the short form for ONE round 
 showInfo = -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},
 		div {class:"help"}, pre {}, helpText
+
+showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
+	if players.length > 20 then return 
+	echo "" 
+	for i in range players.length
+		line = floating.matrix[i]
+		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
+	echo 'Summa', floating.summa
+	echo 'Floating', floating.rounds
 
 showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare)
 
@@ -354,15 +422,6 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 			rows.join ""
 
 	document.getElementById('stallning').innerHTML = result
-
-showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
-	if players.length > 20 then return 
-	echo "" 
-	for i in range players.length
-		line = floating.matrix[i]
-		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
-	echo 'Summa', floating.summa
-	echo 'Floating', floating.rounds
 
 showTables = (shorts, selectedRound) -> # Visa bordslistan
 	if rounds.length == 0 then return
@@ -408,67 +467,8 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 	document.getElementById('tables').innerHTML = result
 
-skapaSorteringsklick = -> # Spelarlistan sorteras beroende på vilken kolumn man klickar på
-
-	ths = document.querySelectorAll '#stallning th'
-
-	#echo ths
-	index = -1
-	for _th in ths
-		index++
-		do (_th,index) ->
-			_th.addEventListener 'click', (event) ->
-				key = _th.textContent
-				if !isNaN parseInt key
-					key = parseInt(key) - settings.ONE
-					showTables shorts, key
-					return
-
-				tbody = document.querySelector '#stallning tbody'
-				rader = Array.from tbody.querySelectorAll 'tr'
-				stigande = key in "# Namn".split ' '
-
-				rader.sort (a, b) ->
-					cellA = a.children[index].textContent.trim()
-					cellB = b.children[index].textContent.trim()
-
-					# Försök jämföra som tal, annars som text
-					numA = parseFloat cellA
-					numB = parseFloat cellB
-					if !isNaN(numA) and !isNaN(numB)
-						return if stigande then numA - numB else numB - numA
-					else
-						return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
-
-				# Lägg tillbaka raderna i sorterad ordning
-				for rad in rader
-					tbody.appendChild rad
-
-sättMarkör = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
-
-	ths = document.querySelectorAll '#stallning th'
-	index = -1
-	for _th in ths
-		index++
-		color = if index == currRound + 3 then 'yellow' else 'white'
-		_th.style = "background-color:#{color}"
-
-	trs = document.querySelectorAll '#tables tr'
-	index = -1
-	for _tr in trs
-		index++
-		color = if index == currTable + 1 then 'yellow' else 'white'
-		_tr.children[3].style = "background-color:#{color}"
-
-readResults = (params) -> # Resultaten läses från urlen
-	results = []
-	n = players.length
-	if frirond then n -= 2
-	n //= 2
-	
-	for r in range settings.GAMES * settings.ROUNDS
-		results.push safeGet params, "r#{r+1}", "x".repeat n
-	echo 'readResults', results
+tableCount = -> # Beräkna antal bord
+	(players.length + 1) // 2
 
 updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån results
 	longs = [] # innehåller alla ronderna
@@ -500,7 +500,7 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	if settings.GAMES == 2 then rounds = expand rounds
 
 	for i in range settings.ROUNDS
-		results.push Array(antalBord()).fill 'x'
+		results.push Array(tableCount()).fill 'x'
 
 	echo 'results',results
 	# results = [['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x']] # todo
@@ -515,8 +515,8 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	showPlayers longs
 	showTables shorts, 0
 
-	skapaSorteringsklick()
-	sättMarkör currRound,currTable
+	createSortEvents()
+	setCursor currRound,currTable
 
 	PRS = calcPoints()
 	document.title = settings.TITLE + progress PRS
@@ -539,6 +539,6 @@ document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckning
 	if key == ' ' then setResult key, '1' # "½ - ½"
 	if key == '1' then setResult key, '2' # "1 - 0"
 
-	sättMarkör currRound,currTable
+	setCursor currRound,currTable
 
 main()
