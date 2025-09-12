@@ -29,8 +29,8 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * ctrl p skriver ut
 * ctrl + och ctrl - zoomar
 
-* 1 visar enbart ställning
-* 2 visar enbart bord
-* 3 visar både ställning och bord
+* a => visar enbart ställning
+* b => visar enbart bord
+* c => visar både ställning och bord
 
 """

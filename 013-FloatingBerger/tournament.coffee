@@ -1,4 +1,4 @@
-# ½
+# ½ •
 
 import {Player} from './player.js'
 import {Floating} from './floating.js'
@@ -81,7 +81,7 @@ longForm = (rounds, results) -> # produces the long form for ONE round (spelarli
 		result.push [b,w,'b',other res]
 
 	result.sort (a,b) -> a[0] - b[0]
-	echo 'longForm',rounds,results,result
+	# echo 'longForm',rounds,results,result
 	result
 ass [
 	[ 0,11,'w','F']
@@ -99,11 +99,11 @@ ass [
 ], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
 # ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
-prettify = (ch) -> if ch == undefined then return " - " else convertLong ch, "xF0r1","-|-|0 - 1|½ - ½|1 - 0"
-ass "0 - 1", prettify '0'
-ass "½ - ½", prettify 'r'
-ass "1 - 0", prettify '1'
-ass "-", prettify 'x'
+# prettify = (ch) -> if ch == undefined then return " - " else convertLong ch, "xF0r1","-|-|0 - 1|½ - ½|1 - 0"
+# ass "0 - 1", prettify '0'
+# ass "½ - ½", prettify 'r'
+# ass "1 - 0", prettify '1'
+# ass "-", prettify 'x'
 
 prettyResult = (ch) -> 
 	if ch == 'x' then return "-"
@@ -161,6 +161,10 @@ setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
 
 	results[currRound][currTable] = res
 
+	updateLongsAndShorts()
+
+	echo 'results',results
+
 	_td = trs[w + 1].children[3 + currRound].children[1]
 	_td.textContent = "0½1"[res]
 
@@ -177,7 +181,7 @@ setResult = (key, res) -> # key in [del 0 space 1]     res in [-1 0 1 2]
 	else success = tr3.textContent == '-' or tr3.textContent == res
 	if success
 		tr3.textContent = prettyResult res
-		currTable = (currTable + 1) %% antalBord() # todo
+		currTable = (currTable + 1) %% antalBord()
 
 
 skapaSorteringsklick = ->
@@ -431,7 +435,7 @@ showTables = (shorts, selectedRound) ->
 			td {}, bord + settings.ONE
 			td alignLeft, vit
 			td alignLeft, svart
-			td alignCenter, prettify res
+			td alignCenter, prettyResult res # prettify
 		bord++
 
 	result = div {},
@@ -505,6 +509,22 @@ calcPoints = -> # Hämta cellerna från GUI:t
 
 	PRS
 
+changeRound = (delta) ->
+	currRound = (currRound + delta) %% rounds.length
+	updateLongsAndShorts()
+	showTables shorts, currRound
+
+changeTable = (delta) ->
+	currTable = (currTable + delta) %% antalBord()
+
+updateLongsAndShorts = ->
+	longs = [] # innehåller alla ronderna
+	for r in range rounds.length
+		longs.push longForm rounds[r],results[r]
+
+	shorts = longs # _.cloneDeep
+	longs = _.zip ...longs # transponerar matrisen
+
 main = ->
 
 	params = new URLSearchParams window.location.search
@@ -534,13 +554,9 @@ main = ->
 #	readResults params
 
 	echo 'results',results
-	
-	longs = [] # innehåller alla ronderna
-	for r in range rounds.length
-		longs.push longForm rounds[r],results[r]
 
-	shorts = longs # _.cloneDeep
-	longs = _.zip ...longs # transponerar matrisen
+	updateLongsAndShorts()
+	
 
 	echo {longs}
 
@@ -559,10 +575,10 @@ document.addEventListener 'keydown', (event) ->
 		document.getElementById("stallning").style.display = if event.key in "ac" then "table" else "none"
 		document.getElementById("tables").style.display = if event.key in "bc" then "table" else "none"
 	
-	if event.key == 'ArrowLeft'  then currRound = (currRound - 1) %% rounds.length
-	if event.key == 'ArrowRight' then currRound = (currRound + 1) %% rounds.length
-	if event.key == 'ArrowUp'    then currTable = (currTable - 1) %% antalBord() # todo
-	if event.key == 'ArrowDown'  then currTable = (currTable + 1) %% antalBord() # todo
+	if event.key == 'ArrowLeft'  then changeRound -1
+	if event.key == 'ArrowRight' then changeRound +1
+	if event.key == 'ArrowUp'    then changeTable -1
+	if event.key == 'ArrowDown'  then changeTable +1
 
 	del = 'Delete'
 	key = event.key
