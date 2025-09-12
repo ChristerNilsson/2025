@@ -176,7 +176,7 @@ makeFloating = -> # lotta en hel floating-turnering
 	showMatrix floating
 	floating.rounds
 
-export other = (input) -> convert input, "01FG","1011"
+export other = (input) -> convert input, "012FG","21022"
 
 parseQuery = -> # parsa hela urlen.
 	echo window.location.search
@@ -331,7 +331,6 @@ savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
 	lst.sort()
 
 setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
-
 	ths = document.querySelectorAll '#stallning th'
 	index = -1
 	for _th in ths
@@ -346,8 +345,18 @@ setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på pilt
 		color = if index == currTable + 1 then 'yellow' else 'white'
 		_tr.children[3].style = "background-color:#{color}"
 
-setResult = (key, res) -> # Uppdatera resultatet i gui:t. Sätt det även i results
-	# Sätt stallning
+setPoints = (trs, index) ->
+	total = 0
+	echo 'longs',longs
+	for r in range settings.ROUNDS
+		ch = longs[index][r][3]
+		value = '012'.indexOf ch
+		if value != -1 then total += value
+
+	_td = trs[index + 1].children[3 + settings.ROUNDS]
+	_td.textContent = (total/2).toFixed 1
+
+setResult = (key, res) -> # Uppdatera results samt gui:t.
 	trs = document.querySelectorAll '#stallning tr'
 
 	[w,b] = rounds[currRound][currTable]
@@ -363,6 +372,9 @@ setResult = (key, res) -> # Uppdatera resultatet i gui:t. Sätt det även i resu
 
 	_td = trs[b + 1].children[3 + currRound].children[1]
 	_td.textContent = "1½0"[res]
+
+	setPoints trs, b
+	setPoints trs, w
 
 	# Sätt tables
 	trs = document.querySelectorAll '#tables tr'
@@ -470,13 +482,18 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 tableCount = -> # Beräkna antal bord
 	(players.length + 1) // 2
 
-updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån results
+updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results
+	echo ''
+	echo 'updateLongsAndShorts:rounds',rounds
+	echo 'updateLongsAndShorts:results',results
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
 		longs.push longForm rounds[r],results[r]
 
 	shorts = longs # _.cloneDeep
 	longs = _.zip ...longs # transponerar matrisen
+	echo 'longs',longs
+	echo 'shorts',shorts
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
 

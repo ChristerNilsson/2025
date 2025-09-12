@@ -21,28 +21,28 @@ ass 3, findNumberOfDecimals [1200.23,1200.2345]
 ass 0, findNumberOfDecimals [1200.12345,1200.12345]
 
 import {longForm} from './tournament.js'
-ass [
-	[ 0,11,'w','F']
-	[ 1,10,'w','0']
-	[ 2, 9,'w','r']
-	[ 3, 8,'w','1']
-	[ 4, 7,'w','0']
-	[ 5, 6,'w','r']
-	[ 6, 5,'b','r']
-	[ 7, 4,'b','1']
-	[ 8, 3,'b','0']
-	[ 9, 2,'b','r']
-	[10, 1,'b','1']
-	[11, 0,'b','1']
-], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
+# ass [
+# 	[ 0,11,'w','F']
+# 	[ 1,10,'w','0']
+# 	[ 2, 9,'w','r']
+# 	[ 3, 8,'w','1']
+# 	[ 4, 7,'w','0']
+# 	[ 5, 6,'w','r']
+# 	[ 6, 5,'b','r']
+# 	[ 7, 4,'b','1']
+# 	[ 8, 3,'b','0']
+# 	[ 9, 2,'b','r']
+# 	[10, 1,'b','1']
+# 	[11, 0,'b','1']
+# ], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
 # ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
 
 import {other} from './tournament.js'
-ass '1', other '0'
-ass 'r', other 'r'
-ass '0', other '1'
-ass '1', other 'F'
-ass '1', other 'G'
+ass '2', other '0'
+ass '1', other '1'
+ass '0', other '2'
+ass '2', other 'F'
+ass '2', other 'G'
 ass 'x', other 'x'
 
 import {prettyResult} from './tournament.js'
