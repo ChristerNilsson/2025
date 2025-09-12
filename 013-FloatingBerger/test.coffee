@@ -8,14 +8,6 @@ ass = (a,b) ->
 	console.assert false # can be used to track the assert
 ass 7, 3 + 4
 
-import {other} from './tournament.js'
-ass '1', other '0'
-ass 'r', other 'r'
-ass '0', other '1'
-ass '1', other 'F'
-ass '1', other 'G'
-ass 'x', other 'x'
-
 import {expand} from './tournament.js'
 ass [[[1,2],[3,4]],[[2,1],[4,3]],[[1,4],[2,3]],[[4,1],[3,2]]], expand [[[1,2],[3,4]], [[1,4],[2,3]]]
 
@@ -44,6 +36,14 @@ ass [
 	[11, 0,'b','1']
 ], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10r"
 # ass [[1,10,"0"], [2,9,"r"], [3,8,"1"], [4,7,"0"], [5,6,"r"], [0,11,"x"]], longForm [[1,10], [2,9], [3,8], [4,7], [5,6], [0,11]], "0r10rx"
+
+import {other} from './tournament.js'
+ass '1', other '0'
+ass 'r', other 'r'
+ass '0', other '1'
+ass '1', other 'F'
+ass '1', other 'G'
+ass 'x', other 'x'
 
 import {prettyResult} from './tournament.js'
 ass "-",     prettyResult 'x'
