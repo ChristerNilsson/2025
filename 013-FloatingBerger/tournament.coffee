@@ -338,36 +338,67 @@ setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på pilt
 		color = if index == currTable + 1 then 'yellow' else 'white'
 		_tr.children[3].style = "background-color:#{color}"
 
-setPoints = (trs, index) ->
-	total = 0
-	echo 'longs',longs
+set_P_PR = (trs, index, translator) ->
+	scores = []
+	elos = []
 	for r in range settings.ROUNDS
 		ch = longs[index][r][3]
 		value = '012'.indexOf ch
-		if value != -1 then total += value
+		if value != -1 
+			opp = longs[index][r][1]
+			elo = players[opp].elo
+			scores.push value
+			elos.push Math.round elo 
 
-	_td = trs[index + 1].children[3 + settings.ROUNDS]
-	_td.textContent = (total/2).toFixed 1
+	echo 'scores',scores,_.sum(scores)/2
+	echo 'elos',elos
+
+	_tdP  = trs[translator[index] + 1].children[3 + settings.ROUNDS]
+	_tdPR = trs[translator[index] + 1].children[4 + settings.ROUNDS]
+
+	_tdP.textContent = (_.sum(scores)/2).toFixed 1
+
+	# kalkylera performance rating mha vinstandel och elo-tal
+	andel = _.sum(scores)/2
+	perf = performance andel, elos
+	echo 'andel',scores,andel,perf
+	_tdPR.textContent = perf.toFixed 3
+
+invert = (lst) ->
+	result = _.clone lst
+	for i in range lst.length
+		item = lst[i]
+		result[item] = i
+	result
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
 	trs = document.querySelectorAll '#stallning tr'
 
+	translator = []
+	for i in range 1, trs.length
+		translator.push Math.round(trs[i].children[0].textContent) - 1
+
+	translator = invert translator
+#	echo 'translator',translator
+
 	[w,b] = rounds[currRound][currTable]
 
+#	echo 'setResult A',results
 	results[currRound][currTable] = res
+#	echo 'setResult B',results
 
 	updateLongsAndShorts()
 
-	echo 'results',results
+#	echo 'results',results
 
-	_td = trs[w + 1].children[3 + currRound].children[1]
+	_td = trs[translator[w] + 1].children[3 + currRound].children[1]
 	_td.textContent = "0½1"[res]
 
-	_td = trs[b + 1].children[3 + currRound].children[1]
+	_td = trs[translator[b] + 1].children[3 + currRound].children[1]
 	_td.textContent = "1½0"[res]
 
-	setPoints trs, b
-	setPoints trs, w
+	set_P_PR trs, b, translator
+	set_P_PR trs, w, translator
 
 	# Sätt tables
 	trs = document.querySelectorAll '#tables tr'
