@@ -31,43 +31,6 @@ shorts = [] # underlag för showTables
 
 ## F U N K T I O N E R ##
 
-# calcPoints = -> # Hämta cellerna från GUI:t
-# 	tbody = document.querySelector '#stallning tbody'
-# 	rader = Array.from tbody.querySelectorAll 'tr'
-
-# 	PS = []
-# 	# PRS = []
-# 	performances = [] 
-
-# 	for rad in rader
-# 		points = 0
-# 		pointsPR = 0
-# 		elos = []
-# 		for i in range settings.GAMES * settings.ROUNDS
-# 			cell = rad.children[3+i]
-# 			opp = cell.children[0].textContent
-# 			val = cell.children[1].textContent
-# 			value = 0
-# 			if val == '½' then value = 0.5
-# 			if val == '1' then value = 1
-# 			points += value
-
-# 			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
-# 				pointsPR += value
-# 				elos.push players[opp-settings.ONE].elo
-
-# 		PS.push points
-# 		# PRS.push pointsPR
-# 		performances.push performance pointsPR, elos
-
-# 	decimals = findNumberOfDecimals performances
-# 	for i in range rader.length
-# 		rad = rader[i]
-# 		rad.children[settings.GAMES * settings.ROUNDS + 3].textContent = PS[i].toFixed 1
-# 		rad.children[settings.GAMES * settings.ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
-
-	# PRS
-
 changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
 	updateLongsAndShorts()
@@ -281,41 +244,14 @@ parseURL = ->
 		rounds.push new Array(n).fill 'x'
 
 	echo 'rounds',rounds
-
 	readResults params
 	echo 'parseURL',results
-
-	# läs in ronderna, r
-	# keys = [...params.keys()]
-	# echo 'params.keys()', keys
-	# for key in keys
-	# 	echo 'key',key
-	# 	if key[0] == 'r'
-	# 		r = Math.round key.slice 1 # hämta rondens nummer
-	# 		echo 'r',r
-	# 		data = safeGet params, key # hämta rondens resultat
-	# 		echo key, data
-	# 		for i in range data.length
-	# 			res = data[i]
-	# 			#rounds[r-1][i] = res
-	# 			results[r-1][i] = res
-
-	# echo settings
 
 export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == 'x' then return "-"
 	if ch == '0' then return "0 - 1"
 	if ch == '1' then return "½ - ½"
 	if ch == '2' then return "1 - 0"
-
-# progress = (points) -> # Visa hur stor andel av partierna som spelats
-# 	antal = 0
-# 	for point in points
-# 		antal += point
-# 	if frirond 
-# 		" • #{antal} av #{settings.GAMES * settings.ROUNDS * (players.length - 2) // 2}"
-# 	else
-# 		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
 
 readResults = (params) -> # Resultaten läses från urlen
 	results = []
@@ -593,8 +529,6 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	createSortEvents()
 	setCursor currRound,currTable
-
-	# PRS = calcPoints()
 
 	document.title = settings.TITLE
 
