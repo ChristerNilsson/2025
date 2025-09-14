@@ -204,7 +204,7 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 	echo 'url',url
 
 parseURL = -> 
-	echo window.location.search
+	#echo window.location.search
 	params = new URLSearchParams window.location.search
 
 	settings.TITLE = safeGet params, "TITLE"
@@ -219,12 +219,12 @@ parseURL = ->
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	i = 0
-	echo ""
+	#echo ""
 	for person in persons
 		i += 1
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
-		echo i, elo,name
+		#echo i, elo,name
 		players.push new Player players.length, name, elo
 
 	if players.length % 2 == 1
@@ -235,7 +235,7 @@ parseURL = ->
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
 
-	echo 'settings', settings
+	#echo 'settings', settings
 
 	# initialisera rounds med 'x' i alla celler
 	n = players.length // 2
@@ -243,9 +243,9 @@ parseURL = ->
 	for i in range settings.GAMES * settings.ROUNDS
 		rounds.push new Array(n).fill 'x'
 
-	echo 'rounds',rounds
+	#echo 'rounds',rounds
 	readResults params
-	echo 'parseURL',results
+	#echo 'parseURL',results
 
 export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == 'x' then return "-"
@@ -261,7 +261,7 @@ readResults = (params) -> # Resultaten läses från urlen
 	
 	for r in range settings.GAMES * settings.ROUNDS
 		result = safeGet params, "r#{r+1}", new Array(n).fill "x"
-		echo 'result',result
+		#echo 'result',result
 		arr = []
 		for ch in result 
 			if ch=='0' then arr.push '0'
@@ -269,7 +269,7 @@ readResults = (params) -> # Resultaten läses från urlen
 			if ch=='2' then arr.push '2'
 			if ch=='x' then arr.push 'x'
 		results.push arr
-		echo 'readResults', results,results.length
+		#echo 'readResults', results,results.length
 
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
@@ -480,17 +480,17 @@ tableCount = -> # Beräkna antal bord
 	(players.length + 1) // 2
 
 updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results
-	echo ''
-	echo 'updateLongsAndShorts:rounds',rounds
-	echo 'updateLongsAndShorts:results',results
+	# echo ''
+	# echo 'updateLongsAndShorts:rounds',rounds
+	# echo 'updateLongsAndShorts:results',results
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
 		longs.push longForm rounds[r],results[r]
 
 	shorts = longs # _.cloneDeep
 	longs = _.zip ...longs # transponerar matrisen
-	echo 'longs',longs
-	echo 'shorts',shorts
+	# echo 'longs',longs
+	# echo 'shorts',shorts
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
 
@@ -516,9 +516,9 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	for i in range settings.ROUNDS
 		results.push Array(tableCount()).fill 'x'
 
-	echo 'results',results
+	#echo 'results',results
 	readResults params
-	echo 'results',results
+	#echo 'results',results
 
 	updateLongsAndShorts()
 	
