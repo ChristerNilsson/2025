@@ -19,8 +19,8 @@ settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1} # ONE = 1 # 0
 
 # Tillståndet ges av dessa fem variabler:
 players = []
-rounds = [] # vem möter vem? [w,b]. T ex [0,9], [1,8] ...]
-results = [] # [[0,1,2,-1,2], [1,2,-1,0,2]] Vitspelarnas resultat i varje rond. -1 <=> x dvs ej spelad
+rounds = []  # vem möter vem? [w,b]. T ex [[0,9], [1,8] ...]
+results = [] # [['0','1','2','x'], ['0','1','2','x'] ...] Vitspelarnas resultat i varje rond.
 currRound = 0
 currTable = 0
 
