@@ -8,3 +8,4 @@ export class Player
 			if ch == 'w' then result += 1
 			if ch == 'b' then result -= 1
 		result
+	toString: -> @elo + ' ' + @name

@@ -135,6 +135,13 @@ export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som kr�
 		if unik.length > best then [best,ibest] = [unik.length,i]
 	ibest
 
+invert = (lst) ->
+	result = _.clone lst
+	for i in range lst.length
+		item = lst[i]
+		result[item] = i
+	result
+
 export longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
 	if rounds.length > results.length #then results += 'F'
 		[w,b] = rounds[0]
@@ -171,9 +178,71 @@ makeFloating = -> # lotta en hel floating-turnering
 	showMatrix floating
 	floating.rounds
 
+makeURL = ->
+	url = "./"
+
+	url += "?TITLE=#{settings.TITLE}"
+	url += "&GAMES=#{settings.GAMES}"
+	url += "&ROUNDS=#{settings.ROUNDS}"
+	url += "&SORT=#{settings.SORT}"
+	url += "&ONE=#{settings.ONE}"
+	url += "&BALANCE=#{settings.BALANCE}"
+
+	for player in players
+		url += "&p=#{player}"
+
+	for r in range rounds.length
+		s = results[r].join ''
+		s = _.trimEnd s, 'x'
+		if s != '' then url += "&r#{r+1}=#{s}"
+
+	url = url.replaceAll ' ', '+'
+	url
+
 export other = (input) -> convert input, "012FG","21022"
 
-parseQuery = -> # parsa hela urlen.
+parseTextarea = -> # läs in initiala uppgifter om spelarna
+	echo 'parseTextArea'
+	raw = document.getElementById "textarea"
+	echo 'textarea',raw.value
+
+	lines = raw.value
+	lines = lines.split "\n"
+
+	rounds = null
+
+	for line in lines 
+		if line.length == 0 or line[0] == '#' then continue
+		if line.includes '='
+			[key, val] = line.split '='
+			key = key.trim()
+			val = val.trim()
+			if key == 'TITLE' then settings.TITLE = val
+			if key == 'GAMES' then settings.GAMES = val
+			if key == 'ROUNDS' then settings.ROUNDS = val
+			if key == 'SORT' then settings.SORT = val
+			if key == 'ONE' then settings.ONE = val
+			if key == 'BALANCE' then settings.BALANCE = val
+			if key[0] == 'r'
+				n = players.length // 2
+				if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
+				rounds[key.slice(1) - 1] = val
+		else
+			players.push line
+
+	echo settings
+	echo window.location.href
+
+	if rounds == null then rounds = []
+
+	url = makeURL()
+
+	players = []
+	rounds = []
+	window.location.href = url
+	echo 'url',url
+
+parseURL = -> 
 	echo window.location.search
 	params = new URLSearchParams window.location.search
 
@@ -204,64 +273,36 @@ parseQuery = -> # parsa hela urlen.
 		frirond = null
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
-	echo settings
 
-parseTextarea = -> # parsa textarean
-	echo 'parseTextArea'
-	raw = document.getElementById "textarea"
-	echo 'textarea',raw.value
+	echo 'settings', settings
 
-	lines = raw.value
-	lines = lines.split "\n"
-
-	rounds = null
-
-	for line in lines 
-		if line == "" then continue
-		if line.includes '='
-			[key, val] = line.split '='
-			key = key.trim()
-			val = val.trim()
-			if key == 'TITLE' then settings.TITLE = val
-			if key == 'GAMES' then settings.GAMES = val
-			if key == 'ROUNDS' then settings.ROUNDS = val
-			if key == 'SORT' then settings.SORT = val
-			if key == 'ONE' then settings.ONE = val
-			if key == 'BALANCE' then settings.BALANCE = val
-			if key[0] == 'r'
-				n = players.length // 2
-				if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
-				rounds[key.slice(1) - 1] = val
-		else
-			players.push line
-
-	echo rounds
-	echo window.location.href
-
-	if rounds == null then rounds = []
-
-	url = "./"
-
-	url += "?TITLE=#{settings.TITLE}"
-	url += "&GAMES=#{settings.GAMES}"
-	url += "&ROUNDS=#{settings.ROUNDS}"
-	url += "&SORT=#{settings.SORT}"
-	url += "&ONE=#{settings.ONE}"
-	url += "&BALANCE=#{settings.BALANCE}"
-
-	for player in players
-		url += "&p=#{player}"
-
-	for r in range rounds.length
-		if '' == rounds[r].replaceAll 'x','' then continue
-		url += "&r#{r+1}=#{rounds[r]}"
-
-	url = url.replaceAll ' ', '+'
-
-	echo url
-	players = []
+	# initialisera rounds med 'x' i alla celler
+	n = players.length // 2
 	rounds = []
-	window.location.href = url
+	for i in range settings.GAMES * settings.ROUNDS
+		rounds.push new Array(n).fill 'x'
+
+	echo 'rounds',rounds
+
+	readResults params
+	echo 'parseURL',results
+
+	# läs in ronderna, r
+	# keys = [...params.keys()]
+	# echo 'params.keys()', keys
+	# for key in keys
+	# 	echo 'key',key
+	# 	if key[0] == 'r'
+	# 		r = Math.round key.slice 1 # hämta rondens nummer
+	# 		echo 'r',r
+	# 		data = safeGet params, key # hämta rondens resultat
+	# 		echo key, data
+	# 		for i in range data.length
+	# 			res = data[i]
+	# 			#rounds[r-1][i] = res
+	# 			results[r-1][i] = res
+
+	# echo settings
 
 export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == 'x' then return "-"
@@ -285,8 +326,16 @@ readResults = (params) -> # Resultaten läses från urlen
 	n //= 2
 	
 	for r in range settings.GAMES * settings.ROUNDS
-		results.push safeGet params, "r#{r+1}", "x".repeat n
-	echo 'readResults', results
+		result = safeGet params, "r#{r+1}", new Array(n).fill "x"
+		echo 'result',result
+		arr = []
+		for ch in result 
+			if ch=='0' then arr.push '0'
+			if ch=='1' then arr.push '1'
+			if ch=='2' then arr.push '2'
+			if ch=='x' then arr.push 'x'
+		results.push arr
+		echo 'readResults', results,results.length
 
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
@@ -298,7 +347,7 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 		opponent = settings.ONE + if w == i then b else w
 		# echo {w,b,color,result,opponent,frirond}
 		if frirond and opponent == frirond + settings.ONE then opponent = 'F'
-		result = convert result, 'x10rFG', ' 10½11'
+		result = convert result, 'x201FG', ' 10½11'
 
 		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = td {style: "position:relative;"},
@@ -350,8 +399,8 @@ set_P_PR = (trs, index, translator) ->
 			scores.push value
 			elos.push Math.round elo 
 
-	echo 'scores',scores,_.sum(scores)/2
-	echo 'elos',elos
+	#echo 'scores',scores,_.sum(scores)/2
+	#echo 'elos',elos
 
 	_tdP  = trs[translator[index] + 1].children[3 + settings.ROUNDS]
 	_tdPR = trs[translator[index] + 1].children[4 + settings.ROUNDS]
@@ -361,15 +410,8 @@ set_P_PR = (trs, index, translator) ->
 	# kalkylera performance rating mha vinstandel och elo-tal
 	andel = _.sum(scores)/2
 	perf = performance andel, elos
-	echo 'andel',scores,andel,perf
+	#echo 'andel',scores,andel,perf
 	_tdPR.textContent = perf.toFixed 3
-
-invert = (lst) ->
-	result = _.clone lst
-	for i in range lst.length
-		item = lst[i]
-		result[item] = i
-	result
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
 	trs = document.querySelectorAll '#stallning tr'
@@ -385,6 +427,11 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 
 #	echo 'setResult A',results
 	results[currRound][currTable] = res
+
+	echo 'results',results
+	url = makeURL()
+	echo 'url', url
+
 #	echo 'setResult B',results
 
 	updateLongsAndShorts()
@@ -411,6 +458,8 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	if success
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
+
+	history.pushState {}, "", url # för att slippa omladdning av sidan
 
 export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 	# The short Form is used to render the table list
@@ -531,7 +580,7 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	document.getElementById("textarea").style = 'display: none'
 	document.getElementById("button").style = 'display: none'
 
-	parseQuery()
+	parseURL()
 
 	if players.length < 4
 		showInfo()
@@ -544,9 +593,7 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		results.push Array(tableCount()).fill 'x'
 
 	echo 'results',results
-	# results = [['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x'],['x','x','x','x']] # todo
-	#	readResults params
-
+	readResults params
 	echo 'results',results
 
 	updateLongsAndShorts()
@@ -562,24 +609,24 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	PRS = calcPoints()
 	document.title = settings.TITLE + progress PRS
 
-document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckningar
+	document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckningar
 
-	if event.key in 'abc' 
-		document.getElementById("stallning").style.display = if event.key in "ac" then "table" else "none"
-		document.getElementById("tables").style.display = if event.key in "bc" then "table" else "none"
-	
-	if event.key == 'ArrowLeft'  then changeRound -1
-	if event.key == 'ArrowRight' then changeRound +1
-	if event.key == 'ArrowUp'    then changeTable -1
-	if event.key == 'ArrowDown'  then changeTable +1
+		if event.key in 'abc' 
+			document.getElementById("stallning").style.display = if event.key in "ac" then "table" else "none"
+			document.getElementById("tables").style.display = if event.key in "bc" then "table" else "none"
+		
+		if event.key == 'ArrowLeft'  then changeRound -1
+		if event.key == 'ArrowRight' then changeRound +1
+		if event.key == 'ArrowUp'    then changeTable -1
+		if event.key == 'ArrowDown'  then changeTable +1
 
-	del = 'Delete'
-	key = event.key
-	if key == del then setResult key, 'x' # "  -  "
-	if key == '0' then setResult key, '0' # "0 - 1"
-	if key == ' ' then setResult key, '1' # "½ - ½"
-	if key == '1' then setResult key, '2' # "1 - 0"
+		del = 'Delete'
+		key = event.key
+		if key == del then setResult key, 'x' # "  -  "
+		if key == '0' then setResult key, '0' # "0 - 1"
+		if key == ' ' then setResult key, '1' # "½ - ½"
+		if key == '1' then setResult key, '2' # "1 - 0"
 
-	setCursor currRound,currTable
+		setCursor currRound,currTable
 
 main()
