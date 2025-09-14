@@ -13,7 +13,7 @@ ALIGN_LEFT   = {style: "text-align:left"}
 ALIGN_CENTER = {style: "text-align:center"}
 ALIGN_RIGHT  = {style: "text-align:right"}
 
-# # variabler # #
+## V A R I A B L E R ##
 
 settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1} # ONE = 1 # 0=dev 1=prod
 
@@ -29,45 +29,44 @@ frirond = null # ingen frirond. Annars index för frironden
 longs = [] # underlag för showPlayers
 shorts = [] # underlag för showTables
 
-# # funktioner i alfabetisk ordning # #
+## F U N K T I O N E R ##
 
-calcPoints = -> # Hämta cellerna från GUI:t
-	tbody = document.querySelector '#stallning tbody'
-	rader = Array.from tbody.querySelectorAll 'tr'
+# calcPoints = -> # Hämta cellerna från GUI:t
+# 	tbody = document.querySelector '#stallning tbody'
+# 	rader = Array.from tbody.querySelectorAll 'tr'
 
-	PS = []
-	PRS = []
-	performances = [] 
+# 	PS = []
+# 	# PRS = []
+# 	performances = [] 
 
-	for rad in rader
-		points = 0
-		pointsPR = 0
-		elos = []
-		for i in range settings.GAMES * settings.ROUNDS
-			cell = rad.children[3+i]
-			opp = cell.children[0].textContent
-			val = cell.children[1].textContent
-			value = 0
-			if val == '½' then value = 0.5
-			if val == '1' then value = 1
-			points += value
+# 	for rad in rader
+# 		points = 0
+# 		pointsPR = 0
+# 		elos = []
+# 		for i in range settings.GAMES * settings.ROUNDS
+# 			cell = rad.children[3+i]
+# 			opp = cell.children[0].textContent
+# 			val = cell.children[1].textContent
+# 			value = 0
+# 			if val == '½' then value = 0.5
+# 			if val == '1' then value = 1
+# 			points += value
 
-			# echo {opp}
-			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
-				pointsPR += value
-				elos.push players[opp-settings.ONE].elo
+# 			if val in '0½1' and opp != 'F' and players[opp-settings.ONE].elo > 0
+# 				pointsPR += value
+# 				elos.push players[opp-settings.ONE].elo
 
-		PS.push points
-		PRS.push pointsPR
-		performances.push performance pointsPR, elos
+# 		PS.push points
+# 		# PRS.push pointsPR
+# 		performances.push performance pointsPR, elos
 
-	decimals = findNumberOfDecimals performances
-	for i in range rader.length
-		rad = rader[i]
-		rad.children[settings.GAMES * settings.ROUNDS + 3].textContent = PS[i].toFixed 1
-		rad.children[settings.GAMES * settings.ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
+# 	decimals = findNumberOfDecimals performances
+# 	for i in range rader.length
+# 		rad = rader[i]
+# 		rad.children[settings.GAMES * settings.ROUNDS + 3].textContent = PS[i].toFixed 1
+# 		rad.children[settings.GAMES * settings.ROUNDS + 4].textContent = if performances[i] > 3999 then "" else performances[i].toFixed decimals
 
-	PRS
+	# PRS
 
 changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
@@ -89,7 +88,6 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 
 	ths = document.querySelectorAll '#stallning th'
 
-	#echo ths
 	index = -1
 	for _th in ths
 		index++
@@ -310,14 +308,14 @@ export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == '1' then return "½ - ½"
 	if ch == '2' then return "1 - 0"
 
-progress = (points) -> # Visa hur stor andel av partierna som spelats
-	antal = 0
-	for point in points
-		antal += point
-	if frirond 
-		" • #{antal} av #{settings.GAMES * settings.ROUNDS * (players.length - 2) // 2}"
-	else
-		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
+# progress = (points) -> # Visa hur stor andel av partierna som spelats
+# 	antal = 0
+# 	for point in points
+# 		antal += point
+# 	if frirond 
+# 		" • #{antal} av #{settings.GAMES * settings.ROUNDS * (players.length - 2) // 2}"
+# 	else
+# 		" • #{antal} av #{settings.GAMES * settings.ROUNDS * players.length / 2}"
 
 readResults = (params) -> # Resultaten läses från urlen
 	results = []
@@ -390,7 +388,7 @@ setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på pilt
 set_P_PR = (trs, index, translator) ->
 	scores = []
 	elos = []
-	for r in range settings.ROUNDS
+	for r in range settings.GAMES * settings.ROUNDS
 		ch = longs[index][r][3]
 		value = '012'.indexOf ch
 		if value != -1 
@@ -399,21 +397,18 @@ set_P_PR = (trs, index, translator) ->
 			scores.push value
 			elos.push Math.round elo 
 
-	#echo 'scores',scores,_.sum(scores)/2
-	#echo 'elos',elos
-
-	_tdP  = trs[translator[index] + 1].children[3 + settings.ROUNDS]
-	_tdPR = trs[translator[index] + 1].children[4 + settings.ROUNDS]
+	_tdP  = trs[translator[index] + 1].children[3 + settings.GAMES * settings.ROUNDS]
+	_tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
 
 	_tdP.textContent = (_.sum(scores)/2).toFixed 1
 
 	# kalkylera performance rating mha vinstandel och elo-tal
 	andel = _.sum(scores)/2
 	perf = performance andel, elos
-	#echo 'andel',scores,andel,perf
 	_tdPR.textContent = perf.toFixed 3
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
+
 	trs = document.querySelectorAll '#stallning tr'
 
 	translator = []
@@ -421,22 +416,15 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		translator.push Math.round(trs[i].children[0].textContent) - 1
 
 	translator = invert translator
-#	echo 'translator',translator
 
 	[w,b] = rounds[currRound][currTable]
-
-#	echo 'setResult A',results
 	results[currRound][currTable] = res
 
-	echo 'results',results
+	one = settings.ONE
+	document.title = "#{currRound+one}:#{currTable+one} #{w+one}-#{b+one} #{settings.TITLE}"
+
 	url = makeURL()
-	echo 'url', url
-
-#	echo 'setResult B',results
-
 	updateLongsAndShorts()
-
-#	echo 'results',results
 
 	_td = trs[translator[w] + 1].children[3 + currRound].children[1]
 	_td.textContent = "0½1"[res]
@@ -606,8 +594,9 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	createSortEvents()
 	setCursor currRound,currTable
 
-	PRS = calcPoints()
-	document.title = settings.TITLE + progress PRS
+	# PRS = calcPoints()
+
+	document.title = settings.TITLE
 
 	document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckningar
 
