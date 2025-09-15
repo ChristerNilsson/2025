@@ -82,15 +82,23 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 				for rad in rader
 					tbody.appendChild rad
 
-export expand = (rounds) -> # make a double round from a single
+export expand = (games, rounds) -> # make a multi round from a single round
 	result = []
-	for round in rounds
-		result.push ([w,b] for [w,b] in round)
-		result.push ([b,w] for [w,b] in round)
-	result
+	if games == 2
+		for round in rounds
+			result.push ([w,b] for [w,b] in round)
+			result.push ([b,w] for [w,b] in round)
+		return result
+	if games == 4
+		for round in rounds
+			result.push ([w,b] for [w,b] in round)
+			result.push ([b,w] for [w,b] in round)
+			result.push ([w,b] for [w,b] in round)
+			result.push ([b,w] for [w,b] in round)
+		return result
+	rounds
 
 export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
-	echo 'lst',lst
 	best = 0
 	for i in range 6
 		unik = _.uniq (item.toFixed(i) for item in lst)
@@ -116,12 +124,9 @@ export longForm = (rounds, results) -> # produces the long form for ONE round (s
 		result.push [b,w,'b',other res]
 
 	result.sort (a,b) -> a[0] - b[0]
-	# echo 'longForm',rounds,results,result
 	result
 
 makeBerger = -> # lotta en hel berger-turnering.
-	echo 'BERGER'
-
 	n = players.length
 	if n % 2 == 1 then n += 1
 	half = n // 2 
@@ -132,7 +137,6 @@ makeBerger = -> # lotta en hel berger-turnering.
 		A.pop()
 		A = A.slice(half).concat A.slice(0,half)
 		A.push n-1
-	echo 'BERGER',rounds
 	rounds
 
 makeFloating = -> # lotta en hel floating-turnering
@@ -164,9 +168,7 @@ makeURL = ->
 export other = (input) -> convert input, "012FG","21022"
 
 parseTextarea = -> # läs in initiala uppgifter om spelarna
-	echo 'parseTextArea'
 	raw = document.getElementById "textarea"
-	echo 'textarea',raw.value
 
 	lines = raw.value
 	lines = lines.split "\n"
@@ -192,9 +194,6 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 		else
 			players.push line
 
-	echo settings
-	echo window.location.href
-
 	if rounds == null then rounds = []
 
 	url = makeURL()
@@ -202,10 +201,8 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 	players = []
 	rounds = []
 	window.location.href = url
-	echo 'url',url
 
 parseURL = -> 
-	#echo window.location.search
 	params = new URLSearchParams window.location.search
 
 	settings.TITLE = safeGet params, "TITLE"
@@ -220,12 +217,10 @@ parseURL = ->
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	i = 0
-	#echo ""
 	for person in persons
 		i += 1
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
-		#echo i, elo,name
 		players.push new Player players.length, name, elo
 
 	if players.length % 2 == 1
@@ -236,17 +231,13 @@ parseURL = ->
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
 
-	#echo 'settings', settings
-
 	# initialisera rounds med 'x' i alla celler
 	n = players.length // 2
 	rounds = []
 	for i in range settings.GAMES * settings.ROUNDS
 		rounds.push new Array(n).fill 'x'
 
-	#echo 'rounds',rounds
 	readResults params
-	#echo 'parseURL',results
 
 export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == 'x' then return "-"
@@ -262,7 +253,6 @@ readResults = (params) -> # Resultaten läses från urlen
 	
 	for r in range settings.GAMES * settings.ROUNDS
 		result = safeGet params, "r#{r+1}", new Array(n).fill "x"
-		#echo 'result',result
 		arr = []
 		for ch in result 
 			if ch=='0' then arr.push '0'
@@ -270,17 +260,14 @@ readResults = (params) -> # Resultaten läses från urlen
 			if ch=='2' then arr.push '2'
 			if ch=='x' then arr.push 'x'
 		results.push arr
-		#echo 'readResults', results,results.length
 
 roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnummer
 
-	# echo {long}
 	ronder = []
 	oppElos = []
 
 	for [w,b,color,result] in long
 		opponent = settings.ONE + if w == i then b else w
-		# echo {w,b,color,result,opponent,frirond}
 		if frirond and opponent == frirond + settings.ONE then opponent = 'F'
 		result = convert result, 'x201FG', ' 10½11'
 
@@ -309,11 +296,6 @@ savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
 
 setAllPR = ->
 	trs = document.querySelectorAll '#stallning tr'
-
-	# translator = []
-	# for i in range 1, trs.length
-	# 	translator.push Math.round(trs[i].children[0].textContent) - 1
-	# translator = invert translator
 	for index in range players.length
 		if players[index].PR > 0
 			_tdPR = trs[index + 1].children[4 + settings.GAMES * settings.ROUNDS]
@@ -334,7 +316,7 @@ setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på pilt
 		color = if index == currTable + 1 then 'yellow' else 'white'
 		_tr.children[3].style = "background-color:#{color}"
 
-set_P = (trs, index, translator) ->
+setP = (trs, index, translator) ->
 	scores = []
 	elos = []
 	for r in range settings.GAMES * settings.ROUNDS
@@ -354,7 +336,7 @@ set_P = (trs, index, translator) ->
 	perf = performance andel, elos
 	players[index].PR = perf
 
-set_PR = (trs, index, translator) ->
+setPR = (trs, index, translator) ->
 	_tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
 	_tdPR.textContent = players[index].PR.toFixed settings.DECIMALS
 
@@ -368,9 +350,6 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	translator = invert translator
 
 	[w,b] = rounds[currRound][currTable]
-	echo "key #{key} res #{res} w #{w} b #{b}"
-	echo "rounds",rounds
-	echo "translator",translator
 	results[currRound][currTable] = res
 
 	one = settings.ONE
@@ -385,11 +364,11 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	_td = trs[translator[b] + 1].children[3 + currRound].children[1]
 	_td.textContent = "1½0"[res]
 
-	set_P trs, b, translator
-	set_P trs, w, translator
+	setP trs, b, translator
+	setP trs, w, translator
 
-	set_PR trs, b, translator
-	set_PR trs, w, translator
+	setPR trs, b, translator
+	setPR trs, w, translator
 
 	# Sätt tables
 	trs = document.querySelectorAll '#tables tr'
@@ -418,12 +397,9 @@ showInfo = -> # Visa helpText på skärmen
 
 showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	if players.length > 20 then return 
-	#echo "" 
 	for i in range players.length
 		line = floating.matrix[i]
 		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
-	#echo 'Summa', floating.summa
-	#echo 'Floating', floating.rounds
 
 showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare)
 
@@ -453,7 +429,6 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 	document.getElementById('stallning').innerHTML = result
 
 showTables = (shorts, selectedRound) -> # Visa bordslistan
-	echo 'showTables',shorts
 	if rounds.length == 0 then return
 
 	rows = ""
@@ -480,7 +455,6 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 			continue
 			hash = {style : "background-color:red"}
 			# hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
-			echo hash 
 		rows += tr hash,
 			td {}, bord + settings.ONE
 			td ALIGN_LEFT, vit
@@ -531,19 +505,13 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		return
 
 	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFloating()
-	if settings.GAMES == 2 then rounds = expand rounds
+	rounds = expand settings.GAMES, rounds
 
 	for i in range settings.ROUNDS
 		results.push Array(tableCount()).fill 'x'
 
-	#echo 'results',results
 	readResults params
-	#echo 'results',results
-
 	updateLongsAndShorts()
-	
-	echo {longs}
-
 	showPlayers longs
 	showTables shorts, 0
 
@@ -570,10 +538,10 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		if key == ' ' then setResult key, '1' # "½ - ½"
 		if key == '1' then setResult key, '2' # "1 - 0"
 
-		if key == '+' and settings.DECIMALS < 6 
+		if key == 'm' and settings.DECIMALS < 6 
 			settings.DECIMALS += 1
 			setAllPR()
-		if key == '-' and settings.DECIMALS > 0
+		if key == 'l' and settings.DECIMALS > 0
 			settings.DECIMALS -= 1
 			setAllPR()
 
