@@ -31,6 +31,16 @@ shorts = [] # underlag för showTables
 
 ## F U N K T I O N E R ##
 
+addTable = (bord,res,c0,c1) ->
+	vit = players[c0].name
+	svart = players[c1].name
+	hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
+	tr hash,
+		td {}, bord + settings.ONE
+		td ALIGN_LEFT, vit
+		td ALIGN_LEFT, svart
+		td ALIGN_CENTER, prettyResult res # prettify
+
 changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
 	# updateLongsAndShorts()
@@ -88,21 +98,10 @@ export expand = (games, rounds) -> # make a multi round from a single round
 	if games == 1
 		for round in rounds
 			result.push ([w,b] for [w,b] in round)
-		echo 'result1',result
 		return result
 
 	if games == 2
 		for round in rounds
-			echo 'round',round
-			result.push ([w,b] for [w,b] in round)
-			result.push ([b,w] for [w,b] in round)
-		echo 'result2',result
-		return result
-
-	if games == 4
-		for round in rounds
-			result.push ([w,b] for [w,b] in round)
-			result.push ([b,w] for [w,b] in round)
 			result.push ([w,b] for [w,b] in round)
 			result.push ([b,w] for [w,b] in round)
 		return result
@@ -439,16 +438,6 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 			rows.join ""
 
 	document.getElementById('stallning').innerHTML = result
-
-addTable = (bord,res,c0,c1) ->
-	vit = players[c0].name
-	svart = players[c1].name
-	hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
-	tr hash,
-		td {}, bord + settings.ONE
-		td ALIGN_LEFT, vit
-		td ALIGN_LEFT, svart
-		td ALIGN_CENTER, prettyResult res # prettify
 
 showTables = (shorts, selectedRound) -> # Visa bordslistan
 	if rounds.length == 0 then return
