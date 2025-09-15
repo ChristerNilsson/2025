@@ -382,7 +382,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	#history.pushState {}, "", url # för att slippa omladdning av sidan
+	history.pushState {}, "", url # för att slippa omladdning av sidan
 
 export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 	# The short Form is used to render the table list
