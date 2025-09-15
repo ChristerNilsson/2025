@@ -15,7 +15,7 @@ ALIGN_RIGHT  = {style: "text-align:right"}
 
 ## V A R I A B L E R ##
 
-settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1} # ONE = 1 # 0=dev 1=prod
+settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1, DECIMALS:0} # ONE = 1 # 0=dev 1=prod
 
 # Tillståndet ges av dessa fem variabler:
 players = []
@@ -307,6 +307,18 @@ savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
 	if frirond then lst.push lst.shift()
 	lst.sort()
 
+setAllPR = ->
+	trs = document.querySelectorAll '#stallning tr'
+
+	# translator = []
+	# for i in range 1, trs.length
+	# 	translator.push Math.round(trs[i].children[0].textContent) - 1
+	# translator = invert translator
+	for index in range players.length
+		if players[index].PR > 0
+			_tdPR = trs[index + 1].children[4 + settings.GAMES * settings.ROUNDS]
+			_tdPR.textContent = players[index].PR.toFixed settings.DECIMALS
+
 setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 	ths = document.querySelectorAll '#stallning th'
 	index = -1
@@ -344,7 +356,7 @@ set_P = (trs, index, translator) ->
 
 set_PR = (trs, index, translator) ->
 	_tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
-	_tdPR.textContent = players[index].PR.toFixed 3
+	_tdPR.textContent = players[index].PR.toFixed settings.DECIMALS
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
 
@@ -375,8 +387,6 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 
 	set_P trs, b, translator
 	set_P trs, w, translator
-
-	# numberOfDecimals = findNumberOfDecimals (player.PR for player in players when player.PR > 0)
 
 	set_PR trs, b, translator
 	set_PR trs, w, translator
@@ -559,6 +569,13 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		if key == '0' then setResult key, '0' # "0 - 1"
 		if key == ' ' then setResult key, '1' # "½ - ½"
 		if key == '1' then setResult key, '2' # "1 - 0"
+
+		if key == '+' and settings.DECIMALS < 6 
+			settings.DECIMALS += 1
+			setAllPR()
+		if key == '-' and settings.DECIMALS > 0
+			settings.DECIMALS -= 1
+			setAllPR()
 
 		setCursor currRound,currTable
 
