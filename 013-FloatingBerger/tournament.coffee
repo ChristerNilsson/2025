@@ -84,11 +84,21 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 
 export expand = (games, rounds) -> # make a multi round from a single round
 	result = []
-	if games == 2
+
+	if games == 1
 		for round in rounds
 			result.push ([w,b] for [w,b] in round)
-			result.push ([b,w] for [w,b] in round)
+		echo 'result1',result
 		return result
+
+	if games == 2
+		for round in rounds
+			echo 'round',round
+			result.push ([w,b] for [w,b] in round)
+			result.push ([b,w] for [w,b] in round)
+		echo 'result2',result
+		return result
+
 	if games == 4
 		for round in rounds
 			result.push ([w,b] for [w,b] in round)
@@ -96,7 +106,6 @@ export expand = (games, rounds) -> # make a multi round from a single round
 			result.push ([w,b] for [w,b] in round)
 			result.push ([b,w] for [w,b] in round)
 		return result
-	rounds
 
 export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
 	best = 0
@@ -194,6 +203,12 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 		else
 			players.push line
 
+	if players.length % 2 == 1
+		players.push '0000 FRIROND'
+		frirond = players.length - 1
+	else
+		frirond = null
+
 	if rounds == null then rounds = []
 
 	url = makeURL()
@@ -222,12 +237,6 @@ parseURL = ->
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
 		players.push new Player players.length, name, elo
-
-	if players.length % 2 == 1
-		players.push new Player players.length, 'FRIROND', 0
-		frirond = players.length - 1
-	else
-		frirond = null
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
 
@@ -317,22 +326,25 @@ setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på pilt
 		_tr.children[3].style = "background-color:#{color}"
 
 setP = (trs, index, translator) ->
-	scores = []
+	scoresP = 0
+	scoresPR = 0
 	elos = []
 	for r in range settings.GAMES * settings.ROUNDS
 		ch = longs[index][r][3]
 		value = '012'.indexOf ch
+		opp = longs[index][r][1]
 		if value != -1 
-			opp = longs[index][r][1]
 			elo = players[opp].elo
-			scores.push value
-			elos.push Math.round elo 
+			scoresP += value
+			if elo != 0
+				scoresPR += value
+				elos.push Math.round elo 
 
 	_tdP  = trs[translator[index] + 1].children[3 + settings.GAMES * settings.ROUNDS]
-	_tdP.textContent = (_.sum(scores)/2).toFixed 1
+	_tdP.textContent = (scoresP/2).toFixed 1
 
 	# kalkylera performance rating mha vinstandel och elo-tal
-	andel = _.sum(scores)/2
+	andel = scoresPR/2
 	perf = performance andel, elos
 	players[index].PR = perf
 
@@ -358,10 +370,10 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	url = makeURL()
 	updateLongsAndShorts()
 
-	_td = trs[translator[w] + 1].children[3 + currRound].children[1]
+	_td = trs[translator[w] + one].children[3 + currRound].children[1]
 	_td.textContent = "0½1"[res]
 
-	_td = trs[translator[b] + 1].children[3 + currRound].children[1]
+	_td = trs[translator[b] + one].children[3 + currRound].children[1]
 	_td.textContent = "1½0"[res]
 
 	setP trs, b, translator
@@ -382,14 +394,14 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	history.pushState {}, "", url # för att slippa omladdning av sidan
+	#history.pushState {}, "", url # för att slippa omladdning av sidan
 
-export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
-	# The short Form is used to render the table list
-	# rounds: produced by makeBerger and makeFloating
-	# results: produced by the human
-	if rounds.length > results.length then results += 'F'
-	rounds[i].concat results[i] for i in range results.length
+# export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
+# 	# The short Form is used to render the table list
+# 	# rounds: produced by makeBerger and makeFloating
+# 	# results: produced by the human
+# 	if rounds.length > results.length then results += 'F'
+# 	rounds[i].concat results[i] for i in range results.length
 
 showInfo = -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},
@@ -407,7 +419,7 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 
 	for long, i in longs
 		player = players[i]
-		if player.name == 'FRIROND' then continue
+		#if player.name == 'FRIROND' then continue
 		rows.push tr {},
 			td {}, i + settings.ONE
 			td ALIGN_LEFT, player.name
@@ -428,6 +440,16 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 
 	document.getElementById('stallning').innerHTML = result
 
+addTable = (bord,res,c0,c1) ->
+	vit = players[c0].name
+	svart = players[c1].name
+	hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
+	tr hash,
+		td {}, bord + settings.ONE
+		td ALIGN_LEFT, vit
+		td ALIGN_LEFT, svart
+		td ALIGN_CENTER, prettyResult res # prettify
+
 showTables = (shorts, selectedRound) -> # Visa bordslistan
 	if rounds.length == 0 then return
 
@@ -437,30 +459,18 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 	for short in shorts[selectedRound]
 		[w, b, color, res] = short
-		if selectedRound % 2 == 0 and color == 'b' then continue
-		if selectedRound % 2 == 1 and color == 'w' then continue
 
-		if color == 'w' 
-			vit = players[w].name
-			svart = players[b].name
-		else
-			vit = players[b].name
-			svart = players[w].name
+		if settings.GAMES == 1
+			if color == 'w'
+				rows += addTable bord,res,w,b
+				bord++
 
-		if vit == 'FRIROND'
-			message = " • #{svart} har frirond"
-			continue
-		if svart == 'FRIROND'
-			message = " • #{vit} har frirond"
-			continue
-			hash = {style : "background-color:red"}
-			# hash = {style : "background-color:#{bord == currTable ? 'yellow' : 'white'}" }
-		rows += tr hash,
-			td {}, bord + settings.ONE
-			td ALIGN_LEFT, vit
-			td ALIGN_LEFT, svart
-			td ALIGN_CENTER, prettyResult res # prettify
-		bord++
+		if settings.GAMES == 2
+			if color == 'w' and selectedRound % 2 == 0 
+				rows += addTable bord,res,w,b
+			else if color == 'b' and selectedRound % 2 == 1
+				rows += addTable bord,res,b,w
+			bord++
 
 	result = div {},
 		h2 {}, "Bordslista för rond #{selectedRound + settings.ONE}"
@@ -477,7 +487,7 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 	document.getElementById('tables').innerHTML = result
 
 tableCount = -> # Beräkna antal bord
-	(players.length + 1) // 2
+	players.length // 2
 
 updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results
 	longs = [] # innehåller alla ronderna
@@ -491,7 +501,11 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	params = new URLSearchParams window.location.search
 
 	if params.size == 0 
-		document.getElementById("button").addEventListener "click", parseTextarea 
+		document.getElementById("button").addEventListener "click", parseTextarea
+
+		if players.length % 2 == 1 
+			players.push '0000 FRIROND'
+
 		showInfo()
 		return
 
@@ -544,6 +558,16 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		if key == 'l' and settings.DECIMALS > 0
 			settings.DECIMALS -= 1
 			setAllPR()
+
+		if key == 'd'
+			echo 'Dump:'
+			echo '  settings',settings
+			echo '  href',window.location.href
+			echo '  players',players
+			echo '  rounds',rounds
+			echo '  results', results
+			echo '  longs',longs
+			echo '  shorts',shorts
 
 		setCursor currRound,currTable
 
