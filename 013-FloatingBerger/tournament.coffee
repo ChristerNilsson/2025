@@ -350,10 +350,12 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	translator = []
 	for i in range 1, trs.length
 		translator.push Math.round(trs[i].children[0].textContent) - 1
-
 	translator = invert translator
 
 	[w,b] = rounds[currRound][currTable]
+	echo "key #{key} res #{res} w #{w} b #{b}"
+	echo "rounds",rounds
+	echo "translator",translator
 	results[currRound][currTable] = res
 
 	one = settings.ONE
@@ -383,7 +385,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	history.pushState {}, "", url # för att slippa omladdning av sidan
+	#history.pushState {}, "", url # för att slippa omladdning av sidan
 
 export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 	# The short Form is used to render the table list
@@ -398,12 +400,12 @@ showInfo = -> # Visa helpText på skärmen
 
 showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	if players.length > 20 then return 
-	echo "" 
+	#echo "" 
 	for i in range players.length
 		line = floating.matrix[i]
 		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
-	echo 'Summa', floating.summa
-	echo 'Floating', floating.rounds
+	#echo 'Summa', floating.summa
+	#echo 'Floating', floating.rounds
 
 showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare)
 

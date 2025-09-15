@@ -7,15 +7,15 @@ export class Floating
 	constructor : (@players, @settings) ->
 		@N = @players.length
 		if @settings.sort==1 then @players.sort (a,b) -> a.elo - b.elo
-		echo @players
+		#echo @players
 		@matrix = (("•" for i in range @N) for j in range @N)
-		echo @matrix
+		#echo @matrix
 		@summa = 0
 		@rounds = []
 
 		for r in range @settings.ROUNDS
 			edges = @makeEdges()
-			echo 'edges',edges
+			#echo 'edges',edges
 			edmonds = new Edmonds edges
 			magic = edmonds.maxWeightMatching edges
 			#echo 'magic',magic
@@ -45,14 +45,14 @@ export class Floating
 
 	updatePlayers : (magic,r) -> 
 		tables = []
-		echo 'matrix',@matrix
+		#echo 'matrix',@matrix
 		for id in magic
 			i = id
 			j = magic[id]
 			if i == @matrix.length or j == @matrix[0].length then continue
 			@matrix[i][j] = "#{r + @settings.ONE}"
 			if i > j then continue
-			echo i + @settings.ONE, j + @settings.ONE, Math.abs @players[i].elo - @players[j].elo
+			#echo i + @settings.ONE, j + @settings.ONE, Math.abs @players[i].elo - @players[j].elo
 			@summa += Math.abs @players[i].elo - @players[j].elo
 			a = @players[i]
 			b = @players[j]
