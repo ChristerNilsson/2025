@@ -39,6 +39,9 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * uppåtpil   • förra bordet
 * högerpil   • nästa rond
 * vänsterpil • förra ronden
+
+* m • PR: fler decimaler 
+* l • PR: färre decimaler
 <h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka eller skicka ett mail.
 
 <h3>URL</h3>

@@ -455,7 +455,6 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 	rows = ""
 	bord = 0
-	message = ""
 
 	for short in shorts[selectedRound]
 		[w, b, color, res] = short
@@ -468,9 +467,10 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 		if settings.GAMES == 2
 			if color == 'w' and selectedRound % 2 == 0 
 				rows += addTable bord,res,w,b
+				bord++
 			else if color == 'b' and selectedRound % 2 == 1
 				rows += addTable bord,res,b,w
-			bord++
+				bord++
 
 	result = div {},
 		h2 {}, "Bordslista för rond #{selectedRound + settings.ONE}"
@@ -482,7 +482,7 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 				th {}, "Resultat" 
 			rows
 
-	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'Floating'} #{message}"
+	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'Floating'}"
 
 	document.getElementById('tables').innerHTML = result
 
