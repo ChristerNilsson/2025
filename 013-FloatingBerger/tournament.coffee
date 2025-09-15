@@ -335,15 +335,12 @@ set_P = (trs, index, translator) ->
 			elos.push Math.round elo 
 
 	_tdP  = trs[translator[index] + 1].children[3 + settings.GAMES * settings.ROUNDS]
-	# _tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
-
 	_tdP.textContent = (_.sum(scores)/2).toFixed 1
 
 	# kalkylera performance rating mha vinstandel och elo-tal
 	andel = _.sum(scores)/2
 	perf = performance andel, elos
 	players[index].PR = perf
-	# _tdPR.textContent = perf.toFixed 3
 
 set_PR = (trs, index, translator) ->
 	_tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
@@ -379,9 +376,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	set_P trs, b, translator
 	set_P trs, w, translator
 
-	# echo 'players',players
-	# xxx = findNumberOfDecimals (player.PR for player in players when player.PR > 0)
-	# echo 'xxx',xxx
+	# numberOfDecimals = findNumberOfDecimals (player.PR for player in players when player.PR > 0)
 
 	set_PR trs, b, translator
 	set_PR trs, w, translator
