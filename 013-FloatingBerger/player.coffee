@@ -1,5 +1,5 @@
 export class Player
-	constructor : (@id, @name, @elo) ->
+	constructor : (@id, @name, @elo, @PR=0) ->
 		@opp = []
 		@col = ""
 	balans : ->

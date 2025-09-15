@@ -90,6 +90,7 @@ export expand = (rounds) -> # make a double round from a single
 	result
 
 export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
+	echo 'lst',lst
 	best = 0
 	for i in range 6
 		unik = _.uniq (item.toFixed(i) for item in lst)
@@ -321,7 +322,7 @@ setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på pilt
 		color = if index == currTable + 1 then 'yellow' else 'white'
 		_tr.children[3].style = "background-color:#{color}"
 
-set_P_PR = (trs, index, translator) ->
+set_P = (trs, index, translator) ->
 	scores = []
 	elos = []
 	for r in range settings.GAMES * settings.ROUNDS
@@ -334,14 +335,19 @@ set_P_PR = (trs, index, translator) ->
 			elos.push Math.round elo 
 
 	_tdP  = trs[translator[index] + 1].children[3 + settings.GAMES * settings.ROUNDS]
-	_tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
+	# _tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
 
 	_tdP.textContent = (_.sum(scores)/2).toFixed 1
 
 	# kalkylera performance rating mha vinstandel och elo-tal
 	andel = _.sum(scores)/2
 	perf = performance andel, elos
-	_tdPR.textContent = perf.toFixed 3
+	players[index].PR = perf
+	# _tdPR.textContent = perf.toFixed 3
+
+set_PR = (trs, index, translator) ->
+	_tdPR = trs[translator[index] + 1].children[4 + settings.GAMES * settings.ROUNDS]
+	_tdPR.textContent = players[index].PR.toFixed 3
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
 
@@ -370,8 +376,15 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	_td = trs[translator[b] + 1].children[3 + currRound].children[1]
 	_td.textContent = "1½0"[res]
 
-	set_P_PR trs, b, translator
-	set_P_PR trs, w, translator
+	set_P trs, b, translator
+	set_P trs, w, translator
+
+	# echo 'players',players
+	# xxx = findNumberOfDecimals (player.PR for player in players when player.PR > 0)
+	# echo 'xxx',xxx
+
+	set_PR trs, b, translator
+	set_PR trs, w, translator
 
 	# Sätt tables
 	trs = document.querySelectorAll '#tables tr'
