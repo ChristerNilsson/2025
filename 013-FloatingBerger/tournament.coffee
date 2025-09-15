@@ -33,7 +33,7 @@ shorts = [] # underlag för showTables
 
 changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
-	updateLongsAndShorts()
+	# updateLongsAndShorts()
 	showTables shorts, currRound
 
 changeTable = (delta) -> # byt bord
@@ -435,6 +435,7 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 	document.getElementById('stallning').innerHTML = result
 
 showTables = (shorts, selectedRound) -> # Visa bordslistan
+	echo 'showTables',shorts
 	if rounds.length == 0 then return
 
 	rows = ""
@@ -443,10 +444,15 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 	for short in shorts[selectedRound]
 		[w, b, color, res] = short
-		if color == 'b' then continue
+		if selectedRound % 2 == 0 and color == 'b' then continue
+		if selectedRound % 2 == 1 and color == 'w' then continue
 
-		vit = players[w].name
-		svart = players[b].name
+		if color == 'w' 
+			vit = players[w].name
+			svart = players[b].name
+		else
+			vit = players[b].name
+			svart = players[w].name
 
 		if vit == 'FRIROND'
 			message = " • #{svart} har frirond"
@@ -482,17 +488,11 @@ tableCount = -> # Beräkna antal bord
 	(players.length + 1) // 2
 
 updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results
-	# echo ''
-	# echo 'updateLongsAndShorts:rounds',rounds
-	# echo 'updateLongsAndShorts:results',results
 	longs = [] # innehåller alla ronderna
 	for r in range rounds.length
 		longs.push longForm rounds[r],results[r]
-
-	shorts = longs # _.cloneDeep
+	shorts = longs
 	longs = _.zip ...longs # transponerar matrisen
-	# echo 'longs',longs
-	# echo 'shorts',shorts
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
 
