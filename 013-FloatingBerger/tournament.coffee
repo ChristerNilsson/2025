@@ -133,7 +133,6 @@ export longForm = (rounds, results) -> # produces the long form for ONE round (s
 
 makeBerger = -> # lotta en hel berger-turnering.
 	n = players.length
-	# bye = players[n-1].name == 'FRIROND'
 	half = n // 2 
 	A = [0...n]
 	rounds = []
@@ -142,12 +141,6 @@ makeBerger = -> # lotta en hel berger-turnering.
 		A.pop()
 		A = A.slice(half).concat A.slice(0,half)
 		A.push n-1
-
-	# round = rounds[currRound]
-	# first = round[0]
-	# if bye and (first[0]==n-1 or first[1]==n-1) then rounds[currRound] = _.reverse rounds[currRound]
-	# echo rounds
-
 	rounds
 
 makeFloating = -> # lotta en hel floating-turnering
