@@ -100,6 +100,7 @@ export expand = (games, rounds) -> # make a double round from a single round
 	for round in rounds
 		result.push ([w,b] for [w,b] in round)
 		if games == 2 then result.push ([b,w] for [w,b] in round)
+	echo players
 	return result
 
 export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
@@ -132,7 +133,7 @@ export longForm = (rounds, results) -> # produces the long form for ONE round (s
 
 makeBerger = -> # lotta en hel berger-turnering.
 	n = players.length
-	if n % 2 == 1 then n += 1
+	# bye = players[n-1].name == 'FRIROND'
 	half = n // 2 
 	A = [0...n]
 	rounds = []
@@ -141,6 +142,12 @@ makeBerger = -> # lotta en hel berger-turnering.
 		A.pop()
 		A = A.slice(half).concat A.slice(0,half)
 		A.push n-1
+
+	# round = rounds[currRound]
+	# first = round[0]
+	# if bye and (first[0]==n-1 or first[1]==n-1) then rounds[currRound] = _.reverse rounds[currRound]
+	# echo rounds
+
 	rounds
 
 makeFloating = -> # lotta en hel floating-turnering
@@ -442,7 +449,7 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 	# G2: w b w b osv
 	if rounds.length == 0 then return
 
-	rows = ""
+	rows = []
 	bord = 0
 
 	for short in shorts[selectedRound]
@@ -450,16 +457,20 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 		if settings.GAMES == 1
 			if color == 'w'
-				rows += addTable bord,res,w,b
+				t = addTable bord,res,w,b
+				rows.push t 
 				bord++
 
 		if settings.GAMES == 2
 			if color == 'w' and selectedRound % 2 == 0 
-				rows += addTable bord,res,w,b
+				rows.push addTable rows.length,res,w,b
 				bord++
 			else if color == 'b' and selectedRound % 2 == 1
-				rows += addTable bord,res,b,w
+				rows.push addTable rows.length,res,b,w
 				bord++
+
+	# echo shorts[selectedRound]
+	# if _.last(players).name == 'FRIROND' then rows = _.reverse rows
 
 	result = div {},
 		h2 {}, "Bordslista för rond #{selectedRound + settings.ONE}"
@@ -469,7 +480,7 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 				th {}, "Vit"
 				th {}, "Svart"
 				th {}, "Resultat" 
-			rows
+			rows.join ""
 
 	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'Floating'}"
 
@@ -478,10 +489,17 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 tableCount = -> # Beräkna antal bord
 	players.length // 2
 
-updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results
-	longs = [] # innehåller alla ronderna
-	for r in range rounds.length
-		longs.push longForm rounds[r],results[r]
+# sinkFrirond = (shorts) ->
+# 	newShorts = []
+# 	for short in shorts
+# 		newShort = []
+# 		for meeting in short
+# 			if meeting[0]==7 or meeting[1]==7 then newShort.unshift meeting else newShort.push meeting
+# 		newShorts.push newShort
+# 	newShorts
+
+updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results	
+	longs = (longForm rounds[r],results[r] for r in range rounds.length)
 	shorts = longs
 	longs = _.zip ...longs # transponerar matrisen
 
