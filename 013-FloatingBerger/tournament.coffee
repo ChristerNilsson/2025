@@ -13,6 +13,8 @@ ALIGN_LEFT   = {style: "text-align:left"}
 ALIGN_CENTER = {style: "text-align:center"}
 ALIGN_RIGHT  = {style: "text-align:right"}
 
+ALFABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+
 ## V A R I A B L E R ##
 
 settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1, DECIMALS:0} # ONE = 1 # 0=dev 1=prod
@@ -57,6 +59,26 @@ convertLong = (input,a,b) -> # byt alla tecken i input som finns i a mot sträng
 	b = b.split '|'
 	if input in a then b[i] else input
 
+sorteraKolumn = (index,stigande)->
+	tbody = document.querySelector '#stallning tbody'
+	rader = Array.from tbody.querySelectorAll 'tr'
+
+	rader.sort (a, b) ->
+		cellA = a.children[index].textContent.trim()
+		cellB = b.children[index].textContent.trim()
+
+		# Försök jämföra som tal, annars som text
+		numA = parseFloat cellA
+		numB = parseFloat cellB
+		if !isNaN(numA) and !isNaN(numB)
+			return if stigande then numA - numB else numB - numA
+		else
+			return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
+
+	# Lägg tillbaka raderna i sorterad ordning
+	for rad in rader
+		tbody.appendChild rad
+
 createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man klickar på. # Namn Elo P eller PR
 
 	ths = document.querySelectorAll '#stallning th'
@@ -71,40 +93,14 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 					key = parseInt(key) - settings.ONE
 					showTables shorts, key
 					return
+				sorteraKolumn index, key in "# Namn".split ' '
 
-				tbody = document.querySelector '#stallning tbody'
-				rader = Array.from tbody.querySelectorAll 'tr'
-				stigande = key in "# Namn".split ' '
-
-				rader.sort (a, b) ->
-					cellA = a.children[index].textContent.trim()
-					cellB = b.children[index].textContent.trim()
-
-					# Försök jämföra som tal, annars som text
-					numA = parseFloat cellA
-					numB = parseFloat cellB
-					if !isNaN(numA) and !isNaN(numB)
-						return if stigande then numA - numB else numB - numA
-					else
-						return if stigande then cellA.localeCompare cellB else cellB.localeCompare cellA
-
-				# Lägg tillbaka raderna i sorterad ordning
-				for rad in rader
-					tbody.appendChild rad
-
-export expand = (games, rounds) -> # make a multi round from a single round
+export expand = (games, rounds) -> # make a double round from a single round
 	result = []
-
-	if games == 1
-		for round in rounds
-			result.push ([w,b] for [w,b] in round)
-		return result
-
-	if games == 2
-		for round in rounds
-			result.push ([w,b] for [w,b] in round)
-			result.push ([b,w] for [w,b] in round)
-		return result
+	for round in rounds
+		result.push ([w,b] for [w,b] in round)
+		if games == 2 then result.push ([b,w] for [w,b] in round)
+	return result
 
 export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
 	best = 0
@@ -393,7 +389,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	#history.pushState {}, "", url # för att slippa omladdning av sidan
+	history.pushState {}, "", url # för att slippa omladdning av sidan
 
 # export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 # 	# The short Form is used to render the table list
@@ -407,10 +403,12 @@ showInfo = -> # Visa helpText på skärmen
 		div {class:"help"}, pre {}, helpText
 
 showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
-	if players.length > 20 then return 
-	for i in range players.length
-		line = floating.matrix[i]
-		echo (i + settings.ONE) % 10 + '   ' + line.join('   ') + '  ' + players[i].elo
+	n = players.length
+	if n > ALFABET.length then n = ALFABET.length
+	echo '    ' + (ALFABET[i] for i in range n).join '   '
+	for i in range n
+		line = floating.matrix[i].slice 0,n
+		echo ALFABET[i] + '   ' + line.join('   ') + '  ' + players[i].elo
 
 showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare)
 
@@ -440,6 +438,8 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 	document.getElementById('stallning').innerHTML = result
 
 showTables = (shorts, selectedRound) -> # Visa bordslistan
+	# G1: Filtrera fram vitspelarna. De sätter bordsordningen mha rounds
+	# G2: w b w b osv
 	if rounds.length == 0 then return
 
 	rows = ""
@@ -486,6 +486,8 @@ updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och resu
 	longs = _.zip ...longs # transponerar matrisen
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
+
+	start = new Date()
 
 	params = new URLSearchParams window.location.search
 
@@ -558,6 +560,15 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 			echo '  longs',longs
 			echo '  shorts',shorts
 
+		gxr = settings.GAMES * settings.ROUNDS
+
+		if key == '#' then sorteraKolumn 0,    true
+		if key == 'n' then sorteraKolumn 1,    true
+		if key == 'e' then sorteraKolumn 2,    false
+		if key == 'p' then sorteraKolumn 3+gxr,false
+		if key == 'r' then sorteraKolumn 4+gxr,false
+
 		setCursor currRound,currTable
+	echo 'cpu',new Date - start
 
 main()

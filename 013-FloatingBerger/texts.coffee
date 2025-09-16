@@ -40,6 +40,15 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * högerpil   • nästa rond
 * vänsterpil • förra ronden
 
+Sortering:
+Klicka på ett kolumnhuvud eller tryck på ett tecken
+
+* # • spelarens id
+* n • Namn
+* e • Elo
+* p • P
+* r • PR
+
 * m • PR: fler decimaler 
 * l • PR: färre decimaler
 <h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka eller skicka ett mail.

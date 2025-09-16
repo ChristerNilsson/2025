@@ -7,9 +7,7 @@ export class Floating
 	constructor : (@players, @settings) ->
 		@N = @players.length
 		if @settings.sort==1 then @players.sort (a,b) -> a.elo - b.elo
-		#echo @players
 		@matrix = (("•" for i in range @N) for j in range @N)
-		#echo @matrix
 		@summa = 0
 		@rounds = []
 
@@ -50,7 +48,7 @@ export class Floating
 			i = id
 			j = magic[id]
 			if i == @matrix.length or j == @matrix[0].length then continue
-			@matrix[i][j] = "#{r + @settings.ONE}"
+			@matrix[i][j] = "#{'123456789abcdefgh'[r]}"
 			if i > j then continue
 			#echo i + @settings.ONE, j + @settings.ONE, Math.abs @players[i].elo - @players[j].elo
 			@summa += Math.abs @players[i].elo - @players[j].elo
