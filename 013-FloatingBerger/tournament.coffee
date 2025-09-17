@@ -370,6 +370,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	translator = invert translator
 
 	[w,b] = rounds[currRound][currTable]
+	if frirond and (w==frirond or b==frirond) then return
 	results[currRound][currTable] = res
 
 	one = settings.ONE
