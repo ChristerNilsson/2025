@@ -120,7 +120,7 @@ invert = (lst) ->
 export longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
 	if rounds.length > results.length #then results += 'F'
 		[w,b] = rounds[0]
-		if w==frirond or b==frirond then results.unshift 'F' else results.push 'F'
+		if w==frirond or b==frirond then results.unshift '2' else results.push '2'
 		echo 'longForm',results.toString()
 	result = []
 	for i in range rounds.length
@@ -283,10 +283,7 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 
 	for [w,b,color,result] in long
 		opponent = settings.ONE + if w == i then b else w
-		# if frirond and opponent == frirond + settings.ONE then opponent = 'F'
-		echo 'resultA',result.toString()
 		result = convert result, 'x201FG', ' 10½11'
-		echo 'resultB',result.toString()
 
 		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = td {style: "position:relative;"},
@@ -464,6 +461,7 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 		if settings.GAMES == 1
 			if color == 'w'
+			
 				if frirond and w == frirond 
 					rows.push addTable bord,'0',w,b
 				else if frirond and b == frirond 
@@ -494,34 +492,24 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 	document.getElementById('tables').innerHTML = result
 
-tableCount = -> # Beräkna antal bord
-	players.length // 2
-
-# sinkFrirond = (shorts) ->
-# 	newShorts = []
-# 	for short in shorts
-# 		newShort = []
-# 		for meeting in short
-# 			if meeting[0]==7 or meeting[1]==7 then newShort.unshift meeting else newShort.push meeting
-# 		newShorts.push newShort
-# 	newShorts
+tableCount = -> players.length // 2 # Beräkna antal bord
 
 updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results	
 	longs = (longForm rounds[r],results[r] for r in range rounds.length)
 	shorts = longs
 	longs = _.zip ...longs # transponerar matrisen
 
-setFrirondWinners = ->
-	echo 'setFrirondWinners',frirond
-	if not frirond then return
+# setFrirondWinners = ->
+# 	echo 'setFrirondWinners',frirond
+# 	if not frirond then return
 	# använd rounds och result för att sätta vinnarna
-	for iRound in range rounds.length
-		round = rounds[iRound]
-		for iTable in range round.length
-			[w,b] = round[iTable]
-			if w == frirond then results[iRound][iTable] = '2'
-			if b == frirond then results[iRound][iTable] = '0'
-	echo 'results',results
+	# for iRound in range rounds.length
+	# 	round = rounds[iRound]
+	# 	for iTable in range round.length
+	# 		[w,b] = round[iTable]
+	# 		if w == frirond then results[iRound][iTable] = '2'
+	# 		if b == frirond then results[iRound][iTable] = '0'
+	# echo 'results',results
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
 	echo 'main'
@@ -553,8 +541,6 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	for i in range settings.ROUNDS
 		results.push Array(tableCount()).fill 'x'
-
-	setFrirondWinners() 
 
 	readResults params
 	updateLongsAndShorts()
