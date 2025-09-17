@@ -464,8 +464,12 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 		if settings.GAMES == 1
 			if color == 'w'
-				t = addTable bord,res,w,b
-				rows.push t 
+				if frirond and w == frirond 
+					rows.push addTable bord,'0',w,b
+				else if frirond and b == frirond 
+					rows.push addTable bord,'2',w,b
+				else 
+					rows.push addTable bord,res,w,b
 				bord++
 
 		if settings.GAMES == 2
@@ -475,9 +479,6 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 			else if color == 'b' and selectedRound % 2 == 1
 				rows.push addTable rows.length,res,b,w
 				bord++
-
-	# echo shorts[selectedRound]
-	# if _.last(players).name == 'FRIROND' then rows = _.reverse rows
 
 	result = div {},
 		h2 {}, "Bordslista för rond #{selectedRound + settings.ONE}"
