@@ -25,7 +25,7 @@ rounds = []  # vem möter vem? [w,b]. T ex [[0,9], [1,8] ...]
 results = [] # [['0','1','2','x'], ['0','1','2','x'] ...] Vitspelarnas resultat i varje rond.
 currRound = 0
 currTable = 0
-
+BASE_URL = ""
 frirond = null # ingen frirond. Annars index för frironden
 
 longs = [] # underlag för showPlayers
@@ -120,7 +120,8 @@ invert = (lst) ->
 export longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
 	if rounds.length > results.length #then results += 'F'
 		[w,b] = rounds[0]
-		results = if w==frirond or b==frirond then 'F' + results else results + 'F'
+		if w==frirond or b==frirond then results.unshift 'F' else results.push 'F'
+		echo 'longForm',results.toString()
 	result = []
 	for i in range rounds.length
 		[w,b] = rounds[i]
@@ -199,20 +200,23 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 			players.push line
 
 	if players.length % 2 == 1
+		frirond = players.length
+		echo 'frirond',frirond
 		players.push '0000 FRIROND'
-		frirond = players.length - 1
 	else
 		frirond = null
 
 	if rounds == null then rounds = []
 
 	url = makeURL()
+	BASE_URL = url
 
 	players = []
 	rounds = []
 	window.location.href = url
 
 parseURL = -> 
+	echo 'parseURL'
 	params = new URLSearchParams window.location.search
 
 	settings.TITLE = safeGet params, "TITLE"
@@ -223,6 +227,11 @@ parseURL = ->
 
 	players = []
 	persons = params.getAll "p"
+
+	if window.location.href.includes 'FRIROND' then frirond = persons.length - 1
+
+	# if persons.length % 2 == 1 then frirond = persons.length
+	echo 'frirond',frirond
 
 	if settings.SORT == 1 then persons.sort().reverse()
 
@@ -270,10 +279,14 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 	ronder = []
 	oppElos = []
 
+	echo 'long',long
+
 	for [w,b,color,result] in long
 		opponent = settings.ONE + if w == i then b else w
-		if frirond and opponent == frirond + settings.ONE then opponent = 'F'
+		# if frirond and opponent == frirond + settings.ONE then opponent = 'F'
+		echo 'resultA',result.toString()
 		result = convert result, 'x201FG', ' 10½11'
+		echo 'resultB',result.toString()
 
 		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = td {style: "position:relative;"},
@@ -389,7 +402,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	history.pushState {}, "", url # för att slippa omladdning av sidan
+	# history.pushState {}, "", url # för att slippa omladdning av sidan
 
 # export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
 # 	# The short Form is used to render the table list
@@ -416,7 +429,7 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 
 	for long, i in longs
 		player = players[i]
-		#if player.name == 'FRIROND' then continue
+		if player.name == 'FRIROND' then continue
 		rows.push tr {},
 			td {}, i + settings.ONE
 			td ALIGN_LEFT, player.name
@@ -496,7 +509,20 @@ updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och resu
 	shorts = longs
 	longs = _.zip ...longs # transponerar matrisen
 
+setFrirondWinners = ->
+	echo 'setFrirondWinners',frirond
+	if not frirond then return
+	# använd rounds och result för att sätta vinnarna
+	for iRound in range rounds.length
+		round = rounds[iRound]
+		for iTable in range round.length
+			[w,b] = round[iTable]
+			if w == frirond then results[iRound][iTable] = '2'
+			if b == frirond then results[iRound][iTable] = '0'
+	echo 'results',results
+
 main = -> # Hämta urlen i första hand, textarean i andra hand.
+	echo 'main'
 
 	start = new Date()
 
@@ -504,9 +530,9 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	if params.size == 0 
 		document.getElementById("button").addEventListener "click", parseTextarea
-
-		if players.length % 2 == 1 
-			players.push '0000 FRIROND'
+		# if players.length % 2 == 1
+		# 	frirond = players.length
+		# 	players.push '0000 FRIROND'
 
 		showInfo()
 		return
@@ -525,6 +551,8 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	for i in range settings.ROUNDS
 		results.push Array(tableCount()).fill 'x'
+
+	setFrirondWinners() 
 
 	readResults params
 	updateLongsAndShorts()
@@ -564,7 +592,7 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		if key == 'd'
 			echo 'Dump:'
 			echo '  settings',settings
-			echo '  href',window.location.href
+			# echo '  href',window.location.href
 			echo '  players',players
 			echo '  rounds',rounds
 			echo '  results', results

@@ -1,11 +1,12 @@
 export class Player
-	constructor : (@id, @name, @elo, @PR=0) ->
-		@opp = []
-		@col = ""
+	constructor : (@id, @name, @elo) ->
+		@opp = [] # används endast av Floating
+		@col = "" # används endast av Floating
 	balans : ->
-		result = 0
-		for ch in @col 
-			if ch == 'w' then result += 1
-			if ch == 'b' then result -= 1
-		result
+		b = 0
+		for c in @col
+			if c=='w' then b++
+			if c=='b' then b--
+		b
+
 	toString: -> "#{String(@elo).padStart 4, '0'} #{@name}"
