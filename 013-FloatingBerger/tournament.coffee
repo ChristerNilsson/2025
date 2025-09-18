@@ -118,10 +118,6 @@ invert = (lst) ->
 	result
 
 export longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
-	if rounds.length > results.length #then results += 'F'
-		[w,b] = rounds[0]
-		if w==frirond or b==frirond then results.unshift '2' else results.push '2'
-		echo 'longForm',results.toString()
 	result = []
 	for i in range rounds.length
 		[w,b] = rounds[i]
@@ -400,14 +396,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	# history.pushState {}, "", url # för att slippa omladdning av sidan
-
-# export shortForm = (rounds, results) -> # produces the short form for ONE round (bordslistan). If there is a BYE, put it last in the list
-# 	# The short Form is used to render the table list
-# 	# rounds: produced by makeBerger and makeFloating
-# 	# results: produced by the human
-# 	if rounds.length > results.length then results += 'F'
-# 	rounds[i].concat results[i] for i in range results.length
+	history.pushState {}, "", url # för att slippa omladdning av sidan
 
 showInfo = -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},
@@ -499,17 +488,14 @@ updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och resu
 	shorts = longs
 	longs = _.zip ...longs # transponerar matrisen
 
-# setFrirondWinners = ->
-# 	echo 'setFrirondWinners',frirond
-# 	if not frirond then return
-	# använd rounds och result för att sätta vinnarna
-	# for iRound in range rounds.length
-	# 	round = rounds[iRound]
-	# 	for iTable in range round.length
-	# 		[w,b] = round[iTable]
-	# 		if w == frirond then results[iRound][iTable] = '2'
-	# 		if b == frirond then results[iRound][iTable] = '0'
-	# echo 'results',results
+setFrirondResults = ->
+	if not frirond then return 
+	for r in range rounds.length
+		round = rounds[r]
+		for t in range round.length
+			[w,b] = round[t]
+			if w == frirond then results[r][t] = '0' 
+			if b == frirond then results[r][t] = '2' 
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
 	echo 'main'
@@ -520,10 +506,6 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	if params.size == 0 
 		document.getElementById("button").addEventListener "click", parseTextarea
-		# if players.length % 2 == 1
-		# 	frirond = players.length
-		# 	players.push '0000 FRIROND'
-
 		showInfo()
 		return
 
@@ -543,6 +525,9 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		results.push Array(tableCount()).fill 'x'
 
 	readResults params
+
+	setFrirondResults()
+
 	updateLongsAndShorts()
 	showPlayers longs
 	showTables shorts, 0
