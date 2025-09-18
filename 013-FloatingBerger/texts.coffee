@@ -1,14 +1,12 @@
 export helpText = """<h3>Floating Berger version 1.2</h3>TITLE:   Turneringens namn
 ROUNDS:  antal ronder
-GAMES:   antal partier per rond • 2=dubbelrond • 1=enkelrond
-SORT:    spelarnas sortering • 0=ingen sortering • 1=sortering på elo
+GAMES:   antal partier per rond • 1=enkelrond • 2=dubbelrond 
+SORT:    spelarnas sorteras på elo • 0=utan sortering • 1=med sortering
 BALANCE: färgbalans • 0=utan färgbalans • 1=med färgbalans
 
 1653 Christer Nilsson: elo + namn. Ange 1400 om elo saknas
 
-Programmet hanterar två olika format:
-
-* Formatet styrs mha ROUNDS
+Programmet hanterar två olika turneringsformat:
 
 * Berger 
   * alla möter alla
@@ -17,6 +15,8 @@ Programmet hanterar två olika format:
   * som Schweizer, fast spelarna möter spelare med samma rating istf poäng
   * alla ronder lottas i förväg
   * vinnare utses mha Performance Rating istf poäng
+
+* Formatet styrs mha ROUNDS
 
 Namnet Floating kommer av att de flesta spelare upplever att de är i mitten av sin egen lilla virtuella Berger-grupp.
 Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagare att uppleva detta.
@@ -41,7 +41,7 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * vänsterpil • förra ronden
 
 Sortering:
-Klicka på ett kolumnhuvud eller tryck på ett tecken
+Klicka på ett kolumnhuvud eller tryck på ett av dessa tecken:
 
 * # • spelarens id
 * n • Namn
