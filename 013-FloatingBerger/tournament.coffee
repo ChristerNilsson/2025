@@ -306,7 +306,10 @@ savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
 	if frirond then lst.push lst.shift()
 	lst.sort()
 
-setAllPR = ->
+setAllPR = (delta) ->
+	decimals = settings.DECIMALS + delta
+	if 0 <= decimals <= 6 then settings.DECIMALS = decimals
+
 	trs = document.querySelectorAll '#stallning tr'
 	for index in range players.length
 		if players[index].PR > 0
@@ -557,12 +560,8 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		if key == ' ' then setResult key, '1' # "½ - ½"
 		if key == '1' then setResult key, '2' # "1 - 0"
 
-		if key == 'm' and settings.DECIMALS < 6 
-			settings.DECIMALS += 1
-			setAllPR()
-		if key == 'l' and settings.DECIMALS > 0
-			settings.DECIMALS -= 1
-			setAllPR()
+		if key == 'm' then setAllPR +1
+		if key == 'l' then setAllPR -1
 
 		if key == 'd'
 			echo 'Dump:'
