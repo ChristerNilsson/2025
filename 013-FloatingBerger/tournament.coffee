@@ -30,8 +30,6 @@ shorts  = [] # ronder x players. cell: [w,b,col,res]
 currRound = 0
 currTable = 0
 
-# dirty = -1 # används för att skapa ny url då man byter rond och något resultat förändrats
-
 BASE_URL = ""
 frirond = null # ingen frirond. Annars index för frironden
 
@@ -362,11 +360,6 @@ setPR = (trs, index, translator) ->
 	_tdPR.textContent = players[index].PR.toFixed settings.DECIMALS
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
-
-	# dirty = currRound
-	# if dirty != currRound
-	# document.title = settings.TITLE
-	# dirty = currRound 
 
 	trs = document.querySelectorAll '#stallning tr'
 
