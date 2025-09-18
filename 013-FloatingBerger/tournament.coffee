@@ -511,9 +511,6 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	if params.size == 0 
 		document.getElementById("button").addEventListener "click", parseTextarea
 		showInfo()
-
-		history.pushState {}, "", makeURL() # för att slippa omladdning av sidan
-
 		return
 
 	document.getElementById("textarea").style = 'display: none'
