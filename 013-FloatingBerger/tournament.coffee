@@ -30,7 +30,7 @@ shorts  = [] # ronder x players. cell: [w,b,col,res]
 currRound = 0
 currTable = 0
 
-dirty = -1 # används för att skapa ny url då man byter rond och något resultat förändrats
+# dirty = -1 # används för att skapa ny url då man byter rond och något resultat förändrats
 
 BASE_URL = ""
 frirond = null # ingen frirond. Annars index för frironden
@@ -51,12 +51,6 @@ changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
 	currTable = 0
 	
-	if dirty != currRound
-		history.pushState {}, "", makeURL() # för att slippa omladdning av sidan
-		document.title = "Round #{dirty + settings.ONE} #{settings.TITLE}"
-		dirty = currRound 
-
-	# updateLongsAndShorts()
 	showTables shorts, currRound
 
 changeTable = (delta) -> # byt bord
@@ -369,7 +363,10 @@ setPR = (trs, index, translator) ->
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
 
-	dirty = currRound
+	# dirty = currRound
+	# if dirty != currRound
+	# document.title = settings.TITLE
+	# dirty = currRound 
 
 	trs = document.querySelectorAll '#stallning tr'
 
@@ -410,6 +407,7 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
+	history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 
 showInfo = -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},
@@ -520,6 +518,9 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	if params.size == 0 
 		document.getElementById("button").addEventListener "click", parseTextarea
 		showInfo()
+
+		history.pushState {}, "", makeURL() # för att slippa omladdning av sidan
+
 		return
 
 	document.getElementById("textarea").style = 'display: none'
@@ -591,5 +592,6 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 		setCursor currRound,currTable
 	echo 'cpu',new Date - start
+
 
 main()
