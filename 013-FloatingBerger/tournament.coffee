@@ -47,6 +47,7 @@ addTable = (bord,res,c0,c1) ->
 
 changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
+	currTable = 0
 	# updateLongsAndShorts()
 	showTables shorts, currRound
 
@@ -488,19 +489,19 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 
 tableCount = -> players.length // 2 # Beräkna antal bord
 
-updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results	
+updateLongsAndShorts = -> # Uppdaterar longs och shorts utifrån rounds och results
 	longs = (longForm rounds[r],results[r] for r in range rounds.length)
 	shorts = longs
 	longs = _.zip ...longs # transponerar matrisen
 
 setFrirondResults = ->
-	if not frirond then return 
+	if not frirond then return
 	for r in range rounds.length
 		round = rounds[r]
 		for t in range round.length
 			[w,b] = round[t]
-			if w == frirond then results[r][t] = '0' 
-			if b == frirond then results[r][t] = '2' 
+			if w == frirond then results[r][t] = '0'
+			if b == frirond then results[r][t] = '2'
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
 	echo 'main'
