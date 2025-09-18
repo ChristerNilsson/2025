@@ -30,6 +30,8 @@ shorts  = [] # ronder x players. cell: [w,b,col,res]
 currRound = 0
 currTable = 0
 
+dirty = -1 # används för att skapa ny url då man byter rond och något resultat förändrats
+
 BASE_URL = ""
 frirond = null # ingen frirond. Annars index för frironden
 
@@ -48,6 +50,12 @@ addTable = (bord,res,c0,c1) ->
 changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	currRound = (currRound + delta) %% rounds.length
 	currTable = 0
+	
+	if dirty != currRound
+		history.pushState {}, "", makeURL() # för att slippa omladdning av sidan
+		document.title = "Round #{dirty + settings.ONE} #{settings.TITLE}"
+		dirty = currRound 
+
 	# updateLongsAndShorts()
 	showTables shorts, currRound
 
@@ -361,6 +369,8 @@ setPR = (trs, index, translator) ->
 
 setResult = (key, res) -> # Uppdatera results samt gui:t.
 
+	dirty = currRound
+
 	trs = document.querySelectorAll '#stallning tr'
 
 	translator = []
@@ -372,11 +382,9 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	if frirond and (w==frirond or b==frirond) then return
 	results[currRound][currTable] = res
 
-	one = settings.ONE
-	document.title = "#{currRound+one}:#{currTable+one} #{w+one}-#{b+one} #{settings.TITLE}"
-
-	url = makeURL()
 	updateLongsAndShorts()
+
+	one = settings.ONE
 
 	_td = trs[translator[w] + one].children[3 + currRound].children[1]
 	_td.textContent = "0½1"[res]
@@ -402,7 +410,6 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		tr3.textContent = prettyResult res
 		currTable = (currTable + 1) %% tableCount()
 
-	history.pushState {}, "", url # för att slippa omladdning av sidan
 
 showInfo = -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},

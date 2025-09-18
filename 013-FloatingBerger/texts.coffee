@@ -40,6 +40,9 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * högerpil   • nästa rond
 * vänsterpil • förra ronden
 
+Web-historiken uppdateras när man byter rond och något resultat har uppdaterats.
+Se därför till att byta till annan rond, innan du kopierar url:en.
+
 Sortering:
 Klicka på ett kolumnhuvud eller tryck på ett av dessa tecken:
 
