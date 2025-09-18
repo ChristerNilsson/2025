@@ -21,15 +21,17 @@ settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1, DECIMALS:0} #
 
 # Tillståndet ges av dessa fem variabler:
 players = []
-rounds = []  # vem möter vem? [w,b]. T ex [[0,9], [1,8] ...]
-results = [] # [['0','1','2','x'], ['0','1','2','x'] ...] Vitspelarnas resultat i varje rond.
+
+results = [] # ronder x bord. cell: 'x', '0', '1' eller '2'
+rounds  = [] # ronder x bord. cell: [w,b] 
+longs   = [] # players x ronder. cell: [w,b,col,res]
+shorts  = [] # ronder x players. cell: [w,b,col,res]
+
 currRound = 0
 currTable = 0
+
 BASE_URL = ""
 frirond = null # ingen frirond. Annars index för frironden
-
-longs = [] # underlag för showPlayers
-shorts = [] # underlag för showTables
 
 ## F U N K T I O N E R ##
 
