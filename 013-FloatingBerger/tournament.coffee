@@ -17,7 +17,7 @@ ALFABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'
 
 ## V A R I A B L E R ##
 
-settings = {TITLE:'', GAMES:0, ROUNDS:0, SORT:1, ONE:1, BALANCE:1, DECIMALS:0} # ONE = 1 # 0=dev 1=prod
+settings = {TITLE:'Titel saknas', GAMES:1, ROUNDS:0, SORT:1, ONE:1, BALANCE:1, DECIMALS:0} # ONE = 1 # 0=dev 1=prod
 
 # Tillståndet ges av dessa fem variabler:
 players = []

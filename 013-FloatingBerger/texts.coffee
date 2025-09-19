@@ -1,8 +1,8 @@
 export helpText = """<h3>Floating Berger version 1.2</h3>TITLE:   Turneringens namn
-ROUNDS:  antal ronder
-GAMES:   antal partier per rond • 1=enkelrond • 2=dubbelrond 
-SORT:    spelarnas sorteras på elo • 0=utan sortering • 1=med sortering
-BALANCE: färgbalans • 0=utan färgbalans • 1=med färgbalans
+ROUNDS =  antal ronder
+GAMES =   antal partier per rond • 1=enkelrond • 2=dubbelrond 
+SORT =    spelarnas sorteras på elo • 0=utan sortering • 1=med sortering
+BALANCE = färgbalans • 0=utan färgbalans • 1=med färgbalans
 
 1653 Christer Nilsson: elo + namn. Ange 1400 om elo saknas
 
