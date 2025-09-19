@@ -14,15 +14,7 @@ Programmet hanterar två olika turneringsformat:
 
 Namnet Floating kommer av att de flesta spelare upplever att de är i mitten av sin egen lilla virtuella Berger-grupp.
 Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagare att uppleva detta.
-<h3>Handhavande</h3>* ctrl p • skriver ut
-* ctrl + • zoomar in
-* ctrl - • zoomar ut
-
-* a • visar enbart ställning
-* b • visar enbart bord
-* c • visar både ställning och bord (default)
-
-* 0      • Vit Förlust
+<h3>Handhavande</h3>* 0      • Vit Förlust
 * space  • Remi
 * 1      • Vit Vinst
 * delete • tar bort ett resultat
@@ -38,13 +30,16 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * p • sortering på P (partipoäng)
 * r • sortering på PR (performance rating)
 
+* a • visar enbart ställning
+* b • visar enbart bord
+* c • visar både ställning och bord (default)
+
 * m • PR: fler decimaler 
 * l • PR: färre decimaler
-<h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka eller skicka ett mail.
-<h3>URL</h3>r7 • resultat för rond 7 i bordsordning. T ex 012x för fyra bord
-  0 • Vit Förlust
-  1 • Remi
-  2 • Vit Vinst
-  x • Resultat saknas
+
+* ctrl p • skriver ut
+* ctrl + • zoomar in
+* ctrl - • zoomar ut
+<h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka eller skicka ett mail. Länken finns även i historiken.
 
 """
