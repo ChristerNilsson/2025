@@ -1,28 +1,20 @@
-export helpText = """<h3>Floating Berger version 1.2</h3>TITLE =   turneringens namn
-ROUNDS =  antal ronder
-GAMES =   antal partier per rond • 1=enkelrond • 2=dubbelrond 
-SORT =    spelarnas sorteras på elo • 0=utan sortering • 1=med sortering
+export helpText = """<h3>Floating Berger version 1.2</h3>TITLE   = turneringens namn
+ROUNDS  = antal ronder
+GAMES   = antal partier per rond • 1=enkelrond • 2=dubbelrond 
+SORT    = spelarnas sorteras på elo • 0=utan sortering • 1=med sortering
 BALANCE = färgbalans • 0=utan färgbalans • 1=med färgbalans
 
 1653 Christer Nilsson: elo + namn. Ange 1400 om elo saknas
 
 Programmet hanterar två olika turneringsformat:
 
-* Berger 
-  * alla möter alla
-
-* Floating
-  * som Schweizer, fast spelarna möter spelare med samma rating istf poäng
-  * alla ronder lottas i förväg
-  * vinnare utses mha Performance Rating istf poäng
-
+* Berger: alla möter alla
+* Floating: som Schweizer, fast spelarna möter spelare med samma rating istf poäng
 * Formatet styrs mha ROUNDS
 
 Namnet Floating kommer av att de flesta spelare upplever att de är i mitten av sin egen lilla virtuella Berger-grupp.
 Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagare att uppleva detta.
-<h3>Handhavande</h3>* Klick på kolumn sorterar
-
-* ctrl p • skriver ut
+<h3>Handhavande</h3>* ctrl p • skriver ut
 * ctrl + • zoomar in
 * ctrl - • zoomar ut
 
@@ -40,23 +32,16 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * högerpil   • nästa rond
 * vänsterpil • förra ronden
 
-Web-historiken uppdateras varje gång man matar in ett resultat.
-
-Sortering:
-Klicka på ett kolumnhuvud eller tryck på ett av dessa tecken:
-
-* # • spelarens id
-* n • Namn
-* e • Elo
-* p • P (partipoäng)
-* r • PR (performance rating)
+* # • sortering på spelarens id
+* n • sortering på Namn
+* e • sortering på Elo
+* p • sortering på P (partipoäng)
+* r • sortering på PR (performance rating)
 
 * m • PR: fler decimaler 
 * l • PR: färre decimaler
 <h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka eller skicka ett mail.
-
-<h3>URL</h3>
-r7 • resultat för rond 7 i bordsordning. T ex 012x för fyra bord
+<h3>URL</h3>r7 • resultat för rond 7 i bordsordning. T ex 012x för fyra bord
   0 • Vit Förlust
   1 • Remi
   2 • Vit Vinst
