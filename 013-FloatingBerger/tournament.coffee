@@ -415,7 +415,8 @@ showPlayers = (longs) -> # Visa spelarlistan. (longs lagrad som lista av spelare
 			roundsContent long, i
 
 	result = div {},
-		h2 {}, settings.TITLE
+		h2 {}, settings.TITLE + " (#{if settings.ROUNDS == players.length - 1 then 'Berger' else 'Floating'})"
+
 		table {},
 			thead {},
 				th {}, "#"
@@ -467,8 +468,6 @@ showTables = (shorts, selectedRound) -> # Visa bordslistan
 				th {}, "Svart"
 				th {}, "Resultat" 
 			rows.join ""
-
-	result += "<br>G#{settings.GAMES} • R#{settings.ROUNDS} • S#{settings.SORT} • B#{settings.BALANCE} • #{if settings.ROUNDS == players.length - 1 then 'Berger' else 'Floating'}"
 
 	document.getElementById('tables').innerHTML = result
 

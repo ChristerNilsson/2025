@@ -40,6 +40,7 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * ctrl p • skriver ut
 * ctrl + • zoomar in
 * ctrl - • zoomar ut
-<h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka eller skicka ett mail. Länken finns även i historiken.
+<h3>Backup</h3>Kopiera urlen och spara på säker plats. T ex på en USB-sticka.
+Länken finns även i webläsarens historik.
 
 """
