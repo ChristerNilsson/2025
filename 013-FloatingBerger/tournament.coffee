@@ -190,10 +190,10 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 			if key == 'SORT' then settings.SORT = val
 			if key == 'ONE' then settings.ONE = val
 			if key == 'BALANCE' then settings.BALANCE = val
-			if key[0] == 'r'
-				n = players.length // 2
-				if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
-				rounds[key.slice(1) - 1] = val
+			# if key[0] == 'r'
+			# 	n = players.length // 2
+			# 	if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
+			# 	rounds[key.slice(1) - 1] = val
 		else
 			players.push line
 
