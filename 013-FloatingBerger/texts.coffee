@@ -1,4 +1,4 @@
-export helpText = """<h3>Floating Berger version 1.2</h3>TITLE:   Turneringens namn
+export helpText = """<h3>Floating Berger version 1.2</h3>TITLE =   turneringens namn
 ROUNDS =  antal ronder
 GAMES =   antal partier per rond • 1=enkelrond • 2=dubbelrond 
 SORT =    spelarnas sorteras på elo • 0=utan sortering • 1=med sortering
@@ -40,8 +40,7 @@ Delar man in en turnering i flera fysiska Berger-grupper, kommer färre deltagar
 * högerpil   • nästa rond
 * vänsterpil • förra ronden
 
-Web-historiken uppdateras när man byter rond och något resultat har uppdaterats.
-Se därför till att byta till annan rond, innan du kopierar url:en.
+Web-historiken uppdateras varje gång man matar in ett resultat.
 
 Sortering:
 Klicka på ett kolumnhuvud eller tryck på ett av dessa tecken:
@@ -49,8 +48,8 @@ Klicka på ett kolumnhuvud eller tryck på ett av dessa tecken:
 * # • spelarens id
 * n • Namn
 * e • Elo
-* p • P
-* r • PR
+* p • P (partipoäng)
+* r • PR (performance rating)
 
 * m • PR: fler decimaler 
 * l • PR: färre decimaler
