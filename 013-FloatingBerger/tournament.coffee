@@ -30,7 +30,6 @@ shorts  = [] # ronder x players. cell: [w,b,col,res]
 currRound = 0
 currTable = 0
 
-BASE_URL = ""
 frirond = null # ingen frirond. Annars index för frironden
 
 ## F U N K T I O N E R ##
@@ -103,7 +102,7 @@ export expand = (games, rounds) -> # make a double round from a single round
 	for round in rounds
 		result.push ([w,b] for [w,b] in round)
 		if games == 2 then result.push ([b,w] for [w,b] in round)
-	echo players
+	# echo players
 	return result
 
 export findNumberOfDecimals = (lst) -> # leta upp minsta antal decimaler som krävs för unikhet i listan
@@ -200,7 +199,6 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 
 	if players.length % 2 == 1
 		frirond = players.length
-		echo 'frirond',frirond
 		players.push '0000 FRIROND'
 	else
 		frirond = null
@@ -208,14 +206,12 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 	if rounds == null then rounds = []
 
 	url = makeURL()
-	BASE_URL = url
 
 	players = []
 	rounds = []
 	window.location.href = url
 
 parseURL = -> 
-	echo 'parseURL'
 	params = new URLSearchParams window.location.search
 
 	settings.TITLE = safeGet params, "TITLE"
@@ -228,10 +224,6 @@ parseURL = ->
 	persons = params.getAll "p"
 
 	if window.location.href.includes 'FRIROND' then frirond = persons.length - 1
-
-	# if persons.length % 2 == 1 then frirond = persons.length
-	echo 'frirond',frirond
-
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	i = 0
@@ -277,8 +269,6 @@ roundsContent = (long, i) -> # rondernas data + poäng + PR. i anger spelarnumme
 
 	ronder = []
 	oppElos = []
-
-	echo 'long',long
 
 	for [w,b,color,result] in long
 		opponent = settings.ONE + if w == i then b else w
@@ -502,9 +492,6 @@ setFrirondResults = ->
 			if b == frirond then results[r][t] = '2'
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
-	echo 'main'
-
-	start = new Date()
 
 	params = new URLSearchParams window.location.search
 
@@ -581,7 +568,5 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		if key == 'r' then sorteraKolumn 4+gxr,false
 
 		setCursor currRound,currTable
-	echo 'cpu',new Date - start
-
 
 main()
