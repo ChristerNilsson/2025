@@ -190,10 +190,6 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 			if key == 'SORT' then settings.SORT = val
 			if key == 'ONE' then settings.ONE = val
 			if key == 'BALANCE' then settings.BALANCE = val
-			# if key[0] == 'r'
-			# 	n = players.length // 2
-			# 	if rounds == null then rounds = new Array(settings.GAMES * settings.ROUNDS).fill "x".repeat n
-			# 	rounds[key.slice(1) - 1] = val
 		else
 			players.push line
 
@@ -203,10 +199,11 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 	else
 		frirond = null
 
+	if settings.ROUNDS == 0 then settings.ROUNDS = players.length - 1
+
 	if rounds == null then rounds = []
 
 	url = makeURL()
-
 	players = []
 	rounds = []
 	window.location.href = url
@@ -226,14 +223,14 @@ parseURL = ->
 	if window.location.href.includes 'FRIROND' then frirond = persons.length - 1
 	if settings.SORT == 1 then persons.sort().reverse()
 
+	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
+
 	i = 0
 	for person in persons
 		i += 1
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
 		players.push new Player players.length, name, elo
-
-	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{players.length-1}"
 
 	# initialisera rounds med 'x' i alla celler
 	n = players.length // 2
@@ -392,9 +389,9 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 
 	history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 
-showInfo = -> # Visa helpText på skärmen
+showInfo = (message="") -> # Visa helpText på skärmen
 	document.getElementById('info').innerHTML = div {},
-		div {class:"help"}, pre {}, helpText
+		div {class:"help"}, pre {}, message + helpText
 
 showMatrix = (floating) -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	n = players.length
@@ -506,10 +503,17 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	parseURL()
 
 	if players.length < 4
-		showInfo()
+		showInfo "Du måste ange minst fyra spelare!"
 		return
 
-	rounds = if settings.ROUNDS == players.length - 1 then makeBerger() else makeFloating()
+	berger = settings.ROUNDS == players.length - 1
+	floating = settings.ROUNDS <= players.length // 2
+
+	if not berger ^ floating #settings.ROUNDS >= players.length // 2 and settings.ROUNDS != players.length - 1
+		showInfo "Antalet ronder du angivit är ej acceptabelt!"
+		return
+
+	rounds = if berger then makeBerger() else makeFloating()
 	rounds = expand settings.GAMES, rounds
 
 	for i in range settings.ROUNDS
