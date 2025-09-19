@@ -207,6 +207,7 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 	players = []
 	rounds = []
 	window.location.href = url
+	echo 'window.location.href = url'
 
 parseURL = -> 
 	params = new URLSearchParams window.location.search
