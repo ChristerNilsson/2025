@@ -28,11 +28,12 @@ lines = (elos,y) ->
 
 expected_score = (rating, own_rating) -> 1 / (1 + 10**((rating - own_rating) / 400))
 
-mark = (elo, t, y) ->
+mark = (elo, y) ->
+	t = round 100 * (1 - expected_score 1893, elo)
 	x = map elo, LOW,HIGH, 0, width
 	fill 'black'
 	noStroke()
-	text t,x,y
+	text t+'%',x,y
 
 xdraw = ->
 	background 'white'
@@ -47,12 +48,12 @@ xdraw = ->
 	lines [1907,1897,1896,1889,1886,1885,1880,1878],80
 
 	textSize 20
-	mark 1622,"83%",140
-	mark 1800,"63%",140
-	mark 1878,"52%",75
-	mark 1907,"48%",75
-	mark 2046,"29%",140
-	mark 2335,"7%",140
+	mark 1622,140
+	mark 1800,140
+	mark 1878,75
+	mark 1907,75
+	mark 2046,140
+	mark 2335,140
 		
 	fill 'black'
 	stroke 'black'

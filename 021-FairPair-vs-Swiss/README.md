@@ -11,3 +11,5 @@
 * Det framgår att alla partierna är ojämna elomässigt.
 * Intervallen är 63% - 83% respektive 7% - 29%
 * Ganska långt från den sweetspot som FairPair erbjuder, 48% - 52%
+* Använd musen
+* Klick länkar till turneringen.
