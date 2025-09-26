@@ -175,10 +175,13 @@ xdraw = ->
 	noStroke()
 	text "FairPair #{player.summa player.fairpairID}",width/2,35
 	text "Swiss #{player.summa player.swissID}", width/2, 180
+	push()
 	fill 'red'
-	text "#{player.elo} #{player.name}",width/2,220
+	textAlign LEFT
+	text "#{player.elo} #{player.name}",0.40*width,220
 	fill 'black'
-	text "#{players[currIndex].elo} #{players[currIndex].name}",  width/2, 260
+	text "#{players[currIndex].elo} #{players[currIndex].name}",  0.40*width, 260
+	pop()
 	text "Tyresö Open 2024 (n=#{n})",width/2,300
 
 document.addEventListener 'keydown', (event) -> 
