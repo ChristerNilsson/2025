@@ -1,16 +1,16 @@
 koppla = (typ, parent, attrs = {}) ->
 	elem = document.createElement typ
 
-	if 'text' of attrs
-		elem.textContent = attrs.text
-		delete attrs.text
+	# if 'text' of attrs
+	# 	elem.textContent = attrs.text
+	# 	delete attrs.text
 
-	if 'html' of attrs
-		elem.innerHTML = attrs.html
-		delete attrs.html
+	# if 'html' of attrs
+	# 	elem.innerHTML = attrs.html
+	# 	delete attrs.html
 
-	for own key of attrs
-		elem.setAttribute key, attrs[key]
+	# for own key of attrs
+	# 	elem.setAttribute key, attrs[key]
 
 	parent.appendChild elem
 	elem
