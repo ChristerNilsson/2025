@@ -1,0 +1,42 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>md ⇒ html</title>
+<link rel="stylesheet" href="style.css">
+
+<div id="app">Laddar…</div>
+
+<script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/dompurify/dist/purify.min.js"></script>
+<script>
+(async () => {
+  // Hämta ?src=...
+  const params = new URLSearchParams(location.search);
+  const src = params.get("src");
+  const app = document.getElementById("app");
+
+  if (!src) {
+    app.textContent = "Ange ?src=<raw-URL till .md på GitHub>";
+    return;
+  }
+
+  try {
+    const res = await fetch(src, { headers: { "Accept": "text/plain" } });
+    if (!res.ok) throw new Error(res.status + " " + res.statusText);
+    const md = await res.text();
+
+    // Rendera md => HTML
+    marked.setOptions({ breaks: true, gfm: true });
+    const html = marked.parse(md);
+
+    // Sanera och visa
+    app.innerHTML = DOMPurify.sanitize(html);
+
+    // Valfritt: sätt dokumentets titel från första rubriken
+    const h1 = app.querySelector("h1");
+    if (h1 && h1.textContent.trim()) document.title = h1.textContent.trim();
+
+  } catch (err) {
+    app.textContent = "Kunde inte läsa markdown: " + err.message;
+  }
+})();
+</script>
