@@ -1,0 +1,11 @@
+# .htaccess
+RewriteEngine On
+RewriteBase /
+
+# Låt befintliga filer/kataloger servas direkt
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule - [L]
+
+# Allt annat -> index.php (inkludera querystring)
+RewriteRule ^.*$ index.php [L,QSA]

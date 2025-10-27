@@ -18,4 +18,29 @@ koppla = (typ, parent, attrs = {}) ->
 	elem
 
 iframe = koppla "iframe", document.getElementById "app"
-iframe.src = "https://storage.googleapis.com/bildbank2/index.html" + location.search
+
+# console.log 'path',window.location.path
+# console.log 'search',window.location.search
+
+path = window.location.path
+if path == undefined then path = "/index.html"
+console.log 'path', path
+
+s = "https://storage.googleapis.com/bildbank2" + path + window.location.search
+
+alert s
+
+iframe.src = s
+
+
+# export default 
+# 	async fetch request
+# 		url = new URL request.url
+# 		# Skapa motsvarande URL på Google Storage
+# 		target = "https://storage.googleapis.com/bildbank2" + 
+# 			(url.pathname == "/" ? "/index.html" : url.pathname)
+
+# 		response = await fetch target
+# 		return new Response response.body, response
+
+
