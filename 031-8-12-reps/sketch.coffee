@@ -36,5 +36,5 @@ show W,R
 ok  = koppla 'button', app, {'html':'Ok'}
 nix = koppla 'button', app, {'html':'Nix'}
 
-nix.addEventListener "click", -> if R == MINR then show W-INCW,R else show W,R-1
-ok.addEventListener  "click", -> if R == MAXR then show W+INCW,8 else show W,R+1
+nix.addEventListener "click", -> if R == MINR then show W-INCW,R    else show W,R-1
+ok.addEventListener  "click", -> if R == MAXR then show W+INCW,MINR else show W,R+1
