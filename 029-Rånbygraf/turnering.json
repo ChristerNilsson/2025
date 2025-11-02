@@ -1,0 +1,9158 @@
+[
+  {
+    "id": 490603,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 1,
+    "homeId": 376158,
+    "homeTeamNumber": -1,
+    "awayId": 423802,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753806000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591647,
+        "tournamentResultID": 490603,
+        "tableNr": 0,
+        "whiteId": 376158,
+        "blackId": 423802,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490604,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 2,
+    "homeId": 350479,
+    "homeTeamNumber": -1,
+    "awayId": 526287,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753230000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591648,
+        "tournamentResultID": 490604,
+        "tableNr": 0,
+        "whiteId": 350479,
+        "blackId": 526287,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490605,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 3,
+    "homeId": 349981,
+    "homeTeamNumber": -1,
+    "awayId": 350681,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753491000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591649,
+        "tournamentResultID": 490605,
+        "tableNr": 0,
+        "whiteId": 349981,
+        "blackId": 350681,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490606,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 4,
+    "homeId": 427151,
+    "homeTeamNumber": -1,
+    "awayId": 350416,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753597000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591650,
+        "tournamentResultID": 490606,
+        "tableNr": 0,
+        "whiteId": 427151,
+        "blackId": 350416,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490607,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 5,
+    "homeId": 365069,
+    "homeTeamNumber": -1,
+    "awayId": 431286,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714753453000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591651,
+        "tournamentResultID": 490607,
+        "tableNr": 0,
+        "whiteId": 365069,
+        "blackId": 431286,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490608,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 6,
+    "homeId": 351862,
+    "homeTeamNumber": -1,
+    "awayId": 612036,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754413000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591652,
+        "tournamentResultID": 490608,
+        "tableNr": 0,
+        "whiteId": 351862,
+        "blackId": 612036,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490609,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 7,
+    "homeId": 363179,
+    "homeTeamNumber": -1,
+    "awayId": 646346,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754268000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591653,
+        "tournamentResultID": 490609,
+        "tableNr": 0,
+        "whiteId": 363179,
+        "blackId": 646346,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490610,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 8,
+    "homeId": 505361,
+    "homeTeamNumber": -1,
+    "awayId": 686313,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753439000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591654,
+        "tournamentResultID": 490610,
+        "tableNr": 0,
+        "whiteId": 505361,
+        "blackId": 686313,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490611,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 9,
+    "homeId": 376548,
+    "homeTeamNumber": -1,
+    "awayId": 459068,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753509000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591655,
+        "tournamentResultID": 490611,
+        "tableNr": 0,
+        "whiteId": 376548,
+        "blackId": 459068,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490612,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 10,
+    "homeId": 546393,
+    "homeTeamNumber": -1,
+    "awayId": 636266,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753482000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591656,
+        "tournamentResultID": 490612,
+        "tableNr": 0,
+        "whiteId": 546393,
+        "blackId": 636266,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490613,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 11,
+    "homeId": 350413,
+    "homeTeamNumber": -1,
+    "awayId": 513654,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753975000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591657,
+        "tournamentResultID": 490613,
+        "tableNr": 0,
+        "whiteId": 350413,
+        "blackId": 513654,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490614,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 12,
+    "homeId": 426972,
+    "homeTeamNumber": -1,
+    "awayId": 533374,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753793000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591658,
+        "tournamentResultID": 490614,
+        "tableNr": 0,
+        "whiteId": 426972,
+        "blackId": 533374,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490615,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 13,
+    "homeId": 673943,
+    "homeTeamNumber": -1,
+    "awayId": 693181,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714752668000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591659,
+        "tournamentResultID": 490615,
+        "tableNr": 0,
+        "whiteId": 673943,
+        "blackId": 693181,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490616,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 14,
+    "homeId": 486589,
+    "homeTeamNumber": -1,
+    "awayId": 653667,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714754329000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591660,
+        "tournamentResultID": 490616,
+        "tableNr": 0,
+        "whiteId": 486589,
+        "blackId": 653667,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490617,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 15,
+    "homeId": 376094,
+    "homeTeamNumber": -1,
+    "awayId": 347707,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754197000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591661,
+        "tournamentResultID": 490617,
+        "tableNr": 0,
+        "whiteId": 376094,
+        "blackId": 347707,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490618,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 16,
+    "homeId": 464113,
+    "homeTeamNumber": -1,
+    "awayId": 540633,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753165000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591662,
+        "tournamentResultID": 490618,
+        "tableNr": 0,
+        "whiteId": 464113,
+        "blackId": 540633,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490619,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 17,
+    "homeId": 622224,
+    "homeTeamNumber": -1,
+    "awayId": 499172,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753616000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591663,
+        "tournamentResultID": 490619,
+        "tableNr": 0,
+        "whiteId": 622224,
+        "blackId": 499172,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490620,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 18,
+    "homeId": 428344,
+    "homeTeamNumber": -1,
+    "awayId": 357593,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754113000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591664,
+        "tournamentResultID": 490620,
+        "tableNr": 0,
+        "whiteId": 428344,
+        "blackId": 357593,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557219,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 19,
+    "homeId": 570261,
+    "homeTeamNumber": -1,
+    "awayId": 364013,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714754078000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662801,
+        "tournamentResultID": 557219,
+        "tableNr": 0,
+        "whiteId": 570261,
+        "blackId": 364013,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707901,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 20,
+    "homeId": 361205,
+    "homeTeamNumber": -1,
+    "awayId": 711829,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714754140000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838859,
+        "tournamentResultID": 707901,
+        "tableNr": 0,
+        "whiteId": 361205,
+        "blackId": 711829,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490623,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 21,
+    "homeId": 643655,
+    "homeTeamNumber": -1,
+    "awayId": 542787,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753763000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591667,
+        "tournamentResultID": 490623,
+        "tableNr": 0,
+        "whiteId": 643655,
+        "blackId": 542787,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490624,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 22,
+    "homeId": 652752,
+    "homeTeamNumber": -1,
+    "awayId": 725343,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714754177000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591668,
+        "tournamentResultID": 490624,
+        "tableNr": 0,
+        "whiteId": 652752,
+        "blackId": 725343,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490625,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 23,
+    "homeId": 585658,
+    "homeTeamNumber": -1,
+    "awayId": 652138,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714754283000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591669,
+        "tournamentResultID": 490625,
+        "tableNr": 0,
+        "whiteId": 585658,
+        "blackId": 652138,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490626,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 24,
+    "homeId": 364004,
+    "homeTeamNumber": -1,
+    "awayId": 541388,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714752953000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591670,
+        "tournamentResultID": 490626,
+        "tableNr": 0,
+        "whiteId": 364004,
+        "blackId": 541388,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692912,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 25,
+    "homeId": 641291,
+    "homeTeamNumber": -1,
+    "awayId": 434023,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754131000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824037,
+        "tournamentResultID": 692912,
+        "tableNr": 0,
+        "whiteId": 641291,
+        "blackId": 434023,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490628,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 26,
+    "homeId": 546353,
+    "homeTeamNumber": -1,
+    "awayId": 350464,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754144000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591672,
+        "tournamentResultID": 490628,
+        "tableNr": 0,
+        "whiteId": 546353,
+        "blackId": 350464,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490629,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 27,
+    "homeId": 592346,
+    "homeTeamNumber": -1,
+    "awayId": 452807,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753547000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591673,
+        "tournamentResultID": 490629,
+        "tableNr": 0,
+        "whiteId": 592346,
+        "blackId": 452807,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490630,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 28,
+    "homeId": 488421,
+    "homeTeamNumber": -1,
+    "awayId": 650369,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753831000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591674,
+        "tournamentResultID": 490630,
+        "tableNr": 0,
+        "whiteId": 488421,
+        "blackId": 650369,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490631,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 29,
+    "homeId": 694556,
+    "homeTeamNumber": -1,
+    "awayId": 462300,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714754222000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591675,
+        "tournamentResultID": 490631,
+        "tableNr": 0,
+        "whiteId": 694556,
+        "blackId": 462300,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490632,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 30,
+    "homeId": 713891,
+    "homeTeamNumber": -1,
+    "awayId": 642390,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714753690000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591676,
+        "tournamentResultID": 490632,
+        "tableNr": 0,
+        "whiteId": 713891,
+        "blackId": 642390,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490633,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 31,
+    "homeId": 677851,
+    "homeTeamNumber": -1,
+    "awayId": 357334,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753097000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591677,
+        "tournamentResultID": 490633,
+        "tableNr": 0,
+        "whiteId": 677851,
+        "blackId": 357334,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490634,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 32,
+    "homeId": 669533,
+    "homeTeamNumber": -1,
+    "awayId": 359037,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714753861000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591678,
+        "tournamentResultID": 490634,
+        "tableNr": 0,
+        "whiteId": 669533,
+        "blackId": 359037,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490635,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 33,
+    "homeId": 716556,
+    "homeTeamNumber": -1,
+    "awayId": 358282,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714753264000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591679,
+        "tournamentResultID": 490635,
+        "tableNr": 0,
+        "whiteId": 716556,
+        "blackId": 358282,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490636,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 34,
+    "homeId": 364006,
+    "homeTeamNumber": -1,
+    "awayId": 541387,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714753498000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591680,
+        "tournamentResultID": 490636,
+        "tableNr": 0,
+        "whiteId": 364006,
+        "blackId": 541387,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490637,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 35,
+    "homeId": 544058,
+    "homeTeamNumber": -1,
+    "awayId": 360910,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714753692000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591681,
+        "tournamentResultID": 490637,
+        "tableNr": 0,
+        "whiteId": 544058,
+        "blackId": 360910,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490638,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 36,
+    "homeId": 643378,
+    "homeTeamNumber": -1,
+    "awayId": 457151,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714753473000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591682,
+        "tournamentResultID": 490638,
+        "tableNr": 0,
+        "whiteId": 643378,
+        "blackId": 457151,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523904,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 37,
+    "homeId": 375808,
+    "homeTeamNumber": -1,
+    "awayId": 520087,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714752435000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624913,
+        "tournamentResultID": 523904,
+        "tableNr": 0,
+        "whiteId": 375808,
+        "blackId": 520087,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490640,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 38,
+    "homeId": 357591,
+    "homeTeamNumber": -1,
+    "awayId": 667116,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714753096000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591684,
+        "tournamentResultID": 490640,
+        "tableNr": 0,
+        "whiteId": 357591,
+        "blackId": 667116,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490641,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 39,
+    "homeId": 691642,
+    "homeTeamNumber": -1,
+    "awayId": 394728,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714754051000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591685,
+        "tournamentResultID": 490641,
+        "tableNr": 0,
+        "whiteId": 691642,
+        "blackId": 394728,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490642,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 40,
+    "homeId": 347526,
+    "homeTeamNumber": -1,
+    "awayId": 713415,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714754029000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591686,
+        "tournamentResultID": 490642,
+        "tableNr": 0,
+        "whiteId": 347526,
+        "blackId": 713415,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490669,
+    "groupdId": 13664,
+    "roundNr": 1,
+    "board": 41,
+    "homeId": 624014,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714752448000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591739,
+        "tournamentResultID": 490669,
+        "tableNr": 0,
+        "whiteId": 624014,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490722,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 1,
+    "homeId": 423802,
+    "homeTeamNumber": -1,
+    "awayId": 652752,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757104000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591766,
+        "tournamentResultID": 490722,
+        "tableNr": 0,
+        "whiteId": 423802,
+        "blackId": 652752,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490723,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 2,
+    "homeId": 542787,
+    "homeTeamNumber": -1,
+    "awayId": 350479,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757491000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591767,
+        "tournamentResultID": 490723,
+        "tableNr": 0,
+        "whiteId": 542787,
+        "blackId": 350479,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490724,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 3,
+    "homeId": 350681,
+    "homeTeamNumber": -1,
+    "awayId": 364004,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714756869000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591768,
+        "tournamentResultID": 490724,
+        "tableNr": 0,
+        "whiteId": 350681,
+        "blackId": 364004,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490725,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 4,
+    "homeId": 431286,
+    "homeTeamNumber": -1,
+    "awayId": 546353,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757930000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591769,
+        "tournamentResultID": 490725,
+        "tableNr": 0,
+        "whiteId": 431286,
+        "blackId": 546353,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490726,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 5,
+    "homeId": 652138,
+    "homeTeamNumber": -1,
+    "awayId": 351862,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757869000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591770,
+        "tournamentResultID": 490726,
+        "tableNr": 0,
+        "whiteId": 652138,
+        "blackId": 351862,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490727,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 6,
+    "homeId": 646346,
+    "homeTeamNumber": -1,
+    "awayId": 488421,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757734000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591771,
+        "tournamentResultID": 490727,
+        "tableNr": 0,
+        "whiteId": 646346,
+        "blackId": 488421,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692913,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 7,
+    "homeId": 434023,
+    "homeTeamNumber": -1,
+    "awayId": 505361,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757757000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824038,
+        "tournamentResultID": 692913,
+        "tableNr": 0,
+        "whiteId": 434023,
+        "blackId": 505361,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490729,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 8,
+    "homeId": 459068,
+    "homeTeamNumber": -1,
+    "awayId": 713891,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714756533000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591773,
+        "tournamentResultID": 490729,
+        "tableNr": 0,
+        "whiteId": 459068,
+        "blackId": 713891,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490730,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 9,
+    "homeId": 357334,
+    "homeTeamNumber": -1,
+    "awayId": 546393,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757035000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591774,
+        "tournamentResultID": 490730,
+        "tableNr": 0,
+        "whiteId": 357334,
+        "blackId": 546393,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490731,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 10,
+    "homeId": 513654,
+    "homeTeamNumber": -1,
+    "awayId": 669533,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757515000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591775,
+        "tournamentResultID": 490731,
+        "tableNr": 0,
+        "whiteId": 513654,
+        "blackId": 669533,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490732,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 11,
+    "homeId": 358282,
+    "homeTeamNumber": -1,
+    "awayId": 426972,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757414000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591776,
+        "tournamentResultID": 490732,
+        "tableNr": 0,
+        "whiteId": 358282,
+        "blackId": 426972,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490733,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 12,
+    "homeId": 693181,
+    "homeTeamNumber": -1,
+    "awayId": 364006,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714756669000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591777,
+        "tournamentResultID": 490733,
+        "tableNr": 0,
+        "whiteId": 693181,
+        "blackId": 364006,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490734,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 13,
+    "homeId": 360910,
+    "homeTeamNumber": -1,
+    "awayId": 486589,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714756741000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591778,
+        "tournamentResultID": 490734,
+        "tableNr": 0,
+        "whiteId": 360910,
+        "blackId": 486589,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490735,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 14,
+    "homeId": 347707,
+    "homeTeamNumber": -1,
+    "awayId": 643378,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757191000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591779,
+        "tournamentResultID": 490735,
+        "tableNr": 0,
+        "whiteId": 347707,
+        "blackId": 643378,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490736,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 15,
+    "homeId": 520087,
+    "homeTeamNumber": -1,
+    "awayId": 464113,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757172000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591780,
+        "tournamentResultID": 490736,
+        "tableNr": 0,
+        "whiteId": 520087,
+        "blackId": 464113,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490737,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 16,
+    "homeId": 499172,
+    "homeTeamNumber": -1,
+    "awayId": 357591,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757546000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591781,
+        "tournamentResultID": 490737,
+        "tableNr": 0,
+        "whiteId": 499172,
+        "blackId": 357591,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490738,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 17,
+    "homeId": 350416,
+    "homeTeamNumber": -1,
+    "awayId": 428344,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757675000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591782,
+        "tournamentResultID": 490738,
+        "tableNr": 0,
+        "whiteId": 350416,
+        "blackId": 428344,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490739,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 18,
+    "homeId": 364013,
+    "homeTeamNumber": -1,
+    "awayId": 347526,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757950000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591783,
+        "tournamentResultID": 490739,
+        "tableNr": 0,
+        "whiteId": 364013,
+        "blackId": 347526,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490740,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 19,
+    "homeId": 624014,
+    "homeTeamNumber": -1,
+    "awayId": 361205,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714756844000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591784,
+        "tournamentResultID": 490740,
+        "tableNr": 0,
+        "whiteId": 624014,
+        "blackId": 361205,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490741,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 20,
+    "homeId": 452807,
+    "homeTeamNumber": -1,
+    "awayId": 694556,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757694000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591785,
+        "tournamentResultID": 490741,
+        "tableNr": 0,
+        "whiteId": 452807,
+        "blackId": 694556,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490742,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 21,
+    "homeId": 394728,
+    "homeTeamNumber": -1,
+    "awayId": 592346,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757599000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591786,
+        "tournamentResultID": 490742,
+        "tableNr": 0,
+        "whiteId": 394728,
+        "blackId": 592346,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490743,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 22,
+    "homeId": 462300,
+    "homeTeamNumber": -1,
+    "awayId": 691642,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757010000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591787,
+        "tournamentResultID": 490743,
+        "tableNr": 0,
+        "whiteId": 462300,
+        "blackId": 691642,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707902,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 23,
+    "homeId": 711829,
+    "homeTeamNumber": -1,
+    "awayId": 427151,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757867000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838860,
+        "tournamentResultID": 707902,
+        "tableNr": 0,
+        "whiteId": 711829,
+        "blackId": 427151,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490745,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 24,
+    "homeId": 725343,
+    "homeTeamNumber": -1,
+    "awayId": 376158,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757441000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591789,
+        "tournamentResultID": 490745,
+        "tableNr": 0,
+        "whiteId": 725343,
+        "blackId": 376158,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557220,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 25,
+    "homeId": 526287,
+    "homeTeamNumber": -1,
+    "awayId": 570261,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757363000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662802,
+        "tournamentResultID": 557220,
+        "tableNr": 0,
+        "whiteId": 526287,
+        "blackId": 570261,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490747,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 26,
+    "homeId": 541388,
+    "homeTeamNumber": -1,
+    "awayId": 349981,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757883000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591791,
+        "tournamentResultID": 490747,
+        "tableNr": 0,
+        "whiteId": 541388,
+        "blackId": 349981,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490748,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 27,
+    "homeId": 350464,
+    "homeTeamNumber": -1,
+    "awayId": 365069,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757236000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591792,
+        "tournamentResultID": 490748,
+        "tableNr": 0,
+        "whiteId": 350464,
+        "blackId": 365069,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490749,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 28,
+    "homeId": 612036,
+    "homeTeamNumber": -1,
+    "awayId": 643655,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714757587000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591793,
+        "tournamentResultID": 490749,
+        "tableNr": 0,
+        "whiteId": 612036,
+        "blackId": 643655,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490750,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 29,
+    "homeId": 650369,
+    "homeTeamNumber": -1,
+    "awayId": 363179,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757635000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591794,
+        "tournamentResultID": 490750,
+        "tableNr": 0,
+        "whiteId": 650369,
+        "blackId": 363179,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490751,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 30,
+    "homeId": 686313,
+    "homeTeamNumber": -1,
+    "awayId": 585658,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714757719000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591795,
+        "tournamentResultID": 490751,
+        "tableNr": 0,
+        "whiteId": 686313,
+        "blackId": 585658,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490752,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 31,
+    "homeId": 642390,
+    "homeTeamNumber": -1,
+    "awayId": 376548,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714757554000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591796,
+        "tournamentResultID": 490752,
+        "tableNr": 0,
+        "whiteId": 642390,
+        "blackId": 376548,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490753,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 32,
+    "homeId": 636266,
+    "homeTeamNumber": -1,
+    "awayId": 641291,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714756079000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591797,
+        "tournamentResultID": 490753,
+        "tableNr": 0,
+        "whiteId": 636266,
+        "blackId": 641291,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490754,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 33,
+    "homeId": 359037,
+    "homeTeamNumber": -1,
+    "awayId": 350413,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714757912000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591798,
+        "tournamentResultID": 490754,
+        "tableNr": 0,
+        "whiteId": 359037,
+        "blackId": 350413,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490755,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 34,
+    "homeId": 533374,
+    "homeTeamNumber": -1,
+    "awayId": 677851,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714757829000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591799,
+        "tournamentResultID": 490755,
+        "tableNr": 0,
+        "whiteId": 533374,
+        "blackId": 677851,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490756,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 35,
+    "homeId": 541387,
+    "homeTeamNumber": -1,
+    "awayId": 673943,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714757836000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591800,
+        "tournamentResultID": 490756,
+        "tableNr": 0,
+        "whiteId": 541387,
+        "blackId": 673943,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490757,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 36,
+    "homeId": 653667,
+    "homeTeamNumber": -1,
+    "awayId": 716556,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714757819000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591801,
+        "tournamentResultID": 490757,
+        "tableNr": 0,
+        "whiteId": 653667,
+        "blackId": 716556,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490758,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 37,
+    "homeId": 457151,
+    "homeTeamNumber": -1,
+    "awayId": 376094,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714756837000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591802,
+        "tournamentResultID": 490758,
+        "tableNr": 0,
+        "whiteId": 457151,
+        "blackId": 376094,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490759,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 38,
+    "homeId": 540633,
+    "homeTeamNumber": -1,
+    "awayId": 544058,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714757253000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591803,
+        "tournamentResultID": 490759,
+        "tableNr": 0,
+        "whiteId": 540633,
+        "blackId": 544058,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490760,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 39,
+    "homeId": 667116,
+    "homeTeamNumber": -1,
+    "awayId": 622224,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714757809000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591804,
+        "tournamentResultID": 490760,
+        "tableNr": 0,
+        "whiteId": 667116,
+        "blackId": 622224,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523905,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 40,
+    "homeId": 357593,
+    "homeTeamNumber": -1,
+    "awayId": 375808,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714756163000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624914,
+        "tournamentResultID": 523905,
+        "tableNr": 0,
+        "whiteId": 357593,
+        "blackId": 375808,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490762,
+    "groupdId": 13664,
+    "roundNr": 2,
+    "board": 41,
+    "homeId": 713415,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714754855000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591806,
+        "tournamentResultID": 490762,
+        "tableNr": 0,
+        "whiteId": 713415,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490763,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 1,
+    "homeId": 428344,
+    "homeTeamNumber": -1,
+    "awayId": 423802,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761409000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591807,
+        "tournamentResultID": 490763,
+        "tableNr": 0,
+        "whiteId": 428344,
+        "blackId": 423802,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490764,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 2,
+    "homeId": 364013,
+    "homeTeamNumber": -1,
+    "awayId": 350681,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761396000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591808,
+        "tournamentResultID": 490764,
+        "tableNr": 0,
+        "whiteId": 364013,
+        "blackId": 350681,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490765,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 3,
+    "homeId": 361205,
+    "homeTeamNumber": -1,
+    "awayId": 646346,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761428000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591809,
+        "tournamentResultID": 490765,
+        "tableNr": 0,
+        "whiteId": 361205,
+        "blackId": 646346,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490766,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 4,
+    "homeId": 542787,
+    "homeTeamNumber": -1,
+    "awayId": 459068,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714760167000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591810,
+        "tournamentResultID": 490766,
+        "tableNr": 0,
+        "whiteId": 542787,
+        "blackId": 459068,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490767,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 5,
+    "homeId": 546393,
+    "homeTeamNumber": -1,
+    "awayId": 360910,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714760691000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591811,
+        "tournamentResultID": 490767,
+        "tableNr": 0,
+        "whiteId": 546393,
+        "blackId": 360910,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490768,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 6,
+    "homeId": 426972,
+    "homeTeamNumber": -1,
+    "awayId": 520087,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761316000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591812,
+        "tournamentResultID": 490768,
+        "tableNr": 0,
+        "whiteId": 426972,
+        "blackId": 520087,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490769,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 7,
+    "homeId": 546353,
+    "homeTeamNumber": -1,
+    "awayId": 693181,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761437000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591813,
+        "tournamentResultID": 490769,
+        "tableNr": 0,
+        "whiteId": 546353,
+        "blackId": 693181,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490770,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 8,
+    "homeId": 669533,
+    "homeTeamNumber": -1,
+    "awayId": 347707,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761326000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591814,
+        "tournamentResultID": 490770,
+        "tableNr": 0,
+        "whiteId": 669533,
+        "blackId": 347707,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490771,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 9,
+    "homeId": 694556,
+    "homeTeamNumber": -1,
+    "awayId": 499172,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761420000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591815,
+        "tournamentResultID": 490771,
+        "tableNr": 0,
+        "whiteId": 694556,
+        "blackId": 499172,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692914,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 10,
+    "homeId": 351862,
+    "homeTeamNumber": -1,
+    "awayId": 434023,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761429000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824039,
+        "tournamentResultID": 692914,
+        "tableNr": 0,
+        "whiteId": 351862,
+        "blackId": 434023,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490773,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 11,
+    "homeId": 505361,
+    "homeTeamNumber": -1,
+    "awayId": 652138,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761332000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591817,
+        "tournamentResultID": 490773,
+        "tableNr": 0,
+        "whiteId": 505361,
+        "blackId": 652138,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490774,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 12,
+    "homeId": 592346,
+    "homeTeamNumber": -1,
+    "awayId": 350479,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714760685000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591818,
+        "tournamentResultID": 490774,
+        "tableNr": 0,
+        "whiteId": 592346,
+        "blackId": 350479,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490775,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 13,
+    "homeId": 427151,
+    "homeTeamNumber": -1,
+    "awayId": 365069,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761113000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591819,
+        "tournamentResultID": 490775,
+        "tableNr": 0,
+        "whiteId": 427151,
+        "blackId": 365069,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490776,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 14,
+    "homeId": 350413,
+    "homeTeamNumber": -1,
+    "awayId": 431286,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714760781000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591820,
+        "tournamentResultID": 490776,
+        "tableNr": 0,
+        "whiteId": 350413,
+        "blackId": 431286,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490777,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 15,
+    "homeId": 673943,
+    "homeTeamNumber": -1,
+    "awayId": 513654,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761425000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591821,
+        "tournamentResultID": 490777,
+        "tableNr": 0,
+        "whiteId": 673943,
+        "blackId": 513654,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490778,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 16,
+    "homeId": 486589,
+    "homeTeamNumber": -1,
+    "awayId": 350416,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761453000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591822,
+        "tournamentResultID": 490778,
+        "tableNr": 0,
+        "whiteId": 486589,
+        "blackId": 350416,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490779,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 17,
+    "homeId": 464113,
+    "homeTeamNumber": -1,
+    "awayId": 636266,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761458000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591823,
+        "tournamentResultID": 490779,
+        "tableNr": 0,
+        "whiteId": 464113,
+        "blackId": 636266,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490780,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 18,
+    "homeId": 652752,
+    "homeTeamNumber": -1,
+    "awayId": 653667,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761626000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591824,
+        "tournamentResultID": 490780,
+        "tableNr": 0,
+        "whiteId": 652752,
+        "blackId": 653667,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490781,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 19,
+    "homeId": 364004,
+    "homeTeamNumber": -1,
+    "awayId": 376094,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761086000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591825,
+        "tournamentResultID": 490781,
+        "tableNr": 0,
+        "whiteId": 364004,
+        "blackId": 376094,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490782,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 20,
+    "homeId": 488421,
+    "homeTeamNumber": -1,
+    "awayId": 540633,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761195000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591826,
+        "tournamentResultID": 490782,
+        "tableNr": 0,
+        "whiteId": 488421,
+        "blackId": 540633,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490783,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 21,
+    "homeId": 622224,
+    "homeTeamNumber": -1,
+    "awayId": 462300,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714760962000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591827,
+        "tournamentResultID": 490783,
+        "tableNr": 0,
+        "whiteId": 622224,
+        "blackId": 462300,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490784,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 22,
+    "homeId": 713891,
+    "homeTeamNumber": -1,
+    "awayId": 357593,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761203000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591828,
+        "tournamentResultID": 490784,
+        "tableNr": 0,
+        "whiteId": 713891,
+        "blackId": 357593,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557221,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 23,
+    "homeId": 570261,
+    "homeTeamNumber": -1,
+    "awayId": 357334,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761974000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662803,
+        "tournamentResultID": 557221,
+        "tableNr": 0,
+        "whiteId": 570261,
+        "blackId": 357334,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490786,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 24,
+    "homeId": 643655,
+    "homeTeamNumber": -1,
+    "awayId": 358282,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761376000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591830,
+        "tournamentResultID": 490786,
+        "tableNr": 0,
+        "whiteId": 643655,
+        "blackId": 358282,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490787,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 25,
+    "homeId": 364006,
+    "homeTeamNumber": -1,
+    "awayId": 585658,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714759762000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591831,
+        "tournamentResultID": 490787,
+        "tableNr": 0,
+        "whiteId": 364006,
+        "blackId": 585658,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490788,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 26,
+    "homeId": 643378,
+    "homeTeamNumber": -1,
+    "awayId": 541388,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761365000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591832,
+        "tournamentResultID": 490788,
+        "tableNr": 0,
+        "whiteId": 643378,
+        "blackId": 541388,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490789,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 27,
+    "homeId": 357591,
+    "homeTeamNumber": -1,
+    "awayId": 624014,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761402000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591833,
+        "tournamentResultID": 490789,
+        "tableNr": 0,
+        "whiteId": 357591,
+        "blackId": 624014,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490790,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 28,
+    "homeId": 347526,
+    "homeTeamNumber": -1,
+    "awayId": 642390,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714760550000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591834,
+        "tournamentResultID": 490790,
+        "tableNr": 0,
+        "whiteId": 347526,
+        "blackId": 642390,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490791,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 29,
+    "homeId": 713415,
+    "homeTeamNumber": -1,
+    "awayId": 376158,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761370000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591835,
+        "tournamentResultID": 490791,
+        "tableNr": 0,
+        "whiteId": 713415,
+        "blackId": 376158,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490792,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 30,
+    "homeId": 677851,
+    "homeTeamNumber": -1,
+    "awayId": 394728,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761350000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591836,
+        "tournamentResultID": 490792,
+        "tableNr": 0,
+        "whiteId": 677851,
+        "blackId": 394728,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490793,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 31,
+    "homeId": 363179,
+    "homeTeamNumber": -1,
+    "awayId": 452807,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714761345000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591837,
+        "tournamentResultID": 490793,
+        "tableNr": 0,
+        "whiteId": 363179,
+        "blackId": 452807,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490794,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 32,
+    "homeId": 691642,
+    "homeTeamNumber": -1,
+    "awayId": 650369,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714761591000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591838,
+        "tournamentResultID": 490794,
+        "tableNr": 0,
+        "whiteId": 691642,
+        "blackId": 650369,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490795,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 33,
+    "homeId": 641291,
+    "homeTeamNumber": -1,
+    "awayId": 526287,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714761771000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591839,
+        "tournamentResultID": 490795,
+        "tableNr": 0,
+        "whiteId": 641291,
+        "blackId": 526287,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490796,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 34,
+    "homeId": 349981,
+    "homeTeamNumber": -1,
+    "awayId": 350464,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714761632000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591840,
+        "tournamentResultID": 490796,
+        "tableNr": 0,
+        "whiteId": 349981,
+        "blackId": 350464,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490797,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 35,
+    "homeId": 359037,
+    "homeTeamNumber": -1,
+    "awayId": 612036,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714761621000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591841,
+        "tournamentResultID": 490797,
+        "tableNr": 0,
+        "whiteId": 359037,
+        "blackId": 612036,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490798,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 36,
+    "homeId": 716556,
+    "homeTeamNumber": -1,
+    "awayId": 686313,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714761608000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591842,
+        "tournamentResultID": 490798,
+        "tableNr": 0,
+        "whiteId": 716556,
+        "blackId": 686313,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490799,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 37,
+    "homeId": 376548,
+    "homeTeamNumber": -1,
+    "awayId": 541387,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714761598000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591843,
+        "tournamentResultID": 490799,
+        "tableNr": 0,
+        "whiteId": 376548,
+        "blackId": 541387,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490800,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 38,
+    "homeId": 544058,
+    "homeTeamNumber": -1,
+    "awayId": 533374,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714761589000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591844,
+        "tournamentResultID": 490800,
+        "tableNr": 0,
+        "whiteId": 544058,
+        "blackId": 533374,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707903,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 39,
+    "homeId": 457151,
+    "homeTeamNumber": -1,
+    "awayId": 711829,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714759855000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838861,
+        "tournamentResultID": 707903,
+        "tableNr": 0,
+        "whiteId": 457151,
+        "blackId": 711829,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523906,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 40,
+    "homeId": 375808,
+    "homeTeamNumber": -1,
+    "awayId": 725343,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714759851000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624915,
+        "tournamentResultID": 523906,
+        "tableNr": 0,
+        "whiteId": 375808,
+        "blackId": 725343,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490803,
+    "groupdId": 13664,
+    "roundNr": 3,
+    "board": 41,
+    "homeId": 667116,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714759103000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591847,
+        "tournamentResultID": 490803,
+        "tableNr": 0,
+        "whiteId": 667116,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490804,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 1,
+    "homeId": 423802,
+    "homeTeamNumber": -1,
+    "awayId": 546393,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765068000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591848,
+        "tournamentResultID": 490804,
+        "tableNr": 0,
+        "whiteId": 423802,
+        "blackId": 546393,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490805,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 2,
+    "homeId": 350681,
+    "homeTeamNumber": -1,
+    "awayId": 426972,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765061000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591849,
+        "tournamentResultID": 490805,
+        "tableNr": 0,
+        "whiteId": 350681,
+        "blackId": 426972,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490806,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 3,
+    "homeId": 646346,
+    "homeTeamNumber": -1,
+    "awayId": 693181,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765150000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591850,
+        "tournamentResultID": 490806,
+        "tableNr": 0,
+        "whiteId": 646346,
+        "blackId": 693181,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490807,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 4,
+    "homeId": 459068,
+    "homeTeamNumber": -1,
+    "awayId": 347707,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714764965000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591851,
+        "tournamentResultID": 490807,
+        "tableNr": 0,
+        "whiteId": 459068,
+        "blackId": 347707,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490808,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 5,
+    "homeId": 499172,
+    "homeTeamNumber": -1,
+    "awayId": 351862,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765131000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591852,
+        "tournamentResultID": 490808,
+        "tableNr": 0,
+        "whiteId": 499172,
+        "blackId": 351862,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490809,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 6,
+    "homeId": 427151,
+    "homeTeamNumber": -1,
+    "awayId": 505361,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714764887000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591853,
+        "tournamentResultID": 490809,
+        "tableNr": 0,
+        "whiteId": 427151,
+        "blackId": 505361,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490810,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 7,
+    "homeId": 350479,
+    "homeTeamNumber": -1,
+    "awayId": 364006,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765282000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591854,
+        "tournamentResultID": 490810,
+        "tableNr": 0,
+        "whiteId": 350479,
+        "blackId": 364006,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490811,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 8,
+    "homeId": 431286,
+    "homeTeamNumber": -1,
+    "awayId": 357591,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714764424000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591855,
+        "tournamentResultID": 490811,
+        "tableNr": 0,
+        "whiteId": 431286,
+        "blackId": 357591,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490812,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 9,
+    "homeId": 520087,
+    "homeTeamNumber": -1,
+    "awayId": 486589,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714764144000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591856,
+        "tournamentResultID": 490812,
+        "tableNr": 0,
+        "whiteId": 520087,
+        "blackId": 486589,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490813,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 10,
+    "homeId": 360910,
+    "homeTeamNumber": -1,
+    "awayId": 428344,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765429000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591857,
+        "tournamentResultID": 490813,
+        "tableNr": 0,
+        "whiteId": 360910,
+        "blackId": 428344,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490814,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 11,
+    "homeId": 376158,
+    "homeTeamNumber": -1,
+    "awayId": 364013,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765004000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591858,
+        "tournamentResultID": 490814,
+        "tableNr": 0,
+        "whiteId": 376158,
+        "blackId": 364013,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490815,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 12,
+    "homeId": 347526,
+    "homeTeamNumber": -1,
+    "awayId": 361205,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765115000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591859,
+        "tournamentResultID": 490815,
+        "tableNr": 0,
+        "whiteId": 347526,
+        "blackId": 361205,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490816,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 13,
+    "homeId": 636266,
+    "homeTeamNumber": -1,
+    "awayId": 542787,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765178000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591860,
+        "tournamentResultID": 490816,
+        "tableNr": 0,
+        "whiteId": 636266,
+        "blackId": 542787,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490817,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 14,
+    "homeId": 364004,
+    "homeTeamNumber": -1,
+    "awayId": 622224,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714764747000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591861,
+        "tournamentResultID": 490817,
+        "tableNr": 0,
+        "whiteId": 364004,
+        "blackId": 622224,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490818,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 15,
+    "homeId": 653667,
+    "homeTeamNumber": -1,
+    "awayId": 546353,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764367000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591862,
+        "tournamentResultID": 490818,
+        "tableNr": 0,
+        "whiteId": 653667,
+        "blackId": 546353,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490819,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 16,
+    "homeId": 357593,
+    "homeTeamNumber": -1,
+    "awayId": 488421,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765252000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591863,
+        "tournamentResultID": 490819,
+        "tableNr": 0,
+        "whiteId": 357593,
+        "blackId": 488421,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490820,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 17,
+    "homeId": 541388,
+    "homeTeamNumber": -1,
+    "awayId": 669533,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764305000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591864,
+        "tournamentResultID": 490820,
+        "tableNr": 0,
+        "whiteId": 541388,
+        "blackId": 669533,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490821,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 18,
+    "homeId": 358282,
+    "homeTeamNumber": -1,
+    "awayId": 694556,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765234000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591865,
+        "tournamentResultID": 490821,
+        "tableNr": 0,
+        "whiteId": 358282,
+        "blackId": 694556,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557222,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 19,
+    "homeId": 513654,
+    "homeTeamNumber": -1,
+    "awayId": 570261,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764153000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662804,
+        "tournamentResultID": 557222,
+        "tableNr": 0,
+        "whiteId": 513654,
+        "blackId": 570261,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490823,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 20,
+    "homeId": 652138,
+    "homeTeamNumber": -1,
+    "awayId": 592346,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765509000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591867,
+        "tournamentResultID": 490823,
+        "tableNr": 0,
+        "whiteId": 652138,
+        "blackId": 592346,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692915,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 21,
+    "homeId": 434023,
+    "homeTeamNumber": -1,
+    "awayId": 677851,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714765366000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824040,
+        "tournamentResultID": 692915,
+        "tableNr": 0,
+        "whiteId": 434023,
+        "blackId": 677851,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490825,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 22,
+    "homeId": 452807,
+    "homeTeamNumber": -1,
+    "awayId": 691642,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764883000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591869,
+        "tournamentResultID": 490825,
+        "tableNr": 0,
+        "whiteId": 452807,
+        "blackId": 691642,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490826,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 23,
+    "homeId": 357334,
+    "homeTeamNumber": -1,
+    "awayId": 673943,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765221000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591870,
+        "tournamentResultID": 490826,
+        "tableNr": 0,
+        "whiteId": 357334,
+        "blackId": 673943,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490827,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 24,
+    "homeId": 376094,
+    "homeTeamNumber": -1,
+    "awayId": 464113,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764448000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591871,
+        "tournamentResultID": 490827,
+        "tableNr": 0,
+        "whiteId": 376094,
+        "blackId": 464113,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490828,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 25,
+    "homeId": 540633,
+    "homeTeamNumber": -1,
+    "awayId": 652752,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714763953000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591872,
+        "tournamentResultID": 490828,
+        "tableNr": 0,
+        "whiteId": 540633,
+        "blackId": 652752,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490829,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 26,
+    "homeId": 462300,
+    "homeTeamNumber": -1,
+    "awayId": 350413,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765201000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591873,
+        "tournamentResultID": 490829,
+        "tableNr": 0,
+        "whiteId": 462300,
+        "blackId": 350413,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707904,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 27,
+    "homeId": 711829,
+    "homeTeamNumber": -1,
+    "awayId": 713891,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764036000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838862,
+        "tournamentResultID": 707904,
+        "tableNr": 0,
+        "whiteId": 711829,
+        "blackId": 713891,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490831,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 28,
+    "homeId": 725343,
+    "homeTeamNumber": -1,
+    "awayId": 643378,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714764643000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591875,
+        "tournamentResultID": 490831,
+        "tableNr": 0,
+        "whiteId": 725343,
+        "blackId": 643378,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490832,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 29,
+    "homeId": 394728,
+    "homeTeamNumber": -1,
+    "awayId": 643655,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714764899000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591876,
+        "tournamentResultID": 490832,
+        "tableNr": 0,
+        "whiteId": 394728,
+        "blackId": 643655,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490833,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 30,
+    "homeId": 642390,
+    "homeTeamNumber": -1,
+    "awayId": 349981,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714764628000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591877,
+        "tournamentResultID": 490833,
+        "tableNr": 0,
+        "whiteId": 642390,
+        "blackId": 349981,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490834,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 31,
+    "homeId": 350416,
+    "homeTeamNumber": -1,
+    "awayId": 624014,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714763452000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591878,
+        "tournamentResultID": 490834,
+        "tableNr": 0,
+        "whiteId": 350416,
+        "blackId": 624014,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490835,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 32,
+    "homeId": 365069,
+    "homeTeamNumber": -1,
+    "awayId": 544058,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714765454000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591879,
+        "tournamentResultID": 490835,
+        "tableNr": 0,
+        "whiteId": 365069,
+        "blackId": 544058,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490836,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 33,
+    "homeId": 612036,
+    "homeTeamNumber": -1,
+    "awayId": 667116,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714763430000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591880,
+        "tournamentResultID": 490836,
+        "tableNr": 0,
+        "whiteId": 612036,
+        "blackId": 667116,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490837,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 34,
+    "homeId": 686313,
+    "homeTeamNumber": -1,
+    "awayId": 713415,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714765463000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591881,
+        "tournamentResultID": 490837,
+        "tableNr": 0,
+        "whiteId": 686313,
+        "blackId": 713415,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490838,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 35,
+    "homeId": 585658,
+    "homeTeamNumber": -1,
+    "awayId": 376548,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714765458000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591882,
+        "tournamentResultID": 490838,
+        "tableNr": 0,
+        "whiteId": 585658,
+        "blackId": 376548,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490839,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 36,
+    "homeId": 526287,
+    "homeTeamNumber": -1,
+    "awayId": 363179,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714765451000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591883,
+        "tournamentResultID": 490839,
+        "tableNr": 0,
+        "whiteId": 526287,
+        "blackId": 363179,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490840,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 37,
+    "homeId": 650369,
+    "homeTeamNumber": -1,
+    "awayId": 641291,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714764662000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591884,
+        "tournamentResultID": 490840,
+        "tableNr": 0,
+        "whiteId": 650369,
+        "blackId": 641291,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490841,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 38,
+    "homeId": 533374,
+    "homeTeamNumber": -1,
+    "awayId": 716556,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714764788000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591885,
+        "tournamentResultID": 490841,
+        "tableNr": 0,
+        "whiteId": 533374,
+        "blackId": 716556,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490842,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 39,
+    "homeId": 350464,
+    "homeTeamNumber": -1,
+    "awayId": 457151,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714764314000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591886,
+        "tournamentResultID": 490842,
+        "tableNr": 0,
+        "whiteId": 350464,
+        "blackId": 457151,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490843,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 40,
+    "homeId": 541387,
+    "homeTeamNumber": -1,
+    "awayId": 359037,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714765444000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591887,
+        "tournamentResultID": 490843,
+        "tableNr": 0,
+        "whiteId": 541387,
+        "blackId": 359037,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523907,
+    "groupdId": 13664,
+    "roundNr": 4,
+    "board": 41,
+    "homeId": 375808,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-03",
+    "finalized": true,
+    "publisher": 552027,
+    "publishDate": 1714762598000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624916,
+        "tournamentResultID": 523907,
+        "tableNr": 0,
+        "whiteId": 375808,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490845,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 1,
+    "homeId": 646346,
+    "homeTeamNumber": -1,
+    "awayId": 423802,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714823264000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591889,
+        "tournamentResultID": 490845,
+        "tableNr": 0,
+        "whiteId": 646346,
+        "blackId": 423802,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490846,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 2,
+    "homeId": 459068,
+    "homeTeamNumber": -1,
+    "awayId": 350681,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714823719000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591890,
+        "tournamentResultID": 490846,
+        "tableNr": 0,
+        "whiteId": 459068,
+        "blackId": 350681,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490847,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 3,
+    "homeId": 351862,
+    "homeTeamNumber": -1,
+    "awayId": 505361,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714818093000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591891,
+        "tournamentResultID": 490847,
+        "tableNr": 0,
+        "whiteId": 351862,
+        "blackId": 505361,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490848,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 4,
+    "homeId": 428344,
+    "homeTeamNumber": -1,
+    "awayId": 350479,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714823100000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591892,
+        "tournamentResultID": 490848,
+        "tableNr": 0,
+        "whiteId": 428344,
+        "blackId": 350479,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490849,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 5,
+    "homeId": 364013,
+    "homeTeamNumber": -1,
+    "awayId": 431286,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714823057000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591893,
+        "tournamentResultID": 490849,
+        "tableNr": 0,
+        "whiteId": 364013,
+        "blackId": 431286,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490850,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 6,
+    "homeId": 546393,
+    "homeTeamNumber": -1,
+    "awayId": 546353,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714822056000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591894,
+        "tournamentResultID": 490850,
+        "tableNr": 0,
+        "whiteId": 546393,
+        "blackId": 546353,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490851,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 7,
+    "homeId": 426972,
+    "homeTeamNumber": -1,
+    "awayId": 636266,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714822110000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591895,
+        "tournamentResultID": 490851,
+        "tableNr": 0,
+        "whiteId": 426972,
+        "blackId": 636266,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490852,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 8,
+    "homeId": 693181,
+    "homeTeamNumber": -1,
+    "awayId": 358282,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714817719000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591896,
+        "tournamentResultID": 490852,
+        "tableNr": 0,
+        "whiteId": 693181,
+        "blackId": 358282,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490853,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 9,
+    "homeId": 347707,
+    "homeTeamNumber": -1,
+    "awayId": 541388,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714820778000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591897,
+        "tournamentResultID": 490853,
+        "tableNr": 0,
+        "whiteId": 347707,
+        "blackId": 541388,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490854,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 10,
+    "homeId": 488421,
+    "homeTeamNumber": -1,
+    "awayId": 499172,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714823781000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591898,
+        "tournamentResultID": 490854,
+        "tableNr": 0,
+        "whiteId": 488421,
+        "blackId": 499172,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490855,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 11,
+    "homeId": 622224,
+    "homeTeamNumber": -1,
+    "awayId": 652138,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714822096000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591899,
+        "tournamentResultID": 490855,
+        "tableNr": 0,
+        "whiteId": 622224,
+        "blackId": 652138,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490856,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 12,
+    "homeId": 452807,
+    "homeTeamNumber": -1,
+    "awayId": 513654,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714821503000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591900,
+        "tournamentResultID": 490856,
+        "tableNr": 0,
+        "whiteId": 452807,
+        "blackId": 513654,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490857,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 13,
+    "homeId": 486589,
+    "homeTeamNumber": -1,
+    "awayId": 347526,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714814318000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591901,
+        "tournamentResultID": 490857,
+        "tableNr": 0,
+        "whiteId": 486589,
+        "blackId": 347526,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490858,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 14,
+    "homeId": 361205,
+    "homeTeamNumber": -1,
+    "awayId": 520087,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714817128000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591902,
+        "tournamentResultID": 490858,
+        "tableNr": 0,
+        "whiteId": 361205,
+        "blackId": 520087,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490859,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 15,
+    "homeId": 349981,
+    "homeTeamNumber": -1,
+    "awayId": 427151,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714822086000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591903,
+        "tournamentResultID": 490859,
+        "tableNr": 0,
+        "whiteId": 349981,
+        "blackId": 427151,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490860,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 16,
+    "homeId": 542787,
+    "homeTeamNumber": -1,
+    "awayId": 376158,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714820168000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591904,
+        "tournamentResultID": 490860,
+        "tableNr": 0,
+        "whiteId": 542787,
+        "blackId": 376158,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490861,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 17,
+    "homeId": 652752,
+    "homeTeamNumber": -1,
+    "awayId": 350416,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714820873000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591905,
+        "tournamentResultID": 490861,
+        "tableNr": 0,
+        "whiteId": 652752,
+        "blackId": 350416,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490862,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 18,
+    "homeId": 376548,
+    "homeTeamNumber": -1,
+    "awayId": 364004,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714821702000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591906,
+        "tournamentResultID": 490862,
+        "tableNr": 0,
+        "whiteId": 376548,
+        "blackId": 364004,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692947,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 19,
+    "homeId": 570261,
+    "homeTeamNumber": -1,
+    "awayId": 434023,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714825038000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824072,
+        "tournamentResultID": 692947,
+        "tableNr": 0,
+        "whiteId": 570261,
+        "blackId": 434023,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490864,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 20,
+    "homeId": 643655,
+    "homeTeamNumber": -1,
+    "awayId": 462300,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714820363000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591908,
+        "tournamentResultID": 490864,
+        "tableNr": 0,
+        "whiteId": 643655,
+        "blackId": 462300,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490865,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 21,
+    "homeId": 713891,
+    "homeTeamNumber": -1,
+    "awayId": 365069,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714823470000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591909,
+        "tournamentResultID": 490865,
+        "tableNr": 0,
+        "whiteId": 713891,
+        "blackId": 365069,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490866,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 22,
+    "homeId": 694556,
+    "homeTeamNumber": -1,
+    "awayId": 357334,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714817824000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591910,
+        "tournamentResultID": 490866,
+        "tableNr": 0,
+        "whiteId": 694556,
+        "blackId": 357334,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490867,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 23,
+    "homeId": 669533,
+    "homeTeamNumber": -1,
+    "awayId": 612036,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714821210000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591911,
+        "tournamentResultID": 490867,
+        "tableNr": 0,
+        "whiteId": 669533,
+        "blackId": 612036,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490868,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 24,
+    "homeId": 364006,
+    "homeTeamNumber": -1,
+    "awayId": 686313,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714822924000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591912,
+        "tournamentResultID": 490868,
+        "tableNr": 0,
+        "whiteId": 364006,
+        "blackId": 686313,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490869,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 25,
+    "homeId": 677851,
+    "homeTeamNumber": -1,
+    "awayId": 360910,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714815735000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591913,
+        "tournamentResultID": 490869,
+        "tableNr": 0,
+        "whiteId": 677851,
+        "blackId": 360910,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490870,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 26,
+    "homeId": 643378,
+    "homeTeamNumber": -1,
+    "awayId": 653667,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714822834000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591914,
+        "tournamentResultID": 490870,
+        "tableNr": 0,
+        "whiteId": 643378,
+        "blackId": 653667,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490871,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 27,
+    "homeId": 357591,
+    "homeTeamNumber": -1,
+    "awayId": 357593,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714811396000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591915,
+        "tournamentResultID": 490871,
+        "tableNr": 0,
+        "whiteId": 357591,
+        "blackId": 357593,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490872,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 28,
+    "homeId": 464113,
+    "homeTeamNumber": -1,
+    "awayId": 592346,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714814710000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591916,
+        "tournamentResultID": 490872,
+        "tableNr": 0,
+        "whiteId": 464113,
+        "blackId": 592346,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490873,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 29,
+    "homeId": 673943,
+    "homeTeamNumber": -1,
+    "awayId": 376094,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714823648000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591917,
+        "tournamentResultID": 490873,
+        "tableNr": 0,
+        "whiteId": 673943,
+        "blackId": 376094,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490874,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 30,
+    "homeId": 691642,
+    "homeTeamNumber": -1,
+    "awayId": 526287,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714818541000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591918,
+        "tournamentResultID": 490874,
+        "tableNr": 0,
+        "whiteId": 691642,
+        "blackId": 526287,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490875,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 31,
+    "homeId": 350464,
+    "homeTeamNumber": -1,
+    "awayId": 394728,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714821049000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591919,
+        "tournamentResultID": 490875,
+        "tableNr": 0,
+        "whiteId": 350464,
+        "blackId": 394728,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490876,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 32,
+    "homeId": 363179,
+    "homeTeamNumber": -1,
+    "awayId": 642390,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714816478000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591920,
+        "tournamentResultID": 490876,
+        "tableNr": 0,
+        "whiteId": 363179,
+        "blackId": 642390,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490877,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 33,
+    "homeId": 350413,
+    "homeTeamNumber": -1,
+    "awayId": 650369,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714821059000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591921,
+        "tournamentResultID": 490877,
+        "tableNr": 0,
+        "whiteId": 350413,
+        "blackId": 650369,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490878,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 34,
+    "homeId": 624014,
+    "homeTeamNumber": -1,
+    "awayId": 533374,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714814269000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591922,
+        "tournamentResultID": 490878,
+        "tableNr": 0,
+        "whiteId": 624014,
+        "blackId": 533374,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490879,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 35,
+    "homeId": 359037,
+    "homeTeamNumber": -1,
+    "awayId": 540633,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714821197000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591923,
+        "tournamentResultID": 490879,
+        "tableNr": 0,
+        "whiteId": 359037,
+        "blackId": 540633,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707905,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 36,
+    "homeId": 544058,
+    "homeTeamNumber": -1,
+    "awayId": 711829,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714821333000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838863,
+        "tournamentResultID": 707905,
+        "tableNr": 0,
+        "whiteId": 544058,
+        "blackId": 711829,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490881,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 37,
+    "homeId": 667116,
+    "homeTeamNumber": -1,
+    "awayId": 725343,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714812340000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591925,
+        "tournamentResultID": 490881,
+        "tableNr": 0,
+        "whiteId": 667116,
+        "blackId": 725343,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490882,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 38,
+    "homeId": 713415,
+    "homeTeamNumber": -1,
+    "awayId": 585658,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714820025000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591926,
+        "tournamentResultID": 490882,
+        "tableNr": 0,
+        "whiteId": 713415,
+        "blackId": 585658,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523908,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 39,
+    "homeId": 641291,
+    "homeTeamNumber": -1,
+    "awayId": 375808,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714810060000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624917,
+        "tournamentResultID": 523908,
+        "tableNr": 0,
+        "whiteId": 641291,
+        "blackId": 375808,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490884,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 40,
+    "homeId": 716556,
+    "homeTeamNumber": -1,
+    "awayId": 541387,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714816800000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591928,
+        "tournamentResultID": 490884,
+        "tableNr": 0,
+        "whiteId": 716556,
+        "blackId": 541387,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 490885,
+    "groupdId": 13664,
+    "roundNr": 5,
+    "board": 41,
+    "homeId": 457151,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714809973000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 591929,
+        "tournamentResultID": 490885,
+        "tableNr": 0,
+        "whiteId": 457151,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491654,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 1,
+    "homeId": 423802,
+    "homeTeamNumber": -1,
+    "awayId": 459068,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714841964000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592788,
+        "tournamentResultID": 491654,
+        "tableNr": 0,
+        "whiteId": 423802,
+        "blackId": 459068,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491655,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 2,
+    "homeId": 350681,
+    "homeTeamNumber": -1,
+    "awayId": 351862,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714840149000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592789,
+        "tournamentResultID": 491655,
+        "tableNr": 0,
+        "whiteId": 350681,
+        "blackId": 351862,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491656,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 3,
+    "homeId": 350479,
+    "homeTeamNumber": -1,
+    "awayId": 646346,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714841121000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592790,
+        "tournamentResultID": 491656,
+        "tableNr": 0,
+        "whiteId": 350479,
+        "blackId": 646346,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491657,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 4,
+    "homeId": 693181,
+    "homeTeamNumber": -1,
+    "awayId": 546393,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714830652000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592791,
+        "tournamentResultID": 491657,
+        "tableNr": 0,
+        "whiteId": 693181,
+        "blackId": 546393,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491658,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 5,
+    "homeId": 431286,
+    "homeTeamNumber": -1,
+    "awayId": 488421,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714836004000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592792,
+        "tournamentResultID": 491658,
+        "tableNr": 0,
+        "whiteId": 431286,
+        "blackId": 488421,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491659,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 6,
+    "homeId": 505361,
+    "homeTeamNumber": -1,
+    "awayId": 364013,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714838530000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592793,
+        "tournamentResultID": 491659,
+        "tableNr": 0,
+        "whiteId": 505361,
+        "blackId": 364013,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491660,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 7,
+    "homeId": 513654,
+    "homeTeamNumber": -1,
+    "awayId": 541388,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714836145000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592794,
+        "tournamentResultID": 491660,
+        "tableNr": 0,
+        "whiteId": 513654,
+        "blackId": 541388,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491661,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 8,
+    "homeId": 652138,
+    "homeTeamNumber": -1,
+    "awayId": 426972,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714839668000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592795,
+        "tournamentResultID": 491661,
+        "tableNr": 0,
+        "whiteId": 652138,
+        "blackId": 426972,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491662,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 9,
+    "homeId": 636266,
+    "homeTeamNumber": -1,
+    "awayId": 486589,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714835770000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592796,
+        "tournamentResultID": 491662,
+        "tableNr": 0,
+        "whiteId": 636266,
+        "blackId": 486589,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491663,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 10,
+    "homeId": 347707,
+    "homeTeamNumber": -1,
+    "awayId": 361205,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714828128000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592797,
+        "tournamentResultID": 491663,
+        "tableNr": 0,
+        "whiteId": 347707,
+        "blackId": 361205,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491664,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 11,
+    "homeId": 357334,
+    "homeTeamNumber": -1,
+    "awayId": 427151,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714835219000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592798,
+        "tournamentResultID": 491664,
+        "tableNr": 0,
+        "whiteId": 357334,
+        "blackId": 427151,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491665,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 12,
+    "homeId": 499172,
+    "homeTeamNumber": -1,
+    "awayId": 358282,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714839284000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592799,
+        "tournamentResultID": 491665,
+        "tableNr": 0,
+        "whiteId": 499172,
+        "blackId": 358282,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491666,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 13,
+    "homeId": 365069,
+    "homeTeamNumber": -1,
+    "awayId": 428344,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714838766000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592800,
+        "tournamentResultID": 491666,
+        "tableNr": 0,
+        "whiteId": 365069,
+        "blackId": 428344,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491667,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 14,
+    "homeId": 360910,
+    "homeTeamNumber": -1,
+    "awayId": 542787,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714835858000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592801,
+        "tournamentResultID": 491667,
+        "tableNr": 0,
+        "whiteId": 360910,
+        "blackId": 542787,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491668,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 15,
+    "homeId": 612036,
+    "homeTeamNumber": -1,
+    "awayId": 652752,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714840907000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592802,
+        "tournamentResultID": 491668,
+        "tableNr": 0,
+        "whiteId": 612036,
+        "blackId": 652752,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692916,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 16,
+    "homeId": 434023,
+    "homeTeamNumber": -1,
+    "awayId": 643378,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714834161000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824041,
+        "tournamentResultID": 692916,
+        "tableNr": 0,
+        "whiteId": 434023,
+        "blackId": 643378,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491670,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 17,
+    "homeId": 546353,
+    "homeTeamNumber": -1,
+    "awayId": 622224,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714834124000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592804,
+        "tournamentResultID": 491670,
+        "tableNr": 0,
+        "whiteId": 546353,
+        "blackId": 622224,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491671,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 18,
+    "homeId": 462300,
+    "homeTeamNumber": -1,
+    "awayId": 686313,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714835892000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592805,
+        "tournamentResultID": 491671,
+        "tableNr": 0,
+        "whiteId": 462300,
+        "blackId": 686313,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491672,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 19,
+    "homeId": 347526,
+    "homeTeamNumber": -1,
+    "awayId": 464113,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714839920000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592806,
+        "tournamentResultID": 491672,
+        "tableNr": 0,
+        "whiteId": 347526,
+        "blackId": 464113,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491673,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 20,
+    "homeId": 364004,
+    "homeTeamNumber": -1,
+    "awayId": 673943,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714841287000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592807,
+        "tournamentResultID": 491673,
+        "tableNr": 0,
+        "whiteId": 364004,
+        "blackId": 673943,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491674,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 21,
+    "homeId": 357593,
+    "homeTeamNumber": -1,
+    "awayId": 452807,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714841224000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592808,
+        "tournamentResultID": 491674,
+        "tableNr": 0,
+        "whiteId": 357593,
+        "blackId": 452807,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491675,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 22,
+    "homeId": 520087,
+    "homeTeamNumber": -1,
+    "awayId": 376548,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714834390000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592809,
+        "tournamentResultID": 491675,
+        "tableNr": 0,
+        "whiteId": 520087,
+        "blackId": 376548,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491676,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 23,
+    "homeId": 691642,
+    "homeTeamNumber": -1,
+    "awayId": 357591,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714838282000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592810,
+        "tournamentResultID": 491676,
+        "tableNr": 0,
+        "whiteId": 691642,
+        "blackId": 357591,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491677,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 24,
+    "homeId": 533374,
+    "homeTeamNumber": -1,
+    "awayId": 713891,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714841502000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592811,
+        "tournamentResultID": 491677,
+        "tableNr": 0,
+        "whiteId": 533374,
+        "blackId": 713891,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491678,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 25,
+    "homeId": 653667,
+    "homeTeamNumber": -1,
+    "awayId": 669533,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714834486000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592812,
+        "tournamentResultID": 491678,
+        "tableNr": 0,
+        "whiteId": 653667,
+        "blackId": 669533,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491679,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 26,
+    "homeId": 540633,
+    "homeTeamNumber": -1,
+    "awayId": 364006,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714838513000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592813,
+        "tournamentResultID": 491679,
+        "tableNr": 0,
+        "whiteId": 540633,
+        "blackId": 364006,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557224,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 27,
+    "homeId": 394728,
+    "homeTeamNumber": -1,
+    "awayId": 570261,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714838077000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662806,
+        "tournamentResultID": 557224,
+        "tableNr": 0,
+        "whiteId": 394728,
+        "blackId": 570261,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491681,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 28,
+    "homeId": 376158,
+    "homeTeamNumber": -1,
+    "awayId": 643655,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714839317000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592815,
+        "tournamentResultID": 491681,
+        "tableNr": 0,
+        "whiteId": 376158,
+        "blackId": 643655,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491682,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 29,
+    "homeId": 585658,
+    "homeTeamNumber": -1,
+    "awayId": 349981,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714836567000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592816,
+        "tournamentResultID": 491682,
+        "tableNr": 0,
+        "whiteId": 585658,
+        "blackId": 349981,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491683,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 30,
+    "homeId": 350416,
+    "homeTeamNumber": -1,
+    "awayId": 641291,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714835530000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592817,
+        "tournamentResultID": 491683,
+        "tableNr": 0,
+        "whiteId": 350416,
+        "blackId": 641291,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491684,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 31,
+    "homeId": 694556,
+    "homeTeamNumber": -1,
+    "awayId": 363179,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714841585000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592818,
+        "tournamentResultID": 491684,
+        "tableNr": 0,
+        "whiteId": 694556,
+        "blackId": 363179,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491685,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 32,
+    "homeId": 667116,
+    "homeTeamNumber": -1,
+    "awayId": 350413,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714835437000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592819,
+        "tournamentResultID": 491685,
+        "tableNr": 0,
+        "whiteId": 667116,
+        "blackId": 350413,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491686,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 33,
+    "homeId": 376094,
+    "homeTeamNumber": -1,
+    "awayId": 677851,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714840530000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592820,
+        "tournamentResultID": 491686,
+        "tableNr": 0,
+        "whiteId": 376094,
+        "blackId": 677851,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491687,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 34,
+    "homeId": 592346,
+    "homeTeamNumber": -1,
+    "awayId": 544058,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714831650000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592821,
+        "tournamentResultID": 491687,
+        "tableNr": 0,
+        "whiteId": 592346,
+        "blackId": 544058,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707906,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 35,
+    "homeId": 711829,
+    "homeTeamNumber": -1,
+    "awayId": 350464,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714837669000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838864,
+        "tournamentResultID": 707906,
+        "tableNr": 0,
+        "whiteId": 711829,
+        "blackId": 350464,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491689,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 36,
+    "homeId": 526287,
+    "homeTeamNumber": -1,
+    "awayId": 359037,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714837565000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592823,
+        "tournamentResultID": 491689,
+        "tableNr": 0,
+        "whiteId": 526287,
+        "blackId": 359037,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491690,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 37,
+    "homeId": 725343,
+    "homeTeamNumber": -1,
+    "awayId": 457151,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714833971000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592824,
+        "tournamentResultID": 491690,
+        "tableNr": 0,
+        "whiteId": 725343,
+        "blackId": 457151,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523909,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 38,
+    "homeId": 375808,
+    "homeTeamNumber": -1,
+    "awayId": 624014,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714828830000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624918,
+        "tournamentResultID": 523909,
+        "tableNr": 0,
+        "whiteId": 375808,
+        "blackId": 624014,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491692,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 39,
+    "homeId": 650369,
+    "homeTeamNumber": -1,
+    "awayId": 713415,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714837184000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592826,
+        "tournamentResultID": 491692,
+        "tableNr": 0,
+        "whiteId": 650369,
+        "blackId": 713415,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491693,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 40,
+    "homeId": 642390,
+    "homeTeamNumber": -1,
+    "awayId": 716556,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714834128000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592827,
+        "tournamentResultID": 491693,
+        "tableNr": 0,
+        "whiteId": 642390,
+        "blackId": 716556,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491694,
+    "groupdId": 13664,
+    "roundNr": 6,
+    "board": 41,
+    "homeId": 541387,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-04",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714825935000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 592828,
+        "tournamentResultID": 491694,
+        "tableNr": 0,
+        "whiteId": 541387,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491881,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 1,
+    "homeId": 350681,
+    "homeTeamNumber": -1,
+    "awayId": 423802,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714897533000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593194,
+        "tournamentResultID": 491881,
+        "tableNr": 0,
+        "whiteId": 350681,
+        "blackId": 423802,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491882,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 2,
+    "homeId": 459068,
+    "homeTeamNumber": -1,
+    "awayId": 350479,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714902011000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593195,
+        "tournamentResultID": 491882,
+        "tableNr": 0,
+        "whiteId": 459068,
+        "blackId": 350479,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491883,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 3,
+    "homeId": 546393,
+    "homeTeamNumber": -1,
+    "awayId": 431286,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714898829000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593196,
+        "tournamentResultID": 491883,
+        "tableNr": 0,
+        "whiteId": 546393,
+        "blackId": 431286,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491884,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 4,
+    "homeId": 351862,
+    "homeTeamNumber": -1,
+    "awayId": 513654,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714902822000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593197,
+        "tournamentResultID": 491884,
+        "tableNr": 0,
+        "whiteId": 351862,
+        "blackId": 513654,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491885,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 5,
+    "homeId": 505361,
+    "homeTeamNumber": -1,
+    "awayId": 693181,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714905472000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593198,
+        "tournamentResultID": 491885,
+        "tableNr": 0,
+        "whiteId": 505361,
+        "blackId": 693181,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491886,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 6,
+    "homeId": 427151,
+    "homeTeamNumber": -1,
+    "awayId": 652138,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714905243000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593199,
+        "tournamentResultID": 491886,
+        "tableNr": 0,
+        "whiteId": 427151,
+        "blackId": 652138,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692917,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 7,
+    "homeId": 646346,
+    "homeTeamNumber": -1,
+    "awayId": 434023,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714902240000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824042,
+        "tournamentResultID": 692917,
+        "tableNr": 0,
+        "whiteId": 646346,
+        "blackId": 434023,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491888,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 8,
+    "homeId": 426972,
+    "homeTeamNumber": -1,
+    "awayId": 360910,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714901731000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593201,
+        "tournamentResultID": 491888,
+        "tableNr": 0,
+        "whiteId": 426972,
+        "blackId": 360910,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491889,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 9,
+    "homeId": 486589,
+    "homeTeamNumber": -1,
+    "awayId": 462300,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714904699000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593202,
+        "tournamentResultID": 491889,
+        "tableNr": 0,
+        "whiteId": 486589,
+        "blackId": 462300,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491890,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 10,
+    "homeId": 488421,
+    "homeTeamNumber": -1,
+    "awayId": 347707,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714909644000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593203,
+        "tournamentResultID": 491890,
+        "tableNr": 0,
+        "whiteId": 488421,
+        "blackId": 347707,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491891,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 11,
+    "homeId": 428344,
+    "homeTeamNumber": -1,
+    "awayId": 636266,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714904945000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593204,
+        "tournamentResultID": 491891,
+        "tableNr": 0,
+        "whiteId": 428344,
+        "blackId": 636266,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491892,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 12,
+    "homeId": 361205,
+    "homeTeamNumber": -1,
+    "awayId": 499172,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714899713000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593205,
+        "tournamentResultID": 491892,
+        "tableNr": 0,
+        "whiteId": 361205,
+        "blackId": 499172,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491893,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 13,
+    "homeId": 364013,
+    "homeTeamNumber": -1,
+    "awayId": 612036,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714900429000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593206,
+        "tournamentResultID": 491893,
+        "tableNr": 0,
+        "whiteId": 364013,
+        "blackId": 612036,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491894,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 14,
+    "homeId": 652752,
+    "homeTeamNumber": -1,
+    "awayId": 691642,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714897436000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593207,
+        "tournamentResultID": 491894,
+        "tableNr": 0,
+        "whiteId": 652752,
+        "blackId": 691642,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491895,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 15,
+    "homeId": 452807,
+    "homeTeamNumber": -1,
+    "awayId": 364004,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714906074000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593208,
+        "tournamentResultID": 491895,
+        "tableNr": 0,
+        "whiteId": 452807,
+        "blackId": 364004,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491896,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 16,
+    "homeId": 358282,
+    "homeTeamNumber": -1,
+    "awayId": 546353,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714905413000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593209,
+        "tournamentResultID": 491896,
+        "tableNr": 0,
+        "whiteId": 358282,
+        "blackId": 546353,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491897,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 17,
+    "homeId": 622224,
+    "homeTeamNumber": -1,
+    "awayId": 520087,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714904708000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593210,
+        "tournamentResultID": 491897,
+        "tableNr": 0,
+        "whiteId": 622224,
+        "blackId": 520087,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491898,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 18,
+    "homeId": 541388,
+    "homeTeamNumber": -1,
+    "awayId": 464113,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714903220000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593211,
+        "tournamentResultID": 491898,
+        "tableNr": 0,
+        "whiteId": 541388,
+        "blackId": 464113,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491899,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 19,
+    "homeId": 349981,
+    "homeTeamNumber": -1,
+    "awayId": 542787,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714906166000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593212,
+        "tournamentResultID": 491899,
+        "tableNr": 0,
+        "whiteId": 349981,
+        "blackId": 542787,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491900,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 20,
+    "homeId": 713891,
+    "homeTeamNumber": -1,
+    "awayId": 376158,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714901128000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593213,
+        "tournamentResultID": 491900,
+        "tableNr": 0,
+        "whiteId": 713891,
+        "blackId": 376158,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491901,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 21,
+    "homeId": 363179,
+    "homeTeamNumber": -1,
+    "awayId": 357334,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714900809000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593214,
+        "tournamentResultID": 491901,
+        "tableNr": 0,
+        "whiteId": 363179,
+        "blackId": 357334,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491902,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 22,
+    "homeId": 669533,
+    "homeTeamNumber": -1,
+    "awayId": 350416,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714901464000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593215,
+        "tournamentResultID": 491902,
+        "tableNr": 0,
+        "whiteId": 669533,
+        "blackId": 350416,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491903,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 23,
+    "homeId": 364006,
+    "homeTeamNumber": -1,
+    "awayId": 365069,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714906385000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593216,
+        "tournamentResultID": 491903,
+        "tableNr": 0,
+        "whiteId": 364006,
+        "blackId": 365069,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491904,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 24,
+    "homeId": 643378,
+    "homeTeamNumber": -1,
+    "awayId": 667116,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714900817000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593217,
+        "tournamentResultID": 491904,
+        "tableNr": 0,
+        "whiteId": 643378,
+        "blackId": 667116,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491905,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 25,
+    "homeId": 686313,
+    "homeTeamNumber": -1,
+    "awayId": 394728,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714903726000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593218,
+        "tournamentResultID": 491905,
+        "tableNr": 0,
+        "whiteId": 686313,
+        "blackId": 394728,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491906,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 26,
+    "homeId": 677851,
+    "homeTeamNumber": -1,
+    "awayId": 347526,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714904115000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593219,
+        "tournamentResultID": 491906,
+        "tableNr": 0,
+        "whiteId": 677851,
+        "blackId": 347526,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707907,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 27,
+    "homeId": 357591,
+    "homeTeamNumber": -1,
+    "awayId": 711829,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714904793000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838865,
+        "tournamentResultID": 707907,
+        "tableNr": 0,
+        "whiteId": 357591,
+        "blackId": 711829,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491908,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 28,
+    "homeId": 376548,
+    "homeTeamNumber": -1,
+    "awayId": 357593,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714905409000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593221,
+        "tournamentResultID": 491908,
+        "tableNr": 0,
+        "whiteId": 376548,
+        "blackId": 357593,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491909,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 29,
+    "homeId": 673943,
+    "homeTeamNumber": -1,
+    "awayId": 544058,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714904072000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593222,
+        "tournamentResultID": 491909,
+        "tableNr": 0,
+        "whiteId": 673943,
+        "blackId": 544058,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491910,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 30,
+    "homeId": 643655,
+    "homeTeamNumber": -1,
+    "awayId": 526287,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714906848000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593223,
+        "tournamentResultID": 491910,
+        "tableNr": 0,
+        "whiteId": 643655,
+        "blackId": 526287,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491911,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 31,
+    "homeId": 350413,
+    "homeTeamNumber": -1,
+    "awayId": 725343,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714898379000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593224,
+        "tournamentResultID": 491911,
+        "tableNr": 0,
+        "whiteId": 350413,
+        "blackId": 725343,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491912,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 32,
+    "homeId": 641291,
+    "homeTeamNumber": -1,
+    "awayId": 533374,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714894612000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593225,
+        "tournamentResultID": 491912,
+        "tableNr": 0,
+        "whiteId": 641291,
+        "blackId": 533374,
+        "result": -2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491913,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 33,
+    "homeId": 624014,
+    "homeTeamNumber": -1,
+    "awayId": 653667,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714905535000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593226,
+        "tournamentResultID": 491913,
+        "tableNr": 0,
+        "whiteId": 624014,
+        "blackId": 653667,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491914,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 34,
+    "homeId": 713415,
+    "homeTeamNumber": -1,
+    "awayId": 540633,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714902759000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593227,
+        "tournamentResultID": 491914,
+        "tableNr": 0,
+        "whiteId": 713415,
+        "blackId": 540633,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557225,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 35,
+    "homeId": 570261,
+    "homeTeamNumber": -1,
+    "awayId": 585658,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714904378000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662807,
+        "tournamentResultID": 557225,
+        "tableNr": 0,
+        "whiteId": 570261,
+        "blackId": 585658,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491916,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 36,
+    "homeId": 592346,
+    "homeTeamNumber": -1,
+    "awayId": 694556,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714896456000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593229,
+        "tournamentResultID": 491916,
+        "tableNr": 0,
+        "whiteId": 592346,
+        "blackId": 694556,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491917,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 37,
+    "homeId": 541387,
+    "homeTeamNumber": -1,
+    "awayId": 642390,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714902617000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593230,
+        "tournamentResultID": 491917,
+        "tableNr": 0,
+        "whiteId": 541387,
+        "blackId": 642390,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491918,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 38,
+    "homeId": 359037,
+    "homeTeamNumber": -1,
+    "awayId": 376094,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714902862000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593231,
+        "tournamentResultID": 491918,
+        "tableNr": 0,
+        "whiteId": 359037,
+        "blackId": 376094,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523910,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 39,
+    "homeId": 350464,
+    "homeTeamNumber": -1,
+    "awayId": 375808,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714892779000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624919,
+        "tournamentResultID": 523910,
+        "tableNr": 0,
+        "whiteId": 350464,
+        "blackId": 375808,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491920,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 40,
+    "homeId": 457151,
+    "homeTeamNumber": -1,
+    "awayId": 650369,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714900164000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593233,
+        "tournamentResultID": 491920,
+        "tableNr": 0,
+        "whiteId": 457151,
+        "blackId": 650369,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 491921,
+    "groupdId": 13664,
+    "roundNr": 7,
+    "board": 41,
+    "homeId": 716556,
+    "homeTeamNumber": -1,
+    "awayId": -100,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714892772000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 593234,
+        "tournamentResultID": 491921,
+        "tableNr": 0,
+        "whiteId": 716556,
+        "blackId": -100,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493785,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 1,
+    "homeId": 350479,
+    "homeTeamNumber": -1,
+    "awayId": 350681,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714917682000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595305,
+        "tournamentResultID": 493785,
+        "tableNr": 0,
+        "whiteId": 350479,
+        "blackId": 350681,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493786,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 2,
+    "homeId": 423802,
+    "homeTeamNumber": -1,
+    "awayId": 351862,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714913843000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595306,
+        "tournamentResultID": 493786,
+        "tableNr": 0,
+        "whiteId": 423802,
+        "blackId": 351862,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493787,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 3,
+    "homeId": 431286,
+    "homeTeamNumber": -1,
+    "awayId": 693181,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714915716000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595307,
+        "tournamentResultID": 493787,
+        "tableNr": 0,
+        "whiteId": 431286,
+        "blackId": 693181,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493788,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 4,
+    "homeId": 347707,
+    "homeTeamNumber": -1,
+    "awayId": 646346,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714924130000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595308,
+        "tournamentResultID": 493788,
+        "tableNr": 0,
+        "whiteId": 347707,
+        "blackId": 646346,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493789,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 5,
+    "homeId": 426972,
+    "homeTeamNumber": -1,
+    "awayId": 459068,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714914793000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595309,
+        "tournamentResultID": 493789,
+        "tableNr": 0,
+        "whiteId": 426972,
+        "blackId": 459068,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493790,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 6,
+    "homeId": 427151,
+    "homeTeamNumber": -1,
+    "awayId": 486589,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714925157000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595310,
+        "tournamentResultID": 493790,
+        "tableNr": 0,
+        "whiteId": 427151,
+        "blackId": 486589,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493791,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 7,
+    "homeId": 361205,
+    "homeTeamNumber": -1,
+    "awayId": 505361,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714924546000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595311,
+        "tournamentResultID": 493791,
+        "tableNr": 0,
+        "whiteId": 361205,
+        "blackId": 505361,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493792,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 8,
+    "homeId": 652138,
+    "homeTeamNumber": -1,
+    "awayId": 546393,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714917892000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595312,
+        "tournamentResultID": 493792,
+        "tableNr": 0,
+        "whiteId": 652138,
+        "blackId": 546393,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493793,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 9,
+    "homeId": 513654,
+    "homeTeamNumber": -1,
+    "awayId": 652752,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714924284000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595313,
+        "tournamentResultID": 493793,
+        "tableNr": 0,
+        "whiteId": 513654,
+        "blackId": 652752,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493794,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 10,
+    "homeId": 520087,
+    "homeTeamNumber": -1,
+    "awayId": 428344,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714924479000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595314,
+        "tournamentResultID": 493794,
+        "tableNr": 0,
+        "whiteId": 520087,
+        "blackId": 428344,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493795,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 11,
+    "homeId": 636266,
+    "homeTeamNumber": -1,
+    "awayId": 364013,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714922683000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595315,
+        "tournamentResultID": 493795,
+        "tableNr": 0,
+        "whiteId": 636266,
+        "blackId": 364013,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493796,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 12,
+    "homeId": 542787,
+    "homeTeamNumber": -1,
+    "awayId": 452807,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714922541000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595316,
+        "tournamentResultID": 493796,
+        "tableNr": 0,
+        "whiteId": 542787,
+        "blackId": 452807,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493797,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 13,
+    "homeId": 464113,
+    "homeTeamNumber": -1,
+    "awayId": 357334,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714916439000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595317,
+        "tournamentResultID": 493797,
+        "tableNr": 0,
+        "whiteId": 464113,
+        "blackId": 357334,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493798,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 14,
+    "homeId": 499172,
+    "homeTeamNumber": -1,
+    "awayId": 360910,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714922476000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595318,
+        "tournamentResultID": 493798,
+        "tableNr": 0,
+        "whiteId": 499172,
+        "blackId": 360910,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 692918,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 15,
+    "homeId": 434023,
+    "homeTeamNumber": -1,
+    "awayId": 358282,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714915173000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 824043,
+        "tournamentResultID": 692918,
+        "tableNr": 0,
+        "whiteId": 434023,
+        "blackId": 358282,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493800,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 16,
+    "homeId": 546353,
+    "homeTeamNumber": -1,
+    "awayId": 643378,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714921523000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595320,
+        "tournamentResultID": 493800,
+        "tableNr": 0,
+        "whiteId": 546353,
+        "blackId": 643378,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493801,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 17,
+    "homeId": 350416,
+    "homeTeamNumber": -1,
+    "awayId": 488421,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714924051000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595321,
+        "tournamentResultID": 493801,
+        "tableNr": 0,
+        "whiteId": 350416,
+        "blackId": 488421,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493802,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 18,
+    "homeId": 462300,
+    "homeTeamNumber": -1,
+    "awayId": 347526,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714915452000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595322,
+        "tournamentResultID": 493802,
+        "tableNr": 0,
+        "whiteId": 462300,
+        "blackId": 347526,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493803,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 19,
+    "homeId": 686313,
+    "homeTeamNumber": -1,
+    "awayId": 713891,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714922743000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595323,
+        "tournamentResultID": 493803,
+        "tableNr": 0,
+        "whiteId": 686313,
+        "blackId": 713891,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493804,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 20,
+    "homeId": 365069,
+    "homeTeamNumber": -1,
+    "awayId": 364004,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714920340000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595324,
+        "tournamentResultID": 493804,
+        "tableNr": 0,
+        "whiteId": 365069,
+        "blackId": 364004,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493805,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 21,
+    "homeId": 612036,
+    "homeTeamNumber": -1,
+    "awayId": 541388,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714914664000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595325,
+        "tournamentResultID": 493805,
+        "tableNr": 0,
+        "whiteId": 612036,
+        "blackId": 541388,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493806,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 22,
+    "homeId": 544058,
+    "homeTeamNumber": -1,
+    "awayId": 622224,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714919792000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595326,
+        "tournamentResultID": 493806,
+        "tableNr": 0,
+        "whiteId": 544058,
+        "blackId": 622224,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 707908,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 23,
+    "homeId": 711829,
+    "homeTeamNumber": -1,
+    "awayId": 691642,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714914562000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 838866,
+        "tournamentResultID": 707908,
+        "tableNr": 0,
+        "whiteId": 711829,
+        "blackId": 691642,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493808,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 24,
+    "homeId": 533374,
+    "homeTeamNumber": -1,
+    "awayId": 669533,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714916721000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595328,
+        "tournamentResultID": 493808,
+        "tableNr": 0,
+        "whiteId": 533374,
+        "blackId": 669533,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493809,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 25,
+    "homeId": 653667,
+    "homeTeamNumber": -1,
+    "awayId": 364006,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714922064000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595329,
+        "tournamentResultID": 493809,
+        "tableNr": 0,
+        "whiteId": 653667,
+        "blackId": 364006,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493810,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 26,
+    "homeId": 394728,
+    "homeTeamNumber": -1,
+    "awayId": 694556,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714919336000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595330,
+        "tournamentResultID": 493810,
+        "tableNr": 0,
+        "whiteId": 394728,
+        "blackId": 694556,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 557226,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 27,
+    "homeId": 376158,
+    "homeTeamNumber": -1,
+    "awayId": 570261,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714922528000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 662808,
+        "tournamentResultID": 557226,
+        "tableNr": 0,
+        "whiteId": 376158,
+        "blackId": 570261,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493812,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 28,
+    "homeId": 540633,
+    "homeTeamNumber": -1,
+    "awayId": 349981,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714921510000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595332,
+        "tournamentResultID": 493812,
+        "tableNr": 0,
+        "whiteId": 540633,
+        "blackId": 349981,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493813,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 29,
+    "homeId": 357593,
+    "homeTeamNumber": -1,
+    "awayId": 363179,
+    "awayTeamNumber": -1,
+    "homeResult": 0.5,
+    "awayResult": 0.5,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714917501000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595333,
+        "tournamentResultID": 493813,
+        "tableNr": 0,
+        "whiteId": 357593,
+        "blackId": 363179,
+        "result": 0,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493814,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 30,
+    "homeId": 667116,
+    "homeTeamNumber": -1,
+    "awayId": 376548,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714915531000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595334,
+        "tournamentResultID": 493814,
+        "tableNr": 0,
+        "whiteId": 667116,
+        "blackId": 376548,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493815,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 31,
+    "homeId": 677851,
+    "homeTeamNumber": -1,
+    "awayId": 350413,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714919313000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595335,
+        "tournamentResultID": 493815,
+        "tableNr": 0,
+        "whiteId": 677851,
+        "blackId": 350413,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493816,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 32,
+    "homeId": 642390,
+    "homeTeamNumber": -1,
+    "awayId": 357591,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714918376000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595336,
+        "tournamentResultID": 493816,
+        "tableNr": 0,
+        "whiteId": 642390,
+        "blackId": 357591,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493817,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 33,
+    "homeId": 526287,
+    "homeTeamNumber": -1,
+    "awayId": 673943,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714924391000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595337,
+        "tournamentResultID": 493817,
+        "tableNr": 0,
+        "whiteId": 526287,
+        "blackId": 673943,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493818,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 34,
+    "homeId": 725343,
+    "homeTeamNumber": -1,
+    "awayId": 643655,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714914355000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595338,
+        "tournamentResultID": 493818,
+        "tableNr": 0,
+        "whiteId": 725343,
+        "blackId": 643655,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493819,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 35,
+    "homeId": 376094,
+    "homeTeamNumber": -1,
+    "awayId": 713415,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714922661000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595339,
+        "tournamentResultID": 493819,
+        "tableNr": 0,
+        "whiteId": 376094,
+        "blackId": 713415,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493820,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 36,
+    "homeId": 585658,
+    "homeTeamNumber": -1,
+    "awayId": 624014,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714911114000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595340,
+        "tournamentResultID": 493820,
+        "tableNr": 0,
+        "whiteId": 585658,
+        "blackId": 624014,
+        "result": 2,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493821,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 37,
+    "homeId": 716556,
+    "homeTeamNumber": -1,
+    "awayId": 350464,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714923878000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595341,
+        "tournamentResultID": 493821,
+        "tableNr": 0,
+        "whiteId": 716556,
+        "blackId": 350464,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493822,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 38,
+    "homeId": 650369,
+    "homeTeamNumber": -1,
+    "awayId": 359037,
+    "awayTeamNumber": -1,
+    "homeResult": 1,
+    "awayResult": 0,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 349998,
+    "publishDate": 1714923354000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595342,
+        "tournamentResultID": 493822,
+        "tableNr": 0,
+        "whiteId": 650369,
+        "blackId": 359037,
+        "result": 1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 493823,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 39,
+    "homeId": 541387,
+    "homeTeamNumber": -1,
+    "awayId": 592346,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 350008,
+    "publishDate": 1714919416000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 595343,
+        "tournamentResultID": 493823,
+        "tableNr": 0,
+        "whiteId": 541387,
+        "blackId": 592346,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  },
+  {
+    "id": 523911,
+    "groupdId": 13664,
+    "roundNr": 8,
+    "board": 40,
+    "homeId": 375808,
+    "homeTeamNumber": -1,
+    "awayId": 457151,
+    "awayTeamNumber": -1,
+    "homeResult": 0,
+    "awayResult": 1,
+    "date": "2024-05-05",
+    "finalized": true,
+    "publisher": 483208,
+    "publishDate": 1714912769000,
+    "publishedNote": "",
+    "games": [
+      {
+        "id": 624920,
+        "tournamentResultID": 523911,
+        "tableNr": 0,
+        "whiteId": 375808,
+        "blackId": 457151,
+        "result": -1,
+        "pgn": ""
+      }
+    ]
+  }
+]
