@@ -13,7 +13,7 @@ KEYS =
 	'ABC' : "? GAP A B C GAP ArrowLeft ArrowRight GAP I K".split ' '
 	'A' : "# N E P R GAP J L".split ' '
 	'B' : "ArrowUp ArrowDown GAP 0 _ 1 Delete".split ' '
-	'C' : []
+	'C' : ["T"]
 
 TOOLTIPS = 
 	'?' : "Help"
@@ -37,6 +37,7 @@ TOOLTIPS =
 	'E' : "Sort on Elo"
 	'P' : "Sort on Point"
 	'R' : "Sort on PR"
+	'T' : "Create ELO Report (TRF)"
 
 ## F U N K T I O N E R ##
 
@@ -110,6 +111,18 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 					history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 					setScreen 'A'
 
+createTRF = () ->
+	echo 'createTRF', global.longs
+	one = settings.ONE
+	echo "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3"
+	for i in range global.players.length
+		p = global.players[i]
+		games = global.longs[i]
+		s = ""
+		for [z,opp,col,res] in games
+			s += " #{_.padStart(opp + one,4)} #{col} #{convert res, 'x012', ' 0=1'} "
+		echo "001 " + _.padStart(p.id + one,4) + " #{p.sex}#{p.title} " + _.padEnd(p.name.slice(0,33),33) + " " + _.padStart(p.elo,4) + " " + p.federation + _.padStart(p.fideid,12) + " #{p.born}/00/00           " + s
+
 export expand = (games, rounds) -> # make a double round from a single round
 	result = []
 	for round in rounds
@@ -146,6 +159,8 @@ handleKey = (key) ->
 	if key == 'X' then showMatrix()
 	if key == 'Y' then echo 'Dump', global
 	
+	if key == 'T' then createTRF()
+
 	if global.currScreen == 'A' and key in '#NEPR' # then handleKey key
 		global.currSort = key
 		setScreen 'A'

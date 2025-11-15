@@ -4,6 +4,11 @@ import {performance} from './rating.js'
 export class Player
 
 	constructor : (@id, @name, @elo) ->
+		@fideid = "1712345"
+		@born = "0000"
+		@federation = "   "
+		@sex = " "
+		@title = "   "
 		@opp = [] # används endast av Floating
 		@col = "" # används endast av Floating
 		@summa = 0
