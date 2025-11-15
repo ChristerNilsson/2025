@@ -1,6 +1,8 @@
-# Floating Berger
+# FairPair
 
-[Try it!](https://christernilsson.github.io/FloatingBerger/)
+## Make TRF file
+
+[Try it!](https://christernilsson.github.io/2025/035-FairPair/)
 
 Add the players elo ratings and names 
 
