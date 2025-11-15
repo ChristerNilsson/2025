@@ -112,16 +112,26 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 					setScreen 'A'
 
 createTRF = () ->
-	echo 'createTRF', global.longs
 	one = settings.ONE
+	echo global.longs
 	echo "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3"
 	for i in range global.players.length
 		p = global.players[i]
 		games = global.longs[i]
-		s = ""
+		s = "001 " 
+		s += _.padStart p.id + one,4 
+		s += " #{p.sex}"
+		s += "#{p.title}"
+		s += " " + _.padEnd p.name.slice(0,33),33
+		s += " " + _.padStart p.elo,4
+		s += " " + p.federation
+		s += _.padStart p.fideid,12
+		s += " #{p.born}/00/00           "
 		for [z,opp,col,res] in games
-			s += " #{_.padStart(opp + one,4)} #{col} #{convert res, 'x012', ' 0=1'} "
-		echo "001 " + _.padStart(p.id + one,4) + " #{p.sex}#{p.title} " + _.padEnd(p.name.slice(0,33),33) + " " + _.padStart(p.elo,4) + " " + p.federation + _.padStart(p.fideid,12) + " #{p.born}/00/00           " + s
+			s += " #{_.padStart(opp + one,4)}"
+			s += " #{col}"
+			s += " #{convert res, 'x012', ' 0=1'} "
+		echo  s
 
 export expand = (games, rounds) -> # make a double round from a single round
 	result = []
