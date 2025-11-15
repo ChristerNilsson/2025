@@ -1,0 +1,27 @@
+012 FairPair 2025 December
+022 Stockholm
+032 SWE
+042 2025/12/14
+052 2025/12/14
+062 4
+121 3+2
+
+001  1  Smith,John  AUS 3205011
+  1  4 b 1
+  2  2 w =
+  3  3 w 1
+
+001  2  Lee,David  AUS 3211100
+  1  3 w 0
+  2  1 b =
+  3  4 w =
+
+001  3  Patel,Ananya  IND 4508890
+  1  2 b 1
+  2  4 b 0
+  3  1 b 0
+
+001  4  Walker,Emily  AUS 3220088
+  1  1 w 0
+  2  3 w 1
+  3  2 b =

@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="format-detection" content="telephone=no,address=no,email=no">
+  <style>
+
+    .panel {
+      max-width: 800px;
+      margin: 40px auto;
+      padding: 14px;
+      justify-content: center;
+    }
+
+    .bar {
+      display: flex;
+      justify-content: center; /* <-- centrera horisontellt */
+      gap: 10px;               /* mellanrum mellan knappar */
+      margin-top: 12px;
+    }
+
+    textarea {
+      width: 100%;
+      font: 14px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    }
+
+    body { 
+      font-family: sans-serif; 
+      margin: 1em 0em; 
+    }
+
+    .info { background: #f0f0f0; padding: 1em; }
+    pre { white-space: pre-wrap; word-wrap: break-word; }
+
+    table {
+      border-collapse: collapse;
+      margin-top: 1px;
+      width: 100%;
+      font-family: sans-serif;
+    }
+
+    td,th { border: 1px solid black; text-align: center; }
+
+    th {
+      background-color: #2f4f6f; /* mörkblå */
+      color: white;
+      padding: 6px 10px;
+    }
+
+    td {
+      padding: 5px 10px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f2f4f8; /* ljusgråblå */
+    }
+
+    tr:hover {
+      background-color: #e3edf9; /* diskret hover */
+    }
+
+    table.clickableRows tr { cursor: pointer; }
+    .clickableCols { cursor: pointer; }
+
+    header {
+      top: 0;
+      width: 100%;
+      background: #2f4f6f;
+      padding: 5px;
+      display: flex;
+      justify-content: left;
+      z-index: 1000;
+      align-items: left;
+    }
+
+    h3 {
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 0px;
+      padding: 6px 0;
+      font-weight: 600;
+      font-size: 1.2em;
+    }
+
+    .menu {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #2f4f6f;
+      padding: 5px 10%;
+      display: flex;
+      justify-content: space-between; /* zoner till vänster + center */
+      align-items: center;
+      z-index: 1000;
+
+      margin: 0 auto;    /* centrera hela menyn */
+      padding: 5px 5%;   /* lite inre luft också */
+    }
+
+    .menu .zone.left {
+       margin-left: 0%;
+    }
+
+    .menu .zone.right {
+      margin-right: 10%;
+    }    
+
+    /* knapparnas stil (exempel) */
+    .menu button, .pseudo-btn {
+      background: #fff;
+      color: #2f4f6f;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      padding: 3px 7px;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    /* pseudo-knapp (vit bokstav, ingen ram) */
+    .pseudo-btn {
+      background: transparent;
+      color: #fff;
+      border: 1px solid transparent;
+      cursor: default;
+    }
+
+   .groups {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;   /* <-- centrera i raden */
+      align-content: flex-start;  /* hur radblocken placeras vertikalt */
+      align-items: flex-start;    /* undvik utdragna höjder */
+      gap: 6px;                   /* avstånd mellan grupper */
+      width: 100%;
+    }
+
+    .group {
+      flex: 0 0 auto;             /* behåll egen bredd, ingen stretch */
+      border-collapse: collapse;
+      table-layout: auto;
+      width: auto;
+      /* ta bort margin-right – gap sköter avståndet */
+    }
+    
+    .group td {
+      border: 1px solid #ccc;
+      padding: 3px 5px;
+      white-space: nowrap;
+    }
+
+    @media print {
+      .no-print {
+        display: none;
+      }
+    }
+
+  </style>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+
+<div class="panel" id="panel">
+
+<!-- <textarea id="textarea" rows="25" cols="50" style="font-family:monospace" autofocus>
+TITLE = Best of Sweden
+ROUNDS = 4
+GAMES = 1
+SORT = 1
+
+2648 Grandelius, Nils
+2578 Hellers, Ferdinand 
+2550 Hellsten, Johan 
+2519 Andersson, Ulf 
+2499 Cicak, Slavko
+2495 Berg, Emanuel
+2494 Galperin, Platon
+2493 Hall, Jesper
+</textarea> -->
+
+<textarea id="textarea" rows="25" cols="50" style="font-family:monospace" max-width="680px" autofocus>
+TITLE = Tyresö Open 2024
+ROUNDS = 3
+GAMES = 1
+BALANCE = 1
+SORT = 1
+P = 10
+
+1688 Anders Hillbur
+1827 Anders Kallin
+1748 André J Lindebaum
+1641 Anton Nordenfur
+2001 Aryan Banerjee
+1800 Björn Löfström
+1944 C Rose Mariano
+1907 Carina Wickström
+1579 Christer Carmegren
+1828 Christer Johansson
+
+</textarea>
+
+<div class="bar">
+  <button id="help">Help</button>
+  <button id="continue">Continue</button>
+</div>
+
+</div>
+
+<pre id="info"></pre>
+<div id="hdr"></div>
+<div id="players"></div>
+<div id="tables" ></div>
+<div id="names"  ></div>
+
+<script type="module" src="test.js"></script>
+<script type="module" src="tournament.js"></script>
+
+</body>
+</html>
