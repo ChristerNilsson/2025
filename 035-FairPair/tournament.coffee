@@ -132,7 +132,7 @@ createTRF = () ->
 		for [z,opp,col,res] in games
 			s += " #{_.padStart(opp + one,4)}"
 			s += " #{col}"
-			s += " #{convert res, ['x','0','1','2'], [' ','0','=','1']} "
+			s += " #{convert res, ['x','0','1','2', '-', '+'], [' ','0','=','1', '-', '+']} "
 		echo  s
 
 export expand = (games, rounds) -> # make a double round from a single round
@@ -189,7 +189,7 @@ handleKey = (key) ->
 
 	setCursor global.currRound, global.currTable
 
-	if key in ' _' or key in 'Delete 0 1 # N E P R'.split ' '
+	if key in ' _' or key in 'Delete 0 1 + - # N E P R'.split ' '
 		history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 
 # initTextarea = ->
@@ -267,11 +267,13 @@ makeURL = ->
 		url += "&p=#{player}"
 
 	for r in range global.rounds.length
+		echo global.results[r]
 		s = global.results[r].join ''
 		s = _.trimEnd s, 'x'
+		s = s.replace "+", "%2B" # plus översätts till mellanslag vid inläsning av parametrarna
 		if s != '' then url += "&r#{r+1}=#{s}"
 
-	url = url.replaceAll ' ', '_' # was '+'
+	url = url.replaceAll ' ', '+'
 	url
 
 myChunk = (items, groups) ->
@@ -359,7 +361,7 @@ parseURL = ->
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	for person in persons #.slice 0, settings.P
-		person = person.replaceAll '_', ' '
+		# person = person.replaceAll '_', ' '
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
 		global.players.push new Player global.players.length, name, elo
@@ -390,6 +392,7 @@ readResults = (params) -> # Resultaten läses från urlen
 	
 	for r in range settings.GAMES * settings.ROUNDS
 		result = safeGet params, "r#{r+1}", new Array(n).fill "x"
+		echo result
 		arr = []
 		for ch in result 
 			if ch=='0' then arr.push '0'
