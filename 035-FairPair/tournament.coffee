@@ -271,7 +271,7 @@ makeURL = ->
 		s = _.trimEnd s, 'x'
 		if s != '' then url += "&r#{r+1}=#{s}"
 
-	url = url.replaceAll ' ', '+'
+	url = url.replaceAll ' ', '_' # was '+'
 	url
 
 myChunk = (items, groups) ->
@@ -351,12 +351,15 @@ parseURL = ->
 	global.players = []
 	persons = params.getAll "p"
 
+	echo persons
+
 	# settings.P = parseInt safeGet params, "P", persons.length
 
 	if window.location.href.includes BYE then global.frirond = persons.length - 1
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	for person in persons #.slice 0, settings.P
+		person = person.replaceAll '_', ' '
 		elo = parseInt person.slice 0,4
 		name = person.slice(4).trim()
 		global.players.push new Player global.players.length, name, elo
