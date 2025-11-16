@@ -12,8 +12,8 @@ BYE = "BYE"
 KEYS = 
 	'ABC' : "? GAP A B C GAP ArrowLeft ArrowRight GAP I K".split ' '
 	'A' : "# N E P R GAP J L".split ' '
-	'B' : "ArrowUp ArrowDown GAP 0 _ 1 Delete".split ' '
-	'C' : ["T"]
+	'B' : "ArrowUp ArrowDown GAP - 0 _ 1 + Delete".split ' '
+	'C' : "T".split ' '
 
 TOOLTIPS = 
 	'?' : "Help"
@@ -27,9 +27,11 @@ TOOLTIPS =
 	'I' : "Fewer Columns"
 	'K' : "More Columns"
 	'ArrowUp' : "Previous Table"
+	'-' : "White unplayed loss"
 	'0' : "White Loss"
 	'_' : "Draw"
 	'1' : "White Win"
+	'+' : "White unplayed win"
 	'Delete' : "Remove Result"
 	'ArrowDown' : "Next Table"
 	'#' : "Sort on id"
@@ -130,7 +132,7 @@ createTRF = () ->
 		for [z,opp,col,res] in games
 			s += " #{_.padStart(opp + one,4)}"
 			s += " #{col}"
-			s += " #{convert res, 'x012', ' 0=1'} "
+			s += " #{convert res, ['x','0','1','2'], [' ','0','=','1']} "
 		echo  s
 
 export expand = (games, rounds) -> # make a double round from a single round
@@ -162,6 +164,8 @@ handleKey = (key) ->
 	if key == '0' and global.currScreen == 'B' then setResult key, '0' # "0 - 1"
 	if key in ' _' and global.currScreen == 'B' then setResult key, '1' # "½ - ½"
 	if key == '1' and global.currScreen == 'B' then setResult key, '2' # "1 - 0"
+	if key == '-' and global.currScreen == 'B' then setResult key, '-' # 0 w 1
+	if key == '+' and global.currScreen == 'B' then setResult key, '+' # 1 w 0
 
 	if key == 'J' and global.currScreen == 'A' then setDecimals -1
 	if key == 'L' and global.currScreen == 'A' then setDecimals +1
@@ -276,7 +280,7 @@ myChunk = (items, groups) ->
 	if n % groups > 0 then size++
 	_.chunk items,size
 
-export other = (input) -> convert input, "012x","210x"
+export other = (input) -> convert input, "012x-+","210x+-"
 
 parseTextarea = -> # läs in initiala uppgifter om spelarna
 	raw = document.getElementById "textarea"
@@ -372,6 +376,8 @@ export prettyResult = (ch) -> # översätt interna resultat till externa
 	if ch == '0' then return "0 - 1"
 	if ch == '1' then return "½ - ½"
 	if ch == '2' then return "1 - 0"
+	if ch == '-' then return "0 w 1"
+	if ch == '+' then return "1 w 0"
 
 readResults = (params) -> # Resultaten läses från urlen
 	global.results = []
@@ -387,12 +393,14 @@ readResults = (params) -> # Resultaten läses från urlen
 			if ch=='1' then arr.push '1'
 			if ch=='2' then arr.push '2'
 			if ch=='x' then arr.push 'x'
+			if ch=='+' then arr.push '+'
+			if ch=='-' then arr.push '-'
 		global.results.push arr
 
 roundsContent = (long, i, tr) -> # rondernas data + poäng + PR. i anger spelarnummer
 	for [w,b,color,result] in long
 		opponent = if w == i then b else w
-		result = convert result, 'x012', ' 0½1'
+		result = convert result, ['x','0','1','2','+','-'], [' ','0','½','1','1w','0w']
 		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = koppla 'td', tr, {style: "position:relative;"}
 		koppla 'div', cell, {style: "position:absolute; top:0px; font-size:0.7em;" + attr, text: settings.ONE + opponent}
@@ -476,11 +484,11 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 
 	cell = old + res # transition, 16 possibilities
 
-	if cell in 'xx 00 11 22'.split ' ' # lyckad kontrollinmatning, gå till nästa bord
+	if cell in 'xx 00 11 22 -- ++'.split ' ' # lyckad kontrollinmatning, gå till nästa bord
 		global.currTable = (global.currTable + 1) %% tableCount()
 		return
 
-	if cell in '01 02 10 12 20 21'.split ' '
+	if cell in '01 02 10 12 20 21 0- 0+ 1- 1+ 2- 2+ -0 -1 -2 -+ +0 +1 +2 +-'.split ' '
 		echo 'exit'
 		return # inmatning stämmer ej, lämna
 

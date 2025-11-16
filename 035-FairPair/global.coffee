@@ -6,7 +6,7 @@ export global =
 	players : []
 	player : null
 
-	results : [] # ronder x bord. cell: 'x', '0', '1' eller '2'
+	results : [] # ronder x bord. cell: 'x', '0', '1' eller '2' eller '+' eller '-'
 	rounds  : [] # ronder x bord. cell: [w,b] 
 	longs   : [] # players x ronder. cell: [w,b,col,res]
 
