@@ -125,7 +125,7 @@ html, body {
 }
 
 /* ELO-gap jämförelse */
-.gap-chart {
+/* .gap-chart {
   display: flex;
   align-items: flex-end;
   gap: 4vw;
@@ -152,7 +152,42 @@ html, body {
   text-align: center;
   font-size: 1.1rem;
   margin-top: 0.5vh;
+} */
+
+
+.gap-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6vw;
 }
+
+.gap-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gap-bar {
+  width: 10vw;
+  max-width: 80px;
+  border-radius: 16px 16px 4px 4px;
+  display: flex;
+  justify-content: flex-end;
+  transition: height 0.4s ease-out;
+}
+
+.gap-label {
+  margin-top: 1vh;
+  font-weight: 700;
+  text-align: center;
+}
+
+.gap-value {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
 
 /* Fairpair.se “växer” */
 #fairpair-grow {
