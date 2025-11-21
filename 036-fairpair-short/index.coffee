@@ -81,7 +81,7 @@ createImage = (name) ->
 	img = document.createElement "img"
 	container.appendChild img
 
-	frameMs = 1000 * FACTOR # 0.25 sek per bild (ändra vid behov)
+	frameMs = 1000 * FACTOR # per bild
 	i = 0
 
 	step = ->
@@ -109,8 +109,6 @@ createPlayersAnimation = ->
 
 	step()
 	container
-
-# -------------------------------
 
 scenes = [
 	# 1. Berger is nice! [Show n=8]
@@ -172,21 +170,6 @@ scenes = [
 			footer: "" 
 ]
 
-# playScenes = ->
-# 	i = 0
-
-# 	nextScene = ->
-# 		return if i >= scenes.length
-# 		scene = scenes[i]
-# 		scene.setup()
-
-# 		setTimeout ->
-# 			i++
-# 			nextScene()
-# 		, scene.duration * FACTOR
-
-# 	nextScene()
-
 playScenes = ->
 	i = 0
 
@@ -195,7 +178,7 @@ playScenes = ->
 			# --- LOOPA OM ---
 			setTimeout ->
 				playScenes()
-			, 800			# kort paus innan restart
+			, 800 * FACTOR			# kort paus innan restart
 			return
 
 		scene = scenes[i]
@@ -209,4 +192,3 @@ playScenes = ->
 
 window.addEventListener "load", ->
 	playScenes()
-
