@@ -171,7 +171,8 @@ html, body {
 .gap-bar {
   width: 10vw;
   max-width: 80px;
-  border-radius: 16px 16px 4px 4px;
+  border-radius: 8px;
+  /* border-radius: 16px 16px 4px 4px; */
   display: flex;
   justify-content: flex-end;
   transition: height 0.4s ease-out;
