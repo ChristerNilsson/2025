@@ -111,7 +111,7 @@ createPlayersAnimation = ->
 	container
 
 scenes = [
-	# 1. Berger is nice! [Show n=8]
+	# 1. Berger is nice! 
 	duration: 4000
 	setup: ->
 		showScene 
@@ -151,7 +151,7 @@ scenes = [
 			footer: "" 
 
 ,
-	# 5. [Show elo gaps comparing Swiss versus FairPair]
+	# 5. Show elo gaps comparing Swiss versus FairPair
 	duration: 5000
 	setup: ->
 		showScene 
