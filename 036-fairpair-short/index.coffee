@@ -1,3 +1,6 @@
+params = new URLSearchParams window.location.search
+FACTOR = if params.size == 0 then 1 else params.get "factor"
+
 setHeadline = (text) ->	document.getElementById("headline").textContent = text or ""
 setBody = (text) ->	document.getElementById("bodytext").innerHTML = text or ""
 setFooter = (text) ->	document.getElementById("footer").textContent = text or ""
@@ -27,39 +30,7 @@ fadeIn = (el) ->
 
 fadeOut = (el, callback = ->) ->
 	el.classList.remove "show"
-	setTimeout callback, 600	 # matchar CSS-transition
-
-# createGapChart = ->
-# 	wrapper = document.createElement "div"
-# 	wrapper.className = "gap-chart"
-
-# 	# Fiktiva värden för “typisk max-elo-gap efter 8 ronder”
-# 	swissGap = 300
-# 	fairGap	= 30
-
-# 	createBar = (label, gap, isSwiss) ->
-# 		bar = document.createElement "div"
-# 		bar.className = "gap-bar"
-
-# 		height = (if isSwiss then 60 else 15)	# bara relativt
-# 		bar.style.height = height + "vh"
-# 		bar.style.background = if isSwiss then "linear-gradient(180deg,#fecaca,#991b1b)" else "linear-gradient(180deg,#bbf7d0,#166534)"
-
-# 		val = document.createElement "div"
-# 		val.className = "gap-bar-value"
-# 		val.textContent = gap + " Elo"
-
-# 		lab = document.createElement "div"
-# 		lab.className = "gap-bar-label"
-# 		lab.textContent = label
-
-# 		bar.appendChild val
-# 		bar.appendChild lab
-# 		bar
-
-# 	wrapper.appendChild createBar("Swiss", swissGap, true)
-# 	wrapper.appendChild createBar("FairPair", fairGap, false)
-# 	wrapper
+	setTimeout callback, 600 * FACTOR	 # matchar CSS-transition
 
 createGapChart = ->
   wrapper = document.createElement "div"
@@ -110,7 +81,7 @@ createImage = (name) ->
 	img = document.createElement "img"
 	container.appendChild img
 
-	frameMs = 1000 # 0.25 sek per bild (ändra vid behov)
+	frameMs = 1000 * FACTOR # 0.25 sek per bild (ändra vid behov)
 	i = 0
 
 	step = ->
@@ -128,7 +99,7 @@ createPlayersAnimation = ->
 	container.appendChild img
 
 	players = [4,6,8,10,12,14,16,18,20,22]
-	frameMs = 1000
+	frameMs = 1000 * FACTOR
 	i = 0
 
 	step = ->
@@ -153,7 +124,7 @@ scenes = [
 
 ,
 	# 2. scenen "Berger can't handle large tournaments"
-	duration: 10000
+	duration: 10000 
 	setup: ->
 		showScene 
 			node: createPlayersAnimation()
@@ -163,7 +134,7 @@ scenes = [
 
 ,
 	# 3. Swiss can handle large tournaments!
-	duration: 4000
+	duration: 4000 
 	setup: ->
 		showScene 
 			node: createImage "images/tyresö.png"
@@ -192,7 +163,7 @@ scenes = [
 			footer: ""
 ,
 	# 6. fairpair.se
-	duration: 15000
+	duration: 10000
 	setup: ->
 		showScene 
 			node: createImage "images/tyresö_fp.png"
@@ -201,20 +172,20 @@ scenes = [
 			footer: "" 
 ]
 
-playScenes = ->
-	i = 0
+# playScenes = ->
+# 	i = 0
 
-	nextScene = ->
-		return if i >= scenes.length
-		scene = scenes[i]
-		scene.setup()
+# 	nextScene = ->
+# 		return if i >= scenes.length
+# 		scene = scenes[i]
+# 		scene.setup()
 
-		setTimeout ->
-			i++
-			nextScene()
-		, scene.duration
+# 		setTimeout ->
+# 			i++
+# 			nextScene()
+# 		, scene.duration * FACTOR
 
-	nextScene()
+# 	nextScene()
 
 playScenes = ->
 	i = 0
@@ -232,7 +203,7 @@ playScenes = ->
 		setTimeout ->
 			i++
 			nextScene()
-		, scene.duration
+		, scene.duration * FACTOR
 
 	nextScene()
 

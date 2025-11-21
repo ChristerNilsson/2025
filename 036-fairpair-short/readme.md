@@ -1,1 +1,1 @@
-[Try it!](https://christernilsson.github.io/2025/036-fairpair-short/)
+[Try it!](https://christernilsson.github.io/2025/036-fairpair-short?factor=1.9)
