@@ -623,10 +623,18 @@ showPlayers = -> # Visa spelarlistan.
 	global.average /= global.players.length
 	echo global.average
 
+	total_Q = 0
+
 	for player,i in global.players
 		player.update_P_and_PR global.longs,i
-		# echo player.elo, player.Q
+		total_Q += player.Q
+	echo total_Q
 
+	temp = 0
+	for player in global.players
+		player.Q *= tableCount() * settings.GAMES * settings.ROUNDS / total_Q 
+		temp += player.Q
+	echo temp
 
 	sortedPlayers = _.clone global.players
 
