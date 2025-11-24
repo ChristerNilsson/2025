@@ -1,5 +1,5 @@
 import {echo,global,range,settings} from './global.js'
-import {performance} from './rating.js'
+import {elo_formula,performance} from './rating.js'
 
 export class Player
 
@@ -44,10 +44,36 @@ export class Player
 		@elos.push @PR
 		@elos.join ' '
 
+	# update_P_and_PR : (longs,i) ->
+	# 	long = longs[i]
+	# 	#echo 'longs',longs
+	# 	@P = 0
+	# 	@PR = 0
+	# 	@elos = []
+	# 	for r in range settings.GAMES * settings.ROUNDS
+	# 		ch = long[r][3]
+	# 		value = '012'.indexOf ch
+	# 		opp = long[r][1]
+	# 		if value != -1
+	# 			elo = global.players[opp].elo
+	# 			@P += value/2
+	# 			if elo != 0
+	# 				@PR += value/2
+	# 				@elos.push Math.round elo
+
+	# 	# kalkylera performance rating mha vinstandel och elo-tal
+	# 	if @elos.length == 0 
+	# 		@PR = 0
+	# 	else
+	# 		andel = @PR
+	# 		perf = performance andel, @elos
+	# 		@PR = perf
+
 	update_P_and_PR : (longs,i) ->
 		long = longs[i]
 		#echo 'longs',longs
 		@P = 0
+		# @Q = 0
 		@PR = 0
 		@elos = []
 		for r in range settings.GAMES * settings.ROUNDS
@@ -68,3 +94,8 @@ export class Player
 			andel = @PR
 			perf = performance andel, @elos
 			@PR = perf
+
+		echo 'A', @name, @PR, global.average
+		@Q = settings.GAMES * settings.ROUNDS * elo_formula global.average - @PR
+		echo 'B', @elo, settings.GAMES * settings.ROUNDS, @Q, elo_formula global.average - @PR
+

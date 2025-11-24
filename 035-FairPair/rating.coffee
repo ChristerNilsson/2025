@@ -1,5 +1,7 @@
 echo = console.log 
 
+export elo_formula = (gap) -> 1 / (1 + 10**((gap) / 400))
+
 expected_score = (ratings, own_rating) -> summa (1 / (1 + 10**((rating - own_rating) / 400)) for rating in ratings)
 
 # Use two extreme values when calculating 0% or 100%
