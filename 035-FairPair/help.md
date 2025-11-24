@@ -32,8 +32,9 @@ ctrl - +  : Zoom - • +
 ## Keys for A Standings
 
 ```
-# N E P R : sort on Id • Name • Elo • Points • performance Rating
-   J L    : decimals for performance rating - • +
+Q is P compensated for opposition strength variation.
+# N E P Q : sort on Id • Name • Elo • Points • Q
+   J L    : decimals for Q - • +
 ```
 
 ## Keys for B Tables
