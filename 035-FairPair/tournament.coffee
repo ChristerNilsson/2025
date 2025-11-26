@@ -15,7 +15,7 @@ KEYS =
 	'B' : "ArrowUp ArrowDown GAP - 0 _ 1 + Delete".split ' '
 	'C' : "T".split ' '
 
-TOOLTIPS = 
+TOOLTIPS =  
 	'?' : "Help"
 	'A' : "Standings"
 	'B' : "Tables"
