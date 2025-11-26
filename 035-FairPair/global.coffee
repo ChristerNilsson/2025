@@ -3,7 +3,7 @@ export range = _.range
 
 export global =
 
-	players : []
+	players : [] 
 	player : null
 
 	results : [] # ronder x bord. cell: 'x', '0', '1' eller '2' eller '+' eller '-'
