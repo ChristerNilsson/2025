@@ -1,0 +1,109 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #000;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #fff;
+}
+
+#slideshow {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background: radial-gradient(circle at center, #222 0, #000 60%);
+}
+
+#visual {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;      /* centrerar vertikalt */
+  justify-content: center;  /* centrerar horisontellt */
+  padding: 0;               /* valfritt, men gör centringen exakt */
+  box-sizing: border-box;
+}
+
+#visual img {
+  max-width: 90%;
+  max-height: 80vh;
+  object-fit: contain;
+  margin: 0 auto;
+  display: block;
+}
+
+#text-layer {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;   /* center centrera vertikalt */
+  align-items: center;       /* centrera horisontellt */
+  text-align: center;        /* centrera själva texten */
+  pointer-events: none;
+  padding: 2vh 4vw;
+}
+
+#headline {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 800;
+  margin-bottom: 1vh;
+  text-shadow: 0 0 12px rgba(0,0,0,0.8);
+}
+
+#bodytext {
+  font-size: clamp(1.2rem, 3vw, 1.6rem);
+  line-height: 1.3;
+  margin-bottom: 2vh;
+}
+
+#footer {
+  font-size: clamp(1.0rem, 2.5vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  opacity: 0.9;
+}
+
+.gap-chart {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 6vw;
+}
+
+.gap-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.gap-bar {
+  width: 10vw;
+  max-width: 80px;
+  border-radius: 8px;
+  display: flex;
+  justify-content: flex-end;
+  transition: height 0.4s ease-out;
+}
+
+.gap-label {
+  margin-top: 1vh;
+  font-weight: 700;
+  text-align: center;
+}
+
+.gap-value {
+  font-size: 1.1rem;
+  text-align: center;
+}
+
+.fade {
+  opacity: 0;
+  transition: opacity 0.6s ease-in-out;  /* justera hastighet här */
+}
+
+.fade.show {
+  opacity: 1;
+}
