@@ -11,7 +11,7 @@ BYE = "BYE"
 
 KEYS = 
 	'ABC' : "? GAP A B C GAP ArrowLeft ArrowRight GAP I K".split ' '
-	'A' : "# N E P R GAP J L".split ' '
+	'A' : "# N E P Q GAP J L".split ' '
 	'B' : "ArrowUp ArrowDown GAP - 0 _ 1 + Delete".split ' '
 	'C' : "T".split ' '
 
@@ -21,8 +21,8 @@ TOOLTIPS =
 	'B' : "Tables"
 	'C' : "Names"
 	'ArrowLeft' : "Previous Round"
-	'J' : "Fewer PR decimals"
-	'L' : "More PR decimals"
+	'J' : "Fewer Q decimals"
+	'L' : "More Q decimals"
 	'ArrowRight' : "Next Round"
 	'I' : "Fewer Columns"
 	'K' : "More Columns"
@@ -38,7 +38,7 @@ TOOLTIPS =
 	'N' : "Sort on Name"
 	'E' : "Sort on Elo"
 	'P' : "Sort on Point"
-	'R' : "Sort on PR"
+	'Q' : "Sort on Q"
 	'T' : "Create ELO Report (TRF)"
 
 ## F U N K T I O N E R ##
@@ -108,8 +108,8 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 				if key == 'Name' then global.currSort = 'N'
 				if key == 'Elo'  then global.currSort = 'E'
 				if key == 'P'    then global.currSort = 'P'
-				if key == 'PR'   then global.currSort = 'R'
-				if key in ['#','Name','Elo','P','PR']
+				if key == 'Q'   then global.currSort = 'Q'
+				if key in ['#','Name','Elo','P','Q']
 					history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 					setScreen 'A'
 
@@ -175,7 +175,7 @@ handleKey = (key) ->
 	
 	if key == 'T' then createTRF()
 
-	if global.currScreen == 'A' and key in '#NEPR' # then handleKey key
+	if global.currScreen == 'A' and key in '#NEPQ' # then handleKey key
 		global.currSort = key
 		setScreen 'A'
 
@@ -189,7 +189,7 @@ handleKey = (key) ->
 
 	setCursor global.currRound, global.currTable
 
-	if key in ' _' or key in 'Delete 0 1 + - # N E P R'.split ' '
+	if key in ' _' or key in 'Delete 0 1 + - # N E P Q'.split ' '
 		history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 
 # initTextarea = ->
@@ -617,8 +617,24 @@ showNames = ->
 
 showPlayers = -> # Visa spelarlistan.
 
+	global.average = 0
+	for player in global.players
+		global.average += player.elo
+	global.average /= global.players.length
+	echo global.average
+
+	total_Q = 0
+
 	for player,i in global.players
 		player.update_P_and_PR global.longs,i
+		total_Q += player.Q
+	echo total_Q
+
+	temp = 0
+	for player in global.players
+		player.Q *= tableCount() * settings.GAMES * settings.ROUNDS / total_Q 
+		temp += player.Q
+	echo temp
 
 	sortedPlayers = _.clone global.players
 
@@ -630,7 +646,8 @@ showPlayers = -> # Visa spelarlistan.
 		if global.currSort == 'N' then return a.name.localeCompare b.name, "sv"
 		if global.currSort == 'E' then return b.elo - a.elo
 		if global.currSort == 'P' then return b.P - a.P 
-		if global.currSort == 'R' then return b.PR - a.PR
+		# if global.currSort == 'R' then return b.PR - a.PR
+		if global.currSort == 'Q' then return b.Q - a.Q
 
 	# Lägg tillbaka BYE i slutet
 	# if global.frirond != null then sortedPlayers.push memory
@@ -651,7 +668,8 @@ showPlayers = -> # Visa spelarlistan.
 		for i in range global.rounds.length
 			koppla 'th', thead, {text:"#{i + settings.ONE}"}
 		koppla 'th', thead, {text:"P", class: 'clickableCols'}
-		koppla 'th', thead, {text:"PR", class: 'clickableCols'}
+		# koppla 'th', thead, {text:"PR", class: 'clickableCols'}
+		koppla 'th', thead, {text:"Q", class: 'clickableCols'}
 
 		group.forEach (player) =>
 			if player.name == BYE then return
@@ -667,7 +685,8 @@ showPlayers = -> # Visa spelarlistan.
 				koppla 'td', tr, {style:"text-align:left" , 'x'}
 
 			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 1}
-			koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
+			# koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
+			koppla 'td', tr, {style:"text-align:right" , text: player.Q.toFixed settings.DECIMALS}
 
 		offset += group.length # settings.A
 
