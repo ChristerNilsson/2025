@@ -254,11 +254,11 @@ makeURL = ->
 	url += "?TITLE=#{settings.TITLE}"
 	url += "&GAMES=#{settings.GAMES}"
 	url += "&ROUNDS=#{settings.ROUNDS}"
-	url += "&SORT=#{settings.SORT}"
+	# url += "&SORT=#{settings.SORT}"
 	# url += "&TIME=#{settings.TIME}"
 	url += "&currSort=#{global.currSort}".replace '#', '%23'
 	url += "&ONE=#{settings.ONE}"
-	url += "&BALANCE=#{settings.BALANCE}"
+	# url += "&BALANCE=#{settings.BALANCE}"
 	url += "&A=#{settings.A}"
 	url += "&B=#{settings.B}"
 	url += "&C=#{settings.C}"
@@ -301,7 +301,7 @@ parseTextarea = -> # läs in initiala uppgifter om spelarna
 			[key, val] = line.split '='
 			key = key.trim()
 			val = val.trim()
-			if key in "TITLE GAMES ROUNDS SORT ONE BALANCE A B C P".split ' ' then settings[key] = val
+			if key in "TITLE GAMES ROUNDS ONE A B C P".split ' ' then settings[key] = val # SORT BALANCE
 		else
 			persons.push line
 
@@ -339,12 +339,12 @@ parseURL = ->
 
 	settings.TITLE = safeGet params, "TITLE"
 	settings.GAMES = parseInt safeGet params, "GAMES", "1"
-	settings.SORT = parseInt safeGet params, "SORT", "1"
+	# settings.SORT = parseInt safeGet params, "SORT", "1"
 	# settings.TIME = safeGet params, 'TIME', "10 + 5"
 	global.currSort = safeGet params, "currSort", "#"
 
 	settings.ONE = parseInt safeGet params, "ONE", "1"
-	settings.BALANCE = parseInt safeGet params, "BALANCE", "1"
+	# settings.BALANCE = parseInt safeGet params, "BALANCE", "1"
 
 	settings.A = parseInt safeGet params, "A", "1"
 	settings.B = parseInt safeGet params, "B", "1"
