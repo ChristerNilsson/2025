@@ -1,3 +1,6 @@
+from rating import performance
+rounds = 8
+
 class Player:
 	def __init__(self, id, name, elo, score, ids):
 		self.id = id
@@ -10,8 +13,6 @@ class Player:
 
 def average(arr):
 	return sum(arr) / len(arr)
-
-from rating import performance
 
 def read_players():
 
@@ -30,8 +31,8 @@ def read_players():
 		id = int(arr[0])
 		name = arr[1] + ' ' + arr[2]
 		elo = int(arr[3])
-		score = 0
 		ids = []
+		score = 0
 
 		for r in arr[5:]:
 			r = r.replace('w','b')
@@ -46,7 +47,7 @@ def read_players():
 
 	# byt ut id mot elo
 	for player in players:
-		if player.elo==0: player.elo = 1400
+		if player.elo == 0: player.elo = 1400
 		player.elos = []
 		for id in player.ids:
 			if id not in ['-½','0','-1']:
@@ -59,21 +60,25 @@ def read_players():
 	return players
 
 def f():
-	xmax = 2409.146
-	xmin = 1248.952
-	dx = xmax - xmin
-	ymax = 7.5
-	ymin = 0.5
+	xmax = 0
+	for p in players:
+		if len(p.elos) < rounds / 2: continue
+		if xmax == 0:
+			xmax = p.pr
+			ymax = p.score
+		xmin = p.pr
+		ymin = p.score
+
 	dy = ymax - ymin
 	for player in players:
-		y = player.pr
-		player.q = ymin + dy * (y - xmin)/(xmax-xmin)
+		x = player.pr
+		player.q = ymin + dy * (x - xmin)/(xmax-xmin)
 
 players = read_players()
 f()
 i = 0
 for p in players:
-	if len(p.elos) < 4: continue
+	if len(p.elos) < rounds / 2: continue
 	i += 1
 	print(f"{i:2} {p.id:2d} {len(p.elos)} {p.elo:4} {p.pr:.3f} {p.score} {p.q:.3f} {(p.score-p.q):6.3f} {p.name:17} {average(p.elos):.2f} {' '.join([str(r) for r in p.elos])}")
 
