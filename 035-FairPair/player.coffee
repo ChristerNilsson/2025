@@ -71,21 +71,35 @@ export class Player
 
 	update_P_and_PR : (longs,i) ->
 		long = longs[i]
-		#echo 'longs',longs
+		# echo 'longs',longs
 		@P = 0
-		# @Q = 0
+		@Q = 0
 		@PR = 0
 		@elos = []
-		for r in range settings.GAMES * settings.ROUNDS
+		points = []
+		antal = settings.GAMES * settings.ROUNDS
+		for r in range antal
 			ch = long[r][3]
 			value = '012'.indexOf ch
 			opp = long[r][1]
-			if value != -1
+			if ch in '012'
+				if opp == global.frirond
+					elo = @elo
+					p = 0.5
+				else
+					elo = global.players[opp].elo
+					p = value/2
+			else # 'x'
 				elo = global.players[opp].elo
-				@P += value/2
-				if elo != 0
-					@PR += value/2
-					@elos.push Math.round elo
+				if elo == 0 then elo = 1400
+				diff = elo - @elo
+				p = elo_formula diff
+			@P += p
+			@PR += p
+			points.push p
+			@elos.push Math.round elo
+		echo points
+		echo @elos
 
 		# kalkylera performance rating mha vinstandel och elo-tal
 		if @elos.length == 0 
@@ -95,7 +109,7 @@ export class Player
 			perf = performance andel, @elos
 			@PR = perf
 
-		echo 'A', @name, @PR, global.average
+		echo 'A', @name, @elo, @P.toFixed(3), @PR #, global.average
 		@Q = settings.GAMES * settings.ROUNDS * elo_formula global.average - @PR
-		echo 'B', @elo, settings.GAMES * settings.ROUNDS, @Q, elo_formula global.average - @PR
+		# echo 'B', @elo, settings.GAMES * settings.ROUNDS, @Q, elo_formula global.average - @PR
 

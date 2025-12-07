@@ -116,7 +116,7 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 createTRF = () ->
 	one = settings.ONE
 	echo global.longs
-	echo "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3"
+	echo "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3  4444 4 4  5555 5 5  6666 6 6  7777 7 7  8888 8 8  9999 9 9"
 	for i in range global.players.length
 		p = global.players[i]
 		games = global.longs[i]
@@ -128,12 +128,18 @@ createTRF = () ->
 		s += " " + _.padStart p.elo,4
 		s += " " + p.federation
 		s += _.padStart p.fideid,12
-		s += " #{p.born}/00/00           "
+
+		# s += " #{p.born}/00/00           "
+		s += "                      "
+
 		for [z,opp,col,res] in games
-			s += " #{_.padStart(opp + one,4)}"
-			s += " #{col}"
-			s += " #{convert res, ['x','0','1','2', '-', '+'], [' ','0','=','1', '-', '+']} "
-		echo  s
+			if opp == global.frirond or res == 'x'
+				s += "          "
+			else
+				s += " #{_.padStart(opp + one,4)}"
+				s += " #{col}"
+				s += " #{convert res, ['x','0','1','2', '-', '+'], [' ','0','=','1', '-', '+']} "
+		echo s
 
 export expand = (games, rounds) -> # make a double round from a single round
 	result = []
@@ -407,6 +413,7 @@ roundsContent = (long, i, tr) -> # rondernas data + poäng + PR. i anger spelarn
 	for [w,b,color,result] in long
 		opponent = if w == i then b else w
 		result = convert result, ['x','0','1','2','+','-'], [' ','0','½','1','1w','0w']
+		if opponent == global.frirond then result = '½'
 		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = koppla 'td', tr, {style: "position:relative;"}
 		koppla 'div', cell, {style: "position:absolute; top:0px; font-size:0.7em;" + attr, text: settings.ONE + opponent}
@@ -666,7 +673,7 @@ showPlayers = -> # Visa spelarlistan.
 			for i in range long.length, global.rounds.length
 				koppla 'td', tr, {style:"text-align:left" , 'x'}
 
-			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 1}
+			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 3}
 			koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
 
 		offset += group.length # settings.A
