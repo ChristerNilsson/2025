@@ -4,6 +4,7 @@ import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
 import {performance} from './rating.js'
 import {echo,global,range,settings} from './global.js'
+import {initialize, init} from './initialization.js'
 
 ALFABET = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' # 100
 
@@ -254,7 +255,7 @@ makeFairPair = -> # lotta en hel fairpair-turnering
 	global.fairpair = new FairPair global.players, settings
 	global.fairpair.rounds
 
-makeURL = ->
+export makeURL = ->
 	url = "./"
 
 	url += "?TITLE=#{settings.TITLE}"
@@ -290,55 +291,55 @@ myChunk = (items, groups) ->
 
 export other = (input) -> convert input, "012x-+","210x+-"
 
-parseTextarea = -> # läs in initiala uppgifter om spelarna
-	raw = document.getElementById "textarea"
+# parseTextarea = -> # läs in initiala uppgifter om spelarna
+# 	raw = document.getElementById "textarea"
 
-	lines = raw.value
-	lines = lines.split "\n"
+# 	lines = raw.value
+# 	lines = lines.split "\n"
 
-	global.rounds = null
-	global.players = []
+# 	global.rounds = null
+# 	global.players = []
 
-	persons = []
+# 	persons = []
 
-	for line in lines
-		if line.length == 0 or line[0] == '#' then continue
-		if line.includes '='
-			[key, val] = line.split '='
-			key = key.trim()
-			val = val.trim()
-			if key in "TITLE GAMES ROUNDS ONE A B C P".split ' ' then settings[key] = val # SORT BALANCE
-		else
-			persons.push line
+# 	for line in lines
+# 		if line.length == 0 or line[0] == '#' then continue
+# 		if line.includes '='
+# 			[key, val] = line.split '='
+# 			key = key.trim()
+# 			val = val.trim()
+# 			if key in "TITLE GAMES ROUNDS ONE A B C P".split ' ' then settings[key] = val # SORT BALANCE
+# 		else
+# 			persons.push line
 
-	if 'P' of settings and settings.P != 0 then persons = persons.slice 0,settings.P
-	persons.sort().reverse()
+# 	if 'P' of settings and settings.P != 0 then persons = persons.slice 0,settings.P
+# 	persons.sort().reverse()
 
-	for person in persons
-		elo = parseInt person.slice 0,4
-		name = person.slice(4).trim()
-		global.players.push new Player global.players.length, name, elo
+# 	for person in persons
+# 		elo = parseInt person.slice 0,4
+# 		name = person.slice(4).trim()
+# 		global.players.push new Player global.players.length, name, elo
 
-	n = global.players.length
-	if settings.A > n then settings.A = n
-	if settings.B > n then settings.B = n
-	if settings.C > n then settings.C = n
+# 	n = global.players.length
+# 	if settings.A > n then settings.A = n
+# 	if settings.B > n then settings.B = n
+# 	if settings.C > n then settings.C = n
 
-	if global.players.length % 2 == 1
-		global.frirond = global.players.length
-		global.players.push '0000 ' + BYE
-	else
-		global.frirond = null
+# 	if global.players.length % 2 == 1
+# 		global.frirond = global.players.length
+# 		global.players.push '0000 ' + BYE
+# 	else
+# 		global.frirond = null
 
-	if settings.ROUNDS == 0 then settings.ROUNDS = global.players.length - 1
+# 	if settings.ROUNDS == 0 then settings.ROUNDS = global.players.length - 1
 
-	if global.rounds == null then global.rounds = []
+# 	if global.rounds == null then global.rounds = []
 
-	url = makeURL()
-	global.players = []
-	global.rounds = []
-	window.location.href = url
-	echo 'window.location.href = url'
+# 	url = makeURL()
+# 	global.players = []
+# 	global.rounds = []
+# 	window.location.href = url
+# 	echo 'window.location.href = url'
 
 parseURL = -> 
 	params = new URLSearchParams window.location.search
@@ -713,15 +714,10 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	params = new URLSearchParams window.location.search
 
 	if params.size == 0 
-		# initTextarea()
+		initialization = new initialize()
 		document.getElementById("help").addEventListener "click", showHelp
-		document.getElementById("continue").addEventListener "click", parseTextarea
+		document.getElementById("continue").addEventListener "click", init
 		return
-
-	document.getElementById("help").style     = 'display: none'
-	document.getElementById("textarea").style = 'display: none'
-	document.getElementById("panel").style    = 'display: none'
-	document.getElementById("continue").style = 'display: none'
 
 	parseURL()
 
@@ -738,7 +734,6 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	# global.rounds = if global.ber-ger then makeBerger() else makeFairPair()
 	global.rounds = makeFairPair()
-
 	global.rounds = expand settings.GAMES, global.rounds
 
 	for i in range settings.ROUNDS

@@ -81,7 +81,7 @@ exec = (name,elo,elos,score,n) ->
 	for i in _.range n - elos.length
 		elos.push elo
 	b = performance score, elos
-	echo name, score, b.toFixed 0
+	# echo name, score, b.toFixed 0
                                              #   QR Q 
 exec "Silins ", 1800, [1613,1679,1799], 3, 3 # 2268 3.00
 exec "Razavi ",	1799, [1679,1650,1800], 2, 3 # 1834 2.00

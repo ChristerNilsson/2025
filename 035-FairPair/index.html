@@ -5,6 +5,12 @@
   <meta name="format-detection" content="telephone=no,address=no,email=no">
   <style>
 
+    * {
+        /* font-family: monospace !important; */
+        margin: 2px;
+      }
+
+
     .panel {
       max-width: 800px;
       margin: 40px auto;
@@ -19,10 +25,10 @@
       margin-top: 12px;
     }
 
-    textarea {
+    /* textarea {
       width: 100%;
       font: 14px/1.45 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-    }
+    } */
 
     body { 
       font-family: sans-serif; 
@@ -156,12 +162,32 @@
     }
 
   </style>
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.21/lodash.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
-<body>
 
-<div class="panel" id="panel">
+<body id="app">
+
+<div class="bar">
+  <!-- <button id="help">Help</button> -->
+  <!-- <button id="continue">Continue</button> -->
+</div>
+
+<pre id="info"></pre>
+<div id="hdr"></div>
+<div id="players"></div>
+<div id="tables" ></div>
+<div id="names"  ></div>
+
+<script type="module" src="test.js"></script>
+<script type="module" src="tournament.js"></script>
+
+</body>
+</html>
+
+
+
 
 <!-- <textarea id="textarea" rows="25" cols="50" style="font-family:monospace" autofocus>
 TITLE = Best of Sweden
@@ -179,7 +205,7 @@ SORT = 1
 2493 Hall, Jesper
 </textarea> -->
 
-<textarea id="textarea" rows="25" cols="50" style="font-family:monospace" max-width="680px" autofocus>
+<!-- <textarea id="textarea" rows="25" cols="50" style="font-family:monospace" max-width="680px" autofocus>
 
 TITLE = Tyresö Open 2024
 ROUNDS = 8
@@ -269,23 +295,4 @@ P = 13
 2272 Vidar Grahn
 2109 Vidar Seiger
 
-</textarea>
-
-<div class="bar">
-  <button id="help">Help</button>
-  <button id="continue">Continue</button>
-</div>
-
-</div>
-
-<pre id="info"></pre>
-<div id="hdr"></div>
-<div id="players"></div>
-<div id="tables" ></div>
-<div id="names"  ></div>
-
-<script type="module" src="test.js"></script>
-<script type="module" src="tournament.js"></script>
-
-</body>
-</html>
+</textarea> -->

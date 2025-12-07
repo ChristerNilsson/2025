@@ -3,8 +3,8 @@ import {elo_formula,performance} from './rating.js'
 
 export class Player
 
-	constructor : (@id, @name, @elo) ->
-		@fideid = "1712345"
+	constructor : (@id, @name, @elo, @fideid) ->
+		# @fideid = "1712345"
 		@born = "0000"
 		@federation = "   "
 		@sex = " "
