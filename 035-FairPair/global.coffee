@@ -17,7 +17,7 @@ export global =
 
 	frirond : null # ingen frirond. Annars index för frironden
 
-	berger : null
+	# berger : null
 	fairpair : null
 
 export settings =

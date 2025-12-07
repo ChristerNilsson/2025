@@ -238,17 +238,17 @@ export longForm = (rounds, results) -> # produces the long form for ONE round (s
 	result.sort (a,b) -> a[0] - b[0]
 	result
 
-makeBerger = -> # lotta en hel berger-turnering.
-	n = global.players.length
-	half = n // 2 
-	A = [0...n]
-	global.rounds = []
-	for i in range settings.ROUNDS
-		global.rounds.push savePairing i, A, half, n
-		A.pop()
-		A = A.slice(half).concat A.slice(0,half)
-		A.push n-1
-	global.rounds
+# makeBerger = -> # lotta en hel bergerturnering.
+# 	n = global.players.length
+# 	half = n // 2 
+# 	A = [0...n]
+# 	global.rounds = []
+# 	for i in range settings.ROUNDS
+# 		global.rounds.push savePairing i, A, half, n
+# 		A.pop()
+# 		A = A.slice(half).concat A.slice(0,half)
+# 		A.push n-1
+# 	global.rounds
 
 makeFairPair = -> # lotta en hel fairpair-turnering
 	global.fairpair = new FairPair global.players, settings
@@ -424,12 +424,12 @@ safeGet = (params,key,standard="") -> # Hämta parametern given av key från url
 	if params.get ' ' + key then return params.get(' ' + key).trim()
 	standard
 
-savePairing = (r, A, half, n) -> # skapa en bordslista utifrån berger.
-	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
-	for i in [1...half]
-		lst.push [A[i], A[n - 1 - i]]
-	if global.frirond then lst.push lst.shift()
-	lst.sort()
+# savePairing = (r, A, half, n) -> # skapa en bordslista utifrån bergerturnering.
+# 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
+# 	for i in [1...half]
+# 		lst.push [A[i], A[n - 1 - i]]
+# 	if global.frirond then lst.push lst.shift()
+# 	lst.sort()
 
 setByeResults = ->
 	if global.frirond == null then return
@@ -437,12 +437,12 @@ setByeResults = ->
 		round = global.rounds[r]
 		for t in range round.length
 			[w,b] = round[t]
-			if global.berger
-				if w == global.frirond then global.results[r][t] = '2'
-				if b == global.frirond then global.results[r][t] = '0'
-			else
-				if w == global.frirond then global.results[r][t] = '0'
-				if b == global.frirond then global.results[r][t] = '2'
+			# if global.ber-ger
+			# 	if w == global.frirond then global.results[r][t] = '2'
+			# 	if b == global.frirond then global.results[r][t] = '0'
+			# else
+			if w == global.frirond then global.results[r][t] = '0'
+			if b == global.frirond then global.results[r][t] = '2'
 
 setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 	if global.currScreen == 'A'
@@ -565,26 +565,27 @@ showMatrix = -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	if n > ALFABET.length then n = ALFABET.length
 	res = []
 
-	if global.berger 
-		if settings.GAMES == 2 then return
-		global.matrix = (("•" for i in range n) for j in range n)
-		m = global.matrix
-		for r in range global.rounds.length
-			round = global.rounds[r]
-			for [i,j] in round
-				if i == m.length or j == m[0].length then continue
-				m[i][j] = "#{'123456789abcdefgh'[r]}"
-				m[j][i] = "#{'123456789abcdefgh'[r]}"
+	# if global.ber ger 
+	# 	if settings.GAMES == 2 then return
+	# 	global.matrix = (("•" for i in range n) for j in range n)
+	# 	m = global.matrix
+	# 	for r in range global.rounds.length
+	# 		round = global.rounds[r]
+	# 		for [i,j] in round
+	# 			if i == m.length or j == m[0].length then continue
+	# 			m[i][j] = "#{'123456789abcdefgh'[r]}"
+	# 			m[j][i] = "#{'123456789abcdefgh'[r]}"
 
-		res.push '    ' + (ALFABET[i] for i in range n).join SPACING
-		for i in range n
-			line = m[i].slice 0,n
-			res.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
-	else 
-		res.push '    ' + (ALFABET[i] for i in range n).join SPACING
-		for i in range n
-			line = global.fairpair.matrix[i].slice 0,n
-			res.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
+	# 	res.push '    ' + (ALFABET[i] for i in range n).join SPACING
+	# 	for i in range n
+	# 		line = m[i].slice 0,n
+	# 		res.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
+	# else 
+
+	res.push '    ' + (ALFABET[i] for i in range n).join SPACING
+	for i in range n
+		line = global.fairpair.matrix[i].slice 0,n
+		res.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
 
 	echo res.join "\n"
 
@@ -728,14 +729,15 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		showInfo "You must have four or more players!"
 		return
 
-	global.berger = settings.ROUNDS == global.players.length - 1
+	# global.ber-ger = settings.ROUNDS == global.players.length - 1
 	fairpairFlag = settings.ROUNDS <= global.players.length // 2
 
-	if not global.berger ^ fairpairFlag #settings.ROUNDS >= players.length // 2 and settings.ROUNDS != players.length - 1
-		showInfo "The number of rounds is not accepted!"
-		return
+	# if not global.ber-ger ^ fairpairFlag #settings.ROUNDS >= players.length // 2 and settings.ROUNDS != players.length - 1
+	# 	showInfo "The number of rounds is not accepted!"
+	# 	return
 
-	global.rounds = if global.berger then makeBerger() else makeFairPair()
+	# global.rounds = if global.ber-ger then makeBerger() else makeFairPair()
+	global.rounds = makeFairPair()
 
 	global.rounds = expand settings.GAMES, global.rounds
 
