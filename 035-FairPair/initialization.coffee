@@ -19,8 +19,8 @@ koppla = (typ, parent, attrs = {}) ->
 	parent.appendChild elem
 	elem
 
-MINUTES = [1,2,3,4,5,10,15,25,30,45,60,90]
-SECONDS = [0,1,2,3,4,5,10,15,20,25,30]
+MINUTES = [1,2,3,4,5,6,7,8,9,10,15,25,30,45,60,90]
+SECONDS = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30]
 SPEED = 0 # 0=Classic 1=Rapid 2=Blitz
 
 app = null
@@ -64,7 +64,7 @@ export initialize = ->
 	city = koppla "input", panel, placeholder:'City'
 	city.style.width = "244px"
 
-	fed = koppla "input", panel, placeholder:'Fed'
+	fed = koppla "input", panel, placeholder:'Fed', value:"SWE"
 	fed.style.width = "30px"
 
 	div04 = koppla "div", panel
