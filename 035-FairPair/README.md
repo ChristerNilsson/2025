@@ -10,8 +10,6 @@ Add the players elo ratings and names
 TITLE = Summer tournament RIO 2025
 GAMES = 1
 ROUNDS = 4
-SORT = 0
-BALANCE = 1
 
 1698 Onni Aikio
 1558 Helge Bergström

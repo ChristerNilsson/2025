@@ -114,16 +114,45 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 					history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 					setScreen 'A'
 
+# Skapar och laddar ner en fil (text/JSON/CSV/…)
+downloadFile = (filename, content, mime = 'text/plain') ->
+  blob = new Blob [content], { type: mime }
+  url  = URL.createObjectURL blob
+  a    = document.createElement 'a'
+  a.href = url
+  a.download = filename
+
+  # Safari/ios gillar att länken finns i DOM
+  document.body.appendChild a
+  a.click()
+  a.remove()
+
+  # Städa upp objekt-URLen
+  setTimeout (-> URL.revokeObjectURL url), 0
+
+pad = (n) -> String(n).padStart 2, '0'
+
+nowStr = ->
+  d  = new Date()
+  y  = d.getFullYear()
+  m  = pad d.getMonth() + 1
+  day = pad d.getDate()
+  h  = pad d.getHours()
+  min = pad d.getMinutes()
+  "#{y}-#{m}-#{day} #{h}-#{min}"
+
 createTRF = () ->
 	one = settings.ONE
 	echo global.longs
 
-	echo "012 #{settings.TITLE}"
-	echo "022 #{settings.CITY}"
-	echo "032 #{settings.FED}"
-	echo "102 #{settings.ARB}"
+	lines = []
+	lines.push "012 #{settings.TITLE}"
+	lines.push "022 #{settings.CITY}"
+	lines.push "032 #{settings.FED}"
+	lines.push "092 swiss" # för att kunna visa korsvis i Swiss Manager
+	lines.push "102 #{settings.ARB}"
 
-	echo "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3  4444 4 4  5555 5 5  6666 6 6  7777 7 7  8888 8 8  9999 9 9"
+	lines.push "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3  4444 4 4  5555 5 5  6666 6 6  7777 7 7  8888 8 8  9999 9 9"
 	for i in range global.players.length		
 		p = global.players[i]
 		if p.name == 'BYE' then continue
@@ -147,7 +176,8 @@ createTRF = () ->
 				s += " #{_.padStart(opp + one,4)}"
 				s += " #{col}"
 				s += " #{convert res, ['x','0','1','2', '-', '+'], [' ','0','=','1', '-', '+']} "
-		echo s
+		lines.push s
+	downloadFile "#{nowStr()} #{settings.TITLE}.trf", lines.join '\n'
 
 export expand = (games, rounds) -> # make a double round from a single round
 	result = []
