@@ -2,11 +2,6 @@ import {echo,global,range,settings} from './global.js'
 import {Player} from './player.js'
 import {makeURL} from './tournament.js'
 
-# echo = console.log
-# range = _.range
-
-players = null
-
 koppla = (typ, parent, attrs = {}) ->
 	elem = document.createElement typ
 
@@ -24,41 +19,34 @@ koppla = (typ, parent, attrs = {}) ->
 	parent.appendChild elem
 	elem
 
-#export class Initialization
-#	constructor : ->
-
 MINUTES = [1,2,3,4,5,10,15,25,30,45,60,90]
 SECONDS = [0,1,2,3,4,5,10,15,20,25,30]
 SPEED = 0 # 0=Classic 1=Rapid 2=Blitz
-members = {}
 
 app = null
 panel = null
-title = null
 
-# div2 = null
+title = null
+city = null
+fed = null # federation
+arb = null # arbiter
+
 bases = null
 incrs = null
 speed = null
 
-# div3 = null
 rounds = null
 double = null
 estimation = null
 
-# div4 = null
 player = null
 ins = null
 del = null
 playerCount = null
 
-# div5 = null
-# help = null
-# cont = null
+players = null
 
 export initialize = ->
-
-	# <div class="panel" id="panel">
 
 	app = document.getElementById "app"
 	app.style.display = "flex"
@@ -69,9 +57,19 @@ export initialize = ->
 
 	panel = koppla "div", app, class:'panel'
 
-	# title
-	title = koppla "input", panel, placeholder:'Title'
+	div01 = koppla "div", panel
+	title = koppla "input", div01, placeholder:'Title'
 	title.style.width = "286px"
+
+	city = koppla "input", panel, placeholder:'City'
+	city.style.width = "244px"
+
+	fed = koppla "input", panel, placeholder:'Fed'
+	fed.style.width = "30px"
+
+	div04 = koppla "div", panel
+	arb = koppla "input", div04, placeholder:'Arbiter'
+	arb.style.width = "286px"
 
 	# bases
 	div2 = koppla "div", panel
@@ -117,7 +115,7 @@ export initialize = ->
 	ins.addEventListener 'click', -> 
 		p = await transfer SPEED, player.value
 		# Förhindra dublett
-		if Array.from(players.options).some (o) -> o.text is p then return
+		if Array.from(players.options).some (o) -> -1 != o.text.indexOf player.value then return
 
 		if p.length < 10 then return 
 		koppla "option",players, text: p
@@ -140,26 +138,26 @@ export initialize = ->
 
 	players = koppla "select", panel, size:20
 
-	koppla "option", players, text: "1712 1787454 Karlsson, Magnus"
-	koppla "option", players, text: "1701 1766953 Stolov, Leonid"
-	koppla "option", players, text: "1700 1772937 Öhman, Dick"
-	koppla "option", players, text: "1699 1747347 Antonsson, Görgen"
-	koppla "option", players, text: "1693 1715208 Andersson, Lars Owe"
-	koppla "option", players, text: "1693 1799720 Eriksson, Roland"
-	koppla "option", players, text: "1686 1786911 Nilsson, Christer"
-	koppla "option", players, text: "1686 1774417 Razavi, Abbas"
-	koppla "option", players, text: "1686 1749781 Aikio, Onni"
-	koppla "option", players, text: "1680 1774310 Stumpf, Friedemann"
-	koppla "option", players, text: "1679 1726587 Johansson, Lars"
-	koppla "option", players, text: "1675 1719564 Konstantinov, Dimiter"
-	koppla "option", players, text: "1649 1770063 Hamnström, Per"
+	koppla "option", players, text: "1686|Aikio, Onni|1749781"
+	koppla "option", players, text: "1693|Andersson, Lars Owe|1715208"
+	koppla "option", players, text: "1699|Antonsson, Görgen|1747347"
+	koppla "option", players, text: "1693|Eriksson, Roland|1799720"
+	koppla "option", players, text: "1649|Hamnström, Per|1770063"
+	koppla "option", players, text: "1679|Johansson, Lars|1726587"
+	koppla "option", players, text: "1712|Karlsson, Magnus|1787454"
+	koppla "option", players, text: "1675|Konstantinov, Dimiter|1719564"
+	koppla "option", players, text: "1686|Nilsson, Christer|1786911"
+	koppla "option", players, text: "1686|Razavi, Abbas|1774417"
+	koppla "option", players, text: "1701|Stolov, Leonid|1766953"
+	koppla "option", players, text: "1680|Stumpf, Friedemann|1774310"
+	koppla "option", players, text: "1700|Öhman, Dick|1772937"
 
 	players.style.width = "294px"
 	players.selectedIndex = players.options?.length - 1
 
 	bases.selectedIndex = MINUTES.length - 1
 	incrs.selectedIndex = SECONDS.length - 1
-	rounds.selectedIndex = 4
+	rounds.selectedIndex = 6
 	double.selectedIndex = 0
 
 	div5 = koppla "div", panel, class:'bar'
@@ -168,7 +166,6 @@ export initialize = ->
 	koppla "button", div5, id:'continue', text:'Continue'
 
 	update()
-
 
 fetchShard = (fidenumber) ->
 	shard = "#{fidenumber}"
@@ -199,7 +196,7 @@ transfer = (speed, fidenumber) ->
 	if member == undefined then return fidenumber
 	rating = getRating member,speed
 	name = member[3]
-	if rating == undefined or name == undefined then fidenumber else rating + ' ' + fidenumber + ' ' + name
+	if rating == undefined or name == undefined then fidenumber else rating + '|' + name + '|' + fidenumber
 
 update = ->
 	updateSpeed()
@@ -231,14 +228,21 @@ updateCount = ->
 
 export init = -> # läs initiala uppgifter om turneringen
 
-#	echo 'init', players.options?.length
-
-#	for option in players.options
-#		echo option.text
+	if title.value == null then return
+	if city.value == null then return
+	if fed.value == null then return
+	if arb.value == null then return
+	if players.options.length < 4 then return
 
 	settings.TITLE = title.value
+	settings.CITY = city.value
+	settings.FED = fed.value
+	settings.ARB = arb.value
+
 	settings.GAMES = double.selectedIndex + 1
 	settings.ROUNDS = rounds.selectedIndex
+
+	echo settings
 
 	global.rounds = null
 	global.players = []
@@ -250,43 +254,22 @@ export init = -> # läs initiala uppgifter om turneringen
 	persons.sort().reverse()
 
 	for person in persons
-		elo = parseInt person.slice 0,4
-		person = person.slice 4+1 #.trim()
-		echo elo,person
-		
-		# hämta FIDE-id
-		p    = person.indexOf ' '
-		fide = person.slice 0,p
-		name = person.slice p+1
-
-		global.players.push new Player global.players.length, name, elo, fide
-
-	echo global.players
-
-	# n = global.players.length
-	# if settings.A > n then settings.A = n
-	# if settings.B > n then settings.B = n
-	# if settings.C > n then settings.C = n
+		global.players.push new Player global.players.length, person
 
 	if global.players.length % 2 == 1
 		global.frirond = global.players.length
-		global.players.push '0000 BYE' 
+		global.players.push '0000|BYE|0'
 	else
 		global.frirond = null
 
-	#if settings.ROUNDS == 0 then settings.ROUNDS = global.players.length - 1
+	if settings.ROUNDS > global.players.length / 2 then return
 
 	if global.rounds == null then global.rounds = []
 
-	#document.getElementById("help").style     = 'display: none'
-	# document.getElementById("textarea").style = 'display: none'
-	#document.getElementById("panel").style    = 'display: none'
-	#document.getElementById("continue").style = 'display: none'
-
 	url = makeURL()
-	echo url
+	# echo url
 	global.players = []
 	global.rounds = []
 
 	window.location.href = url
-	echo 'window.location.href = url'
+	# echo 'window.location.href = url'

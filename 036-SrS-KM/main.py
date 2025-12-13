@@ -1,4 +1,4 @@
-from rating import performance
+from rating import performance,elo_formula
 rounds = 8
 
 class Player:
@@ -16,7 +16,7 @@ def average(arr):
 
 def read_players():
 
-	with open("km.txt", "r", encoding="utf-8") as f:
+	with open("km2.txt", "r", encoding="utf-8") as f:
 		lines = f.readlines()
 
 	players = []
@@ -34,7 +34,7 @@ def read_players():
 		ids = []
 		score = 0
 
-		for r in arr[5:]:
+		for r in arr[5:5+9]:
 			r = r.replace('w','b')
 			if 'b' in r:
 				pair = r.split('b')
@@ -55,6 +55,7 @@ def read_players():
 				if elo == 0: elo = player.elo # 1400
 				player.elos.append(elo)
 		player.pr = round(performance(player.score,player.elos),3)
+		z=99
 
 	players.sort(key=lambda player: -player.pr)
 	return players
@@ -78,9 +79,10 @@ players = read_players()
 f()
 i = 0
 for p in players:
-	if len(p.elos) < rounds / 2: continue
+	n = len(p.elos)
+	if n < rounds / 2: continue
 	i += 1
-	print(f"{i:2} {p.id:2d} {len(p.elos)} {p.elo:4} {p.pr:.3f} {p.score} {p.q:.3f} {(p.score-p.q):6.3f} {p.name:17} {average(p.elos):.2f} {' '.join([str(r) for r in p.elos])}")
+	print(f"{i:2} {p.id:2d} {n} {p.elo:4} {p.pr:.3f} {p.score:.1f} {p.score/n:.3f} {p.q:.3f} {p.name:22} {average(p.elos):.2f} {' '.join([str(r) for r in p.elos])}")
 
 # https://s1.chess-results.com/tnr1247798.aspx?lan=6&art=4&fed=SWE&turdet=YES&SNode=S0
 # Kolumner:

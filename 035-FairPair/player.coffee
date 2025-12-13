@@ -3,8 +3,11 @@ import {elo_formula,performance} from './rating.js'
 
 export class Player
 
-	constructor : (@id, @name, @elo, @fideid) ->
-		# @fideid = "1712345"
+	constructor : (@id, @eloNameFide) ->
+
+		[@elo, @name, @fideid] = @eloNameFide.split '|'
+		echo @elo, @name, @fideid
+
 		@born = "0000"
 		@federation = "   "
 		@sex = " "
@@ -22,7 +25,7 @@ export class Player
 			if c == 'b' then b--
 		b
 
-	toString : -> "#{String(@elo).padStart 4, '0'} #{@name}"
+	toString : -> "#{String(@elo).padStart 4, '0'}|#{@name}|#{@fideid}"
 
 	getElos : (long) ->
 		@P = 0
@@ -71,7 +74,7 @@ export class Player
 
 	update_P_and_PR : (longs,i) ->
 		long = longs[i]
-		# echo 'longs',longs
+		echo 'longs',longs
 		@P = 0
 		@Q = 0
 		@PR = 0

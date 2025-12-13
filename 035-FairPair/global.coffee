@@ -22,6 +22,9 @@ export global =
 
 export settings =
 	TITLE : 'No Title'
+	CITY : 'No City'
+	FED : 'SWE'
+	ARB : ""
 	GAMES : 1 # antal partier per rond
 	ROUNDS : 0 # antal ronder
 	# TIME : "10 5" # minutes

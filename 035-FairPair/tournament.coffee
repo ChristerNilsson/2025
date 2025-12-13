@@ -117,9 +117,16 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 createTRF = () ->
 	one = settings.ONE
 	echo global.longs
+
+	echo "012 #{settings.TITLE}"
+	echo "022 #{settings.CITY}"
+	echo "032 #{settings.FED}"
+	echo "102 #{settings.ARB}"
+
 	echo "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3  4444 4 4  5555 5 5  6666 6 6  7777 7 7  8888 8 8  9999 9 9"
-	for i in range global.players.length
+	for i in range global.players.length		
 		p = global.players[i]
+		if p.name == 'BYE' then continue
 		games = global.longs[i]
 		s = "001 " 
 		s += _.padStart p.id + one,4 
@@ -259,6 +266,10 @@ export makeURL = ->
 	url = "./"
 
 	url += "?TITLE=#{settings.TITLE}"
+	url += "&CITY=#{settings.CITY}"
+	url += "&FED=#{settings.FED}"
+	url += "&ARB=#{settings.ARB}"
+
 	url += "&GAMES=#{settings.GAMES}"
 	url += "&ROUNDS=#{settings.ROUNDS}"
 	# url += "&SORT=#{settings.SORT}"
@@ -345,6 +356,11 @@ parseURL = ->
 	params = new URLSearchParams window.location.search
 
 	settings.TITLE = safeGet params, "TITLE"
+
+	settings.CITY = safeGet params, "CITY"
+	settings.FED = safeGet params, "FED"
+	settings.ARB = safeGet params, "ARB"
+
 	settings.GAMES = parseInt safeGet params, "GAMES", "1"
 	# settings.SORT = parseInt safeGet params, "SORT", "1"
 	# settings.TIME = safeGet params, 'TIME', "10 + 5"
@@ -369,9 +385,9 @@ parseURL = ->
 
 	for person in persons #.slice 0, settings.P
 		# person = person.replaceAll '_', ' '
-		elo = parseInt person.slice 0,4
-		name = person.slice(4).trim()
-		global.players.push new Player global.players.length, name, elo
+		#elo = parseInt person.slice 0,4
+		#name = person.slice(4).trim()
+		global.players.push new Player global.players.length, person
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{global.players.length-1}"
 
@@ -675,7 +691,7 @@ showPlayers = -> # Visa spelarlistan.
 			for i in range long.length, global.rounds.length
 				koppla 'td', tr, {style:"text-align:left" , 'x'}
 
-			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 3}
+			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 3+3}
 			koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
 
 		offset += group.length # settings.A
