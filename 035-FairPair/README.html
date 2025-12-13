@@ -1,145 +1,7 @@
 <!DOCTYPE html>
-        <html>
-        <head>
-            <meta charset="UTF-8">
-            <title>FairPair</title>
-            <style>
-/* From extension vscode.github */
-/*---------------------------------------------------------------------------------------------
- *  Copyright (c) Microsoft Corporation. All rights reserved.
- *  Licensed under the MIT License. See License.txt in the project root for license information.
- *--------------------------------------------------------------------------------------------*/
-
-.vscode-dark img[src$=\#gh-light-mode-only],
-.vscode-light img[src$=\#gh-dark-mode-only],
-.vscode-high-contrast:not(.vscode-high-contrast-light) img[src$=\#gh-light-mode-only],
-.vscode-high-contrast-light img[src$=\#gh-dark-mode-only] {
-	display: none;
-}
-
-</style>
-            
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/markdown.css">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Microsoft/vscode/extensions/markdown-language-features/media/highlight.css">
-<style>
-            body {
-                font-family: -apple-system, BlinkMacSystemFont, 'Segoe WPC', 'Segoe UI', system-ui, 'Ubuntu', 'Droid Sans', sans-serif;
-                font-size: 14px;
-                line-height: 1.6;
-            }
-        </style>
-        <style>
-.task-list-item {
-    list-style-type: none;
-}
-
-.task-list-item-checkbox {
-    margin-left: -20px;
-    vertical-align: middle;
-    pointer-events: none;
-}
-</style>
-<style>
-:root {
-  --color-note: #0969da;
-  --color-tip: #1a7f37;
-  --color-warning: #9a6700;
-  --color-severe: #bc4c00;
-  --color-caution: #d1242f;
-  --color-important: #8250df;
-}
-
-</style>
-<style>
-@media (prefers-color-scheme: dark) {
-  :root {
-    --color-note: #2f81f7;
-    --color-tip: #3fb950;
-    --color-warning: #d29922;
-    --color-severe: #db6d28;
-    --color-caution: #f85149;
-    --color-important: #a371f7;
-  }
-}
-
-</style>
-<style>
-.markdown-alert {
-  padding: 0.5rem 1rem;
-  margin-bottom: 16px;
-  color: inherit;
-  border-left: .25em solid #888;
-}
-
-.markdown-alert>:first-child {
-  margin-top: 0
-}
-
-.markdown-alert>:last-child {
-  margin-bottom: 0
-}
-
-.markdown-alert .markdown-alert-title {
-  display: flex;
-  font-weight: 500;
-  align-items: center;
-  line-height: 1
-}
-
-.markdown-alert .markdown-alert-title .octicon {
-  margin-right: 0.5rem;
-  display: inline-block;
-  overflow: visible !important;
-  vertical-align: text-bottom;
-  fill: currentColor;
-}
-
-.markdown-alert.markdown-alert-note {
-  border-left-color: var(--color-note);
-}
-
-.markdown-alert.markdown-alert-note .markdown-alert-title {
-  color: var(--color-note);
-}
-
-.markdown-alert.markdown-alert-important {
-  border-left-color: var(--color-important);
-}
-
-.markdown-alert.markdown-alert-important .markdown-alert-title {
-  color: var(--color-important);
-}
-
-.markdown-alert.markdown-alert-warning {
-  border-left-color: var(--color-warning);
-}
-
-.markdown-alert.markdown-alert-warning .markdown-alert-title {
-  color: var(--color-warning);
-}
-
-.markdown-alert.markdown-alert-tip {
-  border-left-color: var(--color-tip);
-}
-
-.markdown-alert.markdown-alert-tip .markdown-alert-title {
-  color: var(--color-tip);
-}
-
-.markdown-alert.markdown-alert-caution {
-  border-left-color: var(--color-caution);
-}
-
-.markdown-alert.markdown-alert-caution .markdown-alert-title {
-  color: var(--color-caution);
-}
-
-</style>
-        
-        </head>
-        <body class="vscode-body vscode-light">
-            <h1 id="fairpair">FairPair</h1>
-<h2 id="make-trf-file">Make TRF file</h2>
+<html><head><meta charset="UTF-8"><title>README.md</title><link rel="stylesheet" href="style.css"></head>
+<body><h1>FairPair</h1>
+<h2>Make TRF file</h2>
 <p><a href="https://christernilsson.github.io/2025/035-FairPair/">Try it!</a></p>
 <p>Add the players elo ratings and names</p>
 <pre><code>TITLE = Summer tournament RIO 2025
@@ -171,11 +33,11 @@ BALANCE = 1
 2 = white win
 x = game not played yet
 </code></pre>
-<h1 id="usage">Usage</h1>
+<h1>Usage</h1>
 <ul>
 <li>Click on other columns, sorts the players</li>
 </ul>
-<h1 id="differences-against-other-pairing-systems">Differences against other pairing systems</h1>
+<h1>Differences against other pairing systems</h1>
 <ul>
 <li>The elo rating decides. The differences are minimized</li>
 <li>Tie breaks are seldom needed</li>
@@ -186,21 +48,37 @@ x = game not played yet
 <li>Simple handling of the pairing process</li>
 <li>All information is stored in the url, ready to be published</li>
 </ul>
-<h1 id="mind-this">Mind this</h1>
+<h1>Mind this</h1>
 <ul>
 <li>After starting the tournament, you are only allowed to edit the results</li>
 <li>Changing elos, SORT, ROUNDS, BALANCE or GAMES is not allowed</li>
 <li>Always print the Table lists. These are your backups</li>
 </ul>
-<h1 id="balance">BALANCE</h1>
+<h1>BALANCE</h1>
 <ul>
 <li>BALANCE == 0. Mainly double round</li>
 <li>BALANCE == 1. Mainly single round</li>
 </ul>
-<h1 id="development">Development</h1>
+<h1>Standings</h1>
+<ul>
+<li>n = Number of real games played. No byes or walkovers.</li>
+<li>P = Real game points.</li>
+<li>score = P / n.</li>
+<li>avg = Average elo met.</li>
+<li>PR = Performance Rating (iterative)</li>
+</ul>
+<h1>Fairness</h1>
+<p>Normally the PR order matches the score order.<br>
+(If the score is the same, avg is used).<br>
+Using the avg is an approximation used by FIDE.</p>
+<p>Consider winning 50% against</p>
+<ul>
+<li>A: 1400, 1400 and 3200 =&gt; PR = 1591</li>
+<li>B: 1400, 2300 and 2300 =&gt; PR = 2116</li>
+</ul>
+<p>The average is 2000 for both player A and B.<br>
+But, as PR indicates, winning against 2300 is much harder than   winning against 1400</p>
+<p>As elo variation using FairPair is tight, this should not be a   problem.</p>
+<h1>Development</h1>
 <p>ONE is used to show zero or one based indexes</p>
-
-            
-            
-        </body>
-        </html>
+</body></html>

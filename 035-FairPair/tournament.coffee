@@ -673,12 +673,18 @@ showPlayers = -> # Visa spelarlistan.
 		koppla 'th', thead, {text:"#", class: 'clickableCols' }
 		koppla 'th', thead, {text:"Name", class: 'clickableCols'}
 		koppla 'th', thead, {text:"Elo", class: 'clickableCols'}
+
 		for i in range global.rounds.length
 			koppla 'th', thead, {text:"#{i + settings.ONE}"}
+
+		koppla 'th', thead, {text:"n", class: 'clickableCols'}
 		koppla 'th', thead, {text:"P", class: 'clickableCols'}
+		koppla 'th', thead, {text:"score", class: 'clickableCols'}
+		koppla 'th', thead, {text:"avg", class: 'clickableCols'}
 		koppla 'th', thead, {text:"PR", class: 'clickableCols'}
 
 		group.forEach (player) =>
+			n = player.elos.length
 			if player.name == BYE then return
 			tr = koppla 'tr', tabell, {style:"height: 28px"} # 27 ger ojämna höjder
 			koppla 'td', tr, {text: player.id + settings.ONE}
@@ -691,8 +697,16 @@ showPlayers = -> # Visa spelarlistan.
 			for i in range long.length, global.rounds.length
 				koppla 'td', tr, {style:"text-align:left" , 'x'}
 
-			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 3+3}
-			koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
+			koppla 'td', tr, {style:"text-align:right" , text: n}
+			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 1}
+			if n > 0
+				koppla 'td', tr, {style:"text-align:right" , text: (player.P / n).toFixed 3}
+				koppla 'td', tr, {style:"text-align:right" , text: player.avg.toFixed 1}
+				koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
+			else
+				koppla 'td', tr, {style:"text-align:right" , text: ""}
+				koppla 'td', tr, {style:"text-align:right" , text: ""}
+				koppla 'td', tr, {style:"text-align:right" , text: ""}
 
 		offset += group.length # settings.A
 

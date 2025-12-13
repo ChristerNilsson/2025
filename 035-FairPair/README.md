@@ -67,6 +67,29 @@ x = game not played yet
 * BALANCE == 0. Mainly double round
 * BALANCE == 1. Mainly single round
 
+# Standings
+
+* n = Number of real games played. No byes or walkovers.  
+* P = Real game points.  
+* score = P / n.  
+* avg = Average elo met.  
+* PR = Performance Rating (iterative)  
+
+# Fairness
+
+Normally the PR order matches the score order.  
+(If the score is the same, avg is used).  
+Using the avg is an approximation used by FIDE.  
+
+Consider winning 50% against  
+* A: 1400, 1400 and 3200 => PR = 1591
+* B: 1400, 2300 and 2300 => PR = 2116
+
+The average is 2000 for both player A and B.  
+But, as PR indicates, winning against 2300 is much harder than   winning against 1400  
+
+As elo variation using FairPair is tight, this should not be a   problem.  
+
 # Development
 
 ONE is used to show zero or one based indexes
