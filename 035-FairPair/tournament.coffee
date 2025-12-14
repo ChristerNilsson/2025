@@ -53,7 +53,7 @@ addBord = (bord,res,c0,c1) ->
 
 	tr.addEventListener "click", ->
 		global.currTable = bord
-		setCursor global.currRound,global.currTable
+		setCursor() # global.currRound,global.currTable
 
 	color = if bord == global.currTable then 'yellow' else 'white'
 
@@ -65,13 +65,6 @@ addBord = (bord,res,c0,c1) ->
 	koppla 'td', tr, {style:"text-align:left", text : svart}
 
 	tr
-
-# calcTime = ->
-# 	arr = settings.TIME.replace('  ',' ').replace('  ',' ').split ' '
-# 	base = parseInt arr[0].trim()
-# 	incr = parseInt arr[1].trim()
-# 	total = (base + incr) * 2 * settings.ROUNDS * settings.GAMES
-# 	"Expected tournament duration: #{total // 60} hours #{total %% 60} minutes"
 
 changeGroupSize = (key,letter) ->
 	if key == 'I' and settings[letter] > 1 then settings[letter]--
@@ -105,6 +98,13 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 		do (th) ->
 			th.addEventListener 'click', (event) ->
 				key = th.textContent
+
+				for i in range settings.ROUNDS
+					if key == "#{i + 1}"
+						global.currRound = i
+						setScreen 'A'
+						setCursor()
+
 				if key == '#'    then global.currSort = '#'
 				if key == 'Name' then global.currSort = 'N'
 				if key == 'Elo'  then global.currSort = 'E'
@@ -113,33 +113,7 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 				if key in ['#','Name','Elo','P','PR']
 					history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 					setScreen 'A'
-
-# Skapar och laddar ner en fil (text/JSON/CSV/…)
-downloadFile = (filename, content, mime = 'text/plain') ->
-  blob = new Blob [content], { type: mime }
-  url  = URL.createObjectURL blob
-  a    = document.createElement 'a'
-  a.href = url
-  a.download = filename
-
-  # Safari/ios gillar att länken finns i DOM
-  document.body.appendChild a
-  a.click()
-  a.remove()
-
-  # Städa upp objekt-URLen
-  setTimeout (-> URL.revokeObjectURL url), 0
-
-pad = (n) -> String(n).padStart 2, '0'
-
-nowStr = ->
-  d  = new Date()
-  y  = d.getFullYear()
-  m  = pad d.getMonth() + 1
-  day = pad d.getDate()
-  h  = pad d.getHours()
-  min = pad d.getMinutes()
-  "#{y}-#{m}-#{day} #{h}-#{min}"
+					setCursor()
 
 createTRF = () ->
 	one = settings.ONE
@@ -178,6 +152,22 @@ createTRF = () ->
 				s += " #{convert res, ['x','0','1','2', '-', '+'], [' ','0','=','1', '-', '+']} "
 		lines.push s
 	downloadFile "#{nowStr()} #{settings.TITLE}.trf", lines.join '\n'
+
+# Skapar och laddar ner en fil (text/JSON/CSV/…)
+downloadFile = (filename, content, mime = 'text/plain') ->
+	blob = new Blob [content], { type: mime }
+	url  = URL.createObjectURL blob
+	a    = document.createElement 'a'
+	a.href = url
+	a.download = filename
+
+	# Safari/ios gillar att länken finns i DOM
+	document.body.appendChild a
+	a.click()
+	a.remove()
+
+	# Städa upp objekt-URLen
+	setTimeout (-> URL.revokeObjectURL url), 0
 
 export expand = (games, rounds) -> # make a double round from a single round
 	result = []
@@ -231,22 +221,10 @@ handleKey = (key) ->
 	if key == 'B' then setScreen 'B'
 	if key == 'C' then setScreen 'C'
 
-	setCursor global.currRound, global.currTable
+	setCursor() # global.currRound, global.currTable
 
 	if key in ' _' or key in 'Delete 0 1 + - # N E P R'.split ' '
 		history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
-
-# initTextarea = ->
-# 	t = document.getElementById 'textarea'
-# 	lines = t.value.split '\n'
-# 	offset = 0
-# 	i = 0
-# 	while lines[i].length > 0
-# 		offset += lines[i].length + 1
-# 		i++
-
-# 	t.focus()
-# 	t.setSelectionRange offset + 1, t.value.length
 
 koppla = (typ, parent, attrs = {}) ->
 	elem = document.createElement typ
@@ -276,18 +254,6 @@ export longForm = (rounds, results) -> # produces the long form for ONE round (s
 	result.sort (a,b) -> a[0] - b[0]
 	result
 
-# makeBerger = -> # lotta en hel bergerturnering.
-# 	n = global.players.length
-# 	half = n // 2 
-# 	A = [0...n]
-# 	global.rounds = []
-# 	for i in range settings.ROUNDS
-# 		global.rounds.push savePairing i, A, half, n
-# 		A.pop()
-# 		A = A.slice(half).concat A.slice(0,half)
-# 		A.push n-1
-# 	global.rounds
-
 makeFairPair = -> # lotta en hel fairpair-turnering
 	global.fairpair = new FairPair global.players, settings
 	global.fairpair.rounds
@@ -302,11 +268,8 @@ export makeURL = ->
 
 	url += "&GAMES=#{settings.GAMES}"
 	url += "&ROUNDS=#{settings.ROUNDS}"
-	# url += "&SORT=#{settings.SORT}"
-	# url += "&TIME=#{settings.TIME}"
 	url += "&currSort=#{global.currSort}".replace '#', '%23'
 	url += "&ONE=#{settings.ONE}"
-	# url += "&BALANCE=#{settings.BALANCE}"
 	url += "&A=#{settings.A}"
 	url += "&B=#{settings.B}"
 	url += "&C=#{settings.C}"
@@ -330,57 +293,17 @@ myChunk = (items, groups) ->
 	if n % groups > 0 then size++
 	_.chunk items,size
 
+nowStr = ->
+	pad = (n) -> String(n).padStart 2, '0'
+	d  = new Date()
+	y  = d.getFullYear()
+	m  = pad d.getMonth() + 1
+	day = pad d.getDate()
+	h  = pad d.getHours()
+	min = pad d.getMinutes()
+	"#{y}-#{m}-#{day} #{h}-#{min}"
+
 export other = (input) -> convert input, "012x-+","210x+-"
-
-# parseTextarea = -> # läs in initiala uppgifter om spelarna
-# 	raw = document.getElementById "textarea"
-
-# 	lines = raw.value
-# 	lines = lines.split "\n"
-
-# 	global.rounds = null
-# 	global.players = []
-
-# 	persons = []
-
-# 	for line in lines
-# 		if line.length == 0 or line[0] == '#' then continue
-# 		if line.includes '='
-# 			[key, val] = line.split '='
-# 			key = key.trim()
-# 			val = val.trim()
-# 			if key in "TITLE GAMES ROUNDS ONE A B C P".split ' ' then settings[key] = val # SORT BALANCE
-# 		else
-# 			persons.push line
-
-# 	if 'P' of settings and settings.P != 0 then persons = persons.slice 0,settings.P
-# 	persons.sort().reverse()
-
-# 	for person in persons
-# 		elo = parseInt person.slice 0,4
-# 		name = person.slice(4).trim()
-# 		global.players.push new Player global.players.length, name, elo
-
-# 	n = global.players.length
-# 	if settings.A > n then settings.A = n
-# 	if settings.B > n then settings.B = n
-# 	if settings.C > n then settings.C = n
-
-# 	if global.players.length % 2 == 1
-# 		global.frirond = global.players.length
-# 		global.players.push '0000 ' + BYE
-# 	else
-# 		global.frirond = null
-
-# 	if settings.ROUNDS == 0 then settings.ROUNDS = global.players.length - 1
-
-# 	if global.rounds == null then global.rounds = []
-
-# 	url = makeURL()
-# 	global.players = []
-# 	global.rounds = []
-# 	window.location.href = url
-# 	echo 'window.location.href = url'
 
 parseURL = -> 
 	params = new URLSearchParams window.location.search
@@ -392,12 +315,9 @@ parseURL = ->
 	settings.ARB = safeGet params, "ARB"
 
 	settings.GAMES = parseInt safeGet params, "GAMES", "1"
-	# settings.SORT = parseInt safeGet params, "SORT", "1"
-	# settings.TIME = safeGet params, 'TIME', "10 + 5"
 	global.currSort = safeGet params, "currSort", "#"
 
 	settings.ONE = parseInt safeGet params, "ONE", "1"
-	# settings.BALANCE = parseInt safeGet params, "BALANCE", "1"
 
 	settings.A = parseInt safeGet params, "A", "1"
 	settings.B = parseInt safeGet params, "B", "1"
@@ -408,15 +328,10 @@ parseURL = ->
 
 	echo persons
 
-	# settings.P = parseInt safeGet params, "P", persons.length
-
 	if window.location.href.includes BYE then global.frirond = persons.length - 1
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	for person in persons #.slice 0, settings.P
-		# person = person.replaceAll '_', ' '
-		#elo = parseInt person.slice 0,4
-		#name = person.slice(4).trim()
 		global.players.push new Player global.players.length, person
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{global.players.length-1}"
@@ -460,7 +375,7 @@ roundsContent = (long, i, tr) -> # rondernas data + poäng + PR. i anger spelarn
 	for [w,b,color,result] in long
 		opponent = if w == i then b else w
 		result = convert result, ['x','0','1','2','+','-'], [' ','0','½','1','1w','0w']
-		if opponent == global.frirond then result = '½'
+		if opponent == global.frirond then result = 'F' # ½
 		attr = if color == 'w' then "right:0px;" else "left:0px;"
 		cell = koppla 'td', tr, {style: "position:relative;"}
 		koppla 'div', cell, {style: "position:absolute; top:0px; font-size:0.7em;" + attr, text: settings.ONE + opponent}
@@ -471,31 +386,30 @@ safeGet = (params,key,standard="") -> # Hämta parametern given av key från url
 	if params.get ' ' + key then return params.get(' ' + key).trim()
 	standard
 
-# savePairing = (r, A, half, n) -> # skapa en bordslista utifrån bergerturnering.
-# 	lst = if r % 2 == 1 then [[A[n - 1], A[0]]] else [[A[0], A[n - 1]]]
-# 	for i in [1...half]
-# 		lst.push [A[i], A[n - 1 - i]]
-# 	if global.frirond then lst.push lst.shift()
-# 	lst.sort()
-
 setByeResults = ->
 	if global.frirond == null then return
 	for r in range global.rounds.length
 		round = global.rounds[r]
 		for t in range round.length
 			[w,b] = round[t]
-			# if global.ber-ger
-			# 	if w == global.frirond then global.results[r][t] = '2'
-			# 	if b == global.frirond then global.results[r][t] = '0'
-			# else
 			if w == global.frirond then global.results[r][t] = '0'
 			if b == global.frirond then global.results[r][t] = '2'
 
-setCursor = (round, table) -> # Den gula bakgrunden uppdateras beroende på piltangenterna
+setCursor = -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 	if global.currScreen == 'A'
 		ths = document.querySelectorAll '#players th'
 		for th,index in ths
-			if index == global.currRound + 3
+			echo global.currSort, th.innerText
+			highlite = false
+			if index == global.currRound + 3 then highlite = true 
+
+			if global.currSort == '#' and th.innerText == '#'    then highlite = true
+			if global.currSort == 'N' and th.innerText == 'Name' then highlite = true
+			if global.currSort == 'E' and th.innerText == 'Elo'  then highlite = true
+			if global.currSort == 'P' and th.innerText == 'P'    then highlite = true
+			if global.currSort == 'R' and th.innerText == 'PR'   then highlite = true
+
+			if highlite
 				bgColor = 'yellow'
 				color = 'black'
 			else
@@ -612,23 +526,6 @@ showMatrix = -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	if n > ALFABET.length then n = ALFABET.length
 	res = []
 
-	# if global.ber ger 
-	# 	if settings.GAMES == 2 then return
-	# 	global.matrix = (("•" for i in range n) for j in range n)
-	# 	m = global.matrix
-	# 	for r in range global.rounds.length
-	# 		round = global.rounds[r]
-	# 		for [i,j] in round
-	# 			if i == m.length or j == m[0].length then continue
-	# 			m[i][j] = "#{'123456789abcdefgh'[r]}"
-	# 			m[j][i] = "#{'123456789abcdefgh'[r]}"
-
-	# 	res.push '    ' + (ALFABET[i] for i in range n).join SPACING
-	# 	for i in range n
-	# 		line = m[i].slice 0,n
-	# 		res.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
-	# else 
-
 	res.push '    ' + (ALFABET[i] for i in range n).join SPACING
 	for i in range n
 		line = global.fairpair.matrix[i].slice 0,n
@@ -667,7 +564,7 @@ showNames = ->
 
 		group.forEach (p) => 
 			tr1 = koppla 'tr',tabell
-			td1 = koppla 'td',tr1, {style: "text-align:left", text:p[0]}
+			td1 = koppla 'td',tr1, {style: "text-align:left",   text:p[0]}
 			td2 = koppla 'td',tr1, {style: "text-align:center", text:p[1]}
 
 showPlayers = -> # Visa spelarlistan.
@@ -687,9 +584,6 @@ showPlayers = -> # Visa spelarlistan.
 		if global.currSort == 'P' then return b.P - a.P 
 		if global.currSort == 'R' then return b.PR - a.PR
 
-	# Lägg tillbaka BYE i slutet
-	# if global.frirond != null then sortedPlayers.push memory
-
 	groups = myChunk sortedPlayers, settings.A
 	# if _.last(groups).length == 1 and _.last(groups)[0].name == BYE then groups.pop()
 	container = document.getElementById 'players'
@@ -705,12 +599,12 @@ showPlayers = -> # Visa spelarlistan.
 		koppla 'th', thead, {text:"Elo", class: 'clickableCols'}
 
 		for i in range global.rounds.length
-			koppla 'th', thead, {text:"#{i + settings.ONE}"}
+			koppla 'th', thead, {text:"#{i + settings.ONE}", class: 'clickableCols'}
 
-		koppla 'th', thead, {text:"n", class: 'clickableCols'}
 		koppla 'th', thead, {text:"P", class: 'clickableCols'}
-		koppla 'th', thead, {text:"score", class: 'clickableCols'}
-		koppla 'th', thead, {text:"avg", class: 'clickableCols'}
+		koppla 'th', thead, {text:"n"}
+		koppla 'th', thead, {text:"score"}
+		koppla 'th', thead, {text:"avg"}
 		koppla 'th', thead, {text:"PR", class: 'clickableCols'}
 
 		group.forEach (player) =>
@@ -727,8 +621,8 @@ showPlayers = -> # Visa spelarlistan.
 			for i in range long.length, global.rounds.length
 				koppla 'td', tr, {style:"text-align:left" , 'x'}
 
-			koppla 'td', tr, {style:"text-align:right" , text: n}
-			koppla 'td', tr, {style:"text-align:right" , text: player.P.toFixed 1}
+			koppla 'td', tr, {style:"text-align:right", text: player.P.toFixed 1}
+			koppla 'td', tr, style:"text-align:center", text: n
 			if n > 0
 				koppla 'td', tr, {style:"text-align:right" , text: (player.P / n).toFixed 3}
 				koppla 'td', tr, {style:"text-align:right" , text: player.avg.toFixed 1}
@@ -785,14 +679,7 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 		showInfo "You must have four or more players!"
 		return
 
-	# global.ber-ger = settings.ROUNDS == global.players.length - 1
 	fairpairFlag = settings.ROUNDS <= global.players.length // 2
-
-	# if not global.ber-ger ^ fairpairFlag #settings.ROUNDS >= players.length // 2 and settings.ROUNDS != players.length - 1
-	# 	showInfo "The number of rounds is not accepted!"
-	# 	return
-
-	# global.rounds = if global.ber-ger then makeBerger() else makeFairPair()
 	global.rounds = makeFairPair()
 	global.rounds = expand settings.GAMES, global.rounds
 
@@ -803,9 +690,8 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 	setByeResults()
 	updateLongs()
 	setScreen 'A'
-	setCursor global.currRound,global.currTable
+	setCursor() # global.currRound,global.currTable
 	document.title = settings.TITLE
-	# echo calcTime()
 
 	document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckningar
 		return if event.ctrlKey or event.metaKey or event.altKey # förhindrar att ctrl p sorterar på poäng
