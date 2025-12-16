@@ -223,7 +223,8 @@ handleKey = (key) ->
 
 	setCursor() # global.currRound, global.currTable
 
-	if key in ' _' or key in 'Delete 0 1 + - # N E P R'.split ' '
+	# if key in ' _' or key in 'Delete 0 1 + - # N E P R ArrowLeft ArrowRight'.split ' '
+	if key == 'A' #in ' _' or key in 'Delete 0 1 + - # N E P R ArrowLeft ArrowRight'.split ' '
 		history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 
 koppla = (typ, parent, attrs = {}) ->
@@ -269,6 +270,7 @@ export makeURL = ->
 	url += "&GAMES=#{settings.GAMES}"
 	url += "&ROUNDS=#{settings.ROUNDS}"
 	url += "&currSort=#{global.currSort}".replace '#', '%23'
+	url += "&currRound=#{global.currRound}"
 	url += "&ONE=#{settings.ONE}"
 	url += "&A=#{settings.A}"
 	url += "&B=#{settings.B}"
@@ -316,6 +318,7 @@ parseURL = ->
 
 	settings.GAMES = parseInt safeGet params, "GAMES", "1"
 	global.currSort = safeGet params, "currSort", "#"
+	global.currRound = parseInt safeGet params, "currRound", "0"
 
 	settings.ONE = parseInt safeGet params, "ONE", "1"
 
