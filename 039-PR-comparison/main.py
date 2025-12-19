@@ -40,6 +40,7 @@ def performance (pp,elos,func):
 	return search(pp, elos, func)
 
 lst = [2000] * 10
+lst = [1686,1693]
 n = len(lst)
 for i in range(0,n * 2+1):
 	y = performance(i/2, lst, expected_exact)

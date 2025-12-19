@@ -1,33 +1,52 @@
 echo = console.log 
 
-export elo_formula = (gap) -> 1 / (1 + 10 ** (gap / 400))
+erf = (x) -> # Horner's method, ger 5-6 korrekta decimaler
+	a = 1.0 / (1.0 + 0.5 * Math.abs(x))
+	b = 1.00002368+a*(0.37409196+a*(0.09678418+a*(-0.18628806+a*(0.27886807+a*(-1.13520398+a*(1.48851587+a*(-0.82215223+a*0.17087277)))))))
+	res = 1 - a * Math.exp( -x*x - 1.26551223 + a * b)
+	if x >= 0 then res else -res
 
+# export elo_formula = (gap) -> 1 / (1 + 10 ** (gap / 400))
+export elo_formula = (gap) -> 0.5 * (1 + erf(gap / 400.0))
+
+expected_horner = (ratings, rating) -> summa(elo_formula(rating - r) for r in ratings)
+
+# expected_score  = (ratings, own_rating) -> summa (1 / (1 + 10**((rating - own_rating) / 400)) for rating in ratings)
 # expected_score = (ratings, own_rating) -> summa ((elo_formula own_rating - rating) for rating in ratings)
-expected_score = (ratings, own_rating) -> summa (1 / (1 + 10**((rating - own_rating) / 400)) for rating in ratings)
-
-
 # Use two extreme values when calculating 0% or 100%
-extrapolate = (a0, b0, elos) ->
-	a = performance_rating a0,elos
-	b = performance_rating b0,elos
-	b + b - a
+# extrapolate = (a0, b0, elos) ->
+# 	a = performance_rating a0,elos
+# 	b = performance_rating b0,elos
+# 	b + b - a
+# export performance = (pp,elos) -> 
+# 	n = elos.length
+# 	if pp == 0 then return extrapolate   0.5,  0.25,elos
+# 	if pp == n then return extrapolate n-0.5,n-0.25,elos
+# 	performance_rating pp,elos
+# performance_rating = (pp, ratings) ->
+# 	lo = 0
+# 	hi = 4000
+# 	while Math.abs(hi - lo) > 0.001
+# 		rating = (lo + hi) / 2
+# 		if pp > expected_horner ratings, rating
+# 			lo = rating
+# 		else
+# 			hi = rating
+# 	rating
 
-export performance = (pp,elos) -> 
+search = (pp, ratings) ->
+	[lo,hi] = [0,4000]
+	while Math.abs(hi - lo) > 0.00000001
+		guess = (lo + hi) / 2
+		[lo,hi] = if pp > expected_horner(ratings, guess) then [guess,hi] else [lo,guess]
+	guess
+
+export performance = (pp,elos) ->
+	D = 0.1
 	n = elos.length
-	if pp == 0 then return extrapolate   0.5,  0.25,elos
-	if pp == n then return extrapolate n-0.5,n-0.25,elos
-	performance_rating pp,elos
-
-performance_rating = (pp, ratings) ->
-	lo = 0
-	hi = 4000
-	while Math.abs(hi - lo) > 0.001
-		rating = (lo + hi) / 2
-		if pp > expected_score ratings, rating
-			lo = rating
-		else
-			hi = rating
-	rating
+	if pp == 0 then pp += D
+	if pp == n then pp -= D
+	search pp, elos
 
 summa = (arr) ->
 	res = 0
@@ -35,16 +54,16 @@ summa = (arr) ->
 		res += item
 	res
 
-inv = (score) ->
-	lo = -1000
-	hi = 1000
-	while Math.abs(hi - lo) > 0.001
-		gap = (lo + hi) / 2
-		if score > elo_formula gap
-			lo = gap
-		else
-			hi = gap
-	gap
+# inv = (score) ->
+# 	lo = -1000
+# 	hi = 1000
+# 	while Math.abs(hi - lo) > 0.001
+# 		gap = (lo + hi) / 2
+# 		if score > elo_formula gap
+# 			lo = gap
+# 		else
+# 			hi = gap
+# 	gap
 
 ####
 
