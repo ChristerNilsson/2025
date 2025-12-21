@@ -14,6 +14,10 @@ ass(f(0),0.5)
 ass(f(100), 0.6381631950841185)
 ass(f(-100), 0.36183680491588155)
 
+def f_inv(p): return FACTOR * norm.ppf(p)
+
+def g(gap): return 1 / (1 + 10 ** (-gap / 400))
+
 def erf(x) : # Horner's method, ger 5-6 korrekta decimaler
 	a = 1.0 / (1.0 + 0.5 * abs(x))
 	b = 1.00002368+a*(0.37409196+a*(0.09678418+a*(-0.18628806+a*(0.27886807+a*(-1.13520398+a*(1.48851587+a*(-0.82215223+a*0.17087277)))))))
@@ -22,9 +26,16 @@ def erf(x) : # Horner's method, ger 5-6 korrekta decimaler
 ass(0.5 * (1+erf( 100/400)), 0.6381631932475625)
 ass(0.5 * (1+erf(-100/400)), 0.36183680675243746)
 
-#def expected_score1(ratings, rating): return sum([1 / (1 + 10 ** ((r - rating) / 400)) for r in ratings])
+# def expected_score(ratings, rating): return sum([1 / (1 + 10 ** ((r - rating) / 400)) for r in ratings])
 def expected_exact(ratings, rating): return sum([f(rating - r) for r in ratings])
 def expected_horner(ratings, rating): return sum([0.5 * (1 + erf((rating - r) / 400.0)) for r in ratings])
+
+def find(pp, func):
+	[lo,hi] = [0,4000]
+	while abs(hi - lo) > 0.00000001:
+		guess = (lo + hi) / 2
+		[lo,hi] = [guess,hi] if pp > func(guess) else [lo,guess]
+	return guess
 
 def search(pp, ratings, func):
 	[lo,hi] = [0,4000]
@@ -46,3 +57,6 @@ for i in range(0,n * 2+1):
 	y = performance(i/2, lst, expected_exact)
 	z = performance(i/2, lst, expected_horner)
 	print(i/2,round(y,0),round(z,0),round(y-z,6))
+
+for i in range(1,100):
+	print(i/100,round(f_inv(i/100))) #, round(find(i/100,g)))
