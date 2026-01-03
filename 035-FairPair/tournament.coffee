@@ -521,20 +521,22 @@ showInfo = (message) -> # Visa helpText på skärmen
 
 showMatrix = -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 
-	for player,i in global.players
-		echo player.getElos global.longs[i]
+	lines = []
 
 	SPACING = ' '
 	n = global.players.length
 	if n > ALFABET.length then n = ALFABET.length
-	res = []
+	if global.frirond then n -= 1
 
-	res.push '    ' + (ALFABET[i] for i in range n).join SPACING
+	lines.push '    ' + (ALFABET[i] for i in range n).join SPACING
 	for i in range n
 		line = global.fairpair.matrix[i].slice 0,n
-		res.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
+		lines.push ALFABET[i] + '   ' + line.join(SPACING) + '   ' + global.players[i].elo  # + ' ' + Math.round global.players[i].summa
 
-	echo res.join "\n"
+	content = lines.join "\n"
+
+	downloadFile 'matrix.txt', content
+
 
 showNames = ->
 	persons = []
