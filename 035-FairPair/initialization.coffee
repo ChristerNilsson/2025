@@ -46,6 +46,10 @@ playerCount = null
 
 players = null
 
+export clear = ->
+	players.length = 0
+	update()
+
 export initialize = ->
 
 	app = document.getElementById "app"
@@ -230,6 +234,7 @@ export initialize = ->
 
 	div5 = koppla "div", panel, class:'bar'
 
+	koppla "button", div5, id:'clear',    text:'Clear'
 	koppla "button", div5, id:'help',     text:'Help'
 	koppla "button", div5, id:'continue', text:'Continue'
 

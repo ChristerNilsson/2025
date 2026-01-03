@@ -4,7 +4,7 @@ import {Player} from './player.js'
 import {FairPair} from './fairpair.js'
 import {performance} from './rating.js'
 import {echo,global,range,settings} from './global.js'
-import {initialize, init} from './initialization.js'
+import {initialize, init, clear} from './initialization.js'
 
 ALFABET = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' # 100
 
@@ -86,6 +86,8 @@ changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	setScreen global.currScreen
 
 changeTable = (delta) -> global.currTable = (global.currTable + delta) %% tableCount()
+
+#clear = -> clearList()
 
 convert = (input,a,b) -> # byt alla tecken i input som finns i a mot tecken med samma index i b
 	if input in a then b[a.indexOf input] else input # a och b är strängar
@@ -675,6 +677,7 @@ main = -> # Hämta urlen i första hand, textarean i andra hand.
 
 	if params.size == 0 
 		initialization = new initialize()
+		document.getElementById("clear").addEventListener "click", clear
 		document.getElementById("help").addEventListener "click", showHelp
 		document.getElementById("continue").addEventListener "click", init
 		return
