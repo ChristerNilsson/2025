@@ -383,6 +383,7 @@ roundsContent = (long, i, tr) -> # rondernas data + poäng + PR. i anger spelarn
 		cell = koppla 'td', tr, {style: "position:relative;"}
 		koppla 'div', cell, {style: "position:absolute; top:0px; font-size:0.7em;" + attr, text: settings.ONE + opponent}
 		koppla 'div', cell, {style: "position:relative; font-size:1.1em; top:6px", text: result}
+		#koppla 'div', cell, {style: "position:relative; font-size:1.0em; top:6px", text: result}
 
 safeGet = (params,key,standard="") -> # Hämta parametern given av key från urlen
 	if params.get key then return params.get(key).trim()
@@ -608,7 +609,7 @@ showPlayers = -> # Visa spelarlistan.
 
 		koppla 'th', thead, {text:"P", class: 'clickableCols'}
 		koppla 'th', thead, {text:"n"}
-		koppla 'th', thead, {text:"score"}
+		koppla 'th', thead, {text:"sc"}
 		koppla 'th', thead, {text:"avg"}
 		koppla 'th', thead, {text:"PR", class: 'clickableCols'}
 
