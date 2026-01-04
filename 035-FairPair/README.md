@@ -84,9 +84,9 @@ Consider winning 50% against
 * B: 1400, 2300 and 2300 => PR = 2116
 
 The average is 2000 for both player A and B.  
-But, as PR indicates, winning against 2300 is much harder than   winning against 1400  
+But, as PR indicates, winning against 2300 is much harder than winning against 1400  
 
-As elo variation using FairPair is tight, this should not be a   problem.  
+As elo variation using FairPair is tight, this should not be a problem.  
 
 # Development
 

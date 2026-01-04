@@ -12,7 +12,7 @@ BYE = "BYE"
 
 KEYS = 
 	'ABC' : "? GAP A B C GAP ArrowLeft ArrowRight GAP I K".split ' '
-	'A' : "# N E P R GAP J L".split ' '
+	'A' : "# N E P S R GAP J L".split ' '
 	'B' : "ArrowUp ArrowDown GAP - 0 _ 1 + Delete".split ' '
 	'C' : "T".split ' '
 
@@ -39,6 +39,7 @@ TOOLTIPS =
 	'N' : "Sort on Name"
 	'E' : "Sort on Elo"
 	'P' : "Sort on Point"
+	'S' : "Sort on Score"
 	'R' : "Sort on PR"
 	'T' : "Create ELO Report (TRF)"
 
@@ -112,7 +113,9 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 				if key == 'Elo'  then global.currSort = 'E'
 				if key == 'P'    then global.currSort = 'P'
 				if key == 'PR'   then global.currSort = 'R'
-				if key in ['#','Name','Elo','P','PR']
+				if key == 'S'    then global.currSort = 'S'
+
+				if key in ['#','Name','Elo','P','PR','S']
 					history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
 					setScreen 'A'
 					setCursor()
@@ -211,7 +214,7 @@ handleKey = (key) ->
 	
 	if key == 'T' then createTRF()
 
-	if global.currScreen == 'A' and key in '#NEPR' # then handleKey key
+	if global.currScreen == 'A' and key in '#NEPRS' # then handleKey key
 		global.currSort = key
 		setScreen 'A'
 
@@ -414,6 +417,7 @@ setCursor = -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 			if global.currSort == 'E' and th.innerText == 'Elo'  then highlite = true
 			if global.currSort == 'P' and th.innerText == 'P'    then highlite = true
 			if global.currSort == 'R' and th.innerText == 'PR'   then highlite = true
+			if global.currSort == 'S' and th.innerText == 'S'    then highlite = true
 
 			if highlite
 				bgColor = 'yellow'
@@ -586,11 +590,14 @@ showPlayers = -> # Visa spelarlistan.
 	if global.frirond != null then memory = _.first _.remove sortedPlayers, (item) -> item.name == BYE
 
 	sortedPlayers.sort (a, b) =>
+		echo global.currSort
 		if global.currSort == '#' then return a.id - b.id
 		if global.currSort == 'N' then return a.name.localeCompare b.name, "sv"
 		if global.currSort == 'E' then return b.elo - a.elo
 		if global.currSort == 'P' then return b.P - a.P 
 		if global.currSort == 'R' then return b.PR - a.PR
+		if global.currSort == 'S'
+			if b.score == a.score then return b.avg - a.avg else return b.score - a.score
 
 	groups = myChunk sortedPlayers, settings.A
 	# if _.last(groups).length == 1 and _.last(groups)[0].name == BYE then groups.pop()
@@ -611,7 +618,7 @@ showPlayers = -> # Visa spelarlistan.
 
 		koppla 'th', thead, {text:"P", class: 'clickableCols'}
 		koppla 'th', thead, {text:"n"}
-		koppla 'th', thead, {text:"sc"}
+		koppla 'th', thead, {text:"S", class: 'clickableCols'}
 		koppla 'th', thead, {text:"avg"}
 		koppla 'th', thead, {text:"PR", class: 'clickableCols'}
 
