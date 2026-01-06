@@ -340,7 +340,9 @@ parseURL = ->
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	for person in persons #.slice 0, settings.P
-		global.players.push new Player global.players.length, person
+		[elo,name,fideid] = person.split "|"
+
+		global.players.push new Player global.players.length, name, elo, fideid
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{global.players.length-1}"
 

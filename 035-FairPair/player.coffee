@@ -3,10 +3,10 @@ import {elo_formula,performance} from './rating.js'
 
 export class Player
 
-	constructor : (@id, @eloNameFide) ->
+	constructor : (@id, @name, @elo, @fideid) ->
 
-		[@elo, @name, @fideid] = @eloNameFide.split '|'
-		echo @elo, @name, @fideid
+#		[@elo, @name, @fideid] = @eloNameFide.split '|'
+#		echo @elo, @name, @fideid
 
 		@born = "0000"
 		@federation = "   "

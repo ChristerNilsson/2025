@@ -11,7 +11,10 @@
 ## Pages
 
 ```
-A Standings:  id • name • elo • rounds • points • performance rating
+A Standings:  id • name • elo • rounds • points • n • score • avg • performance rating
+  n = number of played games
+  score = points / n
+  avg = average of opponent elos
 B Tables: table • white • elo • elo • black • result
 C Names:  name • table • colour
 ```
@@ -27,14 +30,14 @@ Press a key or click a button.
   I K     : Columns - • +
  ctrl p   : Print
 ctrl - +  : Zoom - • +
+   T      : Create ELO Report (TRF)
 ```
 
 ## Keys for A Standings
 
 ```
-Q is P compensated for opposition strength variation.
-# N E P Q : sort on Id • Name • Elo • Points • Q
-   J L    : decimals for Q - • +
+# N E P S R : sort on Id • Name • Elo • Points • Score • performance Rating
+   J L      : decimals for R - • +
 ```
 
 ## Keys for B Tables
@@ -46,32 +49,24 @@ Q is P compensated for opposition strength variation.
   Del     : Delete
 ```
 
-## Parameters
+## Initialization
 
 ```
-TITLE = Name of tournament
-ROUNDS = Number of rounds (n = number of players)
-  • n is odd  => n     gives Berger otherwise FairPair
-  • n is even => n - 1 gives Berger otherwise FairPair
-P = Number of players (default all)
+Title = Name of tournament
+City = Location
+Fed = Federation (Country)
+Arbiter = Arbiter
+Rounds = Number of rounds
+Games = Number of games per round. Single or Double
+FIDE id = e.g. 1786911
+[Insert] = Insert the player with entered FIDE id.
+[Delete] = Removes the selected player
 
-GAMES = Number of games per round
-	• 1 => single round (default)
-	• 2 => double round
+[Clear] = Removes all players
+[Help] = Help
+[Continue] = Starts the tournament
 
-SORT = Sort the players using elo rating
-	• 0 => no sort
-	• 1 => sort (default)
-
-BALANCE = colour balance
-	• 0 => no balance
-	• 1 => balance (default)
-
-A = Number of Columns for A (default 1)
-B = Number of Columns for B (default 1)
-C = Number of Columns for C (default 1)
-
-1653 Christer Nilsson: elo + name. Use 1400 if elo is missing
+1653|Christer Nilsson|1786911 =  elo | name | fide id
 ```
 
 **Number of Columns** is used together with **Zoom**, optimizing screen and printer layout.  

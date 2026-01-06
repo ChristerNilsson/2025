@@ -19,6 +19,9 @@ koppla = (typ, parent, attrs = {}) ->
 	parent.appendChild elem
 	elem
 
+NBSP = '\u00A0'
+NAME_LEN = 30
+
 MINUTES = [1,2,3,4,5,6,7,8,9,10,15,25,30,45,60,90]
 SECONDS = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30]
 SPEED = 0 # 0=Classic 1=Rapid 2=Blitz
@@ -138,93 +141,149 @@ export initialize = ->
 		players.selectedIndex = i
 		update()
 
+###
+Sorterar en befintlig <select>.
+
+- Behåller valt värde (om möjligt)
+- Sorterar inom optgroup om sådana finns
+- Standard: sortering på option-text, svenska regler, numerisk
+
+	@param selectEl [HTMLSelectElement]
+	@param opts [Object]
+###
+	sortSelect = (selectEl, opts = {}) ->
+
+		locale          = opts.locale ? "sv"
+		numeric         = opts.numeric ? true
+		caseInsensitive = opts.caseInsensitive ? true
+		xby              = opts.by ? "text"   # "text" eller "value"
+
+		collator = new Intl.Collator locale,
+			numeric: numeric
+			sensitivity: if caseInsensitive then "base" else "variant"
+
+		prevValue = selectEl.value
+
+		sortContainer = (container) ->
+			options = Array.from container.querySelectorAll ":scope > option"
+
+			options.sort (a, b) ->
+				aKey = if xby is "value" then a.value else a.text
+				bKey = if xby is "value" then b.value else b.text
+				collator.compare aKey, bKey
+
+			for opt in options
+				opt.remove()
+
+			container.append ...options
+
+		groups = Array.from selectEl.querySelectorAll ":scope > optgroup"
+
+		if groups.length > 0
+			sortContainer g for g in groups
+		else
+			sortContainer selectEl
+
+		# återställ val om möjligt
+		for opt in selectEl.options when opt.value is prevValue
+			selectEl.value = prevValue
+			break
+
+	handleSpace = (lastName, firstName, elo, fideid) -> 
+		name = lastName.toUpperCase() + " " + firstName
+		if name.length > NAME_LEN then name = name.slice 0,NAME_LEN # 21
+		name = name.padEnd NAME_LEN,' '
+		"#{name} #{elo} #{fideid}".replaceAll " ", NBSP
+
 	playerCount = koppla "label", div4, text: "13"
 
-	players = koppla "select", panel, size:20
+	players = koppla "select", panel, size:20, style:"font-family: monospace; font-size: 14px;"
 
-	koppla "option", players, text: "1688|Anders Hillbur|1786911"
-	koppla "option", players, text: "1827|Anders Kallin|1786911"
-	koppla "option", players, text: "1748|André J Lindebaum|1786911"
-	koppla "option", players, text: "1641|Anton Nordenfur|1786911"
-	koppla "option", players, text: "2001|Aryan Banerjee|1786911"
-	koppla "option", players, text: "1800|Björn Löfström|1786911"
-	koppla "option", players, text: "1944|C Rose Mariano|1786911"
-	koppla "option", players, text: "1907|Carina Wickström|1786911"
-	koppla "option", players, text: "1579|Christer Carmegren|1786911"
-	koppla "option", players, text: "1828|Christer Johansson|1786911"
-	koppla "option", players, text: "1575|Christer Nilsson|1786911"
-	koppla "option", players, text: "2213|D Vesterbaek Pedersen|1786911"
-	koppla "option", players, text: "1417|David Broman|1786911"
-	koppla "option", players, text: "1709|Eddie Parteg|1786911"
-	koppla "option", players, text: "1977|Elias Kingsley|1786911"
-	koppla "option", players, text: "2093|Erik Dingertz|1786911"
-	koppla "option", players, text: "2113|Filip Björkman|1786911"
-	koppla "option", players, text: "1848|Fredrik Möllerström|1786911"
-	koppla "option", players, text: "2416|Hampus Sörensen|1786911"
-	koppla "option", players, text: "1622|Hanns Ivar Uniyal|1786911"
-	koppla "option", players, text: "1893|Hans Rånby|1786911"
-	koppla "option", players, text: "1923|Herman Enholm|1786911"
-	koppla "option", players, text: "1733|Hugo Hardwick|1786911"
-	koppla "option", players, text: "1728|Hugo Sundell|1786911"
-	koppla "option", players, text: "1400|Ivar Arnshav|1786911"
-	koppla "option", players, text: "1624|Jens Ahlström|1786911"
-	koppla "option", players, text: "1878|Jesper Borin|1786911"
-	koppla "option", players, text: "1763|Joacim Hultin|1786911"
-	koppla "option", players, text: "1886|Joar Berglund|1786911"
-	koppla "option", players, text: "2366|Joar Ölund|1786911"
-	koppla "option", players, text: "2335|Joar Östlund|1786911"
-	koppla "option", players, text: "1897|Joel Åhfeldt|1786911"
-	koppla "option", players, text: "1794|Jonas Sandberg|1786911"
-	koppla "option", players, text: "1721|Jouni Kaunonen|1786911"
-	koppla "option", players, text: "2022|Jussi Jakenberg|1786911"
-	koppla "option", players, text: "1871|K Sergelenbaatar|1786911"
-	koppla "option", players, text: "1833|Karam Masoudi|1786911"
-	koppla "option", players, text: "1480|Karl-Oskar Rehnberg|1786911"
-	koppla "option", players, text: "1846|Kenneth Fahlberg|1786911"
-	koppla "option", players, text: "1787|Kjell Jernselius|1786911"
-	koppla "option", players, text: "1400|Kristoffer Schultz|1786911"
-	koppla "option", players, text: "1733|Lars Eriksson|1786911"
-	koppla "option", players, text: "1761|Lars-Åke Pettersson|1786911"
-	koppla "option", players, text: "2039|Lavinia Valcu|1786911"
-	koppla "option", players, text: "2031|Lennart Evertsson|1786911"
-	koppla "option", players, text: "2235|Leo Crevatin|1786911"
-	koppla "option", players, text: "1936|Lo Ljungros|1786911"
-	koppla "option", players, text: "2046|Lukas Willstedt|1786911"
-	koppla "option", players, text: "1400|M de Lafonteyne|1786911"
-	koppla "option", players, text: "1803|Martti Hamina|1786911"
-	koppla "option", players, text: "2065|Matija Sakic|1786911"
-	koppla "option", players, text: "2076|Michael Duke|1786911"
-	koppla "option", players, text: "2048|Michael Mattsson|1786911"
-	koppla "option", players, text: "2413|Michael Wiedenkeller|1786911"
-	koppla "option", players, text: "1889|Mikael Blom|1786911"
-	koppla "option", players, text: "1885|Mikael Helin|1786911"
-	koppla "option", players, text: "1818|Morris Bergqvist|1786911"
-	koppla "option", players, text: "1778|Mukhtar Jamshedi|1786911"
-	koppla "option", players, text: "1524|Måns Nödtveidt|1786911"
-	koppla "option", players, text: "1796|N Bychkov Zwahlen|1786911"
-	koppla "option", players, text: "1768|Neo Malmquist|1786911"
-	koppla "option", players, text: "2035|Oliver Nilsson|1786911"
-	koppla "option", players, text: "1880|Olle Ålgars|1786911"
-	koppla "option", players, text: "1650|Patrik Wiss|1786911"
-	koppla "option", players, text: "1835|Peder Gedda|1786911"
-	koppla "option", players, text: "1954|Per Isaksson|1786911"
-	koppla "option", players, text: "2108|Pratyush Tripathi|1786911"
-	koppla "option", players, text: "1783|Radu Cernea|1786911"
-	koppla "option", players, text: "1793|Rohan Gore|1786911"
-	koppla "option", players, text: "1852|Roy Karlsson|1786911"
-	koppla "option", players, text: "1671|Salar Banavi|1786911"
-	koppla "option", players, text: "1680|Sayak Raj Bardhan|1786911"
-	koppla "option", players, text: "1695|Sid Van Den Brink|1786911"
-	koppla "option", players, text: "1726|Simon Johansson|1786911"
-	koppla "option", players, text: "1896|Stefan Nyberg|1786911"
-	koppla "option", players, text: "1691|Svante Nödtveidt|1786911"
-	koppla "option", players, text: "1985|Tim Nordenfur|1786911"
-	koppla "option", players, text: "2141|Victor Muntean|1786911"
-	koppla "option", players, text: "1406|Vida Radon|1786911"
-	koppla "option", players, text: "2272|Vidar Grahn|1786911"
-	koppla "option", players, text: "2109|Vidar Seiger|1786911"
+	koppla "option", players, text: handleSpace "Muntean", "Victor", 2141, 1786911
+	koppla "option", players, text: handleSpace "Radon", "Vida",1406,1786911
+	koppla "option", players, text: handleSpace "Grahn", "Vidar",2272,1786911
+	koppla "option", players, text: handleSpace "Seiger", "Vidar",2109,1786911
+	koppla "option", players, text: handleSpace "Hillbur", "Anders",1688,1786911
+	koppla "option", players, text: handleSpace "Kallin", "Anders",1827,1786911
+	koppla "option", players, text: handleSpace "Lindebaum", "André J",1748,1786911
+	koppla "option", players, text: handleSpace "Nordenfur", "Anton",1641,1786911
+	koppla "option", players, text: handleSpace "Banerjee", "Aryan",2001,1786911
+	koppla "option", players, text: handleSpace "Lofstrom", "Bjorn",1800,1786911
+	koppla "option", players, text: handleSpace "Isurina Mariano", "Cristine Rose",1944,5201071
+	koppla "option", players, text: handleSpace "Wickstrom", "Carina",1907,1786911
+	koppla "option", players, text: handleSpace "Carmegren", "Christer",1579,1786911
+	koppla "option", players, text: handleSpace "Johansson", "Christer",1828,1786911
+	koppla "option", players, text: handleSpace "Nilsson", "Christer",1575,1786911
+	koppla "option", players, text: handleSpace "Vesterbaek Pedersen", "Daniel",2213,1402161
+	koppla "option", players, text: handleSpace "Broman", "David",1417,1786911
+	koppla "option", players, text: handleSpace "Parteg", "Eddie",1709,1786911
+	koppla "option", players, text: handleSpace "Kingsley", "Elias",1977,1786911
+	koppla "option", players, text: handleSpace "Dingertz", "Erik",2093,1786911
+	koppla "option", players, text: handleSpace "Bjorkman", "Filip",2113,1786911
+	koppla "option", players, text: handleSpace "Mollerstrom", "Fredrik",1848,1786911
+	koppla "option", players, text: handleSpace "Sorensen", "Hampus",2416,1786911
+	koppla "option", players, text: handleSpace "Uniyal Hanns", "Ivar",1622,1786911
+	koppla "option", players, text: handleSpace "Ranby", "Hans",1893,1786911
+	koppla "option", players, text: handleSpace "Enholm", "Herman",1923,1786911
+	koppla "option", players, text: handleSpace "Hardwick", "Hugo",1733,1786911
+	koppla "option", players, text: handleSpace "Sundell", "Hugo",1728,1786911
+	koppla "option", players, text: handleSpace "Arnshav", "Ivar",1400,1786911
+	koppla "option", players, text: handleSpace "Ahlstrom", "Jens",1624,1786911
+	koppla "option", players, text: handleSpace "Borin", "Jesper",1878,1786911
+	koppla "option", players, text: handleSpace "Hultin", "Joacim",1763,1786911
+	koppla "option", players, text: handleSpace "Berglund", "Joar",1886,1786911
+	koppla "option", players, text: handleSpace "Olund", "Joar",2366,1786911
+	koppla "option", players, text: handleSpace "Ostlund", "Joar",2335,1786911
+	koppla "option", players, text: handleSpace "Ahfeldt", "Joel",1897,1786911
+	koppla "option", players, text: handleSpace "Sandberg", "Jonas",1794,1786911
+	koppla "option", players, text: handleSpace "Kaunonen", "Jouni",1721,1786911
+	koppla "option", players, text: handleSpace "Jakenberg", "Jussi",2022,1786911
+	koppla "option", players, text: handleSpace "Sergelenbaatar", "Khaschuluu",1871,4920929
+	koppla "option", players, text: handleSpace "Masoudi", "Karam",1833,1786911
+	koppla "option", players, text: handleSpace "Rehnberg", "Karl-Oskar",1480,1786911
+	koppla "option", players, text: handleSpace "Fahlberg", "Kenneth",1846,1786911
+	koppla "option", players, text: handleSpace "Jernselius", "Kjell",1787,1786911
+	koppla "option", players, text: handleSpace "Schultz", "Kristoffer",1400,1786911
+	koppla "option", players, text: handleSpace "Eriksson", "Lars",1733,1786911
+	koppla "option", players, text: handleSpace "Pettersson", "Lars-Ake",1761,1786911
+	koppla "option", players, text: handleSpace "Valcu", "Lavinia",2039,1786911
+	koppla "option", players, text: handleSpace "Evertsson", "Lennart",2031,1786911
+	koppla "option", players, text: handleSpace "Crevatin", "Leo",2235,1786911
+	koppla "option", players, text: handleSpace "Ljungros", "Lo",1936,1786911
+	koppla "option", players, text: handleSpace "Willstedt", "Lukas",2046,1786911
+	koppla "option", players, text: handleSpace "De Lafonteyne", "Maxime",1400,1785133
+	koppla "option", players, text: handleSpace "Hamina", "Martti",1803,1786911
+	koppla "option", players, text: handleSpace "Sakic", "Matija",2065,1786911
+	koppla "option", players, text: handleSpace "Duke", "Michael",2076,1786911
+	koppla "option", players, text: handleSpace "Mattsson", "Michael",2048,1786911
+	koppla "option", players, text: handleSpace "Wiedenkeller", "Michael",2413,1786911
+	koppla "option", players, text: handleSpace "Blom", "Mikael",1889,1786911
+	koppla "option", players, text: handleSpace "Helin", "Mikael",1885,1786911
+	koppla "option", players, text: handleSpace "Bergqvist", "Morris",1818,1786911
+	koppla "option", players, text: handleSpace "Jamshedi", "Mukhtar",1778,1786911
+	koppla "option", players, text: handleSpace "Nodtveidt", "Mans",1524,1786911
+	koppla "option", players, text: handleSpace "Bychkov", "Nicholas Zwahlen",1796,1786911
+	koppla "option", players, text: handleSpace "Malmquist", "Neo",1768,1786911
+	koppla "option", players, text: handleSpace "Nilsson", "Oliver",2035,1786911
+	koppla "option", players, text: handleSpace "Algars", "Olle",1880,1786911
+	koppla "option", players, text: handleSpace "Wiss", "Patrik",1650,1786911
+	koppla "option", players, text: handleSpace "Gedda", "Peder",1835,1786911
+	koppla "option", players, text: handleSpace "Isaksson", "Per",1954,1786911
+	koppla "option", players, text: handleSpace "Tripathi", "Pratyush",2108,1786911
+	koppla "option", players, text: handleSpace "Cernea", "Radu",1783,1786911
+	koppla "option", players, text: handleSpace "Gore", "Rohan",1793,1786911
+	koppla "option", players, text: handleSpace "Karlsson", "Roy",1852,1786911
+	koppla "option", players, text: handleSpace "Banavi", "Salar",1671,1786911
+	koppla "option", players, text: handleSpace "Bardhan", "Sayak Raj",1680,1786911
+	koppla "option", players, text: handleSpace "Van Den Brink", "Sid",1695,1779940
+	koppla "option", players, text: handleSpace "Johansson", "Simon",1726,1786911
+	koppla "option", players, text: handleSpace "Nyberg", "Stefan",1896,1786911
+	koppla "option", players, text: handleSpace "Nodtveidt", "Svante",1691,1786911
+	koppla "option", players, text: handleSpace "Nordenfur", "Tim",1985,1786911
 
-	players.style.width = "294px"
+	sortSelect players
+
+	players.style.width = "360px"
 	players.selectedIndex = players.options?.length - 1
 
 	bases.selectedIndex = MINUTES.length - 1
@@ -269,7 +328,13 @@ transfer = (speed, fidenumber) ->
 	if member == undefined then return fidenumber
 	rating = getRating member,speed
 	name = member[3]
-	if rating == undefined or name == undefined then fidenumber else rating + '|' + name + '|' + fidenumber
+	if rating == undefined or name == undefined
+		fidenumber
+	else
+		arr = name.split ","
+		name = arr[0].toUpperCase() + arr[1]
+		name = name.slice 0,NAME_LEN
+		name.padEnd(NAME_LEN,NBSP) + " " + rating + " " + fidenumber
 
 update = ->
 	updateSpeed()
@@ -327,7 +392,13 @@ export init = -> # läs initiala uppgifter om turneringen
 	persons.sort().reverse()
 
 	for person in persons
-		global.players.push new Player global.players.length, person
+		name = person.slice 0,NAME_LEN
+		name = name.replaceAll NBSP, ' '
+		name = name.trim()
+		elo = person.slice NAME_LEN+1, NAME_LEN+5
+		fideid = person.slice NAME_LEN+6
+		echo name,elo,fideid
+		global.players.push new Player global.players.length, name, elo, fideid
 
 	if global.players.length % 2 == 1
 		global.frirond = global.players.length
