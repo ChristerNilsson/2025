@@ -126,9 +126,19 @@ export initialize = ->
 
 		if p.length < 10 then return 
 		koppla "option",players, text: p
+
+		sortSelect players
+
+		# Sök upp rätt FIDE id och sätt selectedIndex
+		for i in range players.options.length
+			line = players.options[i].innerText
+			echo i,player.value,line
+			if line.indexOf(player.value) >= 0 # .innerText
+				players.selectedIndex = i
+
 		player.value = ""
 		player.focus()
-		players.selectedIndex = players.options?.length - 1
+
 		update()
 
 	# Delete
@@ -238,7 +248,7 @@ Sorterar en befintlig <select>.
 	koppla "option", players, text: handleSpace "Sandberg", "Jonas",1794,1786911
 	koppla "option", players, text: handleSpace "Kaunonen", "Jouni",1721,1786911
 	koppla "option", players, text: handleSpace "Jakenberg", "Jussi",2022,1786911
-	koppla "option", players, text: handleSpace "Sergelenbaatar", "Khaschuluu",1871,4920929
+	koppla "option", players, text: handleSpace "Khaschuluu","Sergelenbaatar",1871,4920929
 	koppla "option", players, text: handleSpace "Masoudi", "Karam",1833,1786911
 	koppla "option", players, text: handleSpace "Rehnberg", "Karl-Oskar",1480,1786911
 	koppla "option", players, text: handleSpace "Fahlberg", "Kenneth",1846,1786911
