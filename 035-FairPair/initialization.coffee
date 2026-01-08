@@ -112,7 +112,8 @@ export initialize = ->
 
 	# input
 	div4 = koppla "div", panel
-	player = koppla "input", div4, placeholder:'FIDE id'
+	player = koppla "input", div4, placeholder:'FIDE id', type:"text", inputmode:"numeric", oninput:"this.value = this.value.replace(/[^0-9]/g, '')" 
+
 	player.style.width = "80px"
 	player.addEventListener "keydown", (event) =>
 		if event.key == "Enter" then ins.click()
