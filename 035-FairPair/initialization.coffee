@@ -200,8 +200,9 @@ Sorterar en befintlig <select>.
 			selectEl.value = prevValue
 			break
 
-	handleSpace = (lastName, firstName, elo, fideid) -> 
-		name = lastName.toUpperCase() + " " + firstName
+	# handleSpace = (lastName, firstName, fideid, elo) -> 
+	handleSpace = (name, fideid, elo) -> 
+		#name = lastName.toUpperCase() + " " + firstName
 		if name.length > NAME_LEN then name = name.slice 0,NAME_LEN # 21
 		name = name.padEnd NAME_LEN,' '
 		"#{name} #{elo} #{fideid}".replaceAll " ", NBSP
@@ -210,87 +211,128 @@ Sorterar en befintlig <select>.
 
 	players = koppla "select", panel, size:20, style:"font-family: monospace; font-size: 14px;"
 
-	koppla "option", players, text: handleSpace "Muntean", "Victor", 2141, 1786911
-	koppla "option", players, text: handleSpace "Radon", "Vida",1406,1786911
-	koppla "option", players, text: handleSpace "Grahn", "Vidar",2272,1786911
-	koppla "option", players, text: handleSpace "Seiger", "Vidar",2109,1786911
-	koppla "option", players, text: handleSpace "Hillbur", "Anders",1688,1786911
-	koppla "option", players, text: handleSpace "Kallin", "Anders",1827,1786911
-	koppla "option", players, text: handleSpace "Lindebaum", "André J",1748,1786911
-	koppla "option", players, text: handleSpace "Nordenfur", "Anton",1641,1786911
-	koppla "option", players, text: handleSpace "Banerjee", "Aryan",2001,1786911
-	koppla "option", players, text: handleSpace "Lofstrom", "Bjorn",1800,1786911
-	koppla "option", players, text: handleSpace "Isurina Mariano", "Cristine Rose",1944,5201071
-	koppla "option", players, text: handleSpace "Wickstrom", "Carina",1907,1786911
-	koppla "option", players, text: handleSpace "Carmegren", "Christer",1579,1786911
-	koppla "option", players, text: handleSpace "Johansson", "Christer",1828,1786911
-	koppla "option", players, text: handleSpace "Nilsson", "Christer",1575,1786911
-	koppla "option", players, text: handleSpace "Vesterbaek Pedersen", "Daniel",2213,1402161
-	koppla "option", players, text: handleSpace "Broman", "David",1417,1786911
-	koppla "option", players, text: handleSpace "Parteg", "Eddie",1709,1786911
-	koppla "option", players, text: handleSpace "Kingsley", "Elias",1977,1786911
-	koppla "option", players, text: handleSpace "Dingertz", "Erik",2093,1786911
-	koppla "option", players, text: handleSpace "Bjorkman", "Filip",2113,1786911
-	koppla "option", players, text: handleSpace "Mollerstrom", "Fredrik",1848,1786911
-	koppla "option", players, text: handleSpace "Sorensen", "Hampus",2416,1786911
-	koppla "option", players, text: handleSpace "Uniyal Hanns", "Ivar",1622,1786911
-	koppla "option", players, text: handleSpace "Ranby", "Hans",1893,1786911
-	koppla "option", players, text: handleSpace "Enholm", "Herman",1923,1786911
-	koppla "option", players, text: handleSpace "Hardwick", "Hugo",1733,1786911
-	koppla "option", players, text: handleSpace "Sundell", "Hugo",1728,1786911
-	koppla "option", players, text: handleSpace "Arnshav", "Ivar",1400,1786911
-	koppla "option", players, text: handleSpace "Ahlstrom", "Jens",1624,1786911
-	koppla "option", players, text: handleSpace "Borin", "Jesper",1878,1786911
-	koppla "option", players, text: handleSpace "Hultin", "Joacim",1763,1786911
-	koppla "option", players, text: handleSpace "Berglund", "Joar",1886,1786911
-	koppla "option", players, text: handleSpace "Olund", "Joar",2366,1786911
-	koppla "option", players, text: handleSpace "Ostlund", "Joar",2335,1786911
-	koppla "option", players, text: handleSpace "Ahfeldt", "Joel",1897,1786911
-	koppla "option", players, text: handleSpace "Sandberg", "Jonas",1794,1786911
-	koppla "option", players, text: handleSpace "Kaunonen", "Jouni",1721,1786911
-	koppla "option", players, text: handleSpace "Jakenberg", "Jussi",2022,1786911
-	koppla "option", players, text: handleSpace "Khaschuluu","Sergelenbaatar",1871,4920929
-	koppla "option", players, text: handleSpace "Masoudi", "Karam",1833,1786911
-	koppla "option", players, text: handleSpace "Rehnberg", "Karl-Oskar",1480,1786911
-	koppla "option", players, text: handleSpace "Fahlberg", "Kenneth",1846,1786911
-	koppla "option", players, text: handleSpace "Jernselius", "Kjell",1787,1786911
-	koppla "option", players, text: handleSpace "Schultz", "Kristoffer",1400,1786911
-	koppla "option", players, text: handleSpace "Eriksson", "Lars",1733,1786911
-	koppla "option", players, text: handleSpace "Pettersson", "Lars-Ake",1761,1786911
-	koppla "option", players, text: handleSpace "Valcu", "Lavinia",2039,1786911
-	koppla "option", players, text: handleSpace "Evertsson", "Lennart",2031,1786911
-	koppla "option", players, text: handleSpace "Crevatin", "Leo",2235,1786911
-	koppla "option", players, text: handleSpace "Ljungros", "Lo",1936,1786911
-	koppla "option", players, text: handleSpace "Willstedt", "Lukas",2046,1786911
-	koppla "option", players, text: handleSpace "De Lafonteyne", "Maxime",1400,1785133
-	koppla "option", players, text: handleSpace "Hamina", "Martti",1803,1786911
-	koppla "option", players, text: handleSpace "Sakic", "Matija",2065,1786911
-	koppla "option", players, text: handleSpace "Duke", "Michael",2076,1786911
-	koppla "option", players, text: handleSpace "Mattsson", "Michael",2048,1786911
-	koppla "option", players, text: handleSpace "Wiedenkeller", "Michael",2413,1786911
-	koppla "option", players, text: handleSpace "Blom", "Mikael",1889,1786911
-	koppla "option", players, text: handleSpace "Helin", "Mikael",1885,1786911
-	koppla "option", players, text: handleSpace "Bergqvist", "Morris",1818,1786911
-	koppla "option", players, text: handleSpace "Jamshedi", "Mukhtar",1778,1786911
-	koppla "option", players, text: handleSpace "Nodtveidt", "Mans",1524,1786911
-	koppla "option", players, text: handleSpace "Bychkov", "Nicholas Zwahlen",1796,1786911
-	koppla "option", players, text: handleSpace "Malmquist", "Neo",1768,1786911
-	koppla "option", players, text: handleSpace "Nilsson", "Oliver",2035,1786911
-	koppla "option", players, text: handleSpace "Algars", "Olle",1880,1786911
-	koppla "option", players, text: handleSpace "Wiss", "Patrik",1650,1786911
-	koppla "option", players, text: handleSpace "Gedda", "Peder",1835,1786911
-	koppla "option", players, text: handleSpace "Isaksson", "Per",1954,1786911
-	koppla "option", players, text: handleSpace "Tripathi", "Pratyush",2108,1786911
-	koppla "option", players, text: handleSpace "Cernea", "Radu",1783,1786911
-	koppla "option", players, text: handleSpace "Gore", "Rohan",1793,1786911
-	koppla "option", players, text: handleSpace "Karlsson", "Roy",1852,1786911
-	koppla "option", players, text: handleSpace "Banavi", "Salar",1671,1786911
-	koppla "option", players, text: handleSpace "Bardhan", "Sayak Raj",1680,1786911
-	koppla "option", players, text: handleSpace "Van Den Brink", "Sid",1695,1779940
-	koppla "option", players, text: handleSpace "Johansson", "Simon",1726,1786911
-	koppla "option", players, text: handleSpace "Nyberg", "Stefan",1896,1786911
-	koppla "option", players, text: handleSpace "Nodtveidt", "Svante",1691,1786911
-	koppla "option", players, text: handleSpace "Nordenfur", "Tim",1985,1786911
+	# koppla "option", players, text: handleSpace "Muntean", "Victor", 2141, 1786911
+	# koppla "option", players, text: handleSpace "Radon", "Vida",1406,1786911
+	# koppla "option", players, text: handleSpace "Grahn", "Vidar",2272,1786911
+	# koppla "option", players, text: handleSpace "Seiger", "Vidar",2109,1786911
+	# koppla "option", players, text: handleSpace "Hillbur", "Anders",1688,1786911
+	# koppla "option", players, text: handleSpace "Kallin", "Anders",1827,1786911
+	# koppla "option", players, text: handleSpace "Lindebaum", "André J",1748,1786911
+	# koppla "option", players, text: handleSpace "Nordenfur", "Anton",1641,1786911
+	# koppla "option", players, text: handleSpace "Banerjee", "Aryan",2001,1786911
+	# koppla "option", players, text: handleSpace "Lofstrom", "Bjorn",1800,1786911
+	# koppla "option", players, text: handleSpace "Isurina Mariano", "Cristine Rose",1944,5201071
+	# koppla "option", players, text: handleSpace "Wickstrom", "Carina",1907,1786911
+	# koppla "option", players, text: handleSpace "Carmegren", "Christer",1579,1786911
+	# koppla "option", players, text: handleSpace "Johansson", "Christer",1828,1786911
+	# koppla "option", players, text: handleSpace "Nilsson", "Christer",1575,1786911
+	# koppla "option", players, text: handleSpace "Vesterbaek Pedersen", "Daniel",2213,1402161
+	# koppla "option", players, text: handleSpace "Broman", "David",1417,1786911
+	# koppla "option", players, text: handleSpace "Parteg", "Eddie",1709,1786911
+	# koppla "option", players, text: handleSpace "Kingsley", "Elias",1977,1786911
+	# koppla "option", players, text: handleSpace "Dingertz", "Erik",2093,1786911
+	# koppla "option", players, text: handleSpace "Bjorkman", "Filip",2113,1786911
+	# koppla "option", players, text: handleSpace "Mollerstrom", "Fredrik",1848,1786911
+	# koppla "option", players, text: handleSpace "Sorensen", "Hampus",2416,1786911
+	# koppla "option", players, text: handleSpace "Uniyal Hanns", "Ivar",1622,1786911
+	# koppla "option", players, text: handleSpace "Ranby", "Hans",1893,1786911
+	# koppla "option", players, text: handleSpace "Enholm", "Herman",1923,1786911
+	# koppla "option", players, text: handleSpace "Hardwick", "Hugo",1733,1786911
+	# koppla "option", players, text: handleSpace "Sundell", "Hugo",1728,1786911
+	# koppla "option", players, text: handleSpace "Arnshav", "Ivar",1400,1786911
+	# koppla "option", players, text: handleSpace "Ahlstrom", "Jens",1624,1786911
+	# koppla "option", players, text: handleSpace "Borin", "Jesper",1878,1786911
+	# koppla "option", players, text: handleSpace "Hultin", "Joacim",1763,1786911
+	# koppla "option", players, text: handleSpace "Berglund", "Joar",1886,1786911
+	# koppla "option", players, text: handleSpace "Olund", "Joar",2366,1786911
+	# koppla "option", players, text: handleSpace "Ostlund", "Joar",2335,1786911
+	# koppla "option", players, text: handleSpace "Ahfeldt", "Joel",1897,1786911
+	# koppla "option", players, text: handleSpace "Sandberg", "Jonas",1794,1786911
+	# koppla "option", players, text: handleSpace "Kaunonen", "Jouni",1721,1786911
+	# koppla "option", players, text: handleSpace "Jakenberg", "Jussi",2022,1786911
+	# koppla "option", players, text: handleSpace "Khaschuluu","Sergelenbaatar",1871,4920929
+	# koppla "option", players, text: handleSpace "Masoudi", "Karam",1833,1786911
+	# koppla "option", players, text: handleSpace "Rehnberg", "Karl-Oskar",1480,1786911
+	# koppla "option", players, text: handleSpace "Fahlberg", "Kenneth",1846,1786911
+	# koppla "option", players, text: handleSpace "Jernselius", "Kjell",1787,1786911
+	# koppla "option", players, text: handleSpace "Schultz", "Kristoffer",1400,1786911
+	# koppla "option", players, text: handleSpace "Eriksson", "Lars",1733,1786911
+	# koppla "option", players, text: handleSpace "Pettersson", "Lars-Ake",1761,1786911
+	# koppla "option", players, text: handleSpace "Valcu", "Lavinia",2039,1786911
+	# koppla "option", players, text: handleSpace "Evertsson", "Lennart",2031,1786911
+	# koppla "option", players, text: handleSpace "Crevatin", "Leo",2235,1786911
+	# koppla "option", players, text: handleSpace "Ljungros", "Lo",1936,1786911
+	# koppla "option", players, text: handleSpace "Willstedt", "Lukas",2046,1786911
+	# koppla "option", players, text: handleSpace "De Lafonteyne", "Maxime",1400,1785133
+	# koppla "option", players, text: handleSpace "Hamina", "Martti",1803,1786911
+	# koppla "option", players, text: handleSpace "Sakic", "Matija",2065,1786911
+	# koppla "option", players, text: handleSpace "Duke", "Michael",2076,1786911
+	# koppla "option", players, text: handleSpace "Mattsson", "Michael",2048,1786911
+	# koppla "option", players, text: handleSpace "Wiedenkeller", "Michael",2413,1786911
+	# koppla "option", players, text: handleSpace "Blom", "Mikael",1889,1786911
+	# koppla "option", players, text: handleSpace "Helin", "Mikael",1885,1786911
+	# koppla "option", players, text: handleSpace "Bergqvist", "Morris",1818,1786911
+	# koppla "option", players, text: handleSpace "Jamshedi", "Mukhtar",1778,1786911
+	# koppla "option", players, text: handleSpace "Nodtveidt", "Mans",1524,1786911
+	# koppla "option", players, text: handleSpace "Bychkov", "Nicholas Zwahlen",1796,1786911
+	# koppla "option", players, text: handleSpace "Malmquist", "Neo",1768,1786911
+	# koppla "option", players, text: handleSpace "Nilsson", "Oliver",2035,1786911
+	# koppla "option", players, text: handleSpace "Algars", "Olle",1880,1786911
+	# koppla "option", players, text: handleSpace "Wiss", "Patrik",1650,1786911
+	# koppla "option", players, text: handleSpace "Gedda", "Peder",1835,1786911
+	# koppla "option", players, text: handleSpace "Isaksson", "Per",1954,1786911
+	# koppla "option", players, text: handleSpace "Tripathi", "Pratyush",2108,1786911
+	# koppla "option", players, text: handleSpace "Cernea", "Radu",1783,1786911
+	# koppla "option", players, text: handleSpace "Gore", "Rohan",1793,1786911
+	# koppla "option", players, text: handleSpace "Karlsson", "Roy",1852,1786911
+	# koppla "option", players, text: handleSpace "Banavi", "Salar",1671,1786911
+	# koppla "option", players, text: handleSpace "Bardhan", "Sayak Raj",1680,1786911
+	# koppla "option", players, text: handleSpace "Van Den Brink", "Sid",1695,1779940
+	# koppla "option", players, text: handleSpace "Johansson", "Simon",1726,1786911
+	# koppla "option", players, text: handleSpace "Nyberg", "Stefan",1896,1786911
+	# koppla "option", players, text: handleSpace "Nodtveidt", "Svante",1691,1786911
+	# koppla "option", players, text: handleSpace "Nordenfur", "Tim",1985,1786911
+
+	koppla "option", players, text: handleSpace "Gunnar Hedin",1786911,2092
+	koppla "option", players, text: handleSpace "IM Axel Ornstein",1786911,2062
+	koppla "option", players, text: handleSpace "Henrik Strömbäck",1786911,2010
+	koppla "option", players, text: handleSpace "Stefan Engström",1786911,1977
+	koppla "option", players, text: handleSpace "Tomas Lindblad",1786911,1977
+	koppla "option", players, text: handleSpace "Lennart B Johansson",1786911,1949
+	koppla "option", players, text: handleSpace "Bo Ländin",1786911,1947
+	koppla "option", players, text: handleSpace "Andrzej Kamiński",1786911,1932
+	koppla "option", players, text: handleSpace "Rado Jovic",1786911,1930
+	koppla "option", players, text: handleSpace "Rune Evertsson",1786911,1915
+	koppla "option", players, text: handleSpace "Kjell Häggvik",1786911,1913
+	koppla "option", players, text: handleSpace "WFM Susanna Berg Laachiri",1786911,1899
+	koppla "option", players, text: handleSpace "Olle Ålgars",1786911,1896
+	koppla "option", players, text: handleSpace "Peter Silins",1786911,1894
+	koppla "option", players, text: handleSpace "Leif Lundquist",1786911,1865
+	koppla "option", players, text: handleSpace "Lars-Åke Pettersson",1786911,1848
+	koppla "option", players, text: handleSpace "Sven-Åke Karlsson",1786911,1842
+	koppla "option", players, text: handleSpace "Ove Hartzell",1786911,1824
+	koppla "option", players, text: handleSpace "Dick Viklund",1786911,1821
+	koppla "option", players, text: handleSpace "Björn Löwgren",1786911,1820
+	koppla "option", players, text: handleSpace "Bo Franzén",1786911,1806
+	koppla "option", players, text: handleSpace "Hans Weström",1786911,1798
+	koppla "option", players, text: handleSpace "Johan Sterner",1786911,1791
+	koppla "option", players, text: handleSpace "Lars Ring",1786911,1785
+	koppla "option", players, text: handleSpace "Veine Gustavsson",1786911,1753
+	koppla "option", players, text: handleSpace "Lars Cederfeldt",1786911,1752
+	koppla "option", players, text: handleSpace "Sten Hellman",1786911,1729
+	koppla "option", players, text: handleSpace "Christer Johansson",1786911,1729
+	koppla "option", players, text: handleSpace "Magnus Karlsson",1786911,1724
+	koppla "option", players, text: handleSpace "Leonid Stolov",1786911,1695
+	koppla "option", players, text: handleSpace "Christer Nilsson",1786911,1694
+	koppla "option", players, text: handleSpace "Abbas Razavi",1786911,1688
+	koppla "option", players, text: handleSpace "Friedemann Stumpf",1786911,1670
+	koppla "option", players, text: handleSpace "Kent Sahlin",1786911,1660
+	koppla "option", players, text: handleSpace "Lars-Ivar Juntti",1786911,1588
+	koppla "option", players, text: handleSpace "Helge Bergström",1786911,1540
+	koppla "option", players, text: handleSpace "Arne Jansson",1786911,1539
+	koppla "option", players, text: handleSpace "Jouko Liistamo",1786911,1531
+	koppla "option", players, text: handleSpace "Ali Koç",1786911,1500
+	koppla "option", players, text: handleSpace "Mikael Lundberg",1786911,1600
 
 	sortSelect players
 
