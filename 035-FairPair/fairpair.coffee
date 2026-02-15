@@ -11,6 +11,7 @@ export class FairPair
 		@rounds = []
 
 		for r in range @settings.ROUNDS
+			echo 'lottning',r
 			edges = @makeEdges()
 			edmonds = new Edmonds edges
 			magic = edmonds.maxWeightMatching edges
@@ -49,7 +50,7 @@ export class FairPair
 			i = id
 			j = magic[id]
 			if i == @matrix.length or j == @matrix[0].length then continue
-			@matrix[i][j] = "#{'123456789abcdefgh'[r]}"
+			@matrix[i][j] = "#{'123456789abcdefghijklmnopqrstuvwxyzåäö'[r]}"
 			if i > j then continue
 			diff = Math.abs @players[i].elo - @players[j].elo
 			a = @players[i]

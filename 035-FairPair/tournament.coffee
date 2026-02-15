@@ -347,7 +347,7 @@ parseURL = ->
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{global.players.length-1}"
 
 	# initialisera rounds med 'x' i alla celler
-	n = global.players.length // 2
+	n = global.players.length - 1 #// 2
 	global.rounds = []
 	for i in range settings.GAMES * settings.ROUNDS
 		global.rounds.push new Array(n).fill 'x'
@@ -475,7 +475,6 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 		return
 
 	if cell in '01 02 10 12 20 21 0- 0+ 1- 1+ 2- 2+ -0 -1 -2 -+ +0 +1 +2 +-'.split ' '
-		echo 'exit'
 		return # inmatning stämmer ej, lämna
 
 	# uppdatera och gå till nästa bord
@@ -681,36 +680,31 @@ updateLongs = -> # Uppdaterar longs utifrån rounds och results
 	global.longs = _.zip ...global.longs # transponerar matrisen
 
 main = -> # Hämta urlen i första hand, textarean i andra hand.
-
 	params = new URLSearchParams window.location.search
 
 	if params.size == 0 
-		initialization = new initialize()
+		initialization = initialize() # new
 		document.getElementById("clear").addEventListener "click", clear
 		document.getElementById("help").addEventListener "click", showHelp
 		document.getElementById("continue").addEventListener "click", init
 		return
-
 	parseURL()
-
 	if global.players.length < 4
 		showInfo "You must have four or more players!"
 		return
 
-	fairpairFlag = settings.ROUNDS <= global.players.length // 2
+	fairpairFlag = settings.ROUNDS <= global.players.length - 1 # // 2
 	global.rounds = makeFairPair()
 	global.rounds = expand settings.GAMES, global.rounds
 
 	for i in range settings.ROUNDS
 		global.results.push Array(tableCount()).fill 'x'
-
 	readResults params
 	setByeResults()
 	updateLongs()
 	setScreen 'A'
 	setCursor() # global.currRound,global.currTable
 	document.title = settings.TITLE
-
 	document.addEventListener 'keydown', (event) -> # Hanterar alla tangenttryckningar
 		return if event.ctrlKey or event.metaKey or event.altKey # förhindrar att ctrl p sorterar på poäng
 		if event.key in ['ArrowDown','ArrowUp',' '] then event.preventDefault()

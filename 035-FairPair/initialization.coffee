@@ -97,7 +97,7 @@ export initialize = ->
 
 	# rounds
 	rounds = koppla "select", div3
-	for r in range 21
+	for r in range 39
 		koppla "option", rounds, text:"#{r} rounds"
 	rounds.addEventListener "change", -> update()
 
@@ -459,12 +459,11 @@ export init = -> # läs initiala uppgifter om turneringen
 	else
 		global.frirond = null
 
-	if settings.ROUNDS > global.players.length / 2 then return
+	if settings.ROUNDS > global.players.length - 1 then return # / 2 then return
 
 	if global.rounds == null then global.rounds = []
 
 	url = makeURL()
-	# echo url
 	global.players = []
 	global.rounds = []
 
