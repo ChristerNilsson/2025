@@ -5,6 +5,20 @@ import {FairPair} from './fairpair.js'
 import {performance} from './rating.js'
 import {echo,global,range,settings} from './global.js'
 import {initialize, init, clear} from './initialization.js'
+import {render, tag} from './fasthtml.js'
+
+table = tag "table"
+thead = tag "thead"
+tbody = tag "tbody"
+th = tag "th"
+tr = tag "tr" 
+td = tag "td"
+
+div = tag "div"
+span = tag "span"
+button = tag "button"
+header = tag "header"
+h3 = tag "h3"
 
 ALFABET = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' # 100
 
@@ -50,22 +64,21 @@ addBord = (bord,res,c0,c1) ->
 	svart = global.players[c1].name
 	vit_elo = global.players[c0].elo
 	svart_elo = global.players[c1].elo
-	tr = document.createElement 'tr'
+	color = if bord == global.currTable then 'yellow' else 'white'
 
-	tr.addEventListener "click", ->
+	result = tr {},
+		td bord + settings.ONE
+		td {style:"text-align:left"}, vit
+		td {style:"text-align:left"}, vit_elo
+		td {style:"text-align:center; background-color:#{color}"}, prettyResult res
+		td {style:"text-align:left"}, svart_elo
+		td {style:"text-align:left"}, svart
+
+	result.addEventListener "click", ->
 		global.currTable = bord
 		setCursor() # global.currRound,global.currTable
 
-	color = if bord == global.currTable then 'yellow' else 'white'
-
-	koppla 'td', tr, {text : bord + settings.ONE}
-	koppla 'td', tr, {style:"text-align:left", text : vit}
-	koppla 'td', tr, {style:"text-align:left", text : vit_elo}
-	koppla 'td', tr, {style:"text-align:center; background-color:#{color}", text : prettyResult res}
-	koppla 'td', tr, {style:"text-align:left", text : svart_elo}
-	koppla 'td', tr, {style:"text-align:left", text : svart}
-
-	tr
+	result
 
 changeGroupSize = (key,letter) ->
 	if key == 'I' and settings[letter] > 1 then settings[letter]--
@@ -97,10 +110,10 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 
 	ths = document.querySelectorAll '#players th'
 
-	for th in ths
-		do (th) ->
-			th.addEventListener 'click', (event) ->
-				key = th.textContent
+	for _th in ths
+		do (_th) ->
+			_th.addEventListener 'click', (event) ->
+				key = _th.textContent
 
 				for i in range settings.ROUNDS
 					if key == "#{i + 1}"
@@ -231,23 +244,6 @@ handleKey = (key) ->
 	# if key in ' _' or key in 'Delete 0 1 + - # N E P R ArrowLeft ArrowRight'.split ' '
 	if key == 'A' #in ' _' or key in 'Delete 0 1 + - # N E P R ArrowLeft ArrowRight'.split ' '
 		history.replaceState {}, "", makeURL() # för att slippa omladdning av sidan
-
-koppla = (typ, parent, attrs = {}) ->
-	elem = document.createElement typ
-
-	if 'text' of attrs
-		elem.textContent = attrs.text
-		delete attrs.text
-
-	if 'html' of attrs
-		elem.innerHTML = attrs.html
-		delete attrs.html
-
-	for own key of attrs
-		elem.setAttribute key, attrs[key]
-
-	parent.appendChild elem
-	elem
 
 export longForm = (rounds, results) -> # produces the long form for ONE round (spelarlistan). If there is a BYE, put it last in the list
 	result = []
@@ -381,16 +377,6 @@ readResults = (params) -> # Resultaten läses från urlen
 			if ch=='-' then arr.push '-'
 		global.results.push arr
 
-roundsContent = (long, i, tr) -> # rondernas data + poäng + PR. i anger spelarnummer
-	for [w,b,color,result] in long
-		opponent = if w == i then b else w
-		result = convert result, ['x','0','1','2','+','-'], [' ','0','½','1','1w','0w']
-		if opponent == global.frirond then result = 'F' # ½
-		attr = if color == 'w' then "right:0px;" else "left:0px;"
-		cell = koppla 'td', tr, {style: "position:relative;"}
-		koppla 'div', cell, {style: "position:absolute; top:0px; font-size:0.7em;" + attr, text: settings.ONE + opponent}
-		koppla 'div', cell, {style: "position:relative; font-size:1.1em; top:6px", text: result}
-		#koppla 'div', cell, {style: "position:relative; font-size:1.0em; top:6px", text: result}
 
 safeGet = (params,key,standard="") -> # Hämta parametern given av key från urlen
 	if params.get key then return params.get(key).trim()
@@ -409,17 +395,17 @@ setByeResults = ->
 setCursor = -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 	if global.currScreen == 'A'
 		ths = document.querySelectorAll '#players th'
-		for th,index in ths
-			echo global.currSort, th.innerText
+		for _th,index in ths
+			echo global.currSort, _th.innerText
 			highlite = false
 			if index == global.currRound + 3 then highlite = true 
 
-			if global.currSort == '#' and th.innerText == '#'    then highlite = true
-			if global.currSort == 'N' and th.innerText == 'Name' then highlite = true
-			if global.currSort == 'E' and th.innerText == 'Elo'  then highlite = true
-			if global.currSort == 'P' and th.innerText == 'P'    then highlite = true
-			if global.currSort == 'R' and th.innerText == 'PR'   then highlite = true
-			if global.currSort == 'S' and th.innerText == 'S'    then highlite = true
+			if global.currSort == '#' and _th.innerText == '#'    then highlite = true
+			if global.currSort == 'N' and _th.innerText == 'Name' then highlite = true
+			if global.currSort == 'E' and _th.innerText == 'Elo'  then highlite = true
+			if global.currSort == 'P' and _th.innerText == 'P'    then highlite = true
+			if global.currSort == 'R' and _th.innerText == 'PR'   then highlite = true
+			if global.currSort == 'S' and _th.innerText == 'S'    then highlite = true
 
 			if highlite
 				bgColor = 'yellow'
@@ -427,13 +413,13 @@ setCursor = -> # Den gula bakgrunden uppdateras beroende på piltangenterna
 			else
 				bgColor = '2f4f6f'
 				color = 'white'
-			th.style = "background-color:#{bgColor}; color:#{color};"
+			_th.style = "background-color:#{bgColor}; color:#{color};"
 
 	if global.currScreen == 'B'
-		trs = document.querySelectorAll '#tables tr'
-		for tr,index in trs
+		trs = document.querySelectorAll '#tables tbody tr'
+		for _tr,index in trs
 			color = if index == global.currTable + 0 then 'yellow' else 'white'
-			tr.children[5-2].style = "background-color:#{color}"
+			_tr.children[5-2].style = "background-color:#{color}"
 
 setDecimals = (delta) ->
 	decimals = settings.DECIMALS + delta
@@ -450,16 +436,17 @@ setMenuZone = (key,zone) ->
 			when 'Delete' then skey = 'Del'
 			else key
 		if key == 'GAP'
-			koppla 'span', zone, {style: "display: inline-block; width: 0.5rem;"}
+			zone.appendChild span {style: "display: inline-block; width: 0.5rem;"}
 		else
 			# echo 'xxx',key,global.currSort
 			if key == global.currScreen or key == global.currSort
-				koppla 'span', zone, class: 'pseudo-btn', text: skey
+				zone.appendChild span {class: 'pseudo-btn'}, skey
 			else
-				btn = koppla 'button', zone, text: skey, title: TOOLTIPS[key]
+				btn = button {title: TOOLTIPS[key]}, skey
+				zone.appendChild btn
 				do (key) ->
 					btn.addEventListener 'click', () -> handleKey key
-			if key == '_'
+			if key == '_' and btn?
 				btn.style = "color: transparent"
 				key = ' '
 
@@ -483,9 +470,9 @@ setResult = (key, res) -> # Uppdatera results samt gui:t.
 	updateLongs()
 
 	# Uppdatera GUI för tables kirurgiskt
-	trs = document.querySelectorAll '#tables tr'
-	tr = trs[global.currTable] # Ska vara NOLL!
-	tr5 = tr.children[5-2]
+	trs = document.querySelectorAll '#tables tbody tr'
+	_tr = trs[global.currTable] # Ska vara NOLL!
+	tr5 = _tr.children[5-2]
 
 	tr5.textContent = prettyResult res
 	global.currTable = (global.currTable + 1) %% tableCount()
@@ -500,21 +487,26 @@ setScreen = (letter) ->
 	hdr = document.getElementById 'hdr'
 	hdr.innerHTML = ''
 
-	menu = koppla 'header', hdr, {class: "menu no-print", style: "position:fixed"}
-	
-	# två underbehållare
-	leftZone  = koppla 'div', menu, {class: 'zone left'}
-	rightZone = koppla 'div', menu, {class: 'zone right'}
+	leftZone  = div {class: 'zone left'}
+	rightZone = div {class: 'zone right'}
 
+	menu = header {class: "menu no-print", style: "position:fixed"},
+		leftZone
+		rightZone
+	
+	hdr.appendChild menu
+	
 	setMenuZone "ABC", leftZone
 	setMenuZone letter, rightZone
 
-	spacer = koppla 'div', hdr, {class: "no-print", style: "height:1px;"}
+	spacer = div {class: "no-print", style: "height:1px;"}
+	hdr.appendChild spacer
 
-	h3 = koppla 'h3', hdr
-	if letter == 'A' then h3.textContent = "Standings for " + settings.TITLE
-	if letter == 'B' then h3.textContent = "Tables round #{global.currRound + settings.ONE} for #{settings.TITLE}"
-	if letter == 'C' then h3.textContent = "Names round #{global.currRound + settings.ONE} for #{settings.TITLE}"
+	_h3 = h3()
+	hdr.appendChild _h3
+	if letter == 'A' then _h3.textContent = "Standings for " + settings.TITLE
+	if letter == 'B' then _h3.textContent = "Tables round #{global.currRound + settings.ONE} for #{settings.TITLE}"
+	if letter == 'C' then _h3.textContent = "Names round #{global.currRound + settings.ONE} for #{settings.TITLE}"
 
 	document.getElementById('players').style.display = if letter == 'A' then 'flex' else 'none'
 	document.getElementById('tables').style.display  = if letter == 'B' then 'flex' else 'none'
@@ -565,20 +557,20 @@ showNames = ->
 
 	groups = myChunk persons,settings.C
 
+	tables = groups.map (group) ->
+		table {class:'group'},
+			thead {},
+				tr {},
+					th "Name"
+					th "Table"
+			tbody {},
+				group.map (p) ->
+					tr {},
+						td {style: "text-align:left"}, p[0]
+						td {style: "text-align:center"}, p[1]
+
 	container = document.getElementById 'names'
-	container.innerHTML = '' # rensa
-	container.className = 'groups'
-
-	groups.forEach (group) =>
-		tabell = koppla 'table', container, {class:'group'}
-		thead = koppla 'thead', tabell
-		koppla 'th', thead, {text:"Name"}
-		koppla 'th', thead, {text:"Table"}
-
-		group.forEach (p) => 
-			tr1 = koppla 'tr',tabell
-			td1 = koppla 'td',tr1, {style: "text-align:left",   text:p[0]}
-			td2 = koppla 'td',tr1, {style: "text-align:center", text:p[1]}
+	render container, tables
 
 showPlayers = -> # Visa spelarlistan.
 
@@ -603,52 +595,51 @@ showPlayers = -> # Visa spelarlistan.
 	groups = myChunk sortedPlayers, settings.A
 	# if _.last(groups).length == 1 and _.last(groups)[0].name == BYE then groups.pop()
 	container = document.getElementById 'players'
-	container.innerHTML = ''
-	container.className = 'groups'
+	# container.className = 'groups'
 
-	offset = 0
-	groups.forEach (group) =>
-		tabell = koppla 'table', container, {class:'group'}
-		thead = koppla 'thead', tabell
-		koppla 'th', thead, {text:"#", class: 'clickableCols' }
-		koppla 'th', thead, {text:"Name", class: 'clickableCols'}
-		koppla 'th', thead, {text:"Elo", class: 'clickableCols'}
+	tables = groups.map (group) =>
+		table {class:'group'},
+			thead {},
+				th {class: 'clickableCols'}, "#"
+				th {class: 'clickableCols'}, "Name"
+				th {class: 'clickableCols'}, "Elo"
+				for i in range global.rounds.length
+					th {class: 'clickableCols'}, "#{i + settings.ONE}"
+				th {class: 'clickableCols'}, "P"
+				th "n"
+				th {class: 'clickableCols'}, "S"
+				th "avg"
+				th {class: 'clickableCols'}, "PR"
+			tbody {},
+				group.map (player) =>
+					long = global.longs[player.id]
+					n = player.elos.length
+					if player.name == BYE then return null
 
-		for i in range global.rounds.length
-			koppla 'th', thead, {text:"#{i + settings.ONE}", class: 'clickableCols'}
+					tr {style:"height: 28px"}, # 27 ger ojämna höjder
+						td player.id + settings.ONE
+						td {style:"text-align:left"}, player.name # .slice 0,20
+						td player.elo
 
-		koppla 'th', thead, {text:"P", class: 'clickableCols'}
-		koppla 'th', thead, {text:"n"}
-		koppla 'th', thead, {text:"S", class: 'clickableCols'}
-		koppla 'th', thead, {text:"avg"}
-		koppla 'th', thead, {text:"PR", class: 'clickableCols'}
+						for [w,b,color,result] in long
+							opponent = if w == player.id then b else w
+							result = convert result, ['x','0','1','2','+','-'], [' ','0','½','1','1w','0w']
+							if opponent == global.frirond then result = 'F' # ½
+							attr = if color == 'w' then "right:0px;" else "left:0px;"
+							td {style: "position:relative;"},
+								div {style: "position:absolute; top:0px; font-size:0.7em;" + attr}, settings.ONE + opponent
+								div {style: "position:relative; font-size:1.1em; top:6px"}, result
 
-		group.forEach (player) =>
-			n = player.elos.length
-			if player.name == BYE then return
-			tr = koppla 'tr', tabell, {style:"height: 28px"} # 27 ger ojämna höjder
-			koppla 'td', tr, {text: player.id + settings.ONE}
-			koppla 'td', tr, {style:"text-align:left", text: player.name} # .slice 0,20
-			koppla 'td', tr, {text: player.elo}
+						for i in range long.length, global.rounds.length
+							td {style:"text-align:left"}
 
-			long = global.longs[player.id]
-			roundsContent long, player.id, tr
+						td {style:"text-align:right"}, player.P.toFixed 1
+						td {style:"text-align:center"}, n
+						td {style:"text-align:right"}, if n > 0 then (player.P / n).toFixed 3 else ""
+						td {style:"text-align:right"}, if n > 0 then player.avg.toFixed 1 else ""
+						td {style:"text-align:right"}, if n > 0 then player.PR.toFixed settings.DECIMALS else ""
 
-			for i in range long.length, global.rounds.length
-				koppla 'td', tr, {style:"text-align:left" , 'x'}
-
-			koppla 'td', tr, {style:"text-align:right", text: player.P.toFixed 1}
-			koppla 'td', tr, style:"text-align:center", text: n
-			if n > 0
-				koppla 'td', tr, {style:"text-align:right" , text: (player.P / n).toFixed 3}
-				koppla 'td', tr, {style:"text-align:right" , text: player.avg.toFixed 1}
-				koppla 'td', tr, {style:"text-align:right" , text: player.PR.toFixed settings.DECIMALS}
-			else
-				koppla 'td', tr, {style:"text-align:right" , text: ""}
-				koppla 'td', tr, {style:"text-align:right" , text: ""}
-				koppla 'td', tr, {style:"text-align:right" , text: ""}
-
-		offset += group.length # settings.A
+	render container, tables
 
 	createSortEvents()
 
@@ -659,19 +650,25 @@ showTables = -> # Visa bordslistan
 	groups = myChunk round, settings.B
 
 	container = document.getElementById 'tables'
-	container.innerHTML = ''
-	container.className = 'groups'
+	# container.className = 'groups'
 
 	offset = 0
-	groups.forEach (group) =>
-		tabell = koppla 'table', container, {class:'group clickableRows'}
-		thead = koppla 'thead', tabell
-		for rubrik in "Table White Elo Result Elo Black".split ' '
-			koppla 'th', thead, {text:rubrik}
-
-		group.forEach ([w,b],iTable) =>
-			tabell.appendChild addBord offset + iTable, global.results[global.currRound][offset + iTable], w,b
+	tables = groups.map (group) ->
+		tabell = table {class:'group clickableRows'},
+			thead {},
+				th "Table"
+				th "White"
+				th "Elo"
+				th "Result"
+				th "Elo"
+				th "Black"
+			tbody {},
+				group.map ([w,b],iTable) ->
+					addBord offset + iTable, global.results[global.currRound][offset + iTable], w,b
 		offset += group.length #settings.B
+		tabell
+
+	render container, tables
 
 tableCount = -> global.players.length // 2 # Beräkna antal bord
 
