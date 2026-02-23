@@ -484,33 +484,25 @@ setScreen = (letter) ->
 	if letter == 'B' then showTables()
 	if letter == 'C' then showNames()
 
-	hdr = document.getElementById 'hdr'
-	hdr.innerHTML = ''
+	if letter == 'A' then _header = "Standings for " + settings.TITLE
+	if letter == 'B' then _header = "Tables round #{global.currRound + settings.ONE} for #{settings.TITLE}"
+	if letter == 'C' then _header = "Names round #{global.currRound + settings.ONE}"
 
-	leftZone  = div {class: 'zone left'}
-	rightZone = div {class: 'zone right'}
-
-	menu = header {class: "menu no-print", style: "position:fixed"},
-		leftZone
-		rightZone
-	
-	hdr.appendChild menu
-	
-	setMenuZone "ABC", leftZone
-	setMenuZone letter, rightZone
-
-	spacer = div {class: "no-print", style: "height:1px;"}
-	hdr.appendChild spacer
-
-	_h3 = h3()
-	hdr.appendChild _h3
-	if letter == 'A' then _h3.textContent = "Standings for " + settings.TITLE
-	if letter == 'B' then _h3.textContent = "Tables round #{global.currRound + settings.ONE} for #{settings.TITLE}"
-	if letter == 'C' then _h3.textContent = "Names round #{global.currRound + settings.ONE} for #{settings.TITLE}"
+	result = div {},
+		header {class: "menu no-print", style: "position:fixed"},
+			leftZone  = div {class: 'zone left'}
+			div {class: "no-print", style: "height:1px;"}
+			rightZone = div {class: 'zone right'}	
+		h3 _header
 
 	document.getElementById('players').style.display = if letter == 'A' then 'flex' else 'none'
 	document.getElementById('tables').style.display  = if letter == 'B' then 'flex' else 'none'
 	document.getElementById('names').style.display   = if letter == 'C' then 'flex' else 'none'
+
+	setMenuZone "ABC", leftZone
+	setMenuZone letter, rightZone
+
+	document.getElementById('hdr').replaceChildren result
 
 showHelp = -> window.open "help.html","_self"
 
@@ -536,7 +528,6 @@ showMatrix = -> # Visa matrisen Alla mot alla. Dot betyder: inget möte
 	content = lines.join "\n"
 
 	downloadFile 'matrix.txt', content
-
 
 showNames = ->
 	persons = []
