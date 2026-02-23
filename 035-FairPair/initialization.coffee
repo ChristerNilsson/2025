@@ -1,26 +1,15 @@
 import {echo,global,range,settings} from './global.js'
 import {Player} from './player.js'
 import {makeURL} from './tournament.js'
-import {tag as htmlTag} from './fasthtml.js'
+import {render, tag} from './fasthtml.js'
 
-tag = (typ, parent, attrs = {}) ->
-	create = htmlTag typ
-	text = null
-	html = null
-
-	if 'text' of attrs
-		text = attrs.text
-		delete attrs.text
-
-	if 'html' of attrs
-		html = attrs.html
-		delete attrs.html
-
-	elem = if text? then create attrs, text else create attrs
-	if html? then elem.innerHTML = html
-
-	parent.appendChild elem
-	elem
+div = tag "div"
+input = tag "input"
+div = tag "div"
+select = tag "select"
+option = tag "option"
+label = tag "label"
+button = tag "button"
 
 NBSP = '\u00A0'
 NAME_LEN = 30
@@ -52,6 +41,12 @@ playerCount = null
 
 players = null
 
+add = (name, fideid, elo) -> 
+	#name = lastName.toUpperCase() + " " + firstName
+	if name.length > NAME_LEN then name = name.slice 0,NAME_LEN # 21
+	name = name.padEnd NAME_LEN,' '
+	option "#{name} #{elo} #{fideid}".replaceAll " ", NBSP
+
 export clear = ->
 	players.length = 0
 	update()
@@ -65,71 +60,93 @@ export initialize = ->
 	# app.style.gap = "8px"
 	app.style.textAlign = "center"
 
-	panel = tag "div", app, class:'panel'
+	result = div class:'panel',
+		div {},
+			title = input placeholder:'Title', style: "width:286px"
+		city = input placeholder:'City', style: "width:244px"
+		fed = input placeholder:'Fed', value:"SWE", style:"width:30px"
+		div {},
+			arb = input placeholder:'Arbiter', style: "width:286px"
+		div {},
+			bases = select {}, 
+				option "#{base} min" for base in MINUTES
+			incrs = select {},
+				option "#{incr} sec" for incr in SECONDS					
+			speed = label "Classic"
+		div {},
+			rounds = select {},
+				option "#{r} rounds" for r in range 39
+			double = select {},
+				option "single"
+				option "double"
+			estimation = label " 3 h 27 m"
+		div {},
+			player = input placeholder:'FIDE id', type:"text", inputmode:"numeric", oninput:"this.value = this.value.replace(/[^0-9]/g, '')", style:"width:80px"
+			ins = button 'Insert'
+			del = button 'Delete'
+			playerCount = label "13"
 
-	div01 = tag "div", panel
-	title = tag "input", div01, placeholder:'Title'
-	title.style.width = "286px"
+		players = select {size:20, style:"font-family: monospace; font-size: 14px; width:360px"},
+			add "Gunnar Hedin",1786911,2092
+			add "IM Axel Ornstein",1786911,2062
+			add "Henrik Strömbäck",1786911,2010
+			add "Stefan Engström",1786911,1977
+			add "Tomas Lindblad",1786911,1977
+			add "Lennart B Johansson",1786911,1949
+			add "Bo Ländin",1786911,1947
+			add "Andrzej Kamiński",1786911,1932
+			add "Rado Jovic",1786911,1930
+			add "Rune Evertsson",1786911,1915
+			add "Kjell Häggvik",1786911,1913
+			add "WFM Susanna Berg Laachiri",1786911,1899
+			add "Olle Ålgars",1786911,1896
+			add "Peter Silins",1786911,1894
+			add "Leif Lundquist",1786911,1865
+			add "Lars-Åke Pettersson",1786911,1848
+			add "Sven-Åke Karlsson",1786911,1842
+			add "Ove Hartzell",1786911,1824
+			add "Dick Viklund",1786911,1821
+			add "Björn Löwgren",1786911,1820
+			add "Bo Franzén",1786911,1806
+			add "Hans Weström",1786911,1798
+			add "Johan Sterner",1786911,1791
+			add "Lars Ring",1786911,1785
+			add "Veine Gustavsson",1786911,1753
+			add "Lars Cederfeldt",1786911,1752
+			add "Sten Hellman",1786911,1729
+			add "Christer Johansson",1786911,1729
+			add "Magnus Karlsson",1786911,1724
+			add "Leonid Stolov",1786911,1695
+			add "Christer Nilsson",1786911,1694
+			add "Abbas Razavi",1786911,1688
+			add "Friedemann Stumpf",1786911,1670
+			add "Kent Sahlin",1786911,1660
+			add "Lars-Ivar Juntti",1786911,1588
+			add "Helge Bergström",1786911,1540
+			add "Arne Jansson",1786911,1539
+			add "Jouko Liistamo",1786911,1531
+			add "Ali Koç",1786911,1500
+			add "Mikael Lundberg",1786911,1600
 
-	city = tag "input", panel, placeholder:'City'
-	city.style.width = "244px"
+		div class:'bar',
+			button id:'clear',    'Clear'
+			button id:'help',     'Help'
+			button id:'continue', 'Continue'
 
-	fed = tag "input", panel, placeholder:'Fed', value:"SWE"
-	fed.style.width = "30px"
-
-	div04 = tag "div", panel
-	arb = tag "input", div04, placeholder:'Arbiter'
-	arb.style.width = "286px"
-
-	# bases
-	div2 = tag "div", panel
-	bases = tag "select", div2
-	for base in MINUTES
-		tag "option", bases, text:"#{base} min"
+	player.addEventListener "keydown", (event) => if event.key == "Enter" then ins.click()
 	bases.addEventListener "change", -> update()
-
-	# incrs
-	incrs = tag "select", div2
-	for incr in SECONDS
-		tag "option", incrs, text:"#{incr} sec"
 	incrs.addEventListener "change", -> update()
-
-	speed = tag "label", div2, text:"Classic"
-
-	div3 = tag "div", panel
-
-	# rounds
-	rounds = tag "select", div3
-	for r in range 39
-		tag "option", rounds, text:"#{r} rounds"
 	rounds.addEventListener "change", -> update()
-
-	# single / double
-	double = tag "select", div3
-	double.style.width = "75px"
-	tag "option",double, text:"single"
-	tag "option",double, text:"double"
 	double.addEventListener "change", -> update()
 
-	estimation = tag "label", div3 #, text: " 3 h 27 m"
-
-	# input
-	div4 = tag "div", panel
-	player = tag "input", div4, placeholder:'FIDE id', type:"text", inputmode:"numeric", oninput:"this.value = this.value.replace(/[^0-9]/g, '')" 
-
-	player.style.width = "80px"
-	player.addEventListener "keydown", (event) =>
-		if event.key == "Enter" then ins.click()
-
 	# Insert
-	ins = tag "button", div4, text:'Insert'
 	ins.addEventListener 'click', -> 
 		p = await transfer SPEED, player.value
 		# Förhindra dublett
 		if Array.from(players.options).some (o) -> -1 != o.text.indexOf player.value then return
 
 		if p.length < 10 then return 
-		tag "option",players, text: p
+		players.add option p
 
 		sortSelect players
 
@@ -146,7 +163,6 @@ export initialize = ->
 		update()
 
 	# Delete
-	del = tag "button", div4, text:'Delete'
 	del.addEventListener 'click', -> 
 		if players.options?.length == 0 then return 
 		i = players.selectedIndex
@@ -203,157 +219,17 @@ Sorterar en befintlig <select>.
 			selectEl.value = prevValue
 			break
 
-	# handleSpace = (lastName, firstName, fideid, elo) -> 
-	handleSpace = (name, fideid, elo) -> 
-		#name = lastName.toUpperCase() + " " + firstName
-		if name.length > NAME_LEN then name = name.slice 0,NAME_LEN # 21
-		name = name.padEnd NAME_LEN,' '
-		"#{name} #{elo} #{fideid}".replaceAll " ", NBSP
-
-	playerCount = tag "label", div4, text: "13"
-
-	players = tag "select", panel, size:20, style:"font-family: monospace; font-size: 14px;"
-
-	# tag "option", players, text: handleSpace "Muntean", "Victor", 2141, 1786911
-	# tag "option", players, text: handleSpace "Radon", "Vida",1406,1786911
-	# tag "option", players, text: handleSpace "Grahn", "Vidar",2272,1786911
-	# tag "option", players, text: handleSpace "Seiger", "Vidar",2109,1786911
-	# tag "option", players, text: handleSpace "Hillbur", "Anders",1688,1786911
-	# tag "option", players, text: handleSpace "Kallin", "Anders",1827,1786911
-	# tag "option", players, text: handleSpace "Lindebaum", "André J",1748,1786911
-	# tag "option", players, text: handleSpace "Nordenfur", "Anton",1641,1786911
-	# tag "option", players, text: handleSpace "Banerjee", "Aryan",2001,1786911
-	# tag "option", players, text: handleSpace "Lofstrom", "Bjorn",1800,1786911
-	# tag "option", players, text: handleSpace "Isurina Mariano", "Cristine Rose",1944,5201071
-	# tag "option", players, text: handleSpace "Wickstrom", "Carina",1907,1786911
-	# tag "option", players, text: handleSpace "Carmegren", "Christer",1579,1786911
-	# tag "option", players, text: handleSpace "Johansson", "Christer",1828,1786911
-	# tag "option", players, text: handleSpace "Nilsson", "Christer",1575,1786911
-	# tag "option", players, text: handleSpace "Vesterbaek Pedersen", "Daniel",2213,1402161
-	# tag "option", players, text: handleSpace "Broman", "David",1417,1786911
-	# tag "option", players, text: handleSpace "Parteg", "Eddie",1709,1786911
-	# tag "option", players, text: handleSpace "Kingsley", "Elias",1977,1786911
-	# tag "option", players, text: handleSpace "Dingertz", "Erik",2093,1786911
-	# tag "option", players, text: handleSpace "Bjorkman", "Filip",2113,1786911
-	# tag "option", players, text: handleSpace "Mollerstrom", "Fredrik",1848,1786911
-	# tag "option", players, text: handleSpace "Sorensen", "Hampus",2416,1786911
-	# tag "option", players, text: handleSpace "Uniyal Hanns", "Ivar",1622,1786911
-	# tag "option", players, text: handleSpace "Ranby", "Hans",1893,1786911
-	# tag "option", players, text: handleSpace "Enholm", "Herman",1923,1786911
-	# tag "option", players, text: handleSpace "Hardwick", "Hugo",1733,1786911
-	# tag "option", players, text: handleSpace "Sundell", "Hugo",1728,1786911
-	# tag "option", players, text: handleSpace "Arnshav", "Ivar",1400,1786911
-	# tag "option", players, text: handleSpace "Ahlstrom", "Jens",1624,1786911
-	# tag "option", players, text: handleSpace "Borin", "Jesper",1878,1786911
-	# tag "option", players, text: handleSpace "Hultin", "Joacim",1763,1786911
-	# tag "option", players, text: handleSpace "Berglund", "Joar",1886,1786911
-	# tag "option", players, text: handleSpace "Olund", "Joar",2366,1786911
-	# tag "option", players, text: handleSpace "Ostlund", "Joar",2335,1786911
-	# tag "option", players, text: handleSpace "Ahfeldt", "Joel",1897,1786911
-	# tag "option", players, text: handleSpace "Sandberg", "Jonas",1794,1786911
-	# tag "option", players, text: handleSpace "Kaunonen", "Jouni",1721,1786911
-	# tag "option", players, text: handleSpace "Jakenberg", "Jussi",2022,1786911
-	# tag "option", players, text: handleSpace "Khaschuluu","Sergelenbaatar",1871,4920929
-	# tag "option", players, text: handleSpace "Masoudi", "Karam",1833,1786911
-	# tag "option", players, text: handleSpace "Rehnberg", "Karl-Oskar",1480,1786911
-	# tag "option", players, text: handleSpace "Fahlberg", "Kenneth",1846,1786911
-	# tag "option", players, text: handleSpace "Jernselius", "Kjell",1787,1786911
-	# tag "option", players, text: handleSpace "Schultz", "Kristoffer",1400,1786911
-	# tag "option", players, text: handleSpace "Eriksson", "Lars",1733,1786911
-	# tag "option", players, text: handleSpace "Pettersson", "Lars-Ake",1761,1786911
-	# tag "option", players, text: handleSpace "Valcu", "Lavinia",2039,1786911
-	# tag "option", players, text: handleSpace "Evertsson", "Lennart",2031,1786911
-	# tag "option", players, text: handleSpace "Crevatin", "Leo",2235,1786911
-	# tag "option", players, text: handleSpace "Ljungros", "Lo",1936,1786911
-	# tag "option", players, text: handleSpace "Willstedt", "Lukas",2046,1786911
-	# tag "option", players, text: handleSpace "De Lafonteyne", "Maxime",1400,1785133
-	# tag "option", players, text: handleSpace "Hamina", "Martti",1803,1786911
-	# tag "option", players, text: handleSpace "Sakic", "Matija",2065,1786911
-	# tag "option", players, text: handleSpace "Duke", "Michael",2076,1786911
-	# tag "option", players, text: handleSpace "Mattsson", "Michael",2048,1786911
-	# tag "option", players, text: handleSpace "Wiedenkeller", "Michael",2413,1786911
-	# tag "option", players, text: handleSpace "Blom", "Mikael",1889,1786911
-	# tag "option", players, text: handleSpace "Helin", "Mikael",1885,1786911
-	# tag "option", players, text: handleSpace "Bergqvist", "Morris",1818,1786911
-	# tag "option", players, text: handleSpace "Jamshedi", "Mukhtar",1778,1786911
-	# tag "option", players, text: handleSpace "Nodtveidt", "Mans",1524,1786911
-	# tag "option", players, text: handleSpace "Bychkov", "Nicholas Zwahlen",1796,1786911
-	# tag "option", players, text: handleSpace "Malmquist", "Neo",1768,1786911
-	# tag "option", players, text: handleSpace "Nilsson", "Oliver",2035,1786911
-	# tag "option", players, text: handleSpace "Algars", "Olle",1880,1786911
-	# tag "option", players, text: handleSpace "Wiss", "Patrik",1650,1786911
-	# tag "option", players, text: handleSpace "Gedda", "Peder",1835,1786911
-	# tag "option", players, text: handleSpace "Isaksson", "Per",1954,1786911
-	# tag "option", players, text: handleSpace "Tripathi", "Pratyush",2108,1786911
-	# tag "option", players, text: handleSpace "Cernea", "Radu",1783,1786911
-	# tag "option", players, text: handleSpace "Gore", "Rohan",1793,1786911
-	# tag "option", players, text: handleSpace "Karlsson", "Roy",1852,1786911
-	# tag "option", players, text: handleSpace "Banavi", "Salar",1671,1786911
-	# tag "option", players, text: handleSpace "Bardhan", "Sayak Raj",1680,1786911
-	# tag "option", players, text: handleSpace "Van Den Brink", "Sid",1695,1779940
-	# tag "option", players, text: handleSpace "Johansson", "Simon",1726,1786911
-	# tag "option", players, text: handleSpace "Nyberg", "Stefan",1896,1786911
-	# tag "option", players, text: handleSpace "Nodtveidt", "Svante",1691,1786911
-	# tag "option", players, text: handleSpace "Nordenfur", "Tim",1985,1786911
-
-	tag "option", players, text: handleSpace "Gunnar Hedin",1786911,2092
-	tag "option", players, text: handleSpace "IM Axel Ornstein",1786911,2062
-	tag "option", players, text: handleSpace "Henrik Strömbäck",1786911,2010
-	tag "option", players, text: handleSpace "Stefan Engström",1786911,1977
-	tag "option", players, text: handleSpace "Tomas Lindblad",1786911,1977
-	tag "option", players, text: handleSpace "Lennart B Johansson",1786911,1949
-	tag "option", players, text: handleSpace "Bo Ländin",1786911,1947
-	tag "option", players, text: handleSpace "Andrzej Kamiński",1786911,1932
-	tag "option", players, text: handleSpace "Rado Jovic",1786911,1930
-	tag "option", players, text: handleSpace "Rune Evertsson",1786911,1915
-	tag "option", players, text: handleSpace "Kjell Häggvik",1786911,1913
-	tag "option", players, text: handleSpace "WFM Susanna Berg Laachiri",1786911,1899
-	tag "option", players, text: handleSpace "Olle Ålgars",1786911,1896
-	tag "option", players, text: handleSpace "Peter Silins",1786911,1894
-	tag "option", players, text: handleSpace "Leif Lundquist",1786911,1865
-	tag "option", players, text: handleSpace "Lars-Åke Pettersson",1786911,1848
-	tag "option", players, text: handleSpace "Sven-Åke Karlsson",1786911,1842
-	tag "option", players, text: handleSpace "Ove Hartzell",1786911,1824
-	tag "option", players, text: handleSpace "Dick Viklund",1786911,1821
-	tag "option", players, text: handleSpace "Björn Löwgren",1786911,1820
-	tag "option", players, text: handleSpace "Bo Franzén",1786911,1806
-	tag "option", players, text: handleSpace "Hans Weström",1786911,1798
-	tag "option", players, text: handleSpace "Johan Sterner",1786911,1791
-	tag "option", players, text: handleSpace "Lars Ring",1786911,1785
-	tag "option", players, text: handleSpace "Veine Gustavsson",1786911,1753
-	tag "option", players, text: handleSpace "Lars Cederfeldt",1786911,1752
-	tag "option", players, text: handleSpace "Sten Hellman",1786911,1729
-	tag "option", players, text: handleSpace "Christer Johansson",1786911,1729
-	tag "option", players, text: handleSpace "Magnus Karlsson",1786911,1724
-	tag "option", players, text: handleSpace "Leonid Stolov",1786911,1695
-	tag "option", players, text: handleSpace "Christer Nilsson",1786911,1694
-	tag "option", players, text: handleSpace "Abbas Razavi",1786911,1688
-	tag "option", players, text: handleSpace "Friedemann Stumpf",1786911,1670
-	tag "option", players, text: handleSpace "Kent Sahlin",1786911,1660
-	tag "option", players, text: handleSpace "Lars-Ivar Juntti",1786911,1588
-	tag "option", players, text: handleSpace "Helge Bergström",1786911,1540
-	tag "option", players, text: handleSpace "Arne Jansson",1786911,1539
-	tag "option", players, text: handleSpace "Jouko Liistamo",1786911,1531
-	tag "option", players, text: handleSpace "Ali Koç",1786911,1500
-	tag "option", players, text: handleSpace "Mikael Lundberg",1786911,1600
-
 	sortSelect players
 
-	players.style.width = "360px"
 	players.selectedIndex = players.options?.length - 1
-
 	bases.selectedIndex = MINUTES.length - 1
 	incrs.selectedIndex = SECONDS.length - 1
 	rounds.selectedIndex = 8
 	double.selectedIndex = 0
 
-	div5 = tag "div", panel, class:'bar'
-
-	tag "button", div5, id:'clear',    text:'Clear'
-	tag "button", div5, id:'help',     text:'Help'
-	tag "button", div5, id:'continue', text:'Continue'
-
 	update()
+
+	render app,result
 
 fetchShard = (fidenumber) ->
 	shard = "#{fidenumber}"
