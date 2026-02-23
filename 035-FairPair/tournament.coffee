@@ -66,19 +66,17 @@ addBord = (bord,res,c0,c1) ->
 	svart_elo = global.players[c1].elo
 	color = if bord == global.currTable then 'yellow' else 'white'
 
-	result = tr {},
+	f = ->
+		global.currTable = bord
+		setCursor()
+
+	tr click: f,
 		td bord + settings.ONE
 		td {style:"text-align:left"}, vit
 		td {style:"text-align:left"}, vit_elo
 		td {style:"text-align:center; background-color:#{color}"}, prettyResult res
 		td {style:"text-align:left"}, svart_elo
 		td {style:"text-align:left"}, svart
-
-	result.addEventListener "click", ->
-		global.currTable = bord
-		setCursor() # global.currRound,global.currTable
-
-	result
 
 changeGroupSize = (key,letter) ->
 	if key == 'I' and settings[letter] > 1 then settings[letter]--
