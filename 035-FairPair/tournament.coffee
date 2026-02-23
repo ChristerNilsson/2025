@@ -10,7 +10,7 @@ import {render, tag} from './fasthtml.js'
 table = tag "table"
 thead = tag "thead"
 tbody = tag "tbody"
-th = tag "th"
+th = tag "th" 
 tr = tag "tr" 
 td = tag "td"
 
@@ -277,7 +277,7 @@ export makeURL = ->
 	url += "&B=#{settings.B}"
 	url += "&C=#{settings.C}"
 
-	for player in global.players
+	for player in global.players when player.name != BYE
 		url += "&p=#{player}"
 
 	for r in range global.rounds.length
@@ -332,18 +332,26 @@ parseURL = ->
 
 	echo persons
 
-	if window.location.href.includes BYE then global.frirond = persons.length - 1
 	if settings.SORT == 1 then persons.sort().reverse()
 
 	for person in persons #.slice 0, settings.P
-		[elo,name,fideid] = person.split "|"
+		[elo,name,fideid="0"] = person.split "|"
+		if name == BYE then continue
 
 		global.players.push new Player global.players.length, name, elo, fideid
+
+	if global.players.length % 2 == 1
+		global.frirond = global.players.length
+		global.players.push new Player global.players.length, BYE, "0000", "0"
+	else
+		global.frirond = null
 
 	settings.ROUNDS = parseInt safeGet params, "ROUNDS", "#{global.players.length-1}"
 
 	# initialisera rounds med 'x' i alla celler
-	n = global.players.length - 1 #// 2
+	n = global.players.length
+	if global.frirond then n -= 2
+	n //= 2
 	global.rounds = []
 	for i in range settings.GAMES * settings.ROUNDS
 		global.rounds.push new Array(n).fill 'x'

@@ -332,13 +332,10 @@ export init = -> # läs initiala uppgifter om turneringen
 		echo name,elo,fideid
 		global.players.push new Player global.players.length, name, elo, fideid
 
-	if global.players.length % 2 == 1
-		global.frirond = global.players.length
-		global.players.push '0000|BYE|0'
-	else
-		global.frirond = null
+	global.frirond = null
 
-	if settings.ROUNDS > global.players.length - 1 then return # / 2 then return
+	maxRounds = if global.players.length % 2 == 0 then global.players.length - 1 else global.players.length
+	if settings.ROUNDS > maxRounds then return # / 2 then return
 
 	if global.rounds == null then global.rounds = []
 
