@@ -7,18 +7,17 @@ import {echo,global,range,settings} from './global.js'
 import {initialize, init, clear} from './initialization.js'
 import {render, tag} from './fasthtml.js'
 
-table = tag "table"
-thead = tag "thead"
-tbody = tag "tbody"
-th = tag "th" 
-tr = tag "tr" 
-td = tag "td"
-
-div = tag "div"
-span = tag "span"
 button = tag "button"
+div = tag "div"
 header = tag "header"
 h3 = tag "h3"
+span = tag "span"
+table = tag "table"
+thead = tag "thead"
+th = tag "th" 
+tbody = tag "tbody"
+tr = tag "tr" 
+td = tag "td"
 
 ALFABET = '1234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890' # 100
 
@@ -98,8 +97,6 @@ changeRound = (delta) -> # byt rond och uppdatera bordslistan
 	setScreen global.currScreen
 
 changeTable = (delta) -> global.currTable = (global.currTable + delta) %% tableCount()
-
-#clear = -> clearList()
 
 convert = (input,a,b) -> # byt alla tecken i input som finns i a mot tecken med samma index i b
 	if input in a then b[a.indexOf input] else input # a och b är strängar
