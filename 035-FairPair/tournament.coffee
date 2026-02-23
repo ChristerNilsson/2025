@@ -134,6 +134,9 @@ createSortEvents = -> # Spelarlistan sorteras beroende på vilken kolumn man kli
 					setCursor()
 
 createTRF = () ->
+	# Om man vill utöka med fler fält i TRF-filen, t ex FED, BYEAR och SEX, så måste
+	# man ändra i fide.py så att shard-filerna utökas med dessa fält.
+	# Dessa läses in precis innan TRF-filen skapas och behöver inte finnas i urlen.
 	one = settings.ONE
 	echo global.longs
 
