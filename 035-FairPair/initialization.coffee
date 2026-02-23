@@ -68,10 +68,10 @@ export initialize = ->
 		div {},
 			arb = input placeholder:'Arbiter', style: "width:286px"
 		div {},
-			bases = select {}, 
+			bases = select {},
 				option "#{base} min" for base in MINUTES
 			incrs = select {},
-				option "#{incr} sec" for incr in SECONDS					
+				option "#{incr} sec" for incr in SECONDS
 			speed = label "Classic"
 		div {},
 			rounds = select {},
