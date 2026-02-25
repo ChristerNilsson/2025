@@ -6,7 +6,7 @@ NAME_LEN = 21
 NBSP = "\u00A0"
 
 toSortKey = (name) -> # name
-	name = name.textContent
+	#name = name.textContent
 	out = name ? ""
 	if out.length > NAME_LEN then out = out.slice 0, NAME_LEN
 	out.trim().toLocaleLowerCase 'sv-SE'
@@ -17,14 +17,14 @@ export class Select
 		@selectedIndex = -1
 		@element = div
 			tabindex: "0"
-			style: "font-family:monospace; font-size:14px; width:360px; height:360px; overflow-y:auto; border:1px solid #999; white-space:pre;"
+			style: "font-family:monospace; font-size:14px; width:360px; height:360px; overflow-y:auto; border:1px solid #999; " #white-space:pre;"
 
 		@element.addEventListener 'keydown', @onKeydown
 		@element.addEventListener 'focus', => @paintSelection()
 		@element.addEventListener 'blur', => @paintSelection()
 
 		for name in items
-			@add div name
+			@add name
 		@setSelectedIndex 0
 		@notifyCount()
 
@@ -102,7 +102,8 @@ export class Select
 
 	add: (name, pick = false) ->
 		row = div
-			style: "line-height:18px; padding:0 4px; cursor:default;"
+			class: "people"
+			#style: "line-height:18px; padding:0 4px; cursor:default;"
 			dataset: sortKey: toSortKey(name)
 			name
 

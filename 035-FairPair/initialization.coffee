@@ -97,7 +97,7 @@ export initialize = ->
 	app = document.getElementById "app"
 	app.style.display = "flex"
 	app.style.flexDirection = "column"
-	app.style.alignItems = "center"
+	app.style.alignItems = "left"
 	# app.style.gap = "8px"
 	app.style.textAlign = "center"
 
