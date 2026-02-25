@@ -2,6 +2,7 @@ import {echo,global,range,settings} from './global.js'
 import {Player} from './player.js'
 import {makeURL} from './tournament.js'
 import {render, tag} from './fasthtml.js'
+import {Select} from './select.js'
 
 div = tag "div"
 input = tag "input"
@@ -42,14 +43,54 @@ playerCount = null
 players = null
 
 add = (name, fideid, elo) -> 
-	#name = lastName.toUpperCase() + " " + firstName
-	if name.length > NAME_LEN then name = name.slice 0,NAME_LEN # 21
+	if name.length > NAME_LEN then name = name.slice 0,NAME_LEN
 	name = name.padEnd NAME_LEN,' '
-	option "#{name} #{elo} #{fideid}".replaceAll " ", NBSP
+	"#{name} #{elo} #{fideid}".replaceAll " ", NBSP
 
-export clear = ->
-	players.length = 0
-	update()
+initialPlayers = [
+	add "Gunnar Hedin",1786911,2092
+	add "Axel Ornstein",1786911,2062
+	add "Henrik Strömbäck",1786911,2010
+	add "Stefan Engström",1786911,1977
+	add "Tomas Lindblad",1786911,1977
+	add "Lennart B Johansson",1786911,1949
+	add "Bo Ländin",1786911,1947
+	add "Andrzej Kamiński",1786911,1932
+	add "Rado Jovic",1786911,1930
+	add "Rune Evertsson",1786911,1915
+	add "Kjell Häggvik",1786911,1913
+	add "Susanna Berg Laachiri",1786911,1899
+	add "Olle Ålgars",1786911,1896
+	add "Peter Silins",1786911,1894
+	add "Leif Lundquist",1786911,1865
+	add "Lars-Åke Pettersson",1786911,1848
+	add "Sven-Åke Karlsson",1786911,1842
+	add "Ove Hartzell",1786911,1824
+	add "Dick Viklund",1786911,1821
+	add "Björn Löwgren",1786911,1820
+	add "Bo Franzén",1786911,1806
+	add "Hans Weström",1786911,1798
+	add "Johan Sterner",1786911,1791
+	add "Lars Ring",1786911,1785
+	add "Veine Gustavsson",1786911,1753
+	add "Lars Cederfeldt",1786911,1752
+	add "Sten Hellman",1786911,1729
+	add "Christer Johansson",1786911,1729
+	add "Magnus Karlsson",1786911,1724
+	add "Leonid Stolov",1786911,1695
+	add "Christer Nilsson",1786911,1694
+	add "Abbas Razavi",1786911,1688
+	add "Friedemann Stumpf",1786911,1670
+	add "Kent Sahlin",1786911,1660
+	add "Lars-Ivar Juntti",1786911,1588
+	add "Helge Bergström",1786911,1540
+	add "Arne Jansson",1786911,1539
+	add "Jouko Liistamo",1786911,1531
+	add "Ali Koç",1786911,1500
+	add "Mikael Lundberg",1786911,1600
+]
+
+export clear = -> players.length = 0
 
 export initialize = ->
 
@@ -59,6 +100,9 @@ export initialize = ->
 	app.style.alignItems = "center"
 	# app.style.gap = "8px"
 	app.style.textAlign = "center"
+
+	players = new Select 
+		items: initialPlayers
 
 	result = div class:'panel',
 		div {},
@@ -84,54 +128,17 @@ export initialize = ->
 			player = input placeholder:'FIDE id', type:"text", inputmode:"numeric", oninput:"this.value = this.value.replace(/[^0-9]/g, '')", style:"width:80px"
 			ins = button 'Insert'
 			del = button 'Delete'
-			playerCount = label "13"
+			playerCount = label "0 players"
 
-		players = select {size:20, style:"font-family: monospace; font-size: 14px; width:360px"},
-			add "Gunnar Hedin",1786911,2092
-			add "IM Axel Ornstein",1786911,2062
-			add "Henrik Strömbäck",1786911,2010
-			add "Stefan Engström",1786911,1977
-			add "Tomas Lindblad",1786911,1977
-			add "Lennart B Johansson",1786911,1949
-			add "Bo Ländin",1786911,1947
-			add "Andrzej Kamiński",1786911,1932
-			add "Rado Jovic",1786911,1930
-			add "Rune Evertsson",1786911,1915
-			add "Kjell Häggvik",1786911,1913
-			add "WFM Susanna Berg Laachiri",1786911,1899
-			add "Olle Ålgars",1786911,1896
-			add "Peter Silins",1786911,1894
-			add "Leif Lundquist",1786911,1865
-			add "Lars-Åke Pettersson",1786911,1848
-			add "Sven-Åke Karlsson",1786911,1842
-			add "Ove Hartzell",1786911,1824
-			add "Dick Viklund",1786911,1821
-			add "Björn Löwgren",1786911,1820
-			add "Bo Franzén",1786911,1806
-			add "Hans Weström",1786911,1798
-			add "Johan Sterner",1786911,1791
-			add "Lars Ring",1786911,1785
-			add "Veine Gustavsson",1786911,1753
-			add "Lars Cederfeldt",1786911,1752
-			add "Sten Hellman",1786911,1729
-			add "Christer Johansson",1786911,1729
-			add "Magnus Karlsson",1786911,1724
-			add "Leonid Stolov",1786911,1695
-			add "Christer Nilsson",1786911,1694
-			add "Abbas Razavi",1786911,1688
-			add "Friedemann Stumpf",1786911,1670
-			add "Kent Sahlin",1786911,1660
-			add "Lars-Ivar Juntti",1786911,1588
-			add "Helge Bergström",1786911,1540
-			add "Arne Jansson",1786911,1539
-			add "Jouko Liistamo",1786911,1531
-			add "Ali Koç",1786911,1500
-			add "Mikael Lundberg",1786911,1600
-
+		players.element
+		
 		div class:'bar',
-			button id:'clear',    'Clear'
-			button id:'help',     'Help'
-			button id:'continue', 'Continue'
+			btnClear = button id:'clear',    'Clear'
+			btnHelp = button id:'help',     'Help'
+			btnContinue = button id:'continue', 'Continue'
+
+	players.onCountChange = (count) -> playerCount.textContent = "#{count} players"
+	players.onCountChange players.element.children.length
 
 	player.addEventListener "keydown", (event) => if event.key == "Enter" then ins.click()
 	bases.addEventListener "change", -> update()
@@ -142,86 +149,25 @@ export initialize = ->
 	# Insert
 	ins.addEventListener 'click', -> 
 		p = await transfer SPEED, player.value
-		# Förhindra dublett
-		if Array.from(players.options).some (o) -> -1 != o.text.indexOf player.value then return
-
-		if p.length < 10 then return 
-		players.add option p
-
-		sortSelect players
+		if p.length < 4 then return 
+		if Array.from(players.element.children).some (child) -> -1 != child.innerText.indexOf player.value then return
+		players.add p
 
 		# Sök upp rätt FIDE id och sätt selectedIndex
-		for i in range players.options.length
-			line = players.options[i].innerText
-			echo i,player.value,line
+		for i in range players.element.children.length
+			line = players.element.children[i].innerText
 			if line.indexOf(player.value) >= 0 # .innerText
-				players.selectedIndex = i
+				players.setSelectedIndex i
 
 		player.value = ""
 		player.focus()
 
 		update()
 
-	# Delete
-	del.addEventListener 'click', -> 
-		if players.options?.length == 0 then return 
-		i = players.selectedIndex
-		players.remove i
-		if i >= players.options?.length then i--
-		players.selectedIndex = i
-		update()
+	del.addEventListener 'click', -> players.removeSelected()
+	btnClear.addEventListener 'click', -> players.clear()
 
-###
-Sorterar en befintlig <select>.
-
-- Behåller valt värde (om möjligt)
-- Sorterar inom optgroup om sådana finns
-- Standard: sortering på option-text, svenska regler, numerisk
-
-	@param selectEl [HTMLSelectElement]
-	@param opts [Object]
-###
-	sortSelect = (selectEl, opts = {}) ->
-
-		locale          = opts.locale ? "sv"
-		numeric         = opts.numeric ? true
-		caseInsensitive = opts.caseInsensitive ? true
-		xby              = opts.by ? "text"   # "text" eller "value"
-
-		collator = new Intl.Collator locale,
-			numeric: numeric
-			sensitivity: if caseInsensitive then "base" else "variant"
-
-		prevValue = selectEl.value
-
-		sortContainer = (container) ->
-			options = Array.from container.querySelectorAll ":scope > option"
-
-			options.sort (a, b) ->
-				aKey = if xby is "value" then a.value else a.text
-				bKey = if xby is "value" then b.value else b.text
-				collator.compare aKey, bKey
-
-			for opt in options
-				opt.remove()
-
-			container.append ...options
-
-		groups = Array.from selectEl.querySelectorAll ":scope > optgroup"
-
-		if groups.length > 0
-			sortContainer g for g in groups
-		else
-			sortContainer selectEl
-
-		# återställ val om möjligt
-		for opt in selectEl.options when opt.value is prevValue
-			selectEl.value = prevValue
-			break
-
-	sortSelect players
-
-	players.selectedIndex = players.options?.length - 1
+	players.setSelectedIndex players.element.children.length - 1
 	bases.selectedIndex = MINUTES.length - 1
 	incrs.selectedIndex = SECONDS.length - 1
 	rounds.selectedIndex = 8
@@ -234,7 +180,7 @@ Sorterar en befintlig <select>.
 fetchShard = (fidenumber) ->
 	shard = "#{fidenumber}"
 	n = shard.length
-	if n < 7 then return ""
+	if n < 4 then return ""
 	shard = shard.slice 0,3
 
 	try
@@ -256,7 +202,7 @@ transfer = (speed, fidenumber) ->
 	fidenumber = fidenumber.trim()
 	if fidenumber == "" then return ""
 	member = await fetchShard fidenumber
-	echo member
+	# echo member
 	if member == undefined then return fidenumber
 	rating = getRating member,speed
 	name = member[3]
@@ -271,7 +217,6 @@ transfer = (speed, fidenumber) ->
 update = ->
 	updateSpeed()
 	updateTimeEstimation()
-	updateCount()
 
 updateSpeed = ->
 	base = parseInt bases.value
@@ -293,16 +238,13 @@ updateTimeEstimation = ->
 	minutes = minutes %% 60
 	estimation.textContent = "#{hours} h #{minutes} m"
 
-updateCount = ->
-	playerCount.textContent = players.options?.length
-
 export init = -> # läs initiala uppgifter om turneringen
 
 	if title.value == null then return
 	if city.value == null then return
 	if fed.value == null then return
 	if arb.value == null then return
-	if players.options.length < 4 then return
+	if players.element.children.length < 4 then return
 
 	settings.TITLE = title.value
 	settings.CITY = city.value
@@ -318,8 +260,8 @@ export init = -> # läs initiala uppgifter om turneringen
 	global.players = []
 	persons = []
 
-	for option in players.options
-		persons.push option.text
+	for option in players.element.children
+		persons.push option.textContent
 
 	persons.sort().reverse()
 
