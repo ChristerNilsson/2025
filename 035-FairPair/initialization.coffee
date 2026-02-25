@@ -101,22 +101,22 @@ export initialize = ->
 	# app.style.gap = "8px"
 	app.style.textAlign = "center"
 
-	styleEl = document.getElementById 'fairpair-form-colors'
-	if not styleEl
-		styleEl = document.createElement 'style'
-		styleEl.id = 'fairpair-form-colors'
-		styleEl.textContent = """
-			input, select, button {
-				border: 1px solid #000;
-				color: #000;
-			}
+	# styleEl = document.getElementById 'fairpair-form-colors'
+	# if not styleEl
+	# 	styleEl = document.createElement 'style'
+	# 	styleEl.id = 'fairpair-form-colors'
+	# 	styleEl.textContent = """
+	# 		input, select, button {
+	# 			border: 1px solid #000;
+	# 			color: #000;
+	# 		}
 
-			input::placeholder {
-				color: #000;
-				opacity: 1;
-			}
-		"""
-		document.head.appendChild styleEl
+	# 		input::placeholder {
+	# 			color: #000;
+	# 			opacity: 1;
+	# 		}
+	# 	"""
+	# 	document.head.appendChild styleEl
 
 	players = new Select 
 		items: initialPlayers
