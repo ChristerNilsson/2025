@@ -17,7 +17,7 @@ export class Select
 		@selectedIndex = -1
 		@element = div
 			tabindex: "0"
-			style: "font-family:monospace; font-size:14px; width:370px; height:360px; overflow-y:auto; border:1px solid #999; " #white-space:pre;"
+			style: "font-family:monospace; font-size:14px; width:370px; height:360px; overflow:auto; border:1px solid #999; white-space:nowrap; word-break:keep-all; overflow-wrap:normal; hyphens:none;"
 
 		@element.addEventListener 'keydown', @onKeydown
 		@element.addEventListener 'focus', => @paintSelection()
@@ -103,7 +103,7 @@ export class Select
 	add: (name, pick = false) ->
 		row = div
 			class: "people"
-			#style: "line-height:18px; padding:0 4px; cursor:default;"
+			style: "line-height:18px; padding:0 4px; cursor:default; white-space:nowrap; word-break:keep-all; overflow-wrap:normal; hyphens:none;"
 			dataset: sortKey: toSortKey(name)
 			name
 
