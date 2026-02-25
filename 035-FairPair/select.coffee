@@ -12,12 +12,12 @@ toSortKey = (name) -> # name
 	out.trim().toLocaleLowerCase 'sv-SE'
 
 export class Select
-	constructor: ({items = [], onCountChange = null} = {}) ->
-		@onCountChange = onCountChange
+	constructor: ({items = [], @onCountChange = null} = {}) ->
+		# @onCountChange = onCountChange
 		@selectedIndex = -1
 		@element = div
 			tabindex: "0"
-			style: "font-family:monospace; font-size:14px; width:360px; height:360px; overflow-y:auto; border:1px solid #999; " #white-space:pre;"
+			style: "font-family:monospace; font-size:14px; width:370px; height:360px; overflow-y:auto; border:1px solid #999; " #white-space:pre;"
 
 		@element.addEventListener 'keydown', @onKeydown
 		@element.addEventListener 'focus', => @paintSelection()
