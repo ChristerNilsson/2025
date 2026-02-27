@@ -36,3 +36,4 @@ export settings =
 	B : 1 # antal B-kolumner
 	C : 1 # antal C-kolumner
 	P : 0 # antal players. 0 = alla
+	SPEED : 0 # 0=normal, 1=snabbschack, 2=blixt

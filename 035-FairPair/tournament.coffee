@@ -141,6 +141,7 @@ createTRF = () ->
 	lines.push "032 #{settings.FED}"
 	lines.push "092 swiss" # för att kunna visa korsvis i Swiss Manager
 	lines.push "102 #{settings.ARB}"
+	lines.push "122 " + "134"[settings.SPEED]
 
 	lines.push "DDD SSSS sTTT NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN RRRR FFF IIIIIIIIIII BBBB/BB/BB PPPP RRRR  1111 1 1  2222 2 2  3333 3 3  4444 4 4  5555 5 5  6666 6 6  7777 7 7  8888 8 8  9999 9 9"
 	for i in range global.players.length		
@@ -274,6 +275,7 @@ export makeURL = ->
 	url += "&A=#{settings.A}"
 	url += "&B=#{settings.B}"
 	url += "&C=#{settings.C}"
+	url += "&SPEED=#{settings.SPEED}"
 
 	for player in global.players when player.name != BYE
 		url += "&p=#{player}"
@@ -324,6 +326,7 @@ parseURL = ->
 	settings.A = parseInt safeGet params, "A", "1"
 	settings.B = parseInt safeGet params, "B", "1"
 	settings.C = parseInt safeGet params, "C", "1"
+	settings.SPEED = parseInt safeGet params, "SPEED", "0"
 
 	global.players = []
 	persons = params.getAll "p"

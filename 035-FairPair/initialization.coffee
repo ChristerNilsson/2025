@@ -207,6 +207,7 @@ export init = -> # läs initiala uppgifter om turneringen
 
 	settings.GAMES = double.selectedIndex + 1
 	settings.ROUNDS = rounds.selectedIndex
+	settings.SPEED = speed.selectedIndex
 
 	echo settings
 
