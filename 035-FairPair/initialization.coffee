@@ -15,10 +15,6 @@ button = tag "button"
 NBSP = '\u00A0'
 NAME_LEN = 30
 
-MINUTES = [1,2,3,4,5,6,7,8,9,10,15,25,30,45,60,90]
-SECONDS = [0,1,2,3,4,5,6,7,8,9,10,15,20,25,30]
-SPEED = 0 # 0=Classic 1=Rapid 2=Blitz
-
 app = null
 panel = null
 
@@ -27,13 +23,9 @@ city = null
 fed = null # federation
 arb = null # arbiter
 
-bases = null
-incrs = null
 speed = null
-
 rounds = null
 double = null
-estimation = null
 
 player = null
 ins = null
@@ -98,25 +90,7 @@ export initialize = ->
 	app.style.display = "flex"
 	app.style.flexDirection = "column"
 	app.style.alignItems = "left"
-	# app.style.gap = "8px"
 	app.style.textAlign = "center"
-
-	# styleEl = document.getElementById 'fairpair-form-colors'
-	# if not styleEl
-	# 	styleEl = document.createElement 'style'
-	# 	styleEl.id = 'fairpair-form-colors'
-	# 	styleEl.textContent = """
-	# 		input, select, button {
-	# 			border: 1px solid #000;
-	# 			color: #000;
-	# 		}
-
-	# 		input::placeholder {
-	# 			color: #000;
-	# 			opacity: 1;
-	# 		}
-	# 	"""
-	# 	document.head.appendChild styleEl
 
 	players = new Select 
 		items: initialPlayers
@@ -129,18 +103,15 @@ export initialize = ->
 		div {},
 			arb = input placeholder:'Arbiter', style: "width:286px"
 		div {},
-			bases = select {},
-				option "#{base} min" for base in MINUTES
-			incrs = select {},
-				option "#{incr} sec" for incr in SECONDS
-			speed = label "Classic"
-		div {},
+			speed = select {},
+				option "Classic"
+				option "Rapid"
+				option "Blitz"
 			rounds = select {},
 				option "#{r} rounds" for r in range 39
 			double = select {},
-				option "single"
-				option "double"
-			estimation = label " 3 h 27 m"
+				option "single round"
+				option "double round"
 		div {},
 			player = input placeholder:'FIDE id', type:"text", inputmode:"numeric", oninput:"this.value = this.value.replace(/[^0-9]/g, '')", style:"width:80px"
 			ins = button 'Insert'
@@ -158,14 +129,10 @@ export initialize = ->
 	players.onCountChange players.element.children.length
 
 	player.addEventListener "keydown", (event) => if event.key == "Enter" then ins.click()
-	bases.addEventListener "change", -> update()
-	incrs.addEventListener "change", -> update()
-	rounds.addEventListener "change", -> update()
-	double.addEventListener "change", -> update()
 
 	# Insert
 	ins.addEventListener 'click', -> 
-		p = await transfer SPEED, player.value
+		p = await transfer player.value
 		if p.length < 4 then return 
 		if Array.from(players.element.children).some (child) -> -1 != child.innerText.indexOf player.value then return
 		players.add p
@@ -179,18 +146,12 @@ export initialize = ->
 		player.value = ""
 		player.focus()
 
-		update()
-
 	del.addEventListener 'click', -> players.removeSelected()
 	btnClear.addEventListener 'click', -> players.clear()
 
 	players.setSelectedIndex players.element.children.length - 1
-	bases.selectedIndex = MINUTES.length - 1
-	incrs.selectedIndex = SECONDS.length - 1
 	rounds.selectedIndex = 8
 	double.selectedIndex = 0
-
-	update()
 
 	render app,result
 
@@ -209,19 +170,19 @@ fetchShard = (fidenumber) ->
 
 	await members[fidenumber]
 
-getRating = (member,speed) ->
-	pref = [[0,1,2],[1,2,0],[2,1,0]][speed]
+getRating = (member) ->
+	pref = [[0,1,2],[1,2,0],[2,1,0]][speed.selectedIndex]
 	for x in pref
 		if member[x] > 0 then return member[x]
 	return "0000"
 
-transfer = (speed, fidenumber) ->
+transfer = (fidenumber) ->
 	fidenumber = fidenumber.trim()
 	if fidenumber == "" then return ""
 	member = await fetchShard fidenumber
 	# echo member
 	if member == undefined then return fidenumber
-	rating = getRating member,speed
+	rating = getRating member
 	name = member[3]
 	if rating == undefined or name == undefined
 		fidenumber
@@ -230,30 +191,6 @@ transfer = (speed, fidenumber) ->
 		name = arr[0].toUpperCase() + arr[1]
 		name = name.slice 0,NAME_LEN
 		name.padEnd(NAME_LEN,NBSP) + " " + rating + " " + fidenumber
-
-update = ->
-	updateSpeed()
-	updateTimeEstimation()
-
-updateSpeed = ->
-	base = parseInt bases.value
-	incr = parseInt incrs.value
-	total = base + incr
-	SPEED = 0 # Classic
-	if total < 60 then SPEED = 1 # Rapid
-	if total < 10 then SPEED = 2 # Blitz
-	speed.textContent = 'Classic Rapid Blitz'.split(' ')[SPEED]
-
-updateTimeEstimation = ->
-	base = parseInt bases.value
-	incr = parseInt incrs.value
-	total = base + incr
-	count = parseInt rounds.value
-	if double.value == 'double' then games = 2 else games = 1
-	minutes = count * games * total * 2
-	hours = minutes // 60
-	minutes = minutes %% 60
-	estimation.textContent = "#{hours} h #{minutes} m"
 
 export init = -> # läs initiala uppgifter om turneringen
 
