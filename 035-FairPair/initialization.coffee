@@ -23,7 +23,7 @@ city = null
 fed = null # federation
 arb = null # arbiter
 
-speed = null
+speed = null # time control: 0=classical, 1=rapid, 2=blitz
 rounds = null
 double = null
 
