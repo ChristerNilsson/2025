@@ -30,7 +30,7 @@ export settings =
 	# TIME : "10 5" # minutes
 	SORT : 1 # om spelarna initialt ska sorteras på elo
 	ONE : 1 # ONE = 1 # 0=dev 1=prod 
-	BALANCE : 1 # färgbalans
+	# BALANCE : 1 # färgbalans
 	DECIMALS : 0 # Antal decimaler i PR
 	A : 1 # antal A-kolumner
 	B : 1 # antal B-kolumner

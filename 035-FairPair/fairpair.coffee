@@ -2,6 +2,7 @@ import { Edmonds } from './blossom.js'
 
 range = _.range
 echo = console.log
+accum = 0
 
 export class FairPair 
 	constructor : (@players, @settings) ->
@@ -35,8 +36,8 @@ export class FairPair
 	ok : (a,b) -> 
 		if a.id == b.id then return false
 		if a.id in b.opp then return false
-		if @settings.GAMES == 2 or @settings.BALANCE == 0 then return true
-		Math.abs(a.balance() + b.balance()) < @settings.BALANCE
+		if @settings.GAMES == 2 then return true
+		Math.abs(a.balance() + b.balance()) < 1 #@settings.BALANCE
 
 	save : (a, b, ca, cb, ia, ib) ->
 		a.col += ca
@@ -53,6 +54,7 @@ export class FairPair
 			@matrix[i][j] = "#{'123456789abcdefghijklmnopqrstuvwxyzåäö'[r]}"
 			if i > j then continue
 			diff = Math.abs @players[i].elo - @players[j].elo
+			accum += diff
 			a = @players[i]
 			b = @players[j]
 			a.opp.push j
@@ -68,4 +70,5 @@ export class FairPair
 				else 
 					@save a,b,'w','b',i,j
 				flip = not flip
+		echo 'accum',accum
 		@tables
