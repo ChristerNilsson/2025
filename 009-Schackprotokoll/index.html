@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="sv">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Panorama 1.5</title>
+  <style>
+    body { margin: 8px; background: white; }
+    .page {
+      position: relative;
+      box-sizing: border-box;
+      width: 297mm;
+      height: 210mm;
+      padding: 0 10mm;
+      display: grid;
+      grid-template-rows: repeat(2, 105mm);
+    }
+    .page::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 10mm;
+      right: 10mm;
+      border-top: 0.2mm solid black;
+      pointer-events: none;
+    }
+    svg { display: block; width: 100%; height: 100%; }
+    .page + .page { margin-top: 24px; }
+    @page { size: A4 landscape; margin: 0; }
+    @media print {
+      body { margin: 0; }
+      .page { break-inside: avoid; }
+      .page + .page { margin-top: 0; break-before: page; }
+    }
+  </style>
+</head>
+<body>
+  <section class="page">
+    <svg id="front-top" xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-labelledby="front-title">
+      <title id="front-title">Framsida, övre halvan: matchuppgifter och drag 1–40</title>
+    </svg>
+    <svg id="front-bottom" xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-labelledby="front-bottom-title">
+      <title id="front-bottom-title">Framsida, undre halvan: drag 41–100</title>
+    </svg>
+  </section>
+  <section class="page">
+    <svg id="back-top" xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-labelledby="back-title">
+      <title id="back-title">Baksida, övre halvan: matchuppgifter och drag 1–40</title>
+    </svg>
+    <svg id="back-bottom" xmlns="http://www.w3.org/2000/svg"
+         role="img" aria-labelledby="back-bottom-title">
+      <title id="back-bottom-title">Baksida, undre halvan: drag 41–100</title>
+    </svg>
+  </section>
+  <script>
+    'use strict';
+
+    const A = 30;
+    const B = 95;
+    const ABB = A + 2 * B;
+    const WIDTH = 6 * ABB;
+    // Each half spans the full 105 mm from paper edge to cut line.
+    const HEIGHT = (WIDTH + 2) * 105 / 277;
+    // Preserve the existing row height while centering on the physical half-sheet.
+    const DY = (WIDTH + 2) * 95 / 277 / 24;
+    const MOVE_ROWS = 10;
+    const ROW_HEIGHT = 2 * DY;
+    // Center the grid in each half, with identical margins above and below.
+    // All four halves share these coordinates for duplex registration.
+    const GRID_TOP = (HEIGHT - MOVE_ROWS * ROW_HEIGHT) / 2;
+    let svg;
+
+    function add(tag, attributes, text) {
+      const element = document.createElementNS('http://www.w3.org/2000/svg', tag);
+      for (const [name, value] of Object.entries(attributes)) {
+        element.setAttribute(name, value);
+      }
+      if (text !== undefined) element.textContent = text;
+      svg.appendChild(element);
+      return element;
+    }
+
+    function label(text, x, y, anchor = 'start') {
+      add('text', { x, y, 'font-size': 16, 'text-anchor': anchor }, text);
+    }
+
+    function information(offset) {
+      const left = 12;
+      const right = 2 * ABB - 12;
+      const split = left + 2 * (right - left) / 3;
+      add('image', {
+        href: 'seniorschackstockholm.svg',
+        x: left, y: offset + DY, width: ABB - 2 * left, height: 3.5 * DY,
+        preserveAspectRatio: 'xMidYMid meet'
+      });
+      const fields = [
+        ['Tävling/match', 'Datum'],
+        ['Klass/grupp', 'Rond'],
+        ['Betänketid', 'Bord'],
+        ['Vit', 'Elo'],
+        ['Klubb', 'Poäng'],
+        ['Svart', 'Elo'],
+        ['Klubb', 'Poäng']
+      ];
+      const fieldHeight = 2.4 * DY;
+      const fieldsTop = GRID_TOP + MOVE_ROWS * ROW_HEIGHT - fields.length * fieldHeight;
+      add('text', {
+        x: (ABB + left + right) / 2,
+        y: (offset + DY + fieldsTop) / 2,
+        'font-size': 16, 'text-anchor': 'middle', 'dominant-baseline': 'central'
+      }, 'Panorama 1.5');
+      fields.forEach(([first, second], row) => {
+        const y = fieldsTop + row * fieldHeight;
+        for (const [text, x, end] of [
+          [first, left, split],
+          [second, split, right]
+        ]) {
+          add('rect', {
+            x, y, width: end - x, height: fieldHeight,
+            fill: 'white', stroke: 'black', 'stroke-width': 1
+          });
+          label(text, x + 6, y + DY);
+        }
+      });
+    }
+
+    function page(id, firstMove, columns, hasInformation) {
+      svg = document.getElementById(id);
+      svg.setAttribute('viewBox', `0 0 ${WIDTH + 2} ${HEIGHT}`);
+      if (hasInformation) information((HEIGHT - 24 * DY) / 2);
+      for (let column = 0; column < columns; column++) {
+        const x = A + (column + (hasInformation ? 2 : 0)) * ABB;
+        for (let row = 0; row < MOVE_ROWS; row++) {
+          const y = GRID_TOP + row * ROW_HEIGHT;
+          label(firstMove + 10 * column + row, x - A / 2,
+                y + 1.2 * DY, 'middle');
+          if (firstMove + 10 * column + row === 100) {
+            add('text', {
+              x: x - A / 2, y: y + ROW_HEIGHT,
+              // Convert one physical print point to SVG viewBox units.
+              'font-size': (25.4 / 72) * (WIDTH + 2) / 277,
+              'text-anchor': 'middle'
+            }, 'nosslinretsirhc');
+          }
+          for (let player = 0; player < 2; player++) {
+            add('rect', {
+              x: x + player * B, y, width: B, height: ROW_HEIGHT,
+              fill: 'white', stroke: 'black', 'stroke-width': 1
+            });
+          }
+        }
+      }
+    }
+
+    page('front-top', 1, 4, true);
+    page('front-bottom', 41, 6, false);
+    page('back-top', 1, 4, true);
+    page('back-bottom', 41, 6, false);
+  </script>
+</body>
+</html>
