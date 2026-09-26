@@ -1,4 +1,6 @@
-Öppna `index.html` direkt i webbläsaren. Ingen Python eller server behövs.
+[Try it!](https://christernilsson.github.io/2025/009-Schackprotocol/)
+
+Öppna `index.html` direkt i webbläsaren.
 Ha `seniorschackstockholm.svg` i samma mapp som HTML-filen.
 Skriv ut med webbläsarens utskriftsfunktion (Ctrl+P).
 Välj A4 liggande, skala 100 %, dubbelsidigt med vändning längs långsidan
@@ -10,7 +12,8 @@ Baksidan har matchuppgifter och drag 1–40 överst, drag 41–100 underst.
 Skär längs den horisontella linjen mitt på arket, 105 mm från överkanten,
 för två kompletta protokoll med 100 drag vardera.
 
-# Brother
+# Skrivaren
+
 * Layout: Liggande
 * Dubbelsidigt: Vänd längs långsidan
 * Marginaler: Inga extra (luften runt innehållet anges av HTML-filen)
