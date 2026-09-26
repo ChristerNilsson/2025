@@ -14,9 +14,6 @@ för två kompletta protokoll med 100 drag vardera.
 * Layout: Liggande
 * Dubbelsidigt: Vänd längs långsidan
 * Marginaler: Inga extra (luften runt innehållet anges av HTML-filen)
-* round sparar inte många bytes
-* Defs sparar kanske 50% av storleken
-* Text klarar inte att överföra innehåll som parameter med Defs/Use
 
 Dragrutorna är centrerade på höjden i varje halva och har samma höjdpositioner
 på fram- och baksidan. Använd 100 % skala utan anpassning till utskriftsområdet.
